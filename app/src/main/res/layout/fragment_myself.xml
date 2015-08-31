@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/mySelf_tv"
+        style="@style/TitleStyle"
+        android:gravity="center_vertical"
+        android:text="个人" />
+
+    <FrameLayout
+        android:id="@+id/mySelf_fl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="个人"
+            android:textColor="#f00"
+            android:textSize="50dp" />
+    </FrameLayout>
+
+</LinearLayout>
