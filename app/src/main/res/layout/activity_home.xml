@@ -4,6 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rl_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0f0"
+        >
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TitleStyle"
+            android:text="主页"
+            />
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/fl"
         android:layout_width="match_parent"
@@ -16,7 +29,7 @@
         android:id="@+id/rg_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/bottom_tab_bg"
+        android:background="#9e9e9e"
         android:gravity="center"
         android:orientation="horizontal">
 

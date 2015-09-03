@@ -5,11 +5,7 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/message_tv"
-        style="@style/TitleStyle"
-        android:gravity="center_vertical"
-        android:text="消息" />
+
 
     <FrameLayout
         android:id="@+id/message_fl"
