@@ -1,14 +1,13 @@
-package swj.swj.fragment;
+package swj.swj.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,12 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import swj.swj.R;
-import swj.swj.activity.ChangePassword;
 
 /**
- * Created by jiewei on 9/1/15.
+ * Created by jiewei on 9/3/15.
  */
-public class PersonalProfileSettingsFragment extends BaseFragment {
+public class PersonalProfileActivity extends Activity {
+
 
     private String TAG = "PersonalProfileSettingsFragment";
 
@@ -35,31 +34,29 @@ public class PersonalProfileSettingsFragment extends BaseFragment {
     private static final int PHOTO_REQUEST_CUT = 3;// result
     private static final int UPDATE_NICK = 4;
 
-
-    @Override
-    public View initView() {
-        View v = View.inflate(mActivity, R.layout.fragment_personal_profile_settings, null);
-        return v;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_personal_profile);
+        initView();
     }
 
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    private void initView() {
 
-        re_avatar = (RelativeLayout) getActivity().findViewById(R.id.re_avatar);
-        re_nickname = (RelativeLayout) getActivity().findViewById(R.id.re_nickname);
-        re_password = (RelativeLayout) getActivity().findViewById(R.id.re_password);
-        re_sign = (RelativeLayout) getActivity().findViewById(R.id.re_sign);
-        re_phone = (RelativeLayout) getActivity().findViewById(R.id.re_phone);
+        re_avatar = (RelativeLayout) findViewById(R.id.re_avatar);
+        re_nickname = (RelativeLayout) findViewById(R.id.re_nickname);
+        re_password = (RelativeLayout) findViewById(R.id.re_password);
+        re_sign = (RelativeLayout) findViewById(R.id.re_sign);
+        re_phone = (RelativeLayout) findViewById(R.id.re_phone);
 
         re_avatar.setOnClickListener(new MyListener());
         re_nickname.setOnClickListener(new MyListener());
         re_password.setOnClickListener(new MyListener());
         re_sign.setOnClickListener(new MyListener());
         re_phone.setOnClickListener(new MyListener());
+
     }
 
-    class MyListener implements OnClickListener {
-
+    class MyListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -72,7 +69,7 @@ public class PersonalProfileSettingsFragment extends BaseFragment {
                     break;
                 case R.id.re_password:
                     Log.d(TAG, "re_password");
-                    startActivity(new Intent(getActivity(), ChangePassword.class));
+                    startActivity(new Intent(PersonalProfileActivity.this, ChangePassword.class));
                     break;
                 case R.id.re_sign:
                     Log.d(TAG, "re_sign");
@@ -85,7 +82,7 @@ public class PersonalProfileSettingsFragment extends BaseFragment {
     }
 
     private void showPhotoDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.alert_dialog);
@@ -125,5 +122,4 @@ public class PersonalProfileSettingsFragment extends BaseFragment {
         SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
         return dataFormat.format(date);
     }
-
 }

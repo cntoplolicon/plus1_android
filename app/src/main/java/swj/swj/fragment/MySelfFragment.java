@@ -2,11 +2,13 @@ package swj.swj.fragment;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import swj.swj.R;
+import swj.swj.activity.PersonalSettingsActivity;
 
 
 public class MySelfFragment extends BaseFragment {
@@ -32,12 +34,13 @@ public class MySelfFragment extends BaseFragment {
         tvPersonalSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PersonalSettingsFragment personalSettingsFragment = new PersonalSettingsFragment();
+/*                PersonalSettingsFragment personalSettingsFragment = new PersonalSettingsFragment();
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.fl, personalSettingsFragment);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                startActivity(new Intent(getActivity(), PersonalSettingsActivity.class));
             }
         });
     }
