@@ -52,15 +52,6 @@ public class PersonalSettingsFragment extends BaseFragment {
             }
         });
 
-        tvChangePassword = (TextView) getActivity().findViewById(R.id.tv_personal_settings_change_pwd);
-        tvChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i_change_password = new Intent(getActivity(), ChangePassword.class);
-                startActivity(i_change_password);
-            }
-        });
-
         tvPersonalProfile = (TextView) getActivity().findViewById(R.id.tv_personal_settings_profile);
         tvPersonalProfile.setOnClickListener(new View.OnClickListener() {
             @Override

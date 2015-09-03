@@ -11,17 +11,25 @@
         android:gravity="center_vertical"
         android:text="@string/Settings" />
 
-    <FrameLayout
-        android:id="@+id/personal_settings_fl"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tv_personal_settings_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_gravity="top"
+                android:layout_weight="0.05"
+                android:gravity="center_vertical"
+                android:text="昵称"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/settings_title_color" />
+
 
             <TextView
                 android:id="@+id/tv_personal_settings_profile_title"
@@ -41,15 +49,6 @@
                 android:layout_weight="0.06"
                 android:gravity="center_vertical"
                 android:text="个人资料"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/tv_personal_settings_change_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.06"
-                android:gravity="center_vertical"
-                android:text="修改密码"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -101,6 +100,5 @@
 
         </LinearLayout>
 
-    </FrameLayout>
 
 </LinearLayout>
