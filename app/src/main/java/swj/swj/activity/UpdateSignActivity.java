@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.others.LocalUserInfo;
+import swj.swj.common.LocalUserInfo;
 
 /**
  * Created by jiewei on 9/4/15.

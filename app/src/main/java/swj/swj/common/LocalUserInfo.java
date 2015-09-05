@@ -1,4 +1,4 @@
-package swj.swj.others;
+package swj.swj.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;

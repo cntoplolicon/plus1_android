@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="swj.swj.activity.LoginActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:id="@+id/loginSubmit"
+        android:layout_marginTop="95dp"
+        android:layout_below="@+id/passwordInput"
+        android:layout_alignLeft="@+id/passwordInput"
+        android:layout_alignStart="@+id/passwordInput"
+        android:layout_alignRight="@+id/passwordInput"
+        android:layout_alignEnd="@+id/passwordInput" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/userNameInput"
+        android:layout_marginTop="84dp"
+        android:hint="@string/hint_input_phone"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordInput"
+        android:layout_below="@+id/userNameInput"
+        android:layout_alignLeft="@+id/userNameInput"
+        android:layout_alignStart="@+id/userNameInput"
+        android:layout_marginTop="36dp"
+        android:hint="@string/hint_input_pwd"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_reset_pwd"
+        android:id="@+id/toForgetPwd"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/loginSubmit"
+        android:layout_alignLeft="@+id/loginSubmit"
+        android:layout_alignStart="@+id/loginSubmit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_register"
+        android:id="@+id/toRegister"
+        android:layout_alignTop="@+id/toForgetPwd"
+        android:layout_alignRight="@+id/loginSubmit"
+        android:layout_alignEnd="@+id/loginSubmit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/errorMessage"
+        android:layout_below="@+id/passwordInput"
+        android:layout_alignLeft="@+id/loginSubmit"
+        android:layout_alignStart="@+id/loginSubmit"
+        android:layout_marginTop="40dp" />
+
+</RelativeLayout>
