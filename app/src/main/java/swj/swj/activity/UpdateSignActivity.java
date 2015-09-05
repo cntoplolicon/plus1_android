@@ -14,21 +14,22 @@ import swj.swj.others.LocalUserInfo;
  */
 public class UpdateSignActivity extends Activity {
 
-    private TextView tv_sign_save;
-    private EditText edit_sign;
+    private TextView tvSaveSign;
+    private EditText etSign;
+    private String newSign;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_sign);
 
         final String sign = LocalUserInfo.getInstance(UpdateSignActivity.this).getUserInfo("sign");
-        edit_sign = (EditText) findViewById(R.id.et_sign);
-        edit_sign.setText(sign);
-        tv_sign_save = (TextView) findViewById(R.id.tv_sign_save);
-        tv_sign_save.setOnClickListener(new View.OnClickListener() {
+        etSign = (EditText) findViewById(R.id.et_sign);
+        etSign.setText(sign);
+        tvSaveSign = (TextView) findViewById(R.id.tv_sign_save);
+        tvSaveSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newSign = edit_sign.getText().toString().trim();
+                newSign = etSign.getText().toString().trim();
                 if (sign.equals(newSign) || newSign.equals("")) {
                     return;
                 }

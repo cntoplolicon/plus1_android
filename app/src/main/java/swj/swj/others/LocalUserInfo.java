@@ -24,12 +24,12 @@ public class LocalUserInfo {
         return mLocalUserInfo;
     }
 
-    public void setUserInfo(String str_name, String str_value) {
-        editor.putString(str_name, str_value);
+    public void setUserInfo(String strName, String strValue) {
+        editor.putString(strName, strValue);
         editor.commit();
     }
 
-    public String getUserInfo(String str_name) {
-        return mSharedPreferences.getString(str_name, "");
+    public String getUserInfo(String strName) {
+        return mSharedPreferences.getString(strName, "");
     }
 }

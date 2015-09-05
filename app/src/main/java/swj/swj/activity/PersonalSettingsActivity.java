@@ -22,7 +22,7 @@ public class PersonalSettingsActivity extends Activity {
 
     private Button btnLogOut;
     private TextView tv_nickname, tvPersonalProfile;
-    String nickname;
+    private String nickname;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

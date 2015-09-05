@@ -14,20 +14,21 @@ import swj.swj.others.LocalUserInfo;
  */
 public class UpdateNicknameActivity extends Activity {
 
-    private TextView tv_save, edit_nick;
+    private TextView tvSave, tvNick;
+    private String newNick;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nickname);
 
         final String nick = LocalUserInfo.getInstance(UpdateNicknameActivity.this).getUserInfo("nick_name");
-        edit_nick = (EditText) findViewById(R.id.et_nick);
-        edit_nick.setText(nick);
-        tv_save = (TextView) findViewById(R.id.tv_nickname_save);
-        tv_save.setOnClickListener(new View.OnClickListener() {
+        tvNick = (EditText) findViewById(R.id.et_nick);
+        tvNick.setText(nick);
+        tvSave = (TextView) findViewById(R.id.tv_nickname_save);
+        tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newNick = edit_nick.getText().toString().trim();
+                newNick = tvNick.getText().toString().trim();
                 if (nick.equals(newNick) || newNick.equals("")) {
                     return;
                 }
