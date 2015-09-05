@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import swj.swj.R;
+import swj.swj.others.LocalUserInfo;
 
 /**
  * Created by jiewei on 9/3/15.
@@ -27,12 +28,13 @@ public class PersonalProfileActivity extends Activity {
     private String TAG = "PersonalProfileSettingsFragment";
 
     private RelativeLayout re_avatar, re_nickname, re_password, re_sign, re_phone;
-    private TextView tv_nickname, tv_sex, tv_sign, tv_phone;
-    private String imageName;
+    private TextView tv_nickname, tv_sign, tv_phone;
+    private String nickname, sign, telephone, imageName;
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
     private static final int PHOTO_REQUEST_CUT = 3;// result
     private static final int UPDATE_NICK = 4;
+    private static final int UPDATE_SIGN = 5;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +44,29 @@ public class PersonalProfileActivity extends Activity {
 
     private void initView() {
 
+        nickname = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("nick_name");
+        sign = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("sign");
+        telephone = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("telephone");
+
         re_avatar = (RelativeLayout) findViewById(R.id.re_avatar);
         re_nickname = (RelativeLayout) findViewById(R.id.re_nickname);
         re_password = (RelativeLayout) findViewById(R.id.re_password);
         re_sign = (RelativeLayout) findViewById(R.id.re_sign);
         re_phone = (RelativeLayout) findViewById(R.id.re_phone);
 
+        tv_nickname = (TextView) findViewById(R.id.tv_profile_nickname);
+        tv_sign = (TextView) findViewById(R.id.tv_profile_sign);
+        tv_phone = (TextView) findViewById(R.id.tv_profile_phone);
+
+        tv_nickname.setText(nickname);
+        tv_sign.setText(sign);
+        tv_phone.setText(telephone);
+
         re_avatar.setOnClickListener(new MyListener());
         re_nickname.setOnClickListener(new MyListener());
         re_password.setOnClickListener(new MyListener());
         re_sign.setOnClickListener(new MyListener());
         re_phone.setOnClickListener(new MyListener());
-
     }
 
     class MyListener implements View.OnClickListener {
@@ -66,13 +79,15 @@ public class PersonalProfileActivity extends Activity {
                     break;
                 case R.id.re_nickname:
                     Log.d(TAG, "re_nickname");
+                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class), UPDATE_NICK);
                     break;
                 case R.id.re_password:
                     Log.d(TAG, "re_password");
-                    startActivity(new Intent(PersonalProfileActivity.this, ChangePassword.class));
+                    startActivity(new Intent(PersonalProfileActivity.this, ChangePasswordActivity.class));
                     break;
                 case R.id.re_sign:
                     Log.d(TAG, "re_sign");
+                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class), UPDATE_SIGN);
                     break;
                 case R.id.re_phone:
                     Log.d(TAG, "re_phone");
@@ -121,5 +136,23 @@ public class PersonalProfileActivity extends Activity {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
         return dataFormat.format(date);
+    }
+
+    public void onResume() {
+        super.onResume();
+        String nickname_temp = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("nick_name");
+        if (!nickname_temp.equals(nickname)) {
+            if (nickname_temp == "") {
+                tv_nickname.setText("未设置");
+            }
+            tv_nickname.setText(nickname_temp);
+        }
+
+        String sign_temp = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("sign");
+        tv_sign.setText(sign_temp);
+    }
+
+    public void back(View view) {
+        finish();
     }
 }

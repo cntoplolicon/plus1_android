@@ -4,11 +4,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/personal_profile_settings_title_tv"
-        style="@style/TitleStyle"
-        android:gravity="center_vertical"
-        android:text="个人资料" />
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/settings_top_bar_blue" >
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/top_bar_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/button_back"
+            android:text="个人资料"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/re_avatar"
@@ -64,7 +92,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_profile_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -74,7 +102,6 @@
             android:ellipsize="end"
             android:gravity="right"
             android:singleLine="true"
-            android:text="andywangpku"
             android:textColor="#AAAAAA"
             android:textSize="14sp" />
 
@@ -132,6 +159,21 @@
             android:textColor="#353535"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/tv_profile_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/tv_temp_sign"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="#AAAAAA"
+            android:text="签名"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
@@ -162,6 +204,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_profile_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

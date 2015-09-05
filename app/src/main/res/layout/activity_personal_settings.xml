@@ -5,11 +5,39 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/fragment_personal_settings_title_tv"
-        style="@style/TitleStyle"
-        android:gravity="center_vertical"
-        android:text="@string/Settings" />
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/settings_top_bar_blue" >
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/top_bar_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/button_back"
+            android:text="设置"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 
 
@@ -27,8 +55,7 @@
             android:layout_weight="0.05"
             android:gravity="center_vertical"
             android:text="昵称"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/settings_title_color" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
         <TextView

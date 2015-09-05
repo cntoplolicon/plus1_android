@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-
         <TextView
             android:id="@+id/personal_settings_tv"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
             android:gravity="center"
             android:text="@string/Settings"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
 
     </RelativeLayout>
 
