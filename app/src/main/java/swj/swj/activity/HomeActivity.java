@@ -1,12 +1,9 @@
 package swj.swj.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -22,6 +19,7 @@ public class HomeActivity extends Activity {
 
     RadioButton radioButton;
     TextView tv_title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,8 +119,6 @@ public class HomeActivity extends Activity {
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText("个人");
     }
-
-
 
 
 }

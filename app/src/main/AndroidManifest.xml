@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="swj.swj" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.PersonalSettingsActivity"></activity>
+        <activity android:name=".activity.PersonalProfileActivity"></activity>
+        <activity android:name=".activity.UpdateNicknameActivity"></activity>
+        <activity android:name=".activity.UpdateSignActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>
