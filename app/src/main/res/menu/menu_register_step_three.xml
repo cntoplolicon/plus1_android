@@ -1,0 +1,92 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="swj.swj.activity.RegisterStepThree">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <swj.swj.common.RoundedImageView
+        android:id="@+id/roundedImageForAvatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_above="@+id/setNickName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"></swj.swj.common.RoundedImageView>
+
+    <EditText
+        android:id="@+id/setNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/nickname"
+        android:layout_above="@+id/setPwd"
+        android:layout_marginBottom="24dp"
+        android:layout_alignLeft="@+id/setPwd"
+        android:layout_alignStart="@+id/setPwd"
+        android:layout_alignRight="@+id/setPwd"
+        android:layout_alignEnd="@+id/setPwd" />
+
+    <EditText
+        android:id="@+id/setPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/registerGenderSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_set_gender"
+        android:layout_above="@+id/registerStepThreeMessage"
+        android:layout_alignLeft="@+id/setPwd"
+        android:layout_alignStart="@+id/setPwd"
+        android:layout_marginBottom="35dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupForGender"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/registerGenderSet"
+        android:layout_alignRight="@+id/setPwd"
+        android:layout_alignEnd="@+id/setPwd">
+
+        <RadioButton
+            android:id="@+id/radioButtonForMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_set_gender_male" />
+
+        <RadioButton
+            android:id="@+id/radioButtonForFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_set_gender_female" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/finishRegisger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_marginBottom="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/registerGenderSet"
+        android:layout_alignStart="@+id/registerGenderSet"
+        android:layout_alignRight="@+id/setPwd"
+        android:layout_alignEnd="@+id/setPwd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_step_three_msg"
+        android:id="@+id/registerStepThreeMessage"
+        android:layout_above="@+id/finishRegisger"
+        android:layout_alignLeft="@+id/finishRegisger"
+        android:layout_alignStart="@+id/finishRegisger"
+        android:layout_marginBottom="27dp" />
+</menu>
