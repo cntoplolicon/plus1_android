@@ -1,24 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <FrameLayout
-        android:id="@+id/home_fl"
+    <swj.swj.view.SwipeLayout
+        android:id="@+id/sl_swipelayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="首页"
-            android:textColor="#f00"
-            android:textSize="50dp" />
-    </FrameLayout>
-</LinearLayout>
+        <include layout="@layout/layout_convert" />
+
+        <include layout="@layout/layout_second" />
+
+        <include layout="@layout/layout_first" />
+    </swj.swj.view.SwipeLayout>
+
+
+</RelativeLayout>

@@ -13,12 +13,14 @@ import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
+import swj.swj.view.SwipeLayout;
 
 
 public class HomeActivity extends Activity {
 
     RadioButton radioButton;
     TextView tv_title;
+    private SwipeLayout sl_swipelayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,11 @@ public class HomeActivity extends Activity {
         tv_title = (TextView) findViewById(R.id.tv_title);
         onHome(radioButton);
 //        radioButton.setTextColor(Color.RED);
+
+
+
+
+
     }
 
     /*首页*/

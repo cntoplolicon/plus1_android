@@ -8,7 +8,7 @@
         android:id="@+id/rl_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#0f0"
+        android:background="#919191"
         >
         <TextView
             android:id="@+id/tv_title"
