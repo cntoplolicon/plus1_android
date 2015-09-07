@@ -23,6 +23,7 @@ import java.io.File;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RoundedImageView;
 
 public class RegisterStepThree extends CommonMethods {
@@ -34,6 +35,7 @@ public class RegisterStepThree extends CommonMethods {
     private String[] options;
 
     private RoundedImageView faceImage;
+    private RadioButton radioButtonForMale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class RegisterStepThree extends CommonMethods {
         Button registerStepThree = (Button) findViewById(R.id.finishRegisger);
 
         final RadioGroup radioGroupForGender = (RadioGroup) findViewById(R.id.radioGroupForGender);
-        final RadioButton radioButtonForMale = (RadioButton) findViewById(R.id.radioButtonForMale);
+        radioButtonForMale = (RadioButton) findViewById(R.id.radioButtonForMale);
         RadioButton radioButtonForFemale = (RadioButton) findViewById(R.id.radioButtonForFemale);
 
         registerStepThree.setOnClickListener(new View.OnClickListener() {
@@ -68,13 +70,19 @@ public class RegisterStepThree extends CommonMethods {
                     registerStepThreeMsg.setText(getResources().getString(R.string.validation_pwd));
                 } else if (radioGroupForGender.getCheckedRadioButtonId() == -1) {
                     registerStepThreeMsg.setText(getResources().getString(R.string.gender_required));
-                } else if (radioButtonForMale.isChecked()) {
-                    registerStepThreeMsg.setText(getResources().getString(R.string.register_finish_hint_nickname) + nicknameInput.getText().toString() + "(" + getResources().getString(R.string.register_set_gender_male) + ")");
                 } else  {
-                    registerStepThreeMsg.setText(getResources().getString(R.string.register_finish_hint_nickname) + nicknameInput.getText().toString() + "(" + getResources().getString(R.string.register_set_gender_female) + ")");
+                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("nick_name", nicknameInput.getText().toString().trim());
+                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("password", setPwd.getText().toString());
+                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("sex",showSexMessage());
+                    registerStepThreeMsg.setText(getResources().getString(R.string.register_finish_hint_nickname) + nicknameInput.getText().toString() + "(" + showSexMessage() + ")");
+                    startActivity(new Intent(RegisterStepThree.this,PersonalSettingsActivity.class));
                 }
             }
         });
+    }
+
+    private String showSexMessage() {
+        return radioButtonForMale.isChecked() ? getResources().getString(R.string.register_set_gender_male):getResources().getString(R.string.register_set_gender_female);
     }
 
     //show the option dialog to select

@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.LocalUserInfo;
 
 public class LoginActivity extends CommonMethods {
 
+    private String phoneNumber;
+    private String pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +39,16 @@ public class LoginActivity extends CommonMethods {
         loginSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String phoneNumber = usernameInput.getText().toString();
-                final String pwd = pwdInput.getText().toString();
+                phoneNumber = usernameInput.getText().toString();
+                pwd = pwdInput.getText().toString();
                 if (!isValidUsername(phoneNumber)) {
                     loginMessage.setText(getResources().getString(R.string.validation_username));
                 } else if (!isValidPwd(pwd)) {
                     loginMessage.setText(getResources().getString(R.string.validation_pwd));
                 } else {
                     loginMessage.setText("Loading...");
+                    temp_initUser();
+                    finish();
                 }
             }
         });
@@ -65,6 +70,21 @@ public class LoginActivity extends CommonMethods {
         });
 
     }
+
+    private void temp_initUser() {
+
+        String user_avatar = "avatar";
+        String nickname = "andywangpku";
+        String sign = "word is big, let me see see";
+
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("nick_name", nickname);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("sign", sign);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("telephone", phoneNumber);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("password", pwd);
+        /*LocalUserInfo.getInstance(PersonalSettingsActivity.this).setUserInfo("avatar",
+                avatar);*/
+    }
+
 
 
     @Override
