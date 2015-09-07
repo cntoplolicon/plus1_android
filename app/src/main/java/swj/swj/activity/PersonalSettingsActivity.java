@@ -88,7 +88,6 @@ public class PersonalSettingsActivity extends Activity {
     public void onResume() {
         super.onResume();
         String nickname_temp = LocalUserInfo.getInstance(PersonalSettingsActivity.this).getUserInfo("nick_name");
-        Log.d(TAG+"2",nickname_temp);
         if (!nickname_temp.equals(nickname)) {
             if (nickname_temp == "") {
                 tvNickName.setText("未设置");

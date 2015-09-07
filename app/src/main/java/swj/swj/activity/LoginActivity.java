@@ -1,5 +1,6 @@
 package swj.swj.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
 
-public class LoginActivity extends CommonMethods {
+public class LoginActivity extends AppCompatActivity {
 
     private String phoneNumber;
     private String pwd;
@@ -41,13 +42,13 @@ public class LoginActivity extends CommonMethods {
             public void onClick(View v) {
                 phoneNumber = usernameInput.getText().toString();
                 pwd = pwdInput.getText().toString();
-                if (!isValidUsername(phoneNumber)) {
+                if (!CommonMethods.isValidUsername(phoneNumber)) {
                     loginMessage.setText(getResources().getString(R.string.validation_username));
-                } else if (!isValidPwd(pwd)) {
+                } else if (!CommonMethods.isValidPwd(pwd)) {
                     loginMessage.setText(getResources().getString(R.string.validation_pwd));
                 } else {
                     loginMessage.setText("Loading...");
-                    temp_initUser();
+                    tempInitUser();
                     finish();
                 }
             }
@@ -71,9 +72,8 @@ public class LoginActivity extends CommonMethods {
 
     }
 
-    private void temp_initUser() {
+    private void tempInitUser() {
 
-        String user_avatar = "avatar";
         String nickname = "andywangpku";
         String sign = "word is big, let me see see";
 

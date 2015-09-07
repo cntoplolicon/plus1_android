@@ -32,8 +32,6 @@ public class PersonalProfileActivity extends Activity {
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
     private static final int PHOTO_REQUEST_CUT = 3;// result
-    private static final int UPDATE_NICK = 4;
-    private static final int UPDATE_SIGN = 5;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,15 +74,16 @@ public class PersonalProfileActivity extends Activity {
                     showPhotoDialog();
                     break;
                 case R.id.re_nickname:
-                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class), UPDATE_NICK);
+                    startActivity(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class));
                     break;
                 case R.id.re_password:
                     startActivity(new Intent(PersonalProfileActivity.this, ChangePasswordActivity.class));
                     break;
                 case R.id.re_sign:
-                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class), UPDATE_SIGN);
+                    startActivity(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class));
                     break;
                 case R.id.re_phone:
+                    startActivity(new Intent(PersonalProfileActivity.this, ResetPhoneActivity.class));
                     break;
             }
         }

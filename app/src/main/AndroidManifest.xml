@@ -23,14 +23,16 @@
         <activity android:name=".activity.UpdateNicknameActivity" />
         <activity android:name=".activity.UpdateSignActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.ResetPhoneActivity" />
+        <activity android:name=".activity.ResetPhoneStepTwoActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name">
         </activity>
-        <activity.activity.LoginActivity
+        <activity
             android:name=".activity.RegisterStepOne"
             android:label="@string/register_step_one"
-            android:parentActivityName=".activity.LoginActivity"></activity.activity.LoginActivity>
+            android:parentActivityName=".activity.LoginActivity"></activity>
         <activity
             android:name=".activity.RegisterStepTwo"
             android:label="@string/register_step_two"

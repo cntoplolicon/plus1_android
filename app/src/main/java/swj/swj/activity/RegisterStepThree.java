@@ -1,14 +1,14 @@
 package swj.swj.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +26,7 @@ import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RoundedImageView;
 
-public class RegisterStepThree extends CommonMethods {
+public class RegisterStepThree extends Activity {
 
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -66,23 +66,23 @@ public class RegisterStepThree extends CommonMethods {
             public void onClick(View v) {
                 if (nicknameInput.getText().toString().trim().equals("")) {
                     registerStepThreeMsg.setText(getResources().getString(R.string.nickname_required));
-                } else if (!isValidPwd(setPwd.getText().toString())) {
+                } else if (!CommonMethods.isValidPwd(setPwd.getText().toString())) {
                     registerStepThreeMsg.setText(getResources().getString(R.string.validation_pwd));
                 } else if (radioGroupForGender.getCheckedRadioButtonId() == -1) {
                     registerStepThreeMsg.setText(getResources().getString(R.string.gender_required));
-                } else  {
+                } else {
                     LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("nick_name", nicknameInput.getText().toString().trim());
                     LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("password", setPwd.getText().toString());
-                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("sex",showSexMessage());
+                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("sex", showSexMessage());
                     registerStepThreeMsg.setText(getResources().getString(R.string.register_finish_hint_nickname) + nicknameInput.getText().toString() + "(" + showSexMessage() + ")");
-                    startActivity(new Intent(RegisterStepThree.this,PersonalSettingsActivity.class));
+                    startActivity(new Intent(RegisterStepThree.this, PersonalSettingsActivity.class));
                 }
             }
         });
     }
 
     private String showSexMessage() {
-        return radioButtonForMale.isChecked() ? getResources().getString(R.string.register_set_gender_male):getResources().getString(R.string.register_set_gender_female);
+        return radioButtonForMale.isChecked() ? getResources().getString(R.string.register_set_gender_male) : getResources().getString(R.string.register_set_gender_female);
     }
 
     //show the option dialog to select
@@ -115,7 +115,7 @@ public class RegisterStepThree extends CommonMethods {
                     startPhotoZoom(data.getData());
                     break;
                 case CAMERA_REQUEST_CODE:
-                    if (hasSdCard()) {
+                    if (CommonMethods.hasSdCard()) {
                         File tempFile = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
                         startPhotoZoom(Uri.fromFile(tempFile));
                     } else {
@@ -142,7 +142,7 @@ public class RegisterStepThree extends CommonMethods {
 
     public void getImageFromCamera() {
         Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (hasSdCard()) {
+        if (CommonMethods.hasSdCard()) {
             intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
         }
         startActivityForResult(intentFromCamera, CAMERA_REQUEST_CODE);

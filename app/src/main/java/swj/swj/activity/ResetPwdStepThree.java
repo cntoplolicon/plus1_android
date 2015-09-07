@@ -1,5 +1,6 @@
 package swj.swj.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class ResetPwdStepThree extends CommonMethods {
+public class ResetPwdStepThree extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class ResetPwdStepThree extends CommonMethods {
         resetPwdStepThreeConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isValidPwd(resetPwdStepThreeInput.getText().toString())) {
+                if (!CommonMethods.isValidPwd(resetPwdStepThreeInput.getText().toString())) {
                     resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.validation_pwd));
                 } else if (!resetPwdStepThreeInput.getText().toString().equals(resetPwdStepThreeConfirm.getText().toString())) {
                     resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.reset_pwd_equal));
