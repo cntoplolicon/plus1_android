@@ -1,18 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <swj.swj.view.SwipeLayout
+    <swj.swj.view.MySlidingView
         android:id="@+id/sl_swipelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/layout_convert" />
-
-        <include layout="@layout/layout_second" />
-
-        <include layout="@layout/layout_first" />
-    </swj.swj.view.SwipeLayout>
+        android:layout_height="match_parent" />
 
 
-</RelativeLayout>
+</LinearLayout>

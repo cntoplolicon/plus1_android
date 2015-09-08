@@ -12,21 +12,38 @@ import android.view.ViewGroup;
  * Created by shw on 2015/8/31.
  */
 public abstract class BaseFragment extends Fragment {
+
     public Activity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        mActivity = activity;
+
+    }
+
+    public Activity getMyActivity() {
+        if (mActivity == null) {
+            return getActivity();
+        } else {
+            return mActivity;
+        }
+    }
 
     // Fragment被创建
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = getActivity();// 获取所依赖的Activity
+        // mActivity = getActivity();// 获取所依赖的Activity
+        //initView();
     }
 
     // 初始化Fragment布局
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = initView();
-        return view;
+        return initView();
     }
 
     // Fragment所依赖的Activity创建完成

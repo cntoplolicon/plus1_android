@@ -5,7 +5,6 @@
     android:orientation="vertical"
     >
 
-    <!-- TODO: Update blank fragment layout -->
 
     <FrameLayout
         android:id="@+id/camera_fl"
