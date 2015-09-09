@@ -37,7 +37,6 @@ public class RoundedImageView extends ImageView {
         if (drawable == null) {
             return;
         }
-
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
@@ -48,7 +47,6 @@ public class RoundedImageView extends ImageView {
 
         Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
-
     }
 
     public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
@@ -79,7 +77,6 @@ public class RoundedImageView extends ImageView {
                 radius / 2 + 0.7f, radius / 2 + 0.1f, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(sbmp, rect, rect, paint);
-
         return output;
     }
 

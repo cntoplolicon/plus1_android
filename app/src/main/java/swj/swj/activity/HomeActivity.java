@@ -32,6 +32,8 @@ public class HomeActivity extends Activity {
         tv_title = (TextView) findViewById(R.id.tv_title);
         onHome(radioButton);
 //        radioButton.setTextColor(Color.RED);
+
+
     }
 
     /*首页*/
