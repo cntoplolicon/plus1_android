@@ -11,8 +11,6 @@ import swj.swj.activity.PersonalSettingsActivity;
 
 public class MySelfFragment extends BaseFragment {
 
-    private TextView tvPersonalSettings;
-
     @Override
     public View initView() {
         View v = View.inflate(mActivity, R.layout.fragment_myself, null);
@@ -28,7 +26,7 @@ public class MySelfFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tvPersonalSettings = (TextView) getActivity().findViewById(R.id.personal_settings_tv);
+        TextView tvPersonalSettings = (TextView) getActivity().findViewById(R.id.personal_settings_tv);
         tvPersonalSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

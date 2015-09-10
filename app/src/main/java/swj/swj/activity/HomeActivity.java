@@ -19,7 +19,7 @@ import swj.swj.fragment.MySelfFragment;
 public class HomeActivity extends Activity {
 
     RadioButton radioButton;
-    TextView tv_title;
+    TextView tvTitle, tvPersonalSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,8 @@ public class HomeActivity extends Activity {
 
     public void init() {
         radioButton = (RadioButton) findViewById(R.id.rb_home);
-        tv_title = (TextView) findViewById(R.id.tv_title);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvPersonalSettings = (TextView) findViewById(R.id.personal_settings_tv);
         onHome(radioButton);
     }
 
@@ -47,31 +48,39 @@ public class HomeActivity extends Activity {
         //提交事务
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
-        tv_title.setText(getResources().getString(R.string.home_tab));
+        radioButton.setTextColor(Color.RED);
+        tvTitle.setText(getResources().getString(R.string.home_tab));
+        tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onFriends(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
-        tv_title.setText(getResources().getString(R.string.friends_tab));
+        radioButton.setTextColor(Color.WHITE);
+        tvTitle.setText(getResources().getString(R.string.friends_tab));
+        tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
     /*相机*/
     public void onPublish(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText(getResources().getString(R.string.publish_title));
+        tvTitle.setText(getResources().getString(R.string.publish_title));
+        tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
 
     public void onMessage(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
-        tv_title.setText(getResources().getString(R.string.message_tab));
+        radioButton.setTextColor(Color.WHITE);
+        tvTitle.setText(getResources().getString(R.string.message_tab));
+        tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onMySelf(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
-        tv_title.setText(getResources().getString(R.string.myself_tab));
+        radioButton.setTextColor(Color.WHITE);
+        tvTitle.setText(getResources().getString(R.string.myself_tab));
+        tvPersonalSettings.setVisibility(View.VISIBLE);
     }
-
 
 }
