@@ -1,5 +1,6 @@
 package swj.swj.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,9 +13,12 @@ import android.widget.TextView;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.LocalUserInfo;
 
-public class LoginActivity extends CommonMethods {
+public class LoginActivity extends AppCompatActivity {
 
+    private String phoneNumber;
+    private String pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +40,16 @@ public class LoginActivity extends CommonMethods {
         loginSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String phoneNumber = usernameInput.getText().toString();
-                final String pwd = pwdInput.getText().toString();
-                if (!isValidUsername(phoneNumber)) {
+                phoneNumber = usernameInput.getText().toString();
+                pwd = pwdInput.getText().toString();
+                if (!CommonMethods.isValidUsername(phoneNumber)) {
                     loginMessage.setText(getResources().getString(R.string.validation_username));
-                } else if (!isValidPwd(pwd)) {
+                } else if (!CommonMethods.isValidPwd(pwd)) {
                     loginMessage.setText(getResources().getString(R.string.validation_pwd));
                 } else {
                     loginMessage.setText("Loading...");
+                    tempInitUser();
+                    finish();
                 }
             }
         });
@@ -65,6 +71,20 @@ public class LoginActivity extends CommonMethods {
         });
 
     }
+
+    private void tempInitUser() {
+
+        String nickname = "andywangpku";
+        String sign = "word is big, let me see see";
+
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("nick_name", nickname);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("sign", sign);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("telephone", phoneNumber);
+        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("password", pwd);
+        /*LocalUserInfo.getInstance(PersonalSettingsActivity.this).setUserInfo("avatar",
+                avatar);*/
+    }
+
 
 
     @Override

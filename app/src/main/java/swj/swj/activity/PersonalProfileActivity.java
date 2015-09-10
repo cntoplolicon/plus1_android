@@ -32,8 +32,6 @@ public class PersonalProfileActivity extends Activity {
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
     private static final int PHOTO_REQUEST_CUT = 3;// result
-    private static final int UPDATE_NICK = 4;
-    private static final int UPDATE_SIGN = 5;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,23 +71,19 @@ public class PersonalProfileActivity extends Activity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.re_avatar:
-                    Log.d(TAG, "re_avatar");
                     showPhotoDialog();
                     break;
                 case R.id.re_nickname:
-                    Log.d(TAG, "re_nickname");
-                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class), UPDATE_NICK);
+                    startActivity(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class));
                     break;
                 case R.id.re_password:
-                    Log.d(TAG, "re_password");
                     startActivity(new Intent(PersonalProfileActivity.this, ChangePasswordActivity.class));
                     break;
                 case R.id.re_sign:
-                    Log.d(TAG, "re_sign");
-                    startActivityForResult(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class), UPDATE_SIGN);
+                    startActivity(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class));
                     break;
                 case R.id.re_phone:
-                    Log.d(TAG, "re_phone");
+                    startActivity(new Intent(PersonalProfileActivity.this, ResetPhoneActivity.class));
                     break;
             }
         }
@@ -100,9 +94,9 @@ public class PersonalProfileActivity extends Activity {
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.alert_dialog);
-        TextView tv_take_photo = (TextView) window.findViewById(R.id.tv_content1);
-        tv_take_photo.setText("拍照");
-        tv_take_photo.setOnClickListener(new View.OnClickListener() {
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_content1);
+        tvTakePhoto.setText("拍照");
+        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

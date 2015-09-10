@@ -15,7 +15,7 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class SecurityCodeFragment extends CommonMethods {
+public class SecurityCodeFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class SecurityCodeFragment extends CommonMethods {
                 EditText securityCodeInput = (EditText) findViewById(R.id.SecurityCodeInput);
                 TextView securityCodeError = (TextView) findViewById(R.id.SecurityCodeError);
                 String securityCode = securityCodeInput.getText().toString();
-                if (!isValidSCode(securityCode)) {
+                if (!CommonMethods.isValidSCode(securityCode)) {
                     securityCodeError.setText(getResources().getString(R.string.validation_SCode));
                 } else if (!securityCode.equals("123456")) {
                     securityCodeError.setText(getResources().getString(R.string.wrong_SCode));

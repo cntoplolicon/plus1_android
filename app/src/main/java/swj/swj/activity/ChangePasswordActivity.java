@@ -43,7 +43,6 @@ public class ChangePasswordActivity extends Activity {
         String OldPwd = etOldPwd.getText().toString().trim();
         String NewPwd = etNewPwd.getText().toString().trim();
         String NewPwdRe = etNewPwdRe.getText().toString().trim();
-        Log.d("update", OldPwd);
         if (!OldPwd.equals(testPassword)) {
             Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT).show();
         } else if (!NewPwd.equals(NewPwdRe)) {

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class InputPhoneToGetSCode extends CommonMethods {
+public class InputPhoneToGetSCode extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class InputPhoneToGetSCode extends CommonMethods {
             @Override
             public void onClick(View v) {
                 final String phoneNumber = phoneNumberInput.getText().toString();
-                if (!isValidUsername(phoneNumber)) {
+                if (!CommonMethods.isValidUsername(phoneNumber)) {
                     phoneNumberError.setText(getResources().getString(R.string.validation_username));
                 } else {
                     phoneNumberError.setText("");
