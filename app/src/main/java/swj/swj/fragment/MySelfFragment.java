@@ -1,8 +1,11 @@
 package swj.swj.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import swj.swj.R;
@@ -30,12 +33,6 @@ public class MySelfFragment extends BaseFragment {
         tvPersonalSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-/*                PersonalSettingsFragment personalSettingsFragment = new PersonalSettingsFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.fl, personalSettingsFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();*/
                 startActivity(new Intent(getActivity(), PersonalSettingsActivity.class));
             }
         });
