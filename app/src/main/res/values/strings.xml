@@ -43,5 +43,6 @@
     <string name="register_set_gender_female">女</string>
     <string name="register_step_three_msg">性别设定后无法改变</string>
     <string name="register_set_gender">性别</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

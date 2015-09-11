@@ -7,7 +7,11 @@ import android.content.SharedPreferences;
  * Created by jiewei on 9/4/15.
  */
 public class LocalUserInfo {
-    public static final String PREFERENCE_NAME = "local_userinfo";
+
+    public static final String KEY_USER_ID = "user_id";
+    public static final String KEY_ACCESS_TOKEN = "access_token";
+
+    private static final String PREFERENCE_NAME = "local_userinfo";
     private static SharedPreferences mSharedPreferences;
     private static LocalUserInfo mLocalUserInfo;
     private static SharedPreferences.Editor editor;
@@ -31,5 +35,13 @@ public class LocalUserInfo {
 
     public String getUserInfo(String strName) {
         return mSharedPreferences.getString(strName, "");
+    }
+
+    public String getUserId() {
+        return getUserInfo(KEY_USER_ID);
+    }
+
+    public String getAccessToken() {
+        return getUserInfo(KEY_ACCESS_TOKEN);
     }
 }
