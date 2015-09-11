@@ -1,9 +1,11 @@
 package swj.swj.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import swj.swj.R;
 import swj.swj.fragment.SecurityCodeFragment;
@@ -11,10 +13,16 @@ import swj.swj.fragment.SecurityCodeFragment;
 public class ResetPwdStepTwo extends SecurityCodeFragment {
 
     private Button tickingButtonReset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
+
+        Intent intentFromPhoneInput = getIntent();
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.SecurityCodeSent);
+        SCodeFragmentTopHint.setText(getResources().getString(R.string.SCode_sent_to_choosen_phone) + msgFromPhoneInput);
 
         tickingButtonReset = (Button) findViewById(R.id.getSecurityCode);
         ticking(tickingButtonReset);

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class CommonMethods {
     // input pattern for validation checked on front_end
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[0-9]{11}$");
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9]{6,20}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[ -~]{6,20}$");
     private static final Pattern SECURITY_CODE_PATTERN = Pattern.compile("^[0-9]{6}$");
 
     //method to check input validation
