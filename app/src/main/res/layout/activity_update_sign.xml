@@ -32,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/button_back"
-            android:text="修改签名"
+            android:text="@string/change_personal_signature"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -46,7 +46,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:singleLine="false"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:hint="@string/hint_input_new_signature"/>
 
     <TextView
         android:id="@+id/tv_sign_save"
@@ -57,7 +58,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/settings_top_bar_blue"
         android:gravity="center"
-        android:text="保存"
+        android:text="@string/save_changes"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 

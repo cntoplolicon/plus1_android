@@ -32,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/button_back"
-            android:text="个人资料"
+            android:text="@string/personalInfo"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="头像"
+            android:text="@string/personalAvatar"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -87,7 +87,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="昵称"
+            android:text="@string/nickname"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -100,7 +100,7 @@
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/tv_temp_name"
             android:ellipsize="end"
-            android:gravity="right"
+            android:gravity="end"
             android:singleLine="true"
             android:textColor="#AAAAAA"
             android:textSize="14sp" />
@@ -128,7 +128,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="修改密码"
+            android:text="@string/pwd_reset"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -155,7 +155,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="个性签名"
+            android:text="@string/personal_introduction"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -168,10 +168,10 @@
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/tv_temp_sign"
             android:ellipsize="end"
-            android:gravity="right"
+            android:gravity="end"
             android:singleLine="true"
             android:textColor="#AAAAAA"
-            android:text="签名"
+            android:text="@string/hint_personal_introduction"
             android:textSize="14sp" />
 
         <View
@@ -199,7 +199,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="电话"
+            android:text="@string/telephone"
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -212,9 +212,9 @@
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/tv_temp_phone"
             android:ellipsize="end"
-            android:gravity="right"
+            android:gravity="end"
             android:singleLine="true"
-            android:text="1381234567891"
+            android:text="13812345678"
             android:textColor="#AAAAAA"
             android:textSize="14sp" />
     </RelativeLayout>

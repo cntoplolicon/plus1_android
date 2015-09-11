@@ -32,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/button_back"
-            android:text="设置"
+            android:text="@string/action_settings"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -53,7 +53,7 @@
             android:layout_gravity="top"
             android:layout_weight="0.05"
             android:gravity="center_vertical"
-            android:text="昵称"
+            android:text="@string/nickname"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
@@ -64,7 +64,7 @@
             android:layout_gravity="top"
             android:layout_weight="0.05"
             android:gravity="center_vertical"
-            android:text="个人"
+            android:text="@string/onMyself"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/settings_title_color" />
 
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.06"
             android:gravity="center_vertical"
-            android:text="个人资料"
+            android:text="@string/personalInfo"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:layout_height="46dp"
             android:layout_weight="0.05"
             android:gravity="center_vertical"
-            android:text="偏好"
+            android:text="@string/prefer"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/settings_title_color" />
 
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="推送通知"
+                android:text="@string/notifications_from_app"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Switch
@@ -110,8 +110,8 @@
                 android:layout_marginRight="46dp"
                 android:layout_weight="0.05"
                 android:showText="true"
-                android:textOff="OFF"
-                android:textOn="ON"/>
+                android:textOff="@string/off"
+                android:textOn="@string/on"/>
 
         </RelativeLayout>
 
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_weight="0.05"
-            android:text="退出登陆" />
+            android:text="@string/quit" />
 
 
     </LinearLayout>
