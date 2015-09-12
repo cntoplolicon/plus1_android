@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,12 +43,12 @@ public class ChangePasswordActivity extends Activity {
         String NewPwd = etNewPwd.getText().toString().trim();
         String NewPwdRe = etNewPwdRe.getText().toString().trim();
         if (!OldPwd.equals(testPassword)) {
-            Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.wrong_pwd_input), Toast.LENGTH_SHORT).show();
         } else if (!NewPwd.equals(NewPwdRe)) {
-            Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.reset_pwd_equal), Toast.LENGTH_SHORT).show();
         } else {
             LocalUserInfo.getInstance(ChangePasswordActivity.this).setUserInfo("password", NewPwd);
-            Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

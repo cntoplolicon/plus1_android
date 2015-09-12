@@ -29,14 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_image"
-            android:text="这样也行"
+            android:text="testUserNickname"
             android:textColor="#25AFF8"
             android:textSize="15sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼嘿嘿哈哈哼哼"
+            android:text="testText"
             android:lines="2"
             android:layout_marginLeft="5sp"
             android:ellipsize="end"

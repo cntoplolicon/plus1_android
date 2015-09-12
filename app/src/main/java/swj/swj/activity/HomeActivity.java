@@ -51,7 +51,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
         radioButton.setTextColor(Color.RED);
-        tv_title.setText("LOGO");
+        tv_title.setText(getResources().getString(R.string.onHome));
     }
 
     /*好友*/
@@ -68,7 +68,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("朋友");
+        tv_title.setText(getResources().getString(R.string.onFriends));
     }
 
     /*相机*/
@@ -85,7 +85,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new CameraFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("相机");
+        tv_title.setText(getResources().getString(R.string.onCamera));
     }
 
     /*消息*/
@@ -102,7 +102,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("消息");
+        tv_title.setText(getResources().getString(R.string.onMessage));
     }
 
     /*个人*/
@@ -119,7 +119,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("个人");
+        tv_title.setText(getResources().getString(R.string.onMyself));
     }
 
 

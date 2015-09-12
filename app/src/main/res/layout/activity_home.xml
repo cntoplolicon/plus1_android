@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,7 +12,7 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/TitleStyle"
-            android:text="主页"
+            android:text="@string/onHome"
             />
     </RelativeLayout>
 
@@ -37,32 +36,32 @@
             android:id="@+id/rb_Home"
             style="@style/ButtonTabStyle"
             android:onClick="onHome"
-            android:text="首页"
+            android:text="@string/onHome"
             android:textColor="#f00" />
 
         <RadioButton
             android:id="@+id/rb_Friends"
             style="@style/ButtonTabStyle"
             android:onClick="onFriends"
-            android:text="好友" />
+            android:text="@string/onFriends" />
 
         <RadioButton
             android:id="@+id/rb_Camera"
             style="@style/ButtonTabStyle"
             android:onClick="onCamera"
-            android:text="照相" />
+            android:text="@string/onCamera" />
 
         <RadioButton
             android:id="@+id/rb_Message"
             style="@style/ButtonTabStyle"
             android:onClick="onMessage"
-            android:text="消息" />
+            android:text="@string/onMessage" />
 
         <RadioButton
             android:id="@+id/rb_MySelf"
             style="@style/ButtonTabStyle"
             android:onClick="onMySelf"
-            android:text="个人" />
+            android:text="@string/onMyself" />
 
 
     </RadioGroup>

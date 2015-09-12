@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/button_back"
-            android:text="绑定新手机(1/2)"
+            android:text="@string/change_username_step_one"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:singleLine="true"
-        android:hint="请输入新手机号"
+        android:hint="@string/hint_input_phone"
         android:textSize="16sp" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/settings_top_bar_blue"
         android:gravity="center"
-        android:text="点击获取验证码"
+        android:text="@string/hint_press_to_get_SCode"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 
