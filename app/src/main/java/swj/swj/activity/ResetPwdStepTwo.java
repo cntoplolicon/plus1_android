@@ -10,16 +10,12 @@ import swj.swj.fragment.SecurityCodeFragment;
 
 public class ResetPwdStepTwo extends SecurityCodeFragment {
 
-    private Button tickingButtonReset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
 
-        tickingButtonReset = (Button) findViewById(R.id.getSecurityCode);
-        ticking(tickingButtonReset);
-
-        Button ResetToNextPage = (Button) findViewById(R.id.SecurityCodeConfirm);
+        Button ResetToNextPage = (Button) findViewById(R.id.btn_submit);
         securityCodeConfirm(ResetToNextPage, ResetPwdStepThree.class);
     }
 

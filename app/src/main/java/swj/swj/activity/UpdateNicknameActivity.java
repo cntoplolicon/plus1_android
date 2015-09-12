@@ -21,7 +21,7 @@ public class UpdateNicknameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nickname);
 
-        final String nick = LocalUserInfo.getInstance(UpdateNicknameActivity.this).getUserInfo("nick_name");
+        final String nick = LocalUserInfo.getInstance().getUserInfo("nick_name");
         tvNick = (EditText) findViewById(R.id.et_nick);
         tvNick.setText(nick);
         tvSave = (TextView) findViewById(R.id.tv_nickname_save);
@@ -42,8 +42,8 @@ public class UpdateNicknameActivity extends Activity {
         finish();
     }
 
-    private void temp_updateNick(final String newNick) {
-        LocalUserInfo.getInstance(UpdateNicknameActivity.this).setUserInfo("nick_name", newNick);
+    private void temp_updateNick(String newNick) {
+        LocalUserInfo.getInstance().setUserInfo("nick_name", newNick);
         finish();
     }
 }

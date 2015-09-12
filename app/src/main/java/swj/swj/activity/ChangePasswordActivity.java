@@ -18,7 +18,7 @@ public class ChangePasswordActivity extends Activity {
 
     private EditText etOldPwd, etNewPwd, etNewPwdRe;
     private Button btnSavePwdChange;
-    private String testPassword = LocalUserInfo.getInstance(ChangePasswordActivity.this).getUserInfo("password");
+    private String testPassword = LocalUserInfo.getInstance().getUserInfo("password");
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class ChangePasswordActivity extends Activity {
         } else if (!NewPwd.equals(NewPwdRe)) {
             Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
         } else {
-            LocalUserInfo.getInstance(ChangePasswordActivity.this).setUserInfo("password", NewPwd);
+            LocalUserInfo.getInstance().setUserInfo("password", NewPwd);
             Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
             finish();
         }

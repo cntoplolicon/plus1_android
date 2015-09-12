@@ -77,10 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         String nickname = "andywangpku";
         String sign = "word is big, let me see see";
 
-        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("nick_name", nickname);
-        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("sign", sign);
-        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("telephone", phoneNumber);
-        LocalUserInfo.getInstance(LoginActivity.this).setUserInfo("password", pwd);
+        LocalUserInfo.getInstance().setUserInfo("nick_name", nickname);
+        LocalUserInfo.getInstance().setUserInfo("sign", sign);
+        LocalUserInfo.getInstance().setUserInfo("telephone", phoneNumber);
+        LocalUserInfo.getInstance().setUserInfo("password", pwd);
         /*LocalUserInfo.getInstance(PersonalSettingsActivity.this).setUserInfo("avatar",
                 avatar);*/
     }

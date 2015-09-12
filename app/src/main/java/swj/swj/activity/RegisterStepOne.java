@@ -1,11 +1,22 @@
 package swj.swj.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.android.volley.Response;
+
+import org.json.JSONObject;
 
 import swj.swj.R;
+import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
 import swj.swj.fragment.InputPhoneToGetSCode;
 
 public class RegisterStepOne extends InputPhoneToGetSCode {
@@ -15,8 +26,32 @@ public class RegisterStepOne extends InputPhoneToGetSCode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
 
-        Button RegtoSCodePage = (Button) findViewById(R.id.goSecurityCodePage);
-        usernameGotConfirm(RegtoSCodePage, RegisterStepTwo.class);
+        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText usernameInput = (EditText) findViewById(R.id.et_username);
+                final String username = usernameInput.getText().toString();
+                RestClient.getInstance().newSecurityCode4Account(username,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
+                                intent.putExtra("counter_start", System.currentTimeMillis());
+                                intent.putExtra("username", username);
+                                startActivity(intent);
+                            }
+                        },
+                        new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject errors) {
+                                String usernameError = CommonMethods.getFirstError(errors, "username");
+                                TextView txUsernameError = (TextView) findViewById(R.id.tv_username_error);
+                                txUsernameError.setText(usernameError);
+                            }
+                        }));
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package swj.swj.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,14 @@ import swj.swj.common.CommonMethods;
 
 public class SecurityCodeFragment extends AppCompatActivity {
 
+    protected SecurityCodeCountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_security_code_fragment);
+
+        startResendCountDown();
     }
 
     @Override
@@ -45,35 +50,6 @@ public class SecurityCodeFragment extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void ticking(final Button button) {
-        class TimeCount extends CountDownTimer {
-
-            public TimeCount(long millisInFuture, long countDownInterval) {
-                super(millisInFuture, countDownInterval);
-            }
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                button.setClickable(false);
-                button.setText(millisUntilFinished / 1000 + "秒");
-            }
-
-            @Override
-            public void onFinish() {
-                button.setText(getResources().getString(R.string.send_again));
-                button.setClickable(true);
-            }
-        }
-        final TimeCount time = new TimeCount(60000, 1000);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                time.start();
-            }
-        });
-        time.start();
-    }
-
     public void securityCodeConfirm(final Button button, final Class<? extends Activity> ActivityToOpen) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +68,42 @@ public class SecurityCodeFragment extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void startResendCountDown() {
+        Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
+        long counterStart = getIntent().getLongExtra("counter_start", System.currentTimeMillis());
+        long remainingTime = counterStart + 60000 - System.currentTimeMillis();
+        if (remainingTime > 0) {
+            if (timer != null) {
+                timer.cancel();
+            }
+            timer = new SecurityCodeCountDownTimer(this, btnResendCode, remainingTime, 1000);
+            timer.start();
+        }
+    }
+
+    protected static class SecurityCodeCountDownTimer extends CountDownTimer {
+        private Button button;
+        private Context context;
+
+        public SecurityCodeCountDownTimer(Context context, Button button,
+                                          long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+            this.context = context;
+            this.button = button;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            button.setClickable(false);
+            button.setText(millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            button.setText(context.getResources().getString(R.string.send_again));
+            button.setClickable(true);
+        }
     }
 }

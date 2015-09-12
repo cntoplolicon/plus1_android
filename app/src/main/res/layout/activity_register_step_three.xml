@@ -8,27 +8,27 @@
 
 
     <swj.swj.common.RoundedImageView
-        android:id="@+id/roundedImageForAvatar"
+        android:id="@+id/iv_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_above="@+id/setNickName"
+        android:layout_above="@+id/et_nickname"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"></swj.swj.common.RoundedImageView>
 
     <EditText
-        android:id="@+id/setNickName"
+        android:id="@+id/et_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/nickname"
-        android:layout_above="@+id/setPwd"
+        android:layout_above="@+id/et_password"
         android:layout_marginBottom="24dp"
-        android:layout_alignLeft="@+id/setPwd"
-        android:layout_alignStart="@+id/setPwd"
-        android:layout_alignRight="@+id/setPwd"
-        android:layout_alignEnd="@+id/setPwd" />
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_alignEnd="@+id/et_password" />
 
     <EditText
-        android:id="@+id/setPwd"
+        android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -38,32 +38,32 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/registerGenderSet"
+        android:id="@+id/tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_set_gender"
-        android:layout_above="@+id/registerStepThreeMessage"
-        android:layout_alignLeft="@+id/setPwd"
-        android:layout_alignStart="@+id/setPwd"
+        android:layout_above="@+id/tv_message"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password"
         android:layout_marginBottom="35dp" />
 
     <RadioGroup
-        android:id="@+id/radioGroupForGender"
+        android:id="@+id/rg_gender"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignBottom="@+id/registerGenderSet"
-        android:layout_alignRight="@+id/setPwd"
-        android:layout_alignEnd="@+id/setPwd">
+        android:layout_alignBottom="@+id/tv_gender"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_alignEnd="@+id/et_password">
 
         <RadioButton
-            android:id="@+id/radioButtonForMale"
+            android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_set_gender_male" />
 
         <RadioButton
-            android:id="@+id/radioButtonForFemale"
+            android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_set_gender_female" />
@@ -71,24 +71,24 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/finishRegisger"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit"
         android:layout_marginBottom="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/registerGenderSet"
-        android:layout_alignStart="@+id/registerGenderSet"
-        android:layout_alignRight="@+id/setPwd"
-        android:layout_alignEnd="@+id/setPwd" />
+        android:layout_alignLeft="@+id/tv_gender"
+        android:layout_alignStart="@+id/tv_gender"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_alignEnd="@+id/et_password" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_step_three_msg"
-        android:id="@+id/registerStepThreeMessage"
-        android:layout_above="@+id/finishRegisger"
-        android:layout_alignLeft="@+id/finishRegisger"
-        android:layout_alignStart="@+id/finishRegisger"
+        android:id="@+id/tv_message"
+        android:layout_above="@+id/btn_submit"
+        android:layout_alignLeft="@+id/btn_submit"
+        android:layout_alignStart="@+id/btn_submit"
         android:layout_marginBottom="27dp" />
 </RelativeLayout>

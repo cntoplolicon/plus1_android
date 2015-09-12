@@ -9,7 +9,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/phoneNumberInput"
+        android:id="@+id/et_username"
         android:layout_marginTop="46dp"
         android:width="300dp"
         android:hint="@string/hint_input_phone"
@@ -20,10 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hint_press_to_get_SCode"
-        android:id="@+id/goSecurityCodePage"
-        android:layout_below="@+id/phoneNumberInput"
-        android:layout_alignLeft="@+id/phoneNumberInput"
-        android:layout_alignStart="@+id/phoneNumberInput"
+        android:id="@+id/btn_submit"
+        android:layout_below="@+id/et_username"
+        android:layout_alignLeft="@+id/et_username"
+        android:layout_alignStart="@+id/et_username"
         android:layout_marginTop="34dp"
         android:width="300dp"/>
 
@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:id="@+id/phoneNumberError"
-        android:layout_below="@+id/goSecurityCodePage"
+        android:id="@+id/tv_username_error"
+        android:layout_below="@+id/btn_submit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp" />
 </RelativeLayout>

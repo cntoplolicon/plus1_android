@@ -22,7 +22,7 @@ public class UpdateSignActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_sign);
 
-        final String sign = LocalUserInfo.getInstance(UpdateSignActivity.this).getUserInfo("sign");
+        final String sign = LocalUserInfo.getInstance().getUserInfo("sign");
         etSign = (EditText) findViewById(R.id.et_sign);
         etSign.setText(sign);
         tvSaveSign = (TextView) findViewById(R.id.tv_sign_save);
@@ -40,7 +40,7 @@ public class UpdateSignActivity extends Activity {
     }
 
     private void temp_updateSign(String newSign) {
-        LocalUserInfo.getInstance(UpdateSignActivity.this).setUserInfo("sign", newSign);
+        LocalUserInfo.getInstance().setUserInfo("sign", newSign);
         finish();
     }
 

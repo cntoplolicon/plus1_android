@@ -35,7 +35,7 @@ public class PersonalSettingsActivity extends Activity {
         tvNickName = (TextView) findViewById(R.id.tv_personal_settings_nickname);
         tvPersonalProfile = (TextView) findViewById(R.id.tv_personal_settings_profile);
         btnLogOut = (Button) findViewById(R.id.btnLogout);
-        nickname = LocalUserInfo.getInstance(PersonalSettingsActivity.this).getUserInfo("nick_name");
+        nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
         Log.d(TAG, nickname);
         if (nickname == "") {
             tvNickName.setText("未登陆");
@@ -57,7 +57,7 @@ public class PersonalSettingsActivity extends Activity {
                     AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PersonalSettingsActivity.this);
                     alertdialogbuilder.setMessage("确认退出吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            LocalUserInfo.getInstance(PersonalSettingsActivity.this).setUserInfo("nick_name","");
+                            LocalUserInfo.getInstance().setUserInfo("nick_name","");
                             PersonalSettingsActivity.this.finish();
                         }
                     })
@@ -87,7 +87,7 @@ public class PersonalSettingsActivity extends Activity {
 
     public void onResume() {
         super.onResume();
-        String nickname_temp = LocalUserInfo.getInstance(PersonalSettingsActivity.this).getUserInfo("nick_name");
+        String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
             if (nickname_temp == "") {
                 tvNickName.setText("未设置");

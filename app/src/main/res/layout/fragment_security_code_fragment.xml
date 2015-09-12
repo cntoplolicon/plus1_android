@@ -9,7 +9,7 @@
     tools:context="swj.swj.fragment.SecurityCodeFragment">
 
     <TextView
-        android:id="@+id/SecurityCodeSent"
+        android:id="@+id/tv_security_code_sent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,12 +18,12 @@
         android:text="@string/SCode_sent_to_choosen_phone" />
 
     <EditText
-        android:id="@+id/SecurityCodeInput"
+        android:id="@+id/et_security_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/SecurityCodeSent"
+        android:layout_below="@+id/tv_security_code_sent"
         android:layout_marginLeft="42dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="45dp"
@@ -33,35 +33,35 @@
         android:hint="@string/hint_SCode" />
 
     <Button
-        android:id="@+id/getSecurityCode"
+        android:id="@+id/btn_resend_security_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/SecurityCodeInput"
+        android:layout_alignTop="@+id/et_security_code"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:text="@string/send_again" />
 
     <Button
-        android:id="@+id/SecurityCodeConfirm"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/getSecurityCode"
-        android:layout_alignLeft="@+id/SecurityCodeInput"
-        android:layout_alignRight="@+id/getSecurityCode"
-        android:layout_alignStart="@+id/SecurityCodeInput"
+        android:layout_alignEnd="@+id/btn_resend_security_code"
+        android:layout_alignLeft="@+id/et_security_code"
+        android:layout_alignRight="@+id/btn_resend_security_code"
+        android:layout_alignStart="@+id/et_security_code"
         android:layout_centerVertical="true"
         android:text="@string/next_page" />
 
     <TextView
-        android:id="@+id/SecurityCodeError"
+        android:id="@+id/tv_security_code_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SecurityCodeConfirm"
+        android:layout_below="@+id/btn_submit"
         android:layout_marginTop="68dp"
-        android:layout_toLeftOf="@+id/getSecurityCode"
-        android:layout_toStartOf="@+id/getSecurityCode"
+        android:layout_toLeftOf="@+id/btn_resend_security_code"
+        android:layout_toStartOf="@+id/btn_resend_security_code"
         android:text="" />
 
 </RelativeLayout>

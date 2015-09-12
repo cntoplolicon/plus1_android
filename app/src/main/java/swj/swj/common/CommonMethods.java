@@ -2,6 +2,13 @@ package swj.swj.common;
 
 import android.os.Environment;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,5 +43,17 @@ public class CommonMethods {
     //check if there is an SD card
     public static boolean hasSdCard() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+    }
+
+    public static String getFirstError(JSONObject errorMessages, String field) {
+        JSONArray fieldErrors = errorMessages.optJSONArray(field);
+        if (fieldErrors != null && fieldErrors.length() > 0) {
+            return fieldErrors.optString(0, "");
+        }
+        return "";
+    }
+
+    public static Gson createDefaultGson() {
+        return new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     }
 }

@@ -45,8 +45,8 @@ public class InputPhoneToGetSCode extends AppCompatActivity {
     }
 
     public void usernameGotConfirm(final Button button, final Class<? extends Activity> ActivityToOpen) {
-        final TextView phoneNumberError = (TextView) findViewById(R.id.phoneNumberError);
-        final EditText phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
+        final TextView phoneNumberError = (TextView) findViewById(R.id.tv_username_error);
+        final EditText phoneNumberInput = (EditText) findViewById(R.id.et_username);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

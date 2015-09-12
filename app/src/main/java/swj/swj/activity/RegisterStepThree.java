@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import java.io.File;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
-import swj.swj.common.LocalUserInfo;
+import swj.swj.common.RestClient;
 import swj.swj.common.RoundedImageView;
 
 public class RegisterStepThree extends Activity {
@@ -32,19 +31,23 @@ public class RegisterStepThree extends Activity {
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int RESULT_REQUEST_CODE = 2;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
-    private String[] options;
+    private static final String[] options = new String[] {"从相册选择", "拍照"};
 
     private RoundedImageView faceImage;
-    private RadioButton radioButtonForMale;
+
+    EditText nicknameInput;
+    EditText passwordInput;
+    TextView messageView;
+    RadioGroup radioGroup4Gender;
+
+    File avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_three);
 
-        options = new String[]{getResources().getString(R.string.set_avatar_from_local), getResources().getString(R.string.set_avatar_from_camera)};
-
-        faceImage = (RoundedImageView) findViewById(R.id.roundedImageForAvatar);
+        faceImage = (RoundedImageView) findViewById(R.id.iv_avatar);
         faceImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,37 +55,40 @@ public class RegisterStepThree extends Activity {
             }
         });
 
-        final EditText nicknameInput = (EditText) findViewById(R.id.setNickName);
-        final EditText setPwd = (EditText) findViewById(R.id.setPwd);
-        final TextView registerStepThreeMsg = (TextView) findViewById(R.id.registerStepThreeMessage);
-        Button registerStepThree = (Button) findViewById(R.id.finishRegisger);
+        nicknameInput = (EditText) findViewById(R.id.et_nickname);
+        passwordInput = (EditText) findViewById(R.id.et_password);
+        messageView = (TextView) findViewById(R.id.tv_message);
+        radioGroup4Gender = (RadioGroup) findViewById(R.id.rg_gender);
 
-        final RadioGroup radioGroupForGender = (RadioGroup) findViewById(R.id.radioGroupForGender);
-        radioButtonForMale = (RadioButton) findViewById(R.id.radioButtonForMale);
-        RadioButton radioButtonForFemale = (RadioButton) findViewById(R.id.radioButtonForFemale);
-
-        registerStepThree.setOnClickListener(new View.OnClickListener() {
+        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nicknameInput.getText().toString().trim().equals("")) {
-                    registerStepThreeMsg.setText(getResources().getString(R.string.nickname_required));
-                } else if (!CommonMethods.isValidPwd(setPwd.getText().toString())) {
-                    registerStepThreeMsg.setText(getResources().getString(R.string.validation_pwd));
-                } else if (radioGroupForGender.getCheckedRadioButtonId() == -1) {
-                    registerStepThreeMsg.setText(getResources().getString(R.string.gender_required));
-                } else {
-                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("nick_name", nicknameInput.getText().toString().trim());
-                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("password", setPwd.getText().toString());
-                    LocalUserInfo.getInstance(RegisterStepThree.this).setUserInfo("sex", showSexMessage());
-                    registerStepThreeMsg.setText(getResources().getString(R.string.register_finish_hint_nickname) + nicknameInput.getText().toString() + "(" + showSexMessage() + ")");
-                    startActivity(new Intent(RegisterStepThree.this, PersonalSettingsActivity.class));
+                if (!inputValidation()) {
+                    return;
                 }
+                String username = getIntent().getStringExtra("username");
+                String password = passwordInput.getText().toString();
+                String nickname = nicknameInput.getText().toString();
+
+                //RestClient.getInstance().signUp();
+                startActivity(new Intent(RegisterStepThree.this, PersonalSettingsActivity.class));
             }
         });
     }
 
-    private String showSexMessage() {
-        return radioButtonForMale.isChecked() ? getResources().getString(R.string.register_set_gender_male) : getResources().getString(R.string.register_set_gender_female);
+    private boolean inputValidation() {
+        if (nicknameInput.getText().toString().trim().equals("")) {
+            messageView.setText(getResources().getString(R.string.nickname_required));
+            return false;
+        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
+            messageView.setText(getResources().getString(R.string.validation_pwd));
+            return false;
+        } else if (radioGroup4Gender.getCheckedRadioButtonId() == -1) {
+            messageView.setText(getResources().getString(R.string.gender_required));
+            return false;
+        }
+        return true;
     }
 
     //show the option dialog to select
@@ -116,8 +122,8 @@ public class RegisterStepThree extends Activity {
                     break;
                 case CAMERA_REQUEST_CODE:
                     if (CommonMethods.hasSdCard()) {
-                        File tempFile = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                        startPhotoZoom(Uri.fromFile(tempFile));
+                        avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                        startPhotoZoom(Uri.fromFile(avatar));
                     } else {
                         //toast error message when unable to find sdcard
                         Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_SdCard), Toast.LENGTH_LONG).show();
@@ -143,7 +149,8 @@ public class RegisterStepThree extends Activity {
     public void getImageFromCamera() {
         Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (CommonMethods.hasSdCard()) {
-            intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
+            avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+            intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(avatar));
         }
         startActivityForResult(intentFromCamera, CAMERA_REQUEST_CODE);
     }

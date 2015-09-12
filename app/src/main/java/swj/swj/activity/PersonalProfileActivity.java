@@ -41,9 +41,9 @@ public class PersonalProfileActivity extends Activity {
 
     private void initView() {
 
-        nickname = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("nick_name");
-        sign = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("sign");
-        telephone = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("telephone");
+        nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
+        sign = LocalUserInfo.getInstance().getUserInfo("sign");
+        telephone = LocalUserInfo.getInstance().getUserInfo("telephone");
 
         reAvatar = (RelativeLayout) findViewById(R.id.re_avatar);
         reNickname = (RelativeLayout) findViewById(R.id.re_nickname);
@@ -132,7 +132,7 @@ public class PersonalProfileActivity extends Activity {
 
     public void onResume() {
         super.onResume();
-        String nickname_temp = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("nick_name");
+        String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
             if (nickname_temp == "") {
                 tvNickname.setText("未设置");
@@ -140,7 +140,7 @@ public class PersonalProfileActivity extends Activity {
             tvNickname.setText(nickname_temp);
         }
 
-        String sign_temp = LocalUserInfo.getInstance(PersonalProfileActivity.this).getUserInfo("sign");
+        String sign_temp = LocalUserInfo.getInstance().getUserInfo("sign");
         tvSign.setText(sign_temp);
     }
 

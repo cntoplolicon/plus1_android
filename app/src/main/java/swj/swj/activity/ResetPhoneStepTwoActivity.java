@@ -21,7 +21,6 @@ public class ResetPhoneStepTwoActivity extends SecurityCodeFragment {
         setContentView(R.layout.activity_reset_phone_step_two);
 
         final Button tickingButtonReg = (Button) findViewById(R.id.btn_get_SCode);
-        ticking(tickingButtonReg);
 
         final Button RegToNextPage = (Button) findViewById(R.id.btn_confirm_new_phone);
         RegToNextPage.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +37,7 @@ public class ResetPhoneStepTwoActivity extends SecurityCodeFragment {
                     securityCodeError.setText("Loading");
                     Intent i = getIntent();
                     final String phone = getIntent().getStringExtra("phone");
-                    LocalUserInfo.getInstance(getBaseContext()).setUserInfo("telephone", phone);
+                    LocalUserInfo.getInstance().setUserInfo("telephone", phone);
                     Intent intent = new Intent(getBaseContext(), PersonalProfileActivity.class);
                     startActivity(intent);
                 }

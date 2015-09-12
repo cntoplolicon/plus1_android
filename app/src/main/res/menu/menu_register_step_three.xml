@@ -6,7 +6,7 @@
         android:orderInCategory="100" app:showAsAction="never" />
 
     <swj.swj.common.RoundedImageView
-        android:id="@+id/roundedImageForAvatar"
+        android:id="@+id/iv_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_above="@+id/setNickName"
@@ -14,7 +14,7 @@
         android:layout_marginBottom="30dp"></swj.swj.common.RoundedImageView>
 
     <EditText
-        android:id="@+id/setNickName"
+        android:id="@+id/et_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/nickname"
@@ -26,7 +26,7 @@
         android:layout_alignEnd="@+id/setPwd" />
 
     <EditText
-        android:id="@+id/setPwd"
+        android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/registerGenderSet"
+        android:id="@+id/tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_set_gender"
@@ -46,7 +46,7 @@
         android:layout_marginBottom="35dp" />
 
     <RadioGroup
-        android:id="@+id/radioGroupForGender"
+        android:id="@+id/rg_gender"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -55,13 +55,13 @@
         android:layout_alignEnd="@+id/setPwd">
 
         <RadioButton
-            android:id="@+id/radioButtonForMale"
+            android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_set_gender_male" />
 
         <RadioButton
-            android:id="@+id/radioButtonForFemale"
+            android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_set_gender_female" />
@@ -69,7 +69,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/finishRegisger"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_step_three_msg"
-        android:id="@+id/registerStepThreeMessage"
+        android:id="@+id/tv_message"
         android:layout_above="@+id/finishRegisger"
         android:layout_alignLeft="@+id/finishRegisger"
         android:layout_alignStart="@+id/finishRegisger"

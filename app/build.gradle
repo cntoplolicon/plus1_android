@@ -26,4 +26,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile ('org.apache.httpcomponents:httpmime:4.5') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+    compile 'com.google.code.gson:gson:2.3.1'
 }

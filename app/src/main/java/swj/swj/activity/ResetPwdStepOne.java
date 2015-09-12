@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,7 @@ public class ResetPwdStepOne extends InputPhoneToGetSCode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_one);
 
-        Button ResetToSCodePage = (Button) findViewById(R.id.goSecurityCodePage);
+        Button ResetToSCodePage = (Button) findViewById(R.id.btn_submit);
         usernameGotConfirm(ResetToSCodePage, ResetPwdStepTwo.class);
     }
 

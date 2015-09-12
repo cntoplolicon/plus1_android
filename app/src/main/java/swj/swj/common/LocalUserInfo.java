@@ -8,24 +8,27 @@ import android.content.SharedPreferences;
  */
 public class LocalUserInfo {
 
-    public static final String KEY_USER_ID = "user_id";
-    public static final String KEY_ACCESS_TOKEN = "access_token";
-
     private static final String PREFERENCE_NAME = "local_userinfo";
-    private static SharedPreferences mSharedPreferences;
-    private static LocalUserInfo mLocalUserInfo;
-    private static SharedPreferences.Editor editor;
 
-    private LocalUserInfo(Context context) {
-        mSharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+    private static LocalUserInfo instance;
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
+    public synchronized static void initialize(Context context) {
+        if (instance != null) {
+            return;
+        }
+        instance = new LocalUserInfo(context);
     }
 
-    public static LocalUserInfo getInstance(Context context) {
-        if (mLocalUserInfo == null) {
-            mLocalUserInfo = new LocalUserInfo(context);
-        }
-        editor = mSharedPreferences.edit();
-        return mLocalUserInfo;
+    private LocalUserInfo(Context context) {
+        preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        editor = preferences.edit();
+    }
+
+    public static LocalUserInfo getInstance() {
+        return instance;
     }
 
     public void setUserInfo(String strName, String strValue) {
@@ -34,14 +37,6 @@ public class LocalUserInfo {
     }
 
     public String getUserInfo(String strName) {
-        return mSharedPreferences.getString(strName, "");
-    }
-
-    public String getUserId() {
-        return getUserInfo(KEY_USER_ID);
-    }
-
-    public String getAccessToken() {
-        return getUserInfo(KEY_ACCESS_TOKEN);
+        return preferences.getString(strName, "");
     }
 }
