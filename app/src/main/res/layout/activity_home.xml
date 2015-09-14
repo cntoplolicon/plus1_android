@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/TitleStyle"
-            android:text="主页"
+            android:text="@string/home_tab"
             />
     </RelativeLayout>
 
@@ -34,35 +34,35 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_Home"
+            android:id="@+id/rb_home"
             style="@style/ButtonTabStyle"
             android:onClick="onHome"
-            android:text="首页"
+            android:text="@string/home_tab"
             android:textColor="#f00" />
 
         <RadioButton
-            android:id="@+id/rb_Friends"
+            android:id="@+id/rb_friends"
             style="@style/ButtonTabStyle"
             android:onClick="onFriends"
-            android:text="好友" />
+            android:text="@string/friends_tab" />
 
         <RadioButton
-            android:id="@+id/rb_Camera"
+            android:id="@+id/rb_camera"
             style="@style/ButtonTabStyle"
             android:onClick="onCamera"
-            android:text="照相" />
+            android:text="@string/camera_tab" />
 
         <RadioButton
-            android:id="@+id/rb_Message"
+            android:id="@+id/rb_message"
             style="@style/ButtonTabStyle"
             android:onClick="onMessage"
-            android:text="消息" />
+            android:text="@string/message_tab" />
 
         <RadioButton
-            android:id="@+id/rb_MySelf"
+            android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
             android:onClick="onMySelf"
-            android:text="个人" />
+            android:text="@string/myself_tab" />
 
 
     </RadioGroup>

@@ -25,12 +25,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginSubmit = (Button) findViewById(R.id.loginSubmit);
-        TextView toRegister = (TextView) findViewById(R.id.toRegister);
-        TextView toForgetPwd = (TextView) findViewById(R.id.toForgetPwd);
-        final EditText usernameInput = (EditText) findViewById(R.id.userNameInput);
-        final EditText pwdInput = (EditText) findViewById(R.id.passwordInput);
-        final TextView loginMessage = (TextView) findViewById(R.id.errorMessage);
+        Button loginSubmit = (Button) findViewById(R.id.btn_login_submit);
+        TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
+        TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
+        final EditText usernameInput = (EditText) findViewById(R.id.et_username);
+        final EditText pwdInput = (EditText) findViewById(R.id.et_password);
+        final TextView loginMessage = (TextView) findViewById(R.id.tv_login_error_message);
 
         //get extras from reset pwd activities to set message
         Intent intentFromResetPwd = getIntent();
@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                 phoneNumber = usernameInput.getText().toString();
                 pwd = pwdInput.getText().toString();
                 if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    loginMessage.setText(getResources().getString(R.string.validation_username));
+                    loginMessage.setText(getResources().getString(R.string.username_invalid_format));
                 } else if (!CommonMethods.isValidPwd(pwd)) {
-                    loginMessage.setText(getResources().getString(R.string.validation_pwd));
+                    loginMessage.setText(getResources().getString(R.string.password_invalid_format));
                 } else {
                     loginMessage.setText("Loading...");
                     tempInitUser();

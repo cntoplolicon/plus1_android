@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="好友"
+            android:text="friend"
             android:textColor="#f00"
             android:textSize="50dp" />
     </FrameLayout>

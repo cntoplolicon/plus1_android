@@ -18,7 +18,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:text="@string/Settings"
+            android:text="@string/action_settings"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>

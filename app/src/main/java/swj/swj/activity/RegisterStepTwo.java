@@ -17,9 +17,9 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.fragment.SecurityCodeFragment;
+import swj.swj.fragment.SecurityCode;
 
-public class RegisterStepTwo extends SecurityCodeFragment {
+public class RegisterStepTwo extends SecurityCode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class RegisterStepTwo extends SecurityCodeFragment {
             }
         });
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

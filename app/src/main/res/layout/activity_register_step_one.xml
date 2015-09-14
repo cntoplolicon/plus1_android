@@ -9,7 +9,7 @@
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        layout="@layout/fragment_input_phone_to_get_scode"
+        layout="@layout/activity_input_phone_to_get_scode"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

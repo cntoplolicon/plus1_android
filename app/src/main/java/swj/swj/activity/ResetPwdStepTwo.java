@@ -6,16 +6,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import swj.swj.R;
-import swj.swj.fragment.SecurityCodeFragment;
+import swj.swj.fragment.SecurityCode;
 
-public class ResetPwdStepTwo extends SecurityCodeFragment {
+public class ResetPwdStepTwo extends SecurityCode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
 
-        Button ResetToNextPage = (Button) findViewById(R.id.btn_submit);
+        Button ResetToNextPage = (Button) findViewById(R.id.btn_login_submit);
         securityCodeConfirm(ResetToNextPage, ResetPwdStepThree.class);
     }
 

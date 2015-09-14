@@ -15,7 +15,7 @@ public class ResetPwdStepOne extends InputPhoneToGetSCode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_one);
 
-        Button ResetToSCodePage = (Button) findViewById(R.id.btn_submit);
+        Button ResetToSCodePage = (Button) findViewById(R.id.btn_login_submit);
         usernameGotConfirm(ResetToSCodePage, ResetPwdStepTwo.class);
     }
 

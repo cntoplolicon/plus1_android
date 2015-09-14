@@ -28,7 +28,7 @@ public class HomeActivity extends Activity {
     }
 
     public void init() {
-        radioButton = (RadioButton) findViewById(R.id.rb_Home);
+        radioButton = (RadioButton) findViewById(R.id.rb_home);
         tv_title = (TextView) findViewById(R.id.tv_title);
         onHome(radioButton);
 //        radioButton.setTextColor(Color.RED);

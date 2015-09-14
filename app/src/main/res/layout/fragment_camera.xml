@@ -18,6 +18,6 @@
         android:gravity="center"
         android:textSize="50dp"
         android:textColor="#f00"
-        android:text="相机 " />
+        android:text="camera" />
 
 </LinearLayout>

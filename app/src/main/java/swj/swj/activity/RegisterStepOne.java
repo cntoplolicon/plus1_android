@@ -26,7 +26,7 @@ public class RegisterStepOne extends InputPhoneToGetSCode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

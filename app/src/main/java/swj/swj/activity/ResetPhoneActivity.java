@@ -24,7 +24,7 @@ public class ResetPhoneActivity extends Activity {
             public void onClick(View v) {
                 final String phoneNumber = tvNewPhone.getText().toString();
                 if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    tvError.setText(getResources().getString(R.string.validation_username));
+                    tvError.setText(getResources().getString(R.string.username_invalid_format));
                 } else {
                     Intent intent = new Intent(ResetPhoneActivity.this, ResetPhoneStepTwoActivity.class);
                     intent.putExtra("phone",phoneNumber);

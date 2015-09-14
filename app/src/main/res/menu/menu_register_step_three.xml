@@ -18,12 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/nickname"
-        android:layout_above="@+id/setPwd"
+        android:layout_above="@+id/et_password"
         android:layout_marginBottom="24dp"
-        android:layout_alignLeft="@+id/setPwd"
-        android:layout_alignStart="@+id/setPwd"
-        android:layout_alignRight="@+id/setPwd"
-        android:layout_alignEnd="@+id/setPwd" />
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_alignEnd="@+id/et_password" />
 
     <EditText
         android:id="@+id/et_password"
@@ -39,7 +39,7 @@
         android:id="@+id/tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_set_gender"
+        android:text="@string/set_gender"
         android:layout_above="@+id/registerStepThreeMessage"
         android:layout_alignLeft="@+id/setPwd"
         android:layout_alignStart="@+id/setPwd"
@@ -58,18 +58,18 @@
             android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_set_gender_male" />
+            android:text="@string/set_gender_male" />
 
         <RadioButton
             android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_set_gender_female" />
+            android:text="@string/set_gender_female" />
 
     </RadioGroup>
 
     <Button
-        android:id="@+id/btn_submit"
+        android:id="@+id/btn_login_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit"
@@ -83,7 +83,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_step_three_msg"
+        android:text="@string/gender_can_not_change"
         android:id="@+id/tv_message"
         android:layout_above="@+id/finishRegisger"
         android:layout_alignLeft="@+id/finishRegisger"

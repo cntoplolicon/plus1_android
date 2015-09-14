@@ -71,7 +71,7 @@ public class RegisterStepThree extends Activity {
         messageView = (TextView) findViewById(R.id.tv_message);
         radioGroup4Gender = (RadioGroup) findViewById(R.id.rg_gender);
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +134,7 @@ public class RegisterStepThree extends Activity {
             messageView.setText(getResources().getString(R.string.nickname_required));
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
-            messageView.setText(getResources().getString(R.string.validation_pwd));
+            messageView.setText(getResources().getString(R.string.password_invalid_format));
             return false;
         } else if (radioGroup4Gender.getCheckedRadioButtonId() == -1) {
             messageView.setText(getResources().getString(R.string.gender_required));
@@ -157,7 +157,7 @@ public class RegisterStepThree extends Activity {
                         break;
                 }
             }
-        }).setNegativeButton(getResources().getString(R.string.cancel_current_movement), new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -178,7 +178,7 @@ public class RegisterStepThree extends Activity {
                         startPhotoZoom(Uri.fromFile(avatar));
                     } else {
                         //toast error message when unable to find sdcard
-                        Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_SdCard), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
                     }
                     break;
                 case RESULT_REQUEST_CODE:
