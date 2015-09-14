@@ -37,8 +37,8 @@ public class PersonalSettingsActivity extends Activity {
         btnLogOut = (Button) findViewById(R.id.btnLogout);
         nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
         Log.d(TAG, nickname);
-        if (nickname == "") {
-            tvNickName.setText("未登陆");
+        if (nickname.equals("")) {
+            tvNickName.setText(getResources().getString(R.string.log_in_required));
             tvPersonalProfile.setTextColor(Color.GRAY);
             btnLogOut.setVisibility(View.GONE);
             tvNickName.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +55,13 @@ public class PersonalSettingsActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PersonalSettingsActivity.this);
-                    alertdialogbuilder.setMessage("确认退出吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    alertdialogbuilder.setMessage(getResources().getString(R.string.log_out_confirm)).setPositiveButton(getResources().getString(R.string.submit), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             LocalUserInfo.getInstance().setUserInfo("nick_name","");
                             PersonalSettingsActivity.this.finish();
                         }
                     })
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
@@ -89,8 +89,8 @@ public class PersonalSettingsActivity extends Activity {
         super.onResume();
         String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp == "") {
-                tvNickName.setText("未设置");
+            if (nickname_temp.equals("")) {
+                tvNickName.setText(getResources().getString(R.string.unset));
             }
             tvNickName.setText(nickname_temp);
         }

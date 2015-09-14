@@ -17,7 +17,7 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.fragment.InputPhoneToGetSCode;
+import swj.swj.activity.InputPhoneToGetSCode;
 
 public class RegisterStepOne extends InputPhoneToGetSCode {
 
@@ -37,6 +37,7 @@ public class RegisterStepOne extends InputPhoneToGetSCode {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
+                                intent.putExtra("phoneToGetSCode", username);
                                 intent.putExtra("counter_start", System.currentTimeMillis());
                                 intent.putExtra("username", username);
                                 startActivity(intent);

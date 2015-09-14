@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.fragment.SecurityCode;
+import swj.swj.activity.SecurityCode;
 
 public class ResetPwdStepTwo extends SecurityCode {
 

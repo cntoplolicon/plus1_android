@@ -95,7 +95,7 @@ public class PersonalProfileActivity extends Activity {
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.alert_dialog);
         TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_content1);
-        tvTakePhoto.setText("拍照");
+        tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
         tvTakePhoto.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -108,7 +108,7 @@ public class PersonalProfileActivity extends Activity {
             }
         });
         TextView tv_gallery = (TextView) window.findViewById(R.id.tv_content2);
-        tv_gallery.setText("相册");
+        tv_gallery.setText(getResources().getString(R.string.gallery));
         tv_gallery.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -134,8 +134,8 @@ public class PersonalProfileActivity extends Activity {
         super.onResume();
         String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp == "") {
-                tvNickname.setText("未设置");
+            if (nickname_temp.equals("")) {
+                tvNickname.setText(getResources().getString(R.string.unset));
             }
             tvNickname.setText(nickname_temp);
         }

@@ -1,4 +1,4 @@
-package swj.swj.fragment;
+package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -56,7 +56,6 @@ public class InputPhoneToGetSCode extends AppCompatActivity {
                 } else {
                     phoneNumberError.setText("");
                     Intent intent = new Intent(getBaseContext(), ActivityToOpen);
-                    intent.putExtra("phoneToGetSCode", phoneNumber);
                     startActivityForResult(intent, 0);
                 }
             }

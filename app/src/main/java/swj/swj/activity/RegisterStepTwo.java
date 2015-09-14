@@ -17,7 +17,7 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.fragment.SecurityCode;
+import swj.swj.activity.SecurityCode;
 
 public class RegisterStepTwo extends SecurityCode {
 

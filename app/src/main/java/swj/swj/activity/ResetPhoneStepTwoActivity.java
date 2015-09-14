@@ -10,7 +10,7 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
-import swj.swj.fragment.SecurityCode;
+import swj.swj.activity.SecurityCode;
 
 /**
  * Created by jiewei on 9/7/15.

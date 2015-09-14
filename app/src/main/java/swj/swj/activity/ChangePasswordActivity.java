@@ -44,12 +44,12 @@ public class ChangePasswordActivity extends Activity {
         String NewPwd = etNewPwd.getText().toString().trim();
         String NewPwdRe = etNewPwdRe.getText().toString().trim();
         if (!OldPwd.equals(testPassword)) {
-            Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_incorrect), Toast.LENGTH_SHORT).show();
         } else if (!NewPwd.equals(NewPwdRe)) {
-            Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_confirmation_incorrect), Toast.LENGTH_SHORT).show();
         } else {
             LocalUserInfo.getInstance().setUserInfo("password", NewPwd);
-            Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

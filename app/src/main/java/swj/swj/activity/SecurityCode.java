@@ -1,4 +1,4 @@
-package swj.swj.fragment;
+package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Context;

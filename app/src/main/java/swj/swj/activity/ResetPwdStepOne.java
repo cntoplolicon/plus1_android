@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import swj.swj.R;
-import swj.swj.fragment.InputPhoneToGetSCode;
+import swj.swj.activity.InputPhoneToGetSCode;
 
 public class ResetPwdStepOne extends InputPhoneToGetSCode {
 
