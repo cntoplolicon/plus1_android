@@ -7,7 +7,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -31,22 +33,22 @@ public class JsonObjectMultipartRequest extends JsonObjectRequest {
 
     private void buildMultipartEntity(Map<String, Object> params) {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setCharset(Charset.forName("UTF-8"));
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             Object objValue = entry.getValue();
-            if (objValue instanceof String) {
-                String stringValue = (String)objValue;
-                builder.addTextBody(entry.getKey(), stringValue);
-            } else if (objValue instanceof File) {
-                File fileValue = (File)objValue;
-                builder.addPart(fileValue.getName(), new FileBody(fileValue));
+            if (objValue instanceof AbstractContentBody) {
+                AbstractContentBody fileBody = (AbstractContentBody) objValue;
+                builder.addPart(entry.getKey(), fileBody);
+            } else if (objValue != null) {
+                builder.addTextBody(entry.getKey(), objValue.toString());
             }
         }
-        builder.setCharset(Charset.forName("UTF-8"));
         entity = builder.build();
     }
 
     @Override
     public String getBodyContentType() {
+        Log.d("Content-Type", entity.getContentType().getValue());
         return entity.getContentType().getValue();
     }
 

@@ -12,20 +12,21 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import swj.swj.BuildConfig;
+import swj.swj.model.User;
 
 /**
  * Created by cntoplolicon on 9/10/15.
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://10.0.2.2:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.144:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
 
     private static RestClient instance;
@@ -80,11 +81,9 @@ public class RestClient {
         requestQueue.add(request);
     }
 
-    public void signUp(String username, String nickname, String password, int gender, File avatar,
+    public void signUp(String username, String nickname, String password, int gender, AbstractContentBody avatar,
                        Listener<JSONObject> onSuccess, ErrorListener onError) {
-        String userId = "sdjfklsdfjl";
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id", userId);
+        Map<String, Object> params = createMultipartParams4User();
         params.put("username", username);
         params.put("nickname", nickname);
         params.put("password", password);
@@ -92,7 +91,14 @@ public class RestClient {
         params.put("gender", gender);
 
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
-                getResourceUrl("/user/" + userId), params, onSuccess, onError);
+                getResourceUrl("/users/" + params.get("user_id")), params, onSuccess, onError);
         requestQueue.add(request);
+    }
+
+    private Map<String, Object> createMultipartParams4User() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id", String.valueOf(User.current.getId()));
+        params.put("access_token", User.current.getAccessToken());
+        return params;
     }
 }

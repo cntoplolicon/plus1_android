@@ -1,7 +1,11 @@
 package swj.swj.model;
 
+import org.joda.time.DateTime;
+
 import java.io.File;
-import java.util.Date;
+
+import swj.swj.common.CommonMethods;
+import swj.swj.common.LocalUserInfo;
 
 /**
  * Created by cntoplolicon on 9/12/15.
@@ -12,9 +16,11 @@ public class User {
     public static final int GENDER_MALE = 1;
     public static final int GENDER_FEMALE = 2;
 
-    public static User current;
+    public static final String CURRENT_USER_KEY = "user";
 
-    private int userId;
+    public static volatile User current;
+
+    private int id;
 
     private String username;
     private String nickname;
@@ -25,20 +31,19 @@ public class User {
     private int canInfect;
     private int infectionIndex;
 
-    private Date createdAt;
-    private Date updatedAt;
+    private DateTime createdAt;
+    private DateTime updatedAt;
 
     private String avatar;
-    private File avartarFile;
 
     private String accessToken;
 
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -97,19 +102,19 @@ public class User {
         this.infectionIndex = infectionIndex;
     }
 
-    public Date getCreatedAt() {
+    public DateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public DateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -121,19 +126,16 @@ public class User {
         this.avatar = avatar;
     }
 
-    public File getAvartarFile() {
-        return avartarFile;
-    }
-
-    public void setAvartarFile(File avartarFile) {
-        this.avartarFile = avartarFile;
-    }
-
     public String getAccessToken() {
         return accessToken;
     }
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public static void updateCurrentUser(String json) {
+        current = CommonMethods.createDefaultGson().fromJson(json, User.class);
+        LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, json);
     }
 }

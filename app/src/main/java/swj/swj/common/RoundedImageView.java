@@ -29,27 +29,26 @@ public class RoundedImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-
+    public Bitmap getCroppedBitmap() {
         Drawable drawable = getDrawable();
-
-        if (drawable == null) {
-            return;
-        }
-        if (getWidth() == 0 || getHeight() == 0) {
-            return;
-        }
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-
         int w = getWidth(), h = getHeight();
-
-        Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
-        canvas.drawBitmap(roundBitmap, 0, 0, null);
+        if (drawable == null || w == 0 || h == 0) {
+            return null;
+        }
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        return cropBitmap(bitmap, w);
     }
 
-    public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Bitmap croppedBitmap = getCroppedBitmap();
+        if (croppedBitmap != null) {
+            canvas.drawBitmap(croppedBitmap, 0, 0, null);
+        }
+    }
+
+    public static Bitmap cropBitmap(Bitmap bmp, int radius) {
         Bitmap sbmp;
 
         if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
@@ -64,7 +63,6 @@ public class RoundedImageView extends ImageView {
                 Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
-        final int color = 0xffa19774;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, radius, radius);
 

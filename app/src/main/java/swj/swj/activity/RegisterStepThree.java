@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +21,22 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.common.RoundedImageView;
+import swj.swj.model.User;
 
 public class RegisterStepThree extends Activity {
 
@@ -31,7 +44,7 @@ public class RegisterStepThree extends Activity {
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int RESULT_REQUEST_CODE = 2;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
-    private static final String[] options = new String[] {"从相册选择", "拍照"};
+    private static final String[] options = new String[]{"从相册选择", "拍照"};
 
     private RoundedImageView faceImage;
 
@@ -39,8 +52,6 @@ public class RegisterStepThree extends Activity {
     EditText passwordInput;
     TextView messageView;
     RadioGroup radioGroup4Gender;
-
-    File avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +79,54 @@ public class RegisterStepThree extends Activity {
                     return;
                 }
                 String username = getIntent().getStringExtra("username");
-                String password = passwordInput.getText().toString();
                 String nickname = nicknameInput.getText().toString();
+                String password = passwordInput.getText().toString();
 
-                //RestClient.getInstance().signUp();
-                startActivity(new Intent(RegisterStepThree.this, PersonalSettingsActivity.class));
+                RestClient.getInstance().signUp(username, nickname, password, getSelectedGender(), getAvatar(),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                User.updateCurrentUser(response.toString());
+                                startActivity(new Intent(RegisterStepThree.this, PersonalSettingsActivity.class));
+                            }
+                        }, new JsonErrorListener(getApplicationContext(), null));
             }
         });
+    }
+
+    private ByteArrayBody getAvatar() {
+        Drawable drawable = faceImage.getDrawable();
+        if (drawable == null) {
+            return null;
+        }
+        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
+        ByteArrayOutputStream os = null;
+        try {
+            os = new ByteArrayOutputStream();
+            avatarBitmap.compress(Bitmap.CompressFormat.PNG, 0, os);
+            byte[] avatarData = os.toByteArray();
+            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    Log.e(RegisterStepThree.class.getName(), "failed closing stream", e);
+                }
+            }
+        }
+    }
+
+    private int getSelectedGender() {
+        int selectedId = radioGroup4Gender.getCheckedRadioButtonId();
+        switch (selectedId) {
+            case R.id.rb_male:
+                return User.GENDER_MALE;
+            case R.id.rb_female:
+                return User.GENDER_FEMALE;
+            default:
+                return User.GENDER_UNKNOWN;
+        }
     }
 
     private boolean inputValidation() {
@@ -122,7 +174,7 @@ public class RegisterStepThree extends Activity {
                     break;
                 case CAMERA_REQUEST_CODE:
                     if (CommonMethods.hasSdCard()) {
-                        avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                        File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
                         startPhotoZoom(Uri.fromFile(avatar));
                     } else {
                         //toast error message when unable to find sdcard
@@ -149,7 +201,7 @@ public class RegisterStepThree extends Activity {
     public void getImageFromCamera() {
         Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (CommonMethods.hasSdCard()) {
-            avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+            File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
             intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(avatar));
         }
         startActivityForResult(intentFromCamera, CAMERA_REQUEST_CODE);
