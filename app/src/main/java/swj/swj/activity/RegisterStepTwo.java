@@ -25,6 +25,11 @@ public class RegisterStepTwo extends SecurityCode {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intentFromPhoneInput = getIntent();
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
+        SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
+
         Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
         btnResendCode.setOnClickListener(new View.OnClickListener() {
             @Override

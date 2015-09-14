@@ -13,6 +13,7 @@
         android:layout_marginTop="46dp"
         android:width="300dp"
         android:hint="@string/hint_input_phone"
+        android:inputType="phone"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

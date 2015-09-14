@@ -1,9 +1,11 @@
 package swj.swj.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import swj.swj.R;
 import swj.swj.fragment.SecurityCode;
@@ -17,6 +19,11 @@ public class ResetPwdStepTwo extends SecurityCode {
 
         Button ResetToNextPage = (Button) findViewById(R.id.btn_login_submit);
         securityCodeConfirm(ResetToNextPage, ResetPwdStepThree.class);
+
+        Intent intentFromPhoneInput = getIntent();
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
+        SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
     }
 
     @Override
