@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <swj.swj.view.RoundedImageView
+        android:id="@+id/roundedImageForAvatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/default_useravatar"></swj.swj.view.RoundedImageView>
+
+    <LinearLayout
+        android:id="@+id/ll_myself_user_info"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tv_myself_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="用户昵称" />
+
+            <TextView
+                android:id="@+id/tv_myself_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:text="男" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_myself_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="个性签名个性签名" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="影响力：800" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="每次发给4个陌生人" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#dadada" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:weightSum="1">
+
+
+            <TextView
+                android:id="@+id/tv_myself_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="0.50"
+                android:background="#f643ffc3"
+                android:gravity="center"
+                android:text="我发布的"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_myself_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="0.50"
+                android:gravity="center"
+                android:text="我的收藏"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip"
+            android:background="#dadada" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

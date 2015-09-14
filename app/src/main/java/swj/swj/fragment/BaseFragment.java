@@ -3,6 +3,7 @@ package swj.swj.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,14 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     public Activity mActivity;
+
     // Fragment被创建
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         mActivity = getActivity();// 获取所依赖的Activity
+        mActivity = getActivity();// 获取所依赖的Activity
     }
+
     // 初始化Fragment布局
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

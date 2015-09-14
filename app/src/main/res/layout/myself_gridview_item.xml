@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/gridview_item_image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/default_useravatar">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="32人转发"
+        android:id="@+id/tv_forward_count"
+        android:layout_alignBottom="@+id/gridview_item_image"
+        android:layout_alignLeft="@+id/gridview_item_image"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="剩余7天"
+        android:id="@+id/textView3"
+        android:layout_alignBottom="@+id/gridview_item_image"
+        android:layout_alignRight="@+id/gridview_item_image"
+        android:layout_alignEnd="@+id/gridview_item_image"
+        android:layout_marginBottom="8dp" />
+
+</RelativeLayout>

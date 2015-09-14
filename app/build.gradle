@@ -40,4 +40,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'net.danlew:android.joda:2.8.2'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
 }

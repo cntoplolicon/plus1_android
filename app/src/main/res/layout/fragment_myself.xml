@@ -1,31 +1,65 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/mySelf_fl"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <LinearLayout
+        android:id="@+id/ll_request_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
         <swj.swj.view.RoundedImageView
             android:id="@+id/roundedImageForAvatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/default_useravatar"
-            android:layout_marginBottom="30dp"></swj.swj.view.RoundedImageView>
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/default_useravatar"></swj.swj.view.RoundedImageView>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </FrameLayout>
+                android:layout_height="wrap_content"
+                android:text="请先" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_start_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登陆"
+                android:textColor="#f621a1ff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="或" />
+
+            <TextView
+                android:id="@+id/tv_start_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册"
+                android:textColor="#f621a1ff" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
+        android:id="@+id/gd_myself_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:verticalSpacing="10dp">
+    </in.srain.cube.views.GridViewWithHeaderAndFooter>
+
+</FrameLayout>
