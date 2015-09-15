@@ -48,10 +48,10 @@ public class RegisterStepThree extends Activity {
 
     private RoundedImageView faceImage;
 
-    EditText nicknameInput;
-    EditText passwordInput;
-    TextView messageView;
-    RadioGroup radioGroup4Gender;
+    private EditText nicknameInput;
+    private EditText passwordInput;
+    private TextView messageView;
+    private RadioGroup radioGroup4Gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

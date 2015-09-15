@@ -17,7 +17,6 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.activity.SecurityCode;
 
 public class RegisterStepTwo extends SecurityCode {
 
@@ -48,7 +47,7 @@ public class RegisterStepTwo extends SecurityCode {
             @Override
             public void onClick(View view) {
                 final String username = getIntent().getStringExtra("username");
-                String securityCode = ((EditText)findViewById(R.id.et_security_code)).getText().toString();
+                String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
                 RestClient.getInstance().verifySecurityCode(username, securityCode,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -61,7 +60,7 @@ public class RegisterStepTwo extends SecurityCode {
                             @Override
                             public void onResponse(JSONObject errors) {
                                 String securityCodeError = CommonMethods.getFirstError(errors, "security_code");
-                                ((TextView)findViewById(R.id.tv_security_code_error)).setText(securityCodeError);
+                                ((TextView) findViewById(R.id.tv_security_code_error)).setText(securityCodeError);
                             }
                         }));
             }
