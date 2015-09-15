@@ -37,7 +37,7 @@ public class PersonalSettingsActivity extends Activity {
         btnLogOut = (Button) findViewById(R.id.btnLogout);
         nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
         Log.d(TAG, nickname);
-        if (nickname.equals("")) {
+        if (nickname.isEmpty()) {
             tvNickName.setText(getResources().getString(R.string.log_in_required));
             tvPersonalProfile.setTextColor(Color.GRAY);
             btnLogOut.setVisibility(View.GONE);
@@ -89,7 +89,7 @@ public class PersonalSettingsActivity extends Activity {
         super.onResume();
         String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp.equals("")) {
+            if (nickname_temp.isEmpty()) {
                 tvNickName.setText(getResources().getString(R.string.unset));
             }
             tvNickName.setText(nickname_temp);

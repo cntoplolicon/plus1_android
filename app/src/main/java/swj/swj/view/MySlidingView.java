@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import swj.swj.adpter.SlidingViewAdapter;
+import swj.swj.adapter.SlidingViewAdapter;
 
 
 public class MySlidingView extends FrameLayout {

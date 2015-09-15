@@ -130,7 +130,7 @@ public class RegisterStepThree extends Activity {
     }
 
     private boolean inputValidation() {
-        if (nicknameInput.getText().toString().trim().equals("")) {
+        if (nicknameInput.getText().toString().trim().isEmpty()) {
             messageView.setText(getResources().getString(R.string.nickname_required));
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {

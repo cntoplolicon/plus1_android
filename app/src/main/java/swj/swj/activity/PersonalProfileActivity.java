@@ -134,7 +134,7 @@ public class PersonalProfileActivity extends Activity {
         super.onResume();
         String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
         if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp.equals("")) {
+            if (nickname_temp.isEmpty()) {
                 tvNickname.setText(getResources().getString(R.string.unset));
             }
             tvNickname.setText(nickname_temp);

@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.adpter.SlidingViewAdapter;
+import swj.swj.adapter.SlidingViewAdapter;
 import swj.swj.view.MySlidingView;
 
 

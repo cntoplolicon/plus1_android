@@ -1,4 +1,4 @@
-package swj.swj.adpter;
+package swj.swj.adapter;
 
 /**
  * Created by syb on 2015/9/5.
