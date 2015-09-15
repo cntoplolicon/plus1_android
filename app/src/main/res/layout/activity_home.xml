@@ -48,7 +48,7 @@
             android:id="@+id/rb_Publish"
             style="@style/ButtonTabStyle"
             android:onClick="onPublish"
-            android:text="@string/push_tab" />
+            android:text="@string/publish_tab" />
 
         <RadioButton
             android:id="@+id/rb_message"

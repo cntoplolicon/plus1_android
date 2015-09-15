@@ -12,7 +12,7 @@ import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
-import swj.swj.fragment.PushFragment;
+import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {
@@ -57,10 +57,11 @@ public class HomeActivity extends Activity {
     }
 
     /*相机*/
-    public void onCamera(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new PushFragment()).commit();
+    public void onPublish(View view) {
+
+        getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText(getResources().getString(R.string.push_title));
+        tv_title.setText(getResources().getString(R.string.publish_title));
     }
 
     public void onMessage(View view) {

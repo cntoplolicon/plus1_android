@@ -16,7 +16,7 @@
             android:layout_height="100dp"
             android:layout_margin="25dp"
             android:onClick="addImage"
-            android:text="@string/push_add_image" />
+            android:text="@string/publish_add_image" />
 
         <Button
             android:id="@+id/bt_text"
@@ -24,7 +24,7 @@
             android:layout_height="100dp"
             android:layout_margin="25dp"
             android:onClick="addText"
-            android:text="@string/push_add_text" />
+            android:text="@string/publish_add_text" />
 
     </LinearLayout>
 

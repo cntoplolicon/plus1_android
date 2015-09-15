@@ -13,7 +13,7 @@ import swj.swj.R;
 /**
  * Created by syb on 2015/9/12.
  */
-public class PushActivity extends Activity {
+public class PublishActivity extends Activity {
     private ImageView image;
 
     @Override
@@ -24,20 +24,15 @@ public class PushActivity extends Activity {
         image = (ImageView) findViewById(R.id.iv_image);
         Intent intent = getIntent();
 
-        if (intent.getAction() == "getCamara") {
-
+        if (intent.getAction().equals("getCamera")) {
             String fileName = intent.getStringExtra("fileName");
             Bitmap myCamera = BitmapFactory.decodeFile(fileName);
             image.setImageBitmap(myCamera);
 
-        } else if (intent.getAction() == "getGallery") {
-
+        } else if (intent.getAction().equals("getGallery")) {
             String picPath = intent.getStringExtra("picPath");
             Bitmap myGallery = BitmapFactory.decodeFile(picPath);
             image.setImageBitmap(myGallery);
-
         }
-
     }
-
 }
