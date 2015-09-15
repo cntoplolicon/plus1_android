@@ -59,7 +59,7 @@ public class CommonMethods {
         return "";
     }
 
-    public static void toastError(Context context,JSONObject errors, String field) {
+    public static void toastError(Context context, JSONObject errors, String field) {
         String errorDetail = getFirstError(errors, field);
         if (!errorDetail.isEmpty()) {
             errorDetail.replace(" ", "_");

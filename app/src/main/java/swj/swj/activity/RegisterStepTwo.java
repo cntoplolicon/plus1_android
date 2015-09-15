@@ -51,22 +51,22 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                 String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
                 if (!CommonMethods.isValidSCode(securityCode)) {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-                } else {
-                    RestClient.getInstance().verifySecurityCode(username, securityCode,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
-                                    intent.putExtra("username", username);
-                                    startActivity(intent);
-                                }
-                            }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject errors) {
-                                    CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
-                                }
-                            }));
+                    return;
                 }
+                RestClient.getInstance().verifySecurityCode(username, securityCode,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
+                                intent.putExtra("username", username);
+                                startActivity(intent);
+                            }
+                        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject errors) {
+                                CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
+                            }
+                        }));
             }
         });
     }
