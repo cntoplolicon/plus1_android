@@ -17,13 +17,18 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.fragment.SecurityCodeFragment;
+import swj.swj.activity.SecurityCode;
 
-public class RegisterStepTwo extends SecurityCodeFragment {
+public class RegisterStepTwo extends SecurityCode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intentFromPhoneInput = getIntent();
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
+        SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
 
         Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
         btnResendCode.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +43,7 @@ public class RegisterStepTwo extends SecurityCodeFragment {
             }
         });
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

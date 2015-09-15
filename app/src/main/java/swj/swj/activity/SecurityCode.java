@@ -1,4 +1,4 @@
-package swj.swj.fragment;
+package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,14 +16,14 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class SecurityCodeFragment extends AppCompatActivity {
+public class SecurityCode extends AppCompatActivity {
 
     protected SecurityCodeCountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_security_code_fragment);
+        setContentView(R.layout.activity_security_code_fragment);
 
         startResendCountDown();
     }
@@ -54,13 +54,13 @@ public class SecurityCodeFragment extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText securityCodeInput = (EditText) findViewById(R.id.SecurityCodeInput);
-                TextView securityCodeError = (TextView) findViewById(R.id.SecurityCodeError);
+                EditText securityCodeInput = (EditText) findViewById(R.id.et_security_code);
+                TextView securityCodeError = (TextView) findViewById(R.id.tv_security_code_error);
                 String securityCode = securityCodeInput.getText().toString();
                 if (!CommonMethods.isValidSCode(securityCode)) {
-                    securityCodeError.setText(getResources().getString(R.string.validation_SCode));
+                    securityCodeError.setText(getResources().getString(R.string.security_code_invalid_format));
                 } else if (!securityCode.equals("123456")) {
-                    securityCodeError.setText(getResources().getString(R.string.wrong_SCode));
+                    securityCodeError.setText(getResources().getString(R.string.security_code_incorrect));
                 } else {
                     securityCodeError.setText("Loading");
                     Intent intent = new Intent(getBaseContext(), ActivityToOpen);

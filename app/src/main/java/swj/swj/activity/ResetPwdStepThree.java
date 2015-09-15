@@ -21,17 +21,17 @@ public class ResetPwdStepThree extends Activity {
         setContentView(R.layout.activity_reset_pwd_step_three);
 
         final TextView resetPwdStepThreeErrorMsg = (TextView) findViewById(R.id.resetPwdStepThreeErrorMessage);
-        Button resetPwdStepThreeConfirmBtn = (Button) findViewById(R.id.resetPwdStepThreeConfirmBtn);
-        final EditText resetPwdStepThreeInput = (EditText) findViewById(R.id.resetPwdStepThreeInput);
-        final EditText resetPwdStepThreeConfirm = (EditText) findViewById(R.id.resetPwdStepThreeConfirm);
+        Button resetPwdStepThreeConfirmBtn = (Button) findViewById(R.id.btn_reset_pwd_step_three_confirm);
+        final EditText resetPwdStepThreeInput = (EditText) findViewById(R.id.et_reset_pwd_step_three_input);
+        final EditText resetPwdStepThreeConfirm = (EditText) findViewById(R.id.et_reset_pwd_step_three_confirm);
 
         resetPwdStepThreeConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!CommonMethods.isValidPwd(resetPwdStepThreeInput.getText().toString())) {
-                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.validation_pwd));
+                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.password_invalid_format));
                 } else if (!resetPwdStepThreeInput.getText().toString().equals(resetPwdStepThreeConfirm.getText().toString())) {
-                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.reset_pwd_equal));
+                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.password_confirmation_incorrect));
                 } else {
                     resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.pwd_reset_succeed));
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);

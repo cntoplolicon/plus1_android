@@ -1,22 +1,29 @@
 package swj.swj.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.fragment.SecurityCodeFragment;
+import swj.swj.activity.SecurityCode;
 
-public class ResetPwdStepTwo extends SecurityCodeFragment {
+public class ResetPwdStepTwo extends SecurityCode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
 
-        Button ResetToNextPage = (Button) findViewById(R.id.btn_submit);
+        Button ResetToNextPage = (Button) findViewById(R.id.btn_login_submit);
         securityCodeConfirm(ResetToNextPage, ResetPwdStepThree.class);
+
+        Intent intentFromPhoneInput = getIntent();
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
+        SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
     }
 
     @Override

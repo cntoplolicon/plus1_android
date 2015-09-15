@@ -28,7 +28,7 @@ public class HomeActivity extends Activity {
     }
 
     public void init() {
-        radioButton = (RadioButton) findViewById(R.id.rb_Home);
+        radioButton = (RadioButton) findViewById(R.id.rb_home);
         tv_title = (TextView) findViewById(R.id.tv_title);
         onHome(radioButton);
 //        radioButton.setTextColor(Color.RED);
@@ -51,7 +51,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
         radioButton.setTextColor(Color.RED);
-        tv_title.setText("LOGO");
+        tv_title.setText(getResources().getString(R.string.home_tab));
     }
 
     /*好友*/
@@ -68,7 +68,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("朋友");
+        tv_title.setText(getResources().getString(R.string.friends_tab));
     }
 
     /*相机*/
@@ -85,7 +85,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new CameraFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("相机");
+        tv_title.setText(getResources().getString(R.string.camera_tab));
     }
 
     /*消息*/
@@ -102,7 +102,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("消息");
+        tv_title.setText(getResources().getString(R.string.message_tab));
     }
 
     /*个人*/
@@ -119,7 +119,7 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
-        tv_title.setText("个人");
+        tv_title.setText(getResources().getString(R.string.myself_tab));
     }
 
 

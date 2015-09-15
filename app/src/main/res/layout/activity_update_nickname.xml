@@ -12,7 +12,7 @@
         android:background="@color/settings_top_bar_blue" >
 
         <ImageView
-            android:id="@+id/button_back"
+            android:id="@+id/btn_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/button_back"
-            android:text="更改名字"
+            android:layout_toRightOf="@id/btn_back"
+            android:text="@string/change_nickname"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -42,11 +42,12 @@
         android:id="@+id/et_nick"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:singleLine="true"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:hint="@string/hint_input_new_nickname"/>
 
     <TextView
         android:id="@+id/tv_nickname_save"
@@ -56,7 +57,7 @@
         android:layout_marginLeft="16dp"
         android:background="@color/settings_top_bar_blue"
         android:gravity="center"
-        android:text="保存"
+        android:text="@string/save_changes"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 

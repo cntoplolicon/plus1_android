@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/resetPwdStepThreeInput"
+        android:id="@+id/et_reset_pwd_step_three_input"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/resetPwdStepThreeConfirm"
-        android:layout_below="@+id/resetPwdStepThreeInput"
-        android:layout_alignLeft="@+id/resetPwdStepThreeInput"
-        android:layout_alignStart="@+id/resetPwdStepThreeInput"
+        android:id="@+id/et_reset_pwd_step_three_confirm"
+        android:layout_below="@+id/et_reset_pwd_step_three_input"
+        android:layout_alignLeft="@+id/et_reset_pwd_step_three_input"
+        android:layout_alignStart="@+id/et_reset_pwd_step_three_input"
         android:layout_marginTop="41dp"
         android:hint="@string/hint_new_pwd_confirm"/>
 
@@ -38,16 +38,16 @@
         android:text=""
         android:id="@+id/resetPwdStepThreeErrorMessage"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/resetPwdStepThreeConfirm"
-        android:layout_alignStart="@+id/resetPwdStepThreeConfirm"
-        android:layout_alignRight="@+id/resetPwdStepThreeConfirm"
-        android:layout_alignEnd="@+id/resetPwdStepThreeConfirm" />
+        android:layout_alignLeft="@+id/et_reset_pwd_step_three_confirm"
+        android:layout_alignStart="@+id/et_reset_pwd_step_three_confirm"
+        android:layout_alignRight="@+id/et_reset_pwd_step_three_confirm"
+        android:layout_alignEnd="@+id/et_reset_pwd_step_three_confirm" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reset_pwd_finish"
-        android:id="@+id/resetPwdStepThreeConfirmBtn"
+        android:text="@string/save_new_pwd"
+        android:id="@+id/btn_reset_pwd_step_three_confirm"
         android:layout_marginTop="48dp"
         android:layout_below="@+id/resetPwdStepThreeErrorMessage"
         android:layout_alignLeft="@+id/resetPwdStepThreeErrorMessage"

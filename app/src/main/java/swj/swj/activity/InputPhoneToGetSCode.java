@@ -1,4 +1,4 @@
-package swj.swj.fragment;
+package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,7 @@ public class InputPhoneToGetSCode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_input_phone_to_get_scode);
+        setContentView(R.layout.activity_input_phone_to_get_scode);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class InputPhoneToGetSCode extends AppCompatActivity {
             public void onClick(View v) {
                 final String phoneNumber = phoneNumberInput.getText().toString();
                 if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    phoneNumberError.setText(getResources().getString(R.string.validation_username));
+                    phoneNumberError.setText(getResources().getString(R.string.username_invalid_format));
                 } else {
                     phoneNumberError.setText("");
                     Intent intent = new Intent(getBaseContext(), ActivityToOpen);

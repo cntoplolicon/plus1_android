@@ -12,7 +12,7 @@
         android:background="@color/settings_top_bar_blue" >
 
         <ImageView
-            android:id="@+id/button_back"
+            android:id="@+id/btn_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/button_back"
-            android:text="修改密码"
+            android:layout_toRightOf="@id/btn_back"
+            android:text="@string/pwd_reset"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.1"
         android:paddingTop="30dp"
-        android:hint="请输入旧密码"
+        android:hint="@string/hint_input_old_pwd"
         android:inputType="textPassword" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.1"
-        android:hint="请输入新密码"
+        android:hint="@string/hint_input_new_pwd"
         android:inputType="textPassword" />
 
     <EditText
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.1"
-        android:hint="请再输入一次新密码"
+        android:hint="@string/hint_new_pwd_confirm"
         android:inputType="textPassword" />
 
     <Button
@@ -73,6 +73,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:layout_weight="0.03"
-        android:text="保存修改" />
+        android:text="@string/save_changes" />
 
 </LinearLayout>

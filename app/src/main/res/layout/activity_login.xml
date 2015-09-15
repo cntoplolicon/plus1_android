@@ -9,21 +9,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:id="@+id/loginSubmit"
+        android:text="@string/log_in"
+        android:id="@+id/btn_login_submit"
         android:layout_marginTop="95dp"
-        android:layout_below="@+id/passwordInput"
-        android:layout_alignLeft="@+id/passwordInput"
-        android:layout_alignStart="@+id/passwordInput"
-        android:layout_alignRight="@+id/passwordInput"
-        android:layout_alignEnd="@+id/passwordInput" />
+        android:layout_below="@+id/et_password"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_alignEnd="@+id/et_password" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/userNameInput"
+        android:id="@+id/et_username"
         android:layout_marginTop="84dp"
         android:hint="@string/hint_input_phone"
         android:layout_centerHorizontal="true" />
@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/passwordInput"
-        android:layout_below="@+id/userNameInput"
-        android:layout_alignLeft="@+id/userNameInput"
-        android:layout_alignStart="@+id/userNameInput"
+        android:id="@+id/et_password"
+        android:layout_below="@+id/et_username"
+        android:layout_alignLeft="@+id/et_username"
+        android:layout_alignStart="@+id/et_username"
         android:layout_marginTop="36dp"
         android:hint="@string/hint_input_pwd"/>
 
@@ -44,30 +44,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/to_reset_pwd"
-        android:id="@+id/toForgetPwd"
+        android:id="@+id/tv_to_reset_pwd"
         android:layout_marginTop="33dp"
-        android:layout_below="@+id/loginSubmit"
-        android:layout_alignLeft="@+id/loginSubmit"
-        android:layout_alignStart="@+id/loginSubmit" />
+        android:layout_below="@+id/btn_login_submit"
+        android:layout_alignLeft="@+id/btn_login_submit"
+        android:layout_alignStart="@+id/btn_login_submit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/to_register"
-        android:id="@+id/toRegister"
-        android:layout_alignTop="@+id/toForgetPwd"
-        android:layout_alignRight="@+id/loginSubmit"
-        android:layout_alignEnd="@+id/loginSubmit" />
+        android:id="@+id/tv_to_register"
+        android:layout_alignTop="@+id/tv_to_reset_pwd"
+        android:layout_alignRight="@+id/btn_login_submit"
+        android:layout_alignEnd="@+id/btn_login_submit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
-        android:id="@+id/errorMessage"
-        android:layout_below="@+id/passwordInput"
-        android:layout_alignLeft="@+id/loginSubmit"
-        android:layout_alignStart="@+id/loginSubmit"
+        android:id="@+id/tv_login_error_message"
+        android:layout_below="@+id/et_password"
+        android:layout_alignLeft="@+id/btn_login_submit"
+        android:layout_alignStart="@+id/btn_login_submit"
         android:layout_marginTop="40dp" />
 
 </RelativeLayout>

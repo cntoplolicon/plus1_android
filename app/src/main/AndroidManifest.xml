@@ -56,7 +56,7 @@
             android:name=".activity.ResetPwdStepThree"
             android:label="@string/reset_pwd_step_three"
             android:parentActivityName=".activity.ResetPwdStepTwo" />
-        <activity android:name=".fragment.SecurityCodeFragment" />
+        <activity android:name=".fragment.SecurityCode" />
     </application>
 
 </manifest>

@@ -10,12 +10,12 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
-import swj.swj.fragment.SecurityCodeFragment;
+import swj.swj.activity.SecurityCode;
 
 /**
  * Created by jiewei on 9/7/15.
  */
-public class ResetPhoneStepTwoActivity extends SecurityCodeFragment {
+public class ResetPhoneStepTwoActivity extends SecurityCode {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_phone_step_two);
@@ -26,13 +26,13 @@ public class ResetPhoneStepTwoActivity extends SecurityCodeFragment {
         RegToNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText securityCodeInput = (EditText) findViewById(R.id.SecurityCodeInput);
-                TextView securityCodeError = (TextView) findViewById(R.id.SecurityCodeError);
+                EditText securityCodeInput = (EditText) findViewById(R.id.et_security_code);
+                TextView securityCodeError = (TextView) findViewById(R.id.tv_security_code_error);
                 String securityCode = securityCodeInput.getText().toString();
                 if (!CommonMethods.isValidSCode(securityCode)) {
-                    securityCodeError.setText(getResources().getString(R.string.validation_SCode));
+                    securityCodeError.setText(getResources().getString(R.string.security_code_invalid_format));
                 } else if (!securityCode.equals("123456")) {
-                    securityCodeError.setText(getResources().getString(R.string.wrong_SCode));
+                    securityCodeError.setText(getResources().getString(R.string.security_code_incorrect));
                 } else {
                     securityCodeError.setText("Loading");
                     Intent i = getIntent();

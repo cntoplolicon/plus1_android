@@ -6,31 +6,31 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="swj.swj.fragment.SecurityCodeFragment">
+    tools:context="swj.swj.fragment.SecurityCode">
 
     <TextView
-        android:id="@+id/SecurityCodeSent"
+        android:id="@+id/tv_security_code_sent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:text="@string/SCode_sent_to_choosen_phone" />
+        android:text="@string/security_code_sent" />
 
     <EditText
-        android:id="@+id/SecurityCodeInput"
+        android:id="@+id/et_security_code_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/SecurityCodeSent"
+        android:layout_below="@+id/tv_security_code_sent"
         android:layout_marginLeft="42dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="45dp"
         android:width="100dp"
         android:height="50dp"
         android:gravity="center"
-        android:hint="@string/hint_SCode" />
+        android:hint="@string/hint_security_code" />
 
     <Button
         android:id="@+id/btn_get_SCode"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/SecurityCodeInput"
+        android:layout_alignTop="@+id/et_security_code_input"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:text="@string/send_again" />
@@ -48,20 +48,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/btn_get_SCode"
-        android:layout_alignLeft="@+id/SecurityCodeInput"
+        android:layout_alignLeft="@+id/et_security_code_input"
         android:layout_alignRight="@+id/btn_get_SCode"
-        android:layout_alignStart="@+id/SecurityCodeInput"
+        android:layout_alignStart="@+id/et_security_code_input"
         android:layout_centerVertical="true"
-        android:text="@string/next_page" />
+        android:text="@string/next_activity" />
 
     <TextView
-        android:id="@+id/SecurityCodeError"
+        android:id="@+id/tv_security_code_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_confirm_new_phone"
         android:layout_marginTop="68dp"
         android:layout_toLeftOf="@+id/btn_get_SCode"
         android:layout_toStartOf="@+id/btn_get_SCode"
-        android:text="" />
+        android:text=""/>
 
 </RelativeLayout>
