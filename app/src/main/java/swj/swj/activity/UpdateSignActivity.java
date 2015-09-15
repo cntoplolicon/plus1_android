@@ -30,7 +30,7 @@ public class UpdateSignActivity extends Activity {
             @Override
             public void onClick(View v) {
                 newSign = etSign.getText().toString().trim();
-                if (sign.equals(newSign) || newSign.equals("")) {
+                if (sign.equals(newSign) || newSign.isEmpty()) {
                     return;
                 }
                 temp_updateSign(newSign);

@@ -29,7 +29,7 @@ public class UpdateNicknameActivity extends Activity {
             @Override
             public void onClick(View v) {
                 newNick = tvNick.getText().toString().trim();
-                if (nick.equals(newNick) || newNick.equals("")) {
+                if (nick.equals(newNick) || newNick.isEmpty()) {
                     return;
                 }
                 temp_updateNick(newNick);
