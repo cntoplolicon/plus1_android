@@ -23,50 +23,46 @@ public class HomeViewAdapter extends SlidingViewAdapter {
         mList = list;
         mInflater = LayoutInflater.from(context);
     }
+
     @Override
     public int getCount() {
-
         return mList.size();
     }
 
     @Override
     public View getView(int position, View convertView) {
-        Log.i("getView", position + "");
+        Log.d("getView", position + "");
 
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.home_list_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(new ViewHolder(convertView));
-        }else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         HomeItemBean bean = mList.get(position);
-        viewHolder.iv_image.setImageResource(bean.getHomeImage());
-        viewHolder.tv_user.setText(bean.getHomeUser());
-        viewHolder.tv_context.setText(bean.getHomeContext());
-        viewHolder.tv_message.setText(bean.getHomeMessage());
-        viewHolder.tv_see.setText(bean.getHomeseeNumber());
-
+        viewHolder.ivImage.setImageResource(bean.getHomeImage());
+        viewHolder.tvUser.setText(bean.getHomeUser());
+        viewHolder.tvContext.setText(bean.getHomeContext());
+        viewHolder.tvMessage.setText(bean.getHomeMessage());
+        viewHolder.tvViews.setText(bean.gethomeViews());
         return convertView;
     }
 
-    public static class ViewHolder {
-
-        public TextView tv_user;
-        public TextView tv_context;
-        public TextView tv_message;
-        public TextView tv_see;
-        public ImageView iv_image;
-
+    private static class ViewHolder {
+        public TextView tvUser;
+        public TextView tvContext;
+        public TextView tvMessage;
+        public TextView tvViews;
+        public ImageView ivImage;
 
         public ViewHolder(View convertView) {
-            this.tv_user = (TextView) convertView.findViewById(R.id.tv_user);
-            this.tv_context = (TextView) convertView.findViewById(R.id.tv_content);
-            this.tv_message = (TextView) convertView.findViewById(R.id.tv_message);
-            this.tv_see = (TextView) convertView.findViewById(R.id.tv_see);
-            this.iv_image = (ImageView) convertView.findViewById(R.id.iv_image);
+            this.tvUser = (TextView) convertView.findViewById(R.id.tv_user);
+            this.tvContext = (TextView) convertView.findViewById(R.id.tv_content);
+            this.tvMessage = (TextView) convertView.findViewById(R.id.tv_message);
+            this.tvViews = (TextView) convertView.findViewById(R.id.tv_views);
+            this.ivImage = (ImageView) convertView.findViewById(R.id.iv_image);
         }
-
     }
 }

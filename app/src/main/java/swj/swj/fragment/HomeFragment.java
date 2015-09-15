@@ -10,9 +10,7 @@ import swj.swj.adapter.HomeViewAdapter;
 import swj.swj.bean.HomeItemBean;
 import swj.swj.view.MySlidingView;
 
-
 public class HomeFragment extends BaseFragment {
-
     private MySlidingView mSlidingView;
     private View view;
 
@@ -26,12 +24,10 @@ public class HomeFragment extends BaseFragment {
     public void initData() {
         List<HomeItemBean> homeBeanList = new ArrayList<HomeItemBean>();
         for (int i = 0; i < 99; i++) {
-            homeBeanList.add(new HomeItemBean(R.drawable.abc,"用户"+i,"内容"+i,"消息"+i,"浏览"+i));
-
+            homeBeanList.add(new HomeItemBean(R.drawable.abc, "用户" + i, "内容" + i, "消息" + i, "浏览" + i));
         }
         mSlidingView = (MySlidingView) view.findViewById(R.id.sl_swipelayout);
-        HomeViewAdapter HomeViewAdapter = new HomeViewAdapter(mActivity,homeBeanList);
+        HomeViewAdapter HomeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
         mSlidingView.setAdapter(HomeViewAdapter);
-
     }
 }

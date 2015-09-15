@@ -55,7 +55,7 @@
         android:textSize="25sp"/>
 
     <TextView
-        android:id="@+id/tv_see"
+        android:id="@+id/tv_views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

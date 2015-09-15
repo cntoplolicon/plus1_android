@@ -7,15 +7,10 @@ package swj.swj.adapter;
 import android.view.View;
 
 public abstract class SlidingViewAdapter {
-
-
-
     public abstract int getCount();
 
     //public abstract Object getItem(int position);
-
     //public abstract long getItemId(int position);
-
     public abstract View getView(int position, View convertView);
 
     public int getTypeCount() {

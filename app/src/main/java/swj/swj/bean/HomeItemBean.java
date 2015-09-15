@@ -11,7 +11,7 @@ public class HomeItemBean {
     private String homeUser;
     private String homeContext;
     private String homeMessage;
-    private String HomeseeNumber;
+    private String homeViews;
 
     public int getHomeImage() {
         return homeImage;
@@ -29,15 +29,15 @@ public class HomeItemBean {
         return homeMessage;
     }
 
-    public String getHomeseeNumber() {
-        return HomeseeNumber;
+    public String gethomeViews() {
+        return homeViews;
     }
 
-    public HomeItemBean(int homeImage, String homeUser, String homeContext, String homeMessage, String homeseeNumber) {
+    public HomeItemBean(int homeImage, String homeUser, String homeContext, String homeMessage, String homeViews) {
         this.homeImage = homeImage;
         this.homeUser = homeUser;
         this.homeContext = homeContext;
         this.homeMessage = homeMessage;
-        HomeseeNumber = homeseeNumber;
+        this.homeViews = homeViews;
     }
 }
