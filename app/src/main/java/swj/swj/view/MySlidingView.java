@@ -82,7 +82,6 @@ public class MySlidingView extends FrameLayout {
 
                 Log.d("onLayout", changeView.toString());
                 changeView.layout(0, 0, layoutWidth, layoutHeight);
-
             }
 
         } else {

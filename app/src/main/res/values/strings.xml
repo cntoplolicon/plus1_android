@@ -51,6 +51,11 @@
     <string name="change_nickname">修改昵称</string>
     <string name="change_personal_signature">修改签名</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="publish_title">新卡片</string>
+    <string name="publish_add_image">加图片</string>
+    <string name="publish_add_text">加文字</string>
+    <string name="publish_confirm">确定</string>
+    <string name="publish_tab">发布</string>
 
     <!--validation-->
     <string name="username_invalid_format">请输入正确的手机号</string>
