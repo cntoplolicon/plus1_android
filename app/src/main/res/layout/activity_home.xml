@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,13 +7,12 @@
         android:id="@+id/rl_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#919191"
-        >
+        android:background="#919191">
+
         <TextView
             android:id="@+id/tv_title"
             style="@style/TitleStyle"
-            android:text="@string/home_tab"
-            />
+            android:text="@string/home_tab" />
     </RelativeLayout>
 
     <FrameLayout
@@ -22,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        
+
     </FrameLayout>
 
     <RadioGroup
@@ -47,10 +45,10 @@
             android:text="@string/friends_tab" />
 
         <RadioButton
-            android:id="@+id/rb_camera"
+            android:id="@+id/rb_Publish"
             style="@style/ButtonTabStyle"
-            android:onClick="onCamera"
-            android:text="@string/camera_tab" />
+            android:onClick="onPublish"
+            android:text="@string/push_tab" />
 
         <RadioButton
             android:id="@+id/rb_message"
