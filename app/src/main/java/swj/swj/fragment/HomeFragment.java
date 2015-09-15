@@ -1,73 +1,37 @@
 package swj.swj.fragment;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import swj.swj.R;
-import swj.swj.adapter.SlidingViewAdapter;
+import swj.swj.adapter.HomeViewAdapter;
+import swj.swj.bean.HomeItemBean;
 import swj.swj.view.MySlidingView;
 
 
 public class HomeFragment extends BaseFragment {
 
     private MySlidingView mSlidingView;
-
-    int[] image = {R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc, R.drawable.abc};
+    private View view;
 
     @Override
     public View initView() {
-
-        View root = View.inflate(mActivity, R.layout.fragment_home, null);
-
-        mSlidingView = (MySlidingView) root.findViewById(R.id.sl_swipelayout);
-
-        MyAdapter mAdpter = new MyAdapter();
-
-        mSlidingView.setAdapter(mAdpter);
-
-        return root;
+        view = View.inflate(mActivity, R.layout.fragment_home, null);
+        return view;
     }
 
     @Override
     public void initData() {
-        super.initData();
-    }
+        List<HomeItemBean> homeBeanList = new ArrayList<HomeItemBean>();
+        for (int i = 0; i < 99; i++) {
+            homeBeanList.add(new HomeItemBean(R.drawable.abc,"用户"+i,"内容"+i,"消息"+i,"浏览"+i));
 
-    class MyAdapter extends SlidingViewAdapter {
-
-        @Override
-        public int getCount() {
-            return 100;
         }
-
-        @Override
-        public View getView(int position, View convertView) {
-
-            Log.i("getView", position + "");
-
-            if (convertView == null) {
-                convertView = View.inflate(getMyActivity(), R.layout.home_list_item, null);
-                convertView.setTag(new ViewHolder(convertView));
-            }
-
-            ViewHolder holder = (ViewHolder) convertView.getTag();
-            holder.iv_image.setImageResource(image[position]);
-
-            return convertView;
-        }
-    }
-
-    public static class ViewHolder {
-
-        public TextView tv_user;
-        public ImageView iv_image;
-
-        public ViewHolder(View convertView) {
-            this.tv_user = (TextView) convertView.findViewById(R.id.tv_user);
-            this.iv_image = (ImageView) convertView.findViewById(R.id.iv_image);
-        }
+        mSlidingView = (MySlidingView) view.findViewById(R.id.sl_swipelayout);
+        HomeViewAdapter HomeViewAdapter = new HomeViewAdapter(mActivity,homeBeanList);
+        mSlidingView.setAdapter(HomeViewAdapter);
 
     }
 }

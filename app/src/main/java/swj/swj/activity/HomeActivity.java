@@ -31,7 +31,6 @@ public class HomeActivity extends Activity {
         radioButton = (RadioButton) findViewById(R.id.rb_home);
         tv_title = (TextView) findViewById(R.id.tv_title);
         onHome(radioButton);
-//        radioButton.setTextColor(Color.RED);
 
 
     }
@@ -56,16 +55,6 @@ public class HomeActivity extends Activity {
 
     /*好友*/
     public void onFriends(View view) {
-      /*  //new对象
-        FriendFragment friendFragment = new FriendFragment();
-        //获取管理器
-        FragmentManager fm = getFragmentManager();
-        //开启事务
-        FragmentTransaction ft = fm.beginTransaction();
-        //设置显示
-        ft.replace(R.id.fl, friendFragment);
-        //提交事务
-        ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.friends_tab));
@@ -73,16 +62,6 @@ public class HomeActivity extends Activity {
 
     /*相机*/
     public void onCamera(View view) {
-        /*//new对象
-        CameraFragment cameraFragment = new CameraFragment();
-        //获取管理器
-        FragmentManager fm = getFragmentManager();
-        //开启事务
-        FragmentTransaction ft = fm.beginTransaction();
-        //设置显示
-        ft.replace(R.id.fl, cameraFragment);
-        //提交事务
-        ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new CameraFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.camera_tab));
@@ -90,16 +69,6 @@ public class HomeActivity extends Activity {
 
     /*消息*/
     public void onMessage(View view) {
-      /*  //new对象
-        MessageFragment messageFragment = new MessageFragment();
-        //获取管理器
-        FragmentManager fm = getFragmentManager();
-        //开启事务
-        FragmentTransaction ft = fm.beginTransaction();
-        //设置显示
-        ft.replace(R.id.fl, messageFragment);
-        //提交事务
-        ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.message_tab));
@@ -107,16 +76,6 @@ public class HomeActivity extends Activity {
 
     /*个人*/
     public void onMySelf(View view) {
-     /*   //new对象
-        MySelfFragment mySelfFragment = new MySelfFragment();
-        //获取管理器
-        FragmentManager fm = getFragmentManager();
-        //开启事务
-        FragmentTransaction ft = fm.beginTransaction();
-        //设置显示
-        ft.replace(R.id.fl, mySelfFragment);
-        //提交事务
-        ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.myself_tab));

@@ -8,6 +8,8 @@ import android.view.View;
 
 public abstract class SlidingViewAdapter {
 
+
+
     public abstract int getCount();
 
     //public abstract Object getItem(int position);

@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:background="#9DECF9">
 
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:layout_weight="1"
-        android:src="@drawable/abc" />
+        android:maxHeight="350dp"
+        android:maxWidth="350dp"
+        android:padding="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/abc"/>
 
-    <LinearLayout
-        android:id="@+id/rl_home"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_below="@id/iv_image"
+        android:layout_marginLeft="15dp"
+        android:text="用户"
+        android:textColor="#25AFF8"
+        android:textSize="18sp"/>
 
-
-        <TextView
-            android:id="@+id/tv_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_image"
-            android:text="test_username"
-            android:textColor="#25AFF8"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test_context"
-            android:lines="2"
-            android:layout_marginLeft="5sp"
-            android:ellipsize="end"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rl"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <TextView
-            android:id="@+id/tv_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:drawableLeft="@android:drawable/ic_menu_camera"
-            android:text="5"
-            android:textSize="22sp" />
-    </LinearLayout>
+        android:layout_below="@id/iv_image"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@id/tv_user"
+        android:ellipsize="end"
+        android:lines="4"
+        android:text="空间的放松卡来看看癃开颗粒 啊颇具；记录卡垃圾啊‘啊啊快发快发’卡啊卡卡卡‘坎坎坷坷’快快泼哦哦】】喔噢记录卡垃圾啊‘啊啊快发快发’卡啊卡卡卡‘坎坎坷坷’快快泼哦哦】】喔噢"
+        android:textSize="16sp"/>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/com_icon_comment"
+        android:drawablePadding="10dp"
+        android:text="55"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/tv_see"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@id/tv_message"
+        android:drawableLeft="@drawable/com_icon_scan"
+        android:drawablePadding="10dp"
+        android:text="150"
+        android:textSize="25sp"/>
+
+</RelativeLayout>
