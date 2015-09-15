@@ -26,7 +26,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
 
         Intent intentFromPhoneInput = getIntent();
-        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
         TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
         SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
 

@@ -30,7 +30,6 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
-
         Button btnSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +66,11 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
     }
 
     private boolean inputValidation() {
-        return CommonMethods.isValidUsername(usernameInput.getText().toString().trim());
+        if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
