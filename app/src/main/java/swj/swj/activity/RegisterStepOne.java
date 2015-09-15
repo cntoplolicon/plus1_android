@@ -2,12 +2,14 @@ package swj.swj.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -39,6 +41,12 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
                                 intent.putExtra("phoneToGetSCode", username);
                                 intent.putExtra("counter_start", System.currentTimeMillis());
                                 intent.putExtra("username", username);
+
+                                String securityCode = response.optString("security_code", "");
+                                if (!securityCode.isEmpty()) {
+                                    Log.d("security_code", securityCode);
+                                    Toast.makeText(RegisterStepOne.this, securityCode, Toast.LENGTH_SHORT).show();
+                                }
                                 startActivity(intent);
                             }
                         },
