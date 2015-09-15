@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -48,21 +49,25 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
             public void onClick(View view) {
                 final String username = getIntent().getStringExtra("username");
                 String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-                RestClient.getInstance().verifySecurityCode(username, securityCode,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
-                                intent.putExtra("username", username);
-                                startActivity(intent);
-                            }
-                        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject errors) {
-                                String securityCodeError = CommonMethods.getFirstError(errors, "security_code");
-                                ((TextView) findViewById(R.id.tv_security_code_error)).setText(securityCodeError);
-                            }
-                        }));
+                if (!CommonMethods.isValidSCode(securityCode)) {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+                } else {
+                    RestClient.getInstance().verifySecurityCode(username, securityCode,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
+                                    intent.putExtra("username", username);
+                                    startActivity(intent);
+                                }
+                            }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject errors) {
+                                    String securityCodeError = CommonMethods.getFirstError(errors, "security_code");
+                                    Toast.makeText(getApplicationContext(), securityCodeError, Toast.LENGTH_LONG).show();
+                                }
+                            }));
+                }
             }
         });
     }

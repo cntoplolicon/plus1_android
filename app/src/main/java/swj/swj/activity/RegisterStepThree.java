@@ -131,13 +131,13 @@ public class RegisterStepThree extends Activity {
 
     private boolean inputValidation() {
         if (nicknameInput.getText().toString().trim().isEmpty()) {
-            messageView.setText(getResources().getString(R.string.nickname_required));
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.nickname_required), Toast.LENGTH_LONG).show();
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
-            messageView.setText(getResources().getString(R.string.password_invalid_format));
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
             return false;
         } else if (radioGroup4Gender.getCheckedRadioButtonId() == -1) {
-            messageView.setText(getResources().getString(R.string.gender_required));
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.gender_required), Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
