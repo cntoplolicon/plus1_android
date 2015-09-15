@@ -63,8 +63,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                             }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject errors) {
-                                    String securityCodeError = CommonMethods.getFirstError(errors, "security_code");
-                                    Toast.makeText(getApplicationContext(), securityCodeError, Toast.LENGTH_LONG).show();
+                                    CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
                                 }
                             }));
                 }
