@@ -14,31 +14,12 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     public Activity mActivity;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        mActivity = activity;
-
-    }
-
-    public Activity getMyActivity() {
-        if (mActivity == null) {
-            return getActivity();
-        } else {
-            return mActivity;
-        }
-    }
-
     // Fragment被创建
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // mActivity = getActivity();// 获取所依赖的Activity
-        //initView();
+         mActivity = getActivity();// 获取所依赖的Activity
     }
-
     // 初始化Fragment布局
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,14 +34,10 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
-    /**
-     * 初始化布局
-     */
+
     public abstract View initView();
 
-    /**
-     * 初始化数据
-     */
+
     public void initData() {
 
     }
