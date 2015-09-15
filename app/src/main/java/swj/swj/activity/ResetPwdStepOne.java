@@ -6,16 +6,15 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import swj.swj.R;
-import swj.swj.activity.InputPhoneToGetSCode;
 
-public class ResetPwdStepOne extends InputPhoneToGetSCode {
+public class ResetPwdStepOne extends GetSecurityCodeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_one);
 
-        Button ResetToSCodePage = (Button) findViewById(R.id.btn_login_submit);
+        Button ResetToSCodePage = (Button) findViewById(R.id.btn_submit);
         usernameGotConfirm(ResetToSCodePage, ResetPwdStepTwo.class);
     }
 

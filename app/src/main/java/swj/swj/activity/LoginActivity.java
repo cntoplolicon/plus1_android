@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginSubmit = (Button) findViewById(R.id.btn_login_submit);
+        Button loginSubmit = (Button) findViewById(R.id.btn_submit);
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
         final EditText usernameInput = (EditText) findViewById(R.id.et_username);

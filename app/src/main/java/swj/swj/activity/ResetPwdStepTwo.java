@@ -8,16 +8,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.activity.SecurityCode;
 
-public class ResetPwdStepTwo extends SecurityCode {
+public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
 
-        Button ResetToNextPage = (Button) findViewById(R.id.btn_login_submit);
+        Button ResetToNextPage = (Button) findViewById(R.id.btn_submit);
         securityCodeConfirm(ResetToNextPage, ResetPwdStepThree.class);
 
         Intent intentFromPhoneInput = getIntent();

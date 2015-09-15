@@ -9,7 +9,7 @@
     <include
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        layout="@layout/activity_security_code_fragment"
+        layout="@layout/activity_verify_security_code"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp" />

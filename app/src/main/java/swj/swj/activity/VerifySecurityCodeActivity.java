@@ -16,14 +16,14 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class SecurityCode extends AppCompatActivity {
+public class VerifySecurityCodeActivity extends AppCompatActivity {
 
     protected SecurityCodeCountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_security_code_fragment);
+        setContentView(R.layout.activity_verify_security_code);
 
         startResendCountDown();
     }

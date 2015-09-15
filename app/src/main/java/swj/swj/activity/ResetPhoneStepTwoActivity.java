@@ -10,12 +10,11 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
-import swj.swj.activity.SecurityCode;
 
 /**
  * Created by jiewei on 9/7/15.
  */
-public class ResetPhoneStepTwoActivity extends SecurityCode {
+public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_phone_step_two);

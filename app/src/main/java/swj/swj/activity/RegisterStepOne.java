@@ -17,16 +17,15 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.activity.InputPhoneToGetSCode;
 
-public class RegisterStepOne extends InputPhoneToGetSCode {
+public class RegisterStepOne extends GetSecurityCodeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

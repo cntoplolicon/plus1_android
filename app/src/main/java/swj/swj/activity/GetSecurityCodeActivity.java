@@ -14,12 +14,12 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class InputPhoneToGetSCode extends AppCompatActivity {
+public class GetSecurityCodeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_phone_to_get_scode);
+        setContentView(R.layout.activity_get_security_code);
     }
 
     @Override

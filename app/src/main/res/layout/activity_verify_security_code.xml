@@ -44,7 +44,7 @@
         android:text="@string/send_again" />
 
     <Button
-        android:id="@+id/btn_login_submit"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/btn_resend_security_code"
@@ -58,7 +58,7 @@
         android:id="@+id/tv_security_code_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login_submit"
+        android:layout_below="@+id/btn_submit"
         android:layout_marginTop="68dp"
         android:layout_toLeftOf="@+id/btn_resend_security_code"
         android:layout_toStartOf="@+id/btn_resend_security_code"

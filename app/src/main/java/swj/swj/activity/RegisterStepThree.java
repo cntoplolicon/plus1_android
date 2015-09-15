@@ -71,7 +71,7 @@ public class RegisterStepThree extends Activity {
         messageView = (TextView) findViewById(R.id.tv_message);
         radioGroup4Gender = (RadioGroup) findViewById(R.id.rg_gender);
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

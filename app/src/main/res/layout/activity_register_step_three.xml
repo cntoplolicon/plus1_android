@@ -71,7 +71,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/btn_login_submit"
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit"
@@ -87,8 +87,8 @@
         android:layout_height="wrap_content"
         android:text="@string/gender_can_not_change"
         android:id="@+id/tv_message"
-        android:layout_above="@+id/btn_login_submit"
-        android:layout_alignLeft="@+id/btn_login_submit"
-        android:layout_alignStart="@+id/btn_login_submit"
+        android:layout_above="@+id/btn_submit"
+        android:layout_alignLeft="@+id/btn_submit"
+        android:layout_alignStart="@+id/btn_submit"
         android:layout_marginBottom="27dp" />
 </RelativeLayout>

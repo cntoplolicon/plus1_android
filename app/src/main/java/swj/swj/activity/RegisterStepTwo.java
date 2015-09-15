@@ -18,7 +18,7 @@ import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 
-public class RegisterStepTwo extends SecurityCode {
+public class RegisterStepTwo extends VerifySecurityCodeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class RegisterStepTwo extends SecurityCode {
             }
         });
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_login_submit);
+        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
