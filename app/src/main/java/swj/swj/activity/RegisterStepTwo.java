@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -25,7 +26,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
 
         Intent intentFromPhoneInput = getIntent();
-        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("phoneToGetSCode");
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
         TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
         SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
 
@@ -48,6 +49,10 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
             public void onClick(View view) {
                 final String username = getIntent().getStringExtra("username");
                 String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
+                if (!CommonMethods.isValidSCode(securityCode)) {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 RestClient.getInstance().verifySecurityCode(username, securityCode,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -59,8 +64,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                         }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject errors) {
-                                String securityCodeError = CommonMethods.getFirstError(errors, "security_code");
-                                ((TextView) findViewById(R.id.tv_security_code_error)).setText(securityCodeError);
+                                CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
                             }
                         }));
             }

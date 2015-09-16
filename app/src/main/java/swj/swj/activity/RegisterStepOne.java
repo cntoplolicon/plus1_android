@@ -15,6 +15,8 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
+
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -22,23 +24,26 @@ import swj.swj.common.RestClient;
 
 public class RegisterStepOne extends GetSecurityCodeActivity {
 
+    private EditText usernameInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
-
         Button btnSubmit = (Button) findViewById(R.id.btn_submit);
+        usernameInput = (EditText) findViewById(R.id.et_username);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText usernameInput = (EditText) findViewById(R.id.et_username);
+                if (!inputValidation()) {
+                    return;
+                }
                 final String username = usernameInput.getText().toString();
                 RestClient.getInstance().newSecurityCode4Account(username,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
-                                intent.putExtra("phoneToGetSCode", username);
                                 intent.putExtra("counter_start", System.currentTimeMillis());
                                 intent.putExtra("username", username);
 
@@ -53,13 +58,19 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
                         new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject errors) {
-                                String usernameError = CommonMethods.getFirstError(errors, "username");
-                                TextView txUsernameError = (TextView) findViewById(R.id.tv_username_error);
-                                txUsernameError.setText(usernameError);
+                                CommonMethods.toastError(RegisterStepOne.this, errors, "username");
                             }
                         }));
             }
         });
+    }
+
+    private boolean inputValidation() {
+        if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override

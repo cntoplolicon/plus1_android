@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
@@ -42,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                 phoneNumber = usernameInput.getText().toString();
                 pwd = pwdInput.getText().toString();
                 if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    loginMessage.setText(getResources().getString(R.string.username_invalid_format));
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
                 } else if (!CommonMethods.isValidPwd(pwd)) {
-                    loginMessage.setText(getResources().getString(R.string.password_invalid_format));
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
                 } else {
                     loginMessage.setText("Loading...");
                     tempInitUser();
