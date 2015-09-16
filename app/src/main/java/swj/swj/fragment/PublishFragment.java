@@ -56,11 +56,6 @@ public class PublishFragment extends BaseFragment {
         return v;
     }
 
-    @Override
-    public void initData() {
-        super.initData();
-    }
-
     //use camera
     public void getCamera() {
         Toast.makeText(mActivity, "进入相机", Toast.LENGTH_SHORT).show();
@@ -102,14 +97,14 @@ public class PublishFragment extends BaseFragment {
                 // 把数据写入文件
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outPutStream);
             } catch (IOException e) {
-                Log.e(PublishFragment.class.getName(),"outPutStream null");
+                Log.e(PublishFragment.class.getName(), "failed writing to file", e);
             } finally {
                 try {
                     if (outPutStream != null) {
                         outPutStream.close();
                     }
                 } catch (IOException e) {
-                    Log.e(PublishFragment.class.getName(),"outPutStream no close ");
+                    Log.e(PublishFragment.class.getName(), "failed closing output stream", e);
                 }
             }
             startActivity(new Intent(mActivity, PublishActivity.class).setAction("getCamera").putExtra("fileName", fileName));
