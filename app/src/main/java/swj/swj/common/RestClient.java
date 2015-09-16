@@ -26,7 +26,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.144:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
 
     private static RestClient instance;
@@ -81,7 +81,7 @@ public class RestClient {
         requestQueue.add(request);
     }
 
-    public void signUp(String username, String nickname, String password, int gender, AbstractContentBody avatar,
+    public void signUp(boolean createNewUser, String username, String nickname, String password, int gender, AbstractContentBody avatar,
                        Listener<JSONObject> onSuccess, ErrorListener onError) {
         Map<String, Object> params = createMultipartParams4User();
         params.put("username", username);
@@ -90,8 +90,9 @@ public class RestClient {
         params.put("avatar", avatar);
         params.put("gender", gender);
 
+        String userId = createNewUser ? "new" : params.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
-                getResourceUrl("/users/" + params.get("user_id")), params, onSuccess, onError);
+                getResourceUrl("/users/" + userId), params, onSuccess, onError);
         requestQueue.add(request);
     }
 
