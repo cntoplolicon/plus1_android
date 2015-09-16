@@ -48,6 +48,7 @@ public class PublishFragment extends BaseFragment {
                             case 1:
                                 getGallery();
                                 break;
+
                         }
                     }
                 }).show();

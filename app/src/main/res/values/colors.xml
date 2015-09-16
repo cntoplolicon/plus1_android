@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="settings_title_color">#88888888</color>
     <color name="settings_top_bar_blue">#0066FF</color>
     <color name="common_yellow">#FED724</color>
@@ -10,4 +11,11 @@
     <color name="personal_gridview_title_pressed">#303030</color>
     <color name="personal_gridview_title_unpressed">#929292</color>
     <color name="settings_common_title">#303030</color>
+
+    <color name="home_title_color">#b3b3b3</color>
+    <color name="register_hint_color">#bababa</color>
+    <color name="new_card_text_color">#303030</color>
+    <color name="new_card_button">#bababa</color>
+    <color name="new_card_background">#FFFFFF</color>
+
 </resources>

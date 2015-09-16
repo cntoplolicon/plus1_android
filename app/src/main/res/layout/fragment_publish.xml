@@ -1,30 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/new_card_background"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/publish_button_margin_top"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="25dp"
+            android:layout_width="@dimen/publish_button"
+            android:layout_height="@dimen/publish_button"
+            android:layout_marginRight="@dimen/publish_button_spacing"
+            android:background="@drawable/button_border"
             android:onClick="addImage"
-            android:text="@string/publish_add_image" />
+            android:text="@string/publish_add_image"
+            android:textColor="@color/new_card_button" />
 
         <Button
             android:id="@+id/bt_text"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="25dp"
+            android:layout_width="@dimen/publish_button"
+            android:layout_height="@dimen/publish_button"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginRight="@dimen/publish_button_spacing"
+            android:background="@drawable/button_border"
+
+
             android:onClick="addText"
-            android:text="@string/publish_add_text" />
+            android:text="@string/publish_add_text"
+            android:textColor="@color/new_card_button" />
 
     </LinearLayout>
 

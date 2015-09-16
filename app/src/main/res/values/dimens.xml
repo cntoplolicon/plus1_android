@@ -1,4 +1,7 @@
 <resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    >>>>>>> publish activity ui
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="home_txt_button">11sp</dimen>
     <dimen name="home_rbg">55dp</dimen>

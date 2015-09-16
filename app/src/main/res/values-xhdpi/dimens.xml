@@ -26,4 +26,11 @@
     <dimen name="personal_grid_title_text">13sp</dimen>
     <dimen name="settings_common_text">16sp</dimen>
 
+    <dimen name="home_title_text_size">19sp</dimen>
+    <dimen name="home_text_margin_bottom">16dp</dimen>
+    <dimen name="home_text_margin_top">15dp</dimen>
+    <dimen name="publish_button">105dp</dimen>
+    <dimen name="publish_button_margin_top">10dp</dimen>
+    <dimen name="publish_button_spacing">2dp</dimen>
+
 </resources>
