@@ -8,11 +8,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import swj.swj.R;
+import swj.swj.fragment.PublishFragment;
+
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
-import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {
@@ -46,33 +47,29 @@ public class HomeActivity extends Activity {
         //提交事务
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
-        radioButton.setTextColor(Color.RED);
         tv_title.setText(getResources().getString(R.string.home_tab));
     }
 
     public void onFriends(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.friends_tab));
     }
 
     /*相机*/
     public void onPublish(View view) {
-
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.publish_title));
     }
 
+
     public void onMessage(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.message_tab));
     }
 
     public void onMySelf(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tv_title.setText(getResources().getString(R.string.myself_tab));
     }
 

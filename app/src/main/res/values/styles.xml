@@ -9,16 +9,16 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:button">@null</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@drawable/selector_txt</item>
+        <item name="android:textSize">@dimen/home_txt_button</item>
+        <item name="android:textColor">@drawable/btn_txt_selector</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">10dp</item>
         <item name="android:layout_weight">1</item>
     </style>
     <!-- 主页底栏的RadioButtond的style -->
     <style name="TitleStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/home_title</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">#000</item>
         <item name="android:gravity">center</item>
