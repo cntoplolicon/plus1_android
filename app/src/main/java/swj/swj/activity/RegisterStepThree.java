@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
@@ -42,7 +43,6 @@ public class RegisterStepThree extends Activity {
 
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
-    private static final int RESULT_REQUEST_CODE = 2;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final String[] options = new String[]{"从相册选择", "拍照"};
 
@@ -50,7 +50,6 @@ public class RegisterStepThree extends Activity {
 
     private EditText nicknameInput;
     private EditText passwordInput;
-    private TextView messageView;
     private RadioGroup radioGroup4Gender;
 
     @Override
@@ -68,7 +67,6 @@ public class RegisterStepThree extends Activity {
 
         nicknameInput = (EditText) findViewById(R.id.et_nickname);
         passwordInput = (EditText) findViewById(R.id.et_password);
-        messageView = (TextView) findViewById(R.id.tv_message);
         radioGroup4Gender = (RadioGroup) findViewById(R.id.rg_gender);
 
         Button btnSubmit = (Button) findViewById(R.id.btn_submit);
@@ -172,20 +170,20 @@ public class RegisterStepThree extends Activity {
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case IMAGE_REQUEST_CODE:
-                    startPhotoZoom(data.getData());
+                    beginCrop(data.getData());
                     break;
                 case CAMERA_REQUEST_CODE:
                     if (CommonMethods.hasSdCard()) {
                         File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                        startPhotoZoom(Uri.fromFile(avatar));
+                        beginCrop(Uri.fromFile(avatar));
                     } else {
                         //toast error message when unable to find sdcard
                         Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
                     }
                     break;
-                case RESULT_REQUEST_CODE:
+                case Crop.REQUEST_CROP:
                     if (data != null) {
-                        setImageToView(data);
+                        handleCrop(resultCode, data);
                     }
                     break;
             }
@@ -209,30 +207,6 @@ public class RegisterStepThree extends Activity {
         startActivityForResult(intentFromCamera, CAMERA_REQUEST_CODE);
     }
 
-    public void startPhotoZoom(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        //set crop
-        intent.putExtra("crop", "true");
-        //set width&height ratio
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        //set height and width
-        intent.putExtra("outputX", 100);
-        intent.putExtra("outputY", 100);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, RESULT_REQUEST_CODE);
-    }
-
-    public void setImageToView(Intent data) {
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
-            faceImage.setImageBitmap(photo);
-        }
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -253,5 +227,19 @@ public class RegisterStepThree extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            faceImage.setImageDrawable(null);
+            faceImage.setImageURI(Crop.getOutput(result));
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

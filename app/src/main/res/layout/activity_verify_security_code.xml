@@ -30,7 +30,8 @@
         android:width="100dp"
         android:height="50dp"
         android:gravity="center"
-        android:hint="@string/hint_security_code" />
+        android:hint="@string/hint_security_code"
+        android:inputType="phone"/>
 
     <Button
         android:id="@+id/btn_resend_security_code"
