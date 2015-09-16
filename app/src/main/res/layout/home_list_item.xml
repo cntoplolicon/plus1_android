@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9DECF9">
+    android:background="#fff"
+    >
 
 
     <ImageView
@@ -12,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:maxHeight="350dp"
-        android:maxWidth="350dp"
-        android:padding="5dp"
+        android:maxHeight="@dimen/home_img_height"
+        android:maxWidth="500dp"
+        android:layout_marginTop="@dimen/home_img_mgt"
         android:scaleType="centerInside"
         android:src="@drawable/abc"/>
 
@@ -27,7 +28,7 @@
         android:layout_marginLeft="15dp"
         android:text="用户"
         android:textColor="#25AFF8"
-        android:textSize="18sp"/>
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/tv_content"
@@ -39,8 +40,8 @@
         android:layout_toRightOf="@id/tv_user"
         android:ellipsize="end"
         android:lines="4"
-        android:text="空间的放松卡来看看癃开颗粒 啊颇具；记录卡垃圾啊‘啊啊快发快发’卡啊卡卡卡‘坎坎坷坷’快快泼哦哦】】喔噢记录卡垃圾啊‘啊啊快发快发’卡啊卡卡卡‘坎坎坷坷’快快泼哦哦】】喔噢"
-        android:textSize="16sp"/>
+        android:text="喔噢"
+        android:textSize="15sp"/>
 
 
     <TextView
@@ -49,10 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/com_icon_comment"
+        android:drawableLeft="@drawable/message"
         android:drawablePadding="10dp"
         android:text="55"
-        android:textSize="25sp"/>
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/tv_views"
@@ -61,9 +62,9 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:layout_toRightOf="@id/tv_message"
-        android:drawableLeft="@drawable/com_icon_scan"
+        android:drawableLeft="@drawable/found"
         android:drawablePadding="10dp"
         android:text="150"
-        android:textSize="25sp"/>
+        android:textSize="15sp"/>
 
 </RelativeLayout>

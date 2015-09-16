@@ -6,13 +6,20 @@
     <RelativeLayout
         android:id="@+id/rl_home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#919191">
+        android:layout_height="wrap_content">
+
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/TitleStyle"
-            android:text="@string/home_tab" />
+            android:text="@string/home_tab"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_title"
+            android:background="#b3b3b3"
+            />
     </RelativeLayout>
 
     <FrameLayout
@@ -22,12 +29,15 @@
         android:layout_weight="1">
 
     </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b3b3b3"/>
 
     <RadioGroup
         android:id="@+id/rg_group"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#9e9e9e"
+        android:layout_height="@dimen/home_rbg"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -36,30 +46,34 @@
             style="@style/ButtonTabStyle"
             android:onClick="onHome"
             android:text="@string/home_tab"
-            android:textColor="#f00" />
+            android:checked="true"
+            android:drawableTop="@drawable/btn_home_selector"/>
 
         <RadioButton
             android:id="@+id/rb_friends"
             style="@style/ButtonTabStyle"
             android:onClick="onFriends"
+            android:drawableTop="@drawable/btn_found_selector"
             android:text="@string/friends_tab" />
 
         <RadioButton
             android:id="@+id/rb_Publish"
             style="@style/ButtonTabStyle"
             android:onClick="onPublish"
-            android:text="@string/publish_tab" />
+            android:drawableTop="@drawable/btn_publish_selector" />
 
         <RadioButton
             android:id="@+id/rb_message"
             style="@style/ButtonTabStyle"
             android:onClick="onMessage"
+            android:drawableTop="@drawable/btn_message_selector"
             android:text="@string/message_tab" />
 
         <RadioButton
             android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
             android:onClick="onMySelf"
+            android:drawableTop="@drawable/btn_myself_selector"
             android:text="@string/myself_tab" />
 
 
