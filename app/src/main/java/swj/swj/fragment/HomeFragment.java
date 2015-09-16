@@ -26,7 +26,6 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < 99; i++) {
             homeBeanList.add(new HomeItemBean(R.drawable.abc, "用户" + i, "内容" + i, "消息" + i, "浏览" + i));
     }
-
         mSlidingView = (MySlidingView) view.findViewById(R.id.sl_swipelayout);
         HomeViewAdapter HomeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
         mSlidingView.setAdapter(HomeViewAdapter);

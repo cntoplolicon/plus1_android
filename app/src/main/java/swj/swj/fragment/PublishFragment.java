@@ -37,7 +37,7 @@ public class PublishFragment extends BaseFragment {
         bt_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -73,7 +73,6 @@ public class PublishFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PHOTO_REQUEST_TAKEPHOTO) {
-            Log.e(PublishFragment.class.getName(),"outPutStream no close ");
             String sdStatus = Environment.getExternalStorageState();
             // 检测sd是否可用
             if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
@@ -91,20 +90,23 @@ public class PublishFragment extends BaseFragment {
             File file = new File("/sdcard/myImage/");
             String fileName = "/sdcard/myImage/" + name;
             file.mkdirs();
-
             try {
                 outPutStream = new FileOutputStream(fileName);
                 // 把数据写入文件
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outPutStream);
             } catch (IOException e) {
+
                 Log.e(PublishFragment.class.getName(), "failed writing to file", e);
+
             } finally {
                 try {
                     if (outPutStream != null) {
                         outPutStream.close();
                     }
                 } catch (IOException e) {
+
                     Log.e(PublishFragment.class.getName(), "failed closing output stream", e);
+
                 }
             }
             startActivity(new Intent(mActivity, PublishActivity.class).setAction("getCamera").putExtra("fileName", fileName));

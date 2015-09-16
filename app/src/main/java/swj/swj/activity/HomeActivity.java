@@ -59,7 +59,6 @@ public class HomeActivity extends Activity {
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
-    /*相机*/
     public void onPublish(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         radioButton.setTextColor(Color.WHITE);

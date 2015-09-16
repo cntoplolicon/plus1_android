@@ -23,12 +23,10 @@ public class PublishActivity extends Activity {
         setContentView(R.layout.activity_push);
         image = (ImageView) findViewById(R.id.iv_image);
         Intent intent = getIntent();
-
         if (intent.getAction().equals("getCamera")) {
             String fileName = intent.getStringExtra("fileName");
             Bitmap myCamera = BitmapFactory.decodeFile(fileName);
             image.setImageBitmap(myCamera);
-
         } else if (intent.getAction().equals("getGallery")) {
             String picPath = intent.getStringExtra("picPath");
             Bitmap myGallery = BitmapFactory.decodeFile(picPath);
