@@ -1,0 +1,41 @@
+[33m08ac36e[m HEAD@{0}: rebase finished: returning to refs/heads/syb
+[33m08ac36e[m HEAD@{1}: rebase: publish ui finish
+[33mf3f18a1[m HEAD@{2}: rebase: publish activity ui
+[33mf5cb178[m HEAD@{3}: rebase: insignificance change
+[33m981f014[m HEAD@{4}: rebase: checkout origin/master
+[33m6c8912f[m HEAD@{5}: rebase: aborting
+[33me441bcf[m HEAD@{6}: commit: publish image ui
+[33mc847f67[m HEAD@{7}: rebase: publish activity ui
+[33m0a0e053[m HEAD@{8}: rebase: insignificance change
+[33m726082c[m HEAD@{9}: rebase: checkout origin/master
+[33m6c8912f[m HEAD@{10}: commit: publish ui finish
+[33m34aded8[m HEAD@{11}: commit: publish activity ui
+[33m802f31f[m HEAD@{12}: rebase finished: returning to refs/heads/syb
+[33m802f31f[m HEAD@{13}: rebase: insignificance change
+[33m146cf1a[m HEAD@{14}: rebase: checkout origin/master
+[33m4359f35[m HEAD@{15}: commit (amend): insignificance change
+[33m07c9b8c[m HEAD@{16}: rebase: aborting
+[33m8a1c5e6[m HEAD@{17}: commit (amend): correct exception logging
+[33m145f201[m HEAD@{18}: rebase: checkout origin/master
+[33m07c9b8c[m HEAD@{19}: commit: Add Text Activity
+[33m0a7eabe[m HEAD@{20}: commit (amend): publich activity change
+[33md4030fd[m HEAD@{21}: rebase finished: returning to refs/heads/syb
+[33md4030fd[m HEAD@{22}: rebase: publich activity change
+[33mf94e89b[m HEAD@{23}: rebase: PushActivity
+[33m502e7bd[m HEAD@{24}: rebase: checkout origin/master
+[33m1c53f25[m HEAD@{25}: commit: publich activity change
+[33m6494070[m HEAD@{26}: commit (amend): PushActivity
+[33m0d28789[m HEAD@{27}: rebase finished: returning to refs/heads/syb
+[33m0d28789[m HEAD@{28}: rebase: PushActivity
+[33m607e6eb[m HEAD@{29}: rebase: checkout origin/master
+[33m15a92a9[m HEAD@{30}: commit (amend): PushActivity
+[33md414910[m HEAD@{31}: rebase finished: returning to refs/heads/syb
+[33md414910[m HEAD@{32}: rebase: PushActivity
+[33m910c4e9[m HEAD@{33}: rebase: checkout origin/master
+[33m8ddb0a1[m HEAD@{34}: commit (amend): PushActivity
+[33mae9520c[m HEAD@{35}: commit (amend): PushActivity
+[33m58ad4a1[m HEAD@{36}: commit: PushActivity
+[33m7aa8ae6[m HEAD@{37}: commit: homelayout
+[33m5fc2054[m HEAD@{38}: checkout: moving from master to syb
+[33m5fc2054[m HEAD@{39}: commit: add homepager swipeview
+[33m336214d[m HEAD@{40}: clone: from git@github.com:cntoplolicon/yolo_android.git
