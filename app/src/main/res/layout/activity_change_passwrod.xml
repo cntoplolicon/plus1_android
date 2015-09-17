@@ -39,7 +39,7 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/et_old_pwd"
+        android:id="@+id/et_old_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -49,7 +49,7 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/et_new_pwd"
+        android:id="@+id/et_password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -58,7 +58,7 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/et_new_pwd_repeat"
+        android:id="@+id/et_password_confirmation"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -67,7 +67,8 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btn_change_pwd_save"
+        android:id="@+id/btn_submit"
+        android:onClick="onSubmit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
