@@ -44,10 +44,10 @@ public class PersonalGridViewAdapter extends BaseAdapter {
         if (convertView == null){
             gridView = new View(context);
             gridView = inflater.inflate(R.layout.myself_gridview_item, null);
-            ImageView imageView = (ImageView)gridView.findViewById(R.id.gridview_item_image);
-            imageView.setImageResource(R.drawable.default_useravatar);
+//            ImageView imageView = (ImageView)gridView.findViewById(R.id.gridview_item_image);
+//            imageView.setImageResource(R.drawable.test);
             TextView textView = (TextView)  gridView.findViewById(R.id.tv_forward_count);
-            textView.setText("aaa");
+            textView.setText("32人转发");
         }else {
             gridView = convertView;
         }

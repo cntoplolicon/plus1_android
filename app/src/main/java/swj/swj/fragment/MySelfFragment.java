@@ -15,14 +15,14 @@ import swj.swj.activity.PersonalSettingsActivity;
 import swj.swj.activity.RegisterStepOne;
 import swj.swj.adapter.PersonalGridViewAdapter;
 import swj.swj.common.LocalUserInfo;
+import swj.swj.model.User;
 
 
 public class MySelfFragment extends BaseFragment {
 
     private View headerView;
     private GridViewWithHeaderAndFooter gridView;
-    private LinearLayout layoutRequestLogin;
-    private TextView tvMyPublish, tvMyCollection, tvToLogin, tvToReg;
+    private TextView tvMyPublish, tvMyCollection;
 
     @Override
     public View initView() {
@@ -34,9 +34,6 @@ public class MySelfFragment extends BaseFragment {
         gridView.setAdapter(adapter);
 
         TextView tvPersonalSettings = (TextView) mActivity.findViewById(R.id.personal_settings_tv);
-        tvToLogin = (TextView) v.findViewById(R.id.tv_start_login);
-        tvToReg = (TextView) v.findViewById(R.id.tv_start_register);
-        layoutRequestLogin = (LinearLayout) v.findViewById(R.id.ll_request_login);
         tvPersonalSettings.setOnClickListener(new MyListener());
 
         return v;
@@ -51,18 +48,16 @@ public class MySelfFragment extends BaseFragment {
     public void onResume() {
         Log.d("MyselfFragment", "onResume");
         super.onResume();
-        UpdateUserInfo(LocalUserInfo.getInstance().getUserInfo("nick_name"));
+        UpdateUserInfo(User.current.getNickname());
     }
 
     private void showUserInfo(String userNickName) {
-        gridView.setVisibility(View.VISIBLE);
-        layoutRequestLogin.setVisibility(View.GONE);
         TextView tvNickName = (TextView) headerView.findViewById(R.id.tv_myself_nickname);
         tvNickName.setText(userNickName);
-        TextView tvSex = (TextView) headerView.findViewById(R.id.tv_myself_sex);
-        tvSex.setText(LocalUserInfo.getInstance().getUserInfo("sex"));
+//        TextView tvSex = (TextView) headerView.findViewById(R.id.tv_myself_sex);
+//        tvSex.setText(LocalUserInfo.getInstance().getUserInfo("sex"));
         TextView tvSign = (TextView) headerView.findViewById(R.id.tv_myself_sign);
-        tvSign.setText(LocalUserInfo.getInstance().getUserInfo("sign"));
+        tvSign.setText("风雨之后一定是彩虹");
         tvMyPublish = (TextView) headerView.findViewById(R.id.tv_myself_publish);
         tvMyCollection = (TextView) headerView.findViewById(R.id.tv_myself_collect);
         tvMyPublish.setOnClickListener(new MyListener());
@@ -71,18 +66,7 @@ public class MySelfFragment extends BaseFragment {
 
 
     private void UpdateUserInfo(String userNickName) {
-        if (userNickName.equals("")) {
-            initLink();
-        } else {
             showUserInfo(userNickName);
-        }
-    }
-
-    private void initLink() {
-        gridView.setVisibility(View.GONE);
-        layoutRequestLogin.setVisibility(View.VISIBLE);
-        tvToLogin.setOnClickListener(new MyListener());
-        tvToReg.setOnClickListener(new MyListener());
     }
 
     class MyListener implements View.OnClickListener {
@@ -92,19 +76,13 @@ public class MySelfFragment extends BaseFragment {
                 case R.id.personal_settings_tv:
                     startActivity(new Intent(getActivity(), PersonalSettingsActivity.class));
                     break;
-                case R.id.tv_start_login:
-                    startActivity(new Intent(mActivity, LoginActivity.class));
-                    break;
-                case R.id.tv_start_register:
-                    startActivity(new Intent(mActivity, RegisterStepOne.class));
-                    break;
                 case R.id.tv_myself_publish:
-                    tvMyPublish.setBackgroundColor(getResources().getColor(R.color.myself_content_display_selected));
-                    tvMyCollection.setBackgroundColor(Color.WHITE);
+                    tvMyPublish.setBackgroundResource(R.drawable.personal_tv_border_left_pressed);
+                    tvMyCollection.setBackgroundResource(R.drawable.personal_tv_border_right_unpressed);
                     break;
                 case R.id.tv_myself_collect:
-                    tvMyCollection.setBackgroundColor(getResources().getColor(R.color.myself_content_display_selected));
-                    tvMyPublish.setBackgroundColor(Color.WHITE);
+                    tvMyPublish.setBackgroundResource(R.drawable.personal_tv_border_left_unpressed);
+                    tvMyCollection.setBackgroundResource(R.drawable.personal_tv_border_right_pressed);
                     break;
             }
         }

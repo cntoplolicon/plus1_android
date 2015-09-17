@@ -3,63 +3,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_request_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <swj.swj.view.RoundedImageView
-            android:id="@+id/roundedImageForAvatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/default_useravatar"></swj.swj.view.RoundedImageView>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请先" />
-
-            <TextView
-                android:id="@+id/tv_start_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登陆"
-                android:textColor="#f621a1ff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="或" />
-
-            <TextView
-                android:id="@+id/tv_start_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注册"
-                android:textColor="#f621a1ff" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
     <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:id="@+id/gd_myself_content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:horizontalSpacing="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:horizontalSpacing="4dp"
         android:numColumns="2"
-        android:verticalSpacing="10dp">
+        android:verticalSpacing="5dp">
     </in.srain.cube.views.GridViewWithHeaderAndFooter>
 
 </FrameLayout>

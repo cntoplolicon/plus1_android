@@ -2,5 +2,4 @@
 <resources>
     <item name="settings_title_color" type="color">#88888888</item>
     <item name="settings_top_bar_blue" type="color">#0066FF</item>
-    <color name="myself_content_display_selected">#a8f3ff</color>
 </resources>
