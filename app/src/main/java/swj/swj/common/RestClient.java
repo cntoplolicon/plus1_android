@@ -10,8 +10,6 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.json.JSONObject;
@@ -27,7 +25,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.144:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
 
     private static RestClient instance;
@@ -109,7 +107,7 @@ public class RestClient {
     }
 
     public void updateUserAttributes(Map<String, Object> attributes,
-                                    Listener<JSONObject> onSucess, ErrorListener onError) {
+                                     Listener<JSONObject> onSucess, ErrorListener onError) {
         Map<String, Object> params = createUserParams();
         params.putAll(attributes);
         String userId = params.get("user_id").toString();

@@ -18,7 +18,7 @@
         android:text="@string/security_code_sent" />
 
     <EditText
-        android:id="@+id/et_security_code_input"
+        android:id="@+id/et_security_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -33,24 +33,25 @@
         android:hint="@string/hint_security_code" />
 
     <Button
-        android:id="@+id/btn_get_SCode"
+        android:id="@+id/btn_resend_security_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/et_security_code_input"
+        android:layout_alignTop="@+id/et_security_code"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:text="@string/send_again" />
 
     <Button
-        android:id="@+id/btn_confirm_new_phone"
+        android:id="@+id/btn_submit"
+        android:onClick="onSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btn_get_SCode"
-        android:layout_alignLeft="@+id/et_security_code_input"
-        android:layout_alignRight="@+id/btn_get_SCode"
-        android:layout_alignStart="@+id/et_security_code_input"
+        android:layout_alignEnd="@+id/btn_resend_security_code"
+        android:layout_alignLeft="@+id/et_security_code"
+        android:layout_alignRight="@+id/btn_resend_security_code"
+        android:layout_alignStart="@+id/et_security_code"
         android:layout_centerVertical="true"
         android:text="@string/next_activity" />
 
@@ -58,10 +59,10 @@
         android:id="@+id/tv_security_code_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_confirm_new_phone"
+        android:layout_below="@+id/btn_submit"
         android:layout_marginTop="68dp"
-        android:layout_toLeftOf="@+id/btn_get_SCode"
-        android:layout_toStartOf="@+id/btn_get_SCode"
+        android:layout_toLeftOf="@+id/btn_resend_security_code"
+        android:layout_toStartOf="@+id/btn_resend_security_code"
         android:text=""/>
 
 </RelativeLayout>

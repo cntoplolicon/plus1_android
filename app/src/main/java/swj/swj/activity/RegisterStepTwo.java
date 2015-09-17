@@ -48,11 +48,10 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
             @Override
             public void onClick(View view) {
                 final String username = getIntent().getStringExtra("username");
-                String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-                if (!CommonMethods.isValidSCode(securityCode)) {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+                if (!inputValidation()) {
                     return;
                 }
+                String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
                 RestClient.getInstance().verifySecurityCode(username, securityCode,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -70,6 +69,15 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                         }));
             }
         });
+    }
+
+    private boolean inputValidation() {
+        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
+        if (!CommonMethods.isValidSCode(securityCode)) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
