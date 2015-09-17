@@ -17,7 +17,6 @@ import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {
-
     RadioButton radioButton;
     TextView tvTitle, tvPersonalSettings;
 
@@ -55,31 +54,25 @@ public class HomeActivity extends Activity {
 
     public void onFriends(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tvTitle.setText(getResources().getString(R.string.friends_tab));
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onPublish(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tvTitle.setText(getResources().getString(R.string.publish_title));
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
-
     public void onMessage(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tvTitle.setText(getResources().getString(R.string.message_tab));
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onMySelf(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
-        radioButton.setTextColor(Color.WHITE);
         tvTitle.setText(getResources().getString(R.string.myself_tab));
         tvPersonalSettings.setVisibility(View.VISIBLE);
     }
-
 }

@@ -13,6 +13,7 @@ import swj.swj.view.MySlidingView;
 public class HomeFragment extends BaseFragment {
     private MySlidingView mSlidingView;
     private View view;
+    int[] mImageIds = new int[]{R.drawable.shw_01,R.drawable.shw_02,R.drawable.shw_03,R.drawable.shw_04};
 
     @Override
     public View initView() {
