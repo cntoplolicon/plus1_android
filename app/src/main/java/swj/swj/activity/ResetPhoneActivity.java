@@ -25,43 +25,46 @@ public class ResetPhoneActivity extends Activity {
 
     private EditText usernameInput;
 
+    private View.OnClickListener onSubmit = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (!inputValidation()) {
+                return;
+            }
+            final String username = usernameInput.getText().toString();
+            RestClient.getInstance().newSecurityCode4Account(username,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String securityCode = response.optString("security_code", "");
+                            if (!securityCode.isEmpty()) {
+                                Log.d("security_code", securityCode);
+                                Toast.makeText(ResetPhoneActivity.this, securityCode, Toast.LENGTH_LONG).show();
+                            }
+
+                            Intent intent = new Intent(ResetPhoneActivity.this, ResetPhoneStepTwoActivity.class);
+                            intent.putExtra("counter_start", System.currentTimeMillis());
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                        }
+                    },
+                    new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject errors) {
+                            CommonMethods.toastError(ResetPhoneActivity.this, errors, "username");
+                        }
+                    }));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_phone_step_one);
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!inputValidation()) {
-                    return;
-                }
-                final String username = usernameInput.getText().toString();
-                RestClient.getInstance().newSecurityCode4Account(username,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                String securityCode = response.optString("security_code", "");
-                                if (!securityCode.isEmpty()) {
-                                    Log.d("security_code", securityCode);
-                                    Toast.makeText(ResetPhoneActivity.this, securityCode, Toast.LENGTH_LONG).show();
-                                }
 
-                                Intent intent = new Intent(ResetPhoneActivity.this, ResetPhoneStepTwoActivity.class);
-                                intent.putExtra("counter_start", System.currentTimeMillis());
-                                intent.putExtra("username", username);
-                                startActivity(intent);
-                            }
-                        },
-                        new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject errors) {
-                                CommonMethods.toastError(ResetPhoneActivity.this, errors, "username");
-                            }
-                        }));
-            }
-        });
+        Button button = (Button)findViewById(R.id.btn_submit);
+        button.setOnClickListener(onSubmit);
     }
 
     private boolean inputValidation() {

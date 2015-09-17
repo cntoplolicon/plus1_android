@@ -18,10 +18,10 @@
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hint_press_to_get_SCode"
-        android:id="@+id/btn_submit"
         android:layout_below="@+id/et_username"
         android:layout_alignLeft="@+id/et_username"
         android:layout_alignStart="@+id/et_username"

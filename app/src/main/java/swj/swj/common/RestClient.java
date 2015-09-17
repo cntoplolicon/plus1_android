@@ -64,6 +64,15 @@ public class RestClient {
         requestQueue.add(request);
     }
 
+    public void newSecurityCode4Password(String username, Listener<JSONObject> onSuccess,
+                                         ErrorListener onError) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/security_codes/password"), params, onSuccess, onError);
+        requestQueue.add(request);
+    }
+
     public void verifySecurityCode(String username, String securityCode,
                                    Listener<JSONObject> onSucess, ErrorListener onError) {
         Map<String, Object> params = new HashMap<>();
@@ -113,6 +122,16 @@ public class RestClient {
         String userId = params.get("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
                 getResourceUrl("/users/" + userId), params, onSucess, onError);
+        requestQueue.add(request);
+    }
+
+    public void resetPassword(String username, String password,
+                              Listener<JSONObject> onSucess, ErrorListener onError) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
+                getResourceUrl("/users/password"), params, onSucess, onError);
         requestQueue.add(request);
     }
 

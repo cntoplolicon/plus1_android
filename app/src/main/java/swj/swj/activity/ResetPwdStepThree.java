@@ -6,40 +6,70 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+
+import org.json.JSONObject;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
 
 public class ResetPwdStepThree extends Activity {
+
+    private EditText passwordInput;
+    private EditText passwordConfirmationInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_three);
 
-        final TextView resetPwdStepThreeErrorMsg = (TextView) findViewById(R.id.resetPwdStepThreeErrorMessage);
-        Button resetPwdStepThreeConfirmBtn = (Button) findViewById(R.id.btn_reset_pwd_step_three_confirm);
-        final EditText resetPwdStepThreeInput = (EditText) findViewById(R.id.et_reset_pwd_step_three_input);
-        final EditText resetPwdStepThreeConfirm = (EditText) findViewById(R.id.et_reset_pwd_step_three_confirm);
+        passwordInput = (EditText) findViewById(R.id.et_password);
+        passwordConfirmationInput = (EditText) findViewById(R.id.et_password_confirmation);
+    }
 
-        resetPwdStepThreeConfirmBtn.setOnClickListener(new View.OnClickListener() {
+    public void onSubmit(View view) {
+        if (!inputValidation()) {
+            return;
+        }
+
+        String username = getIntent().getStringExtra("username");
+        String password = passwordInput.getText().toString();
+        RestClient.getInstance().resetPassword(username, password, new Response.Listener<JSONObject>() {
             @Override
-            public void onClick(View v) {
-                if (!CommonMethods.isValidPwd(resetPwdStepThreeInput.getText().toString())) {
-                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.password_invalid_format));
-                } else if (!resetPwdStepThreeInput.getText().toString().equals(resetPwdStepThreeConfirm.getText().toString())) {
-                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.password_confirmation_incorrect));
-                } else {
-                    resetPwdStepThreeErrorMsg.setText(getResources().getString(R.string.pwd_reset_succeed));
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.putExtra("resetPwdStepThree", getResources().getString(R.string.pwd_reset_succeed));
-                    startActivityForResult(intent, 0);
-                }
+            public void onResponse(JSONObject response) {
+                Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
-        });
+        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject errors) {
+                CommonMethods.toastError(getApplicationContext(), errors, "username");
+                CommonMethods.toastError(getApplicationContext(), errors, "password");
+            }
+        }));
+    }
+
+    private boolean inputValidation() {
+        String password = passwordInput.getText().toString();
+        if (!CommonMethods.isValidPwd(password)) {
+            Toast.makeText(this, R.string.password_invalid_format, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        String passwordConfirmation = passwordConfirmationInput.getText().toString();
+        if (!passwordConfirmation.equals(password)) {
+            Toast.makeText(this, R.string.password_confirmation_incorrect, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 
     @Override

@@ -68,7 +68,6 @@
 
     <Button
         android:id="@+id/btn_submit"
-        android:onClick="onSubmit"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

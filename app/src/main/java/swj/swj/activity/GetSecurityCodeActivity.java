@@ -10,16 +10,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
 public class GetSecurityCodeActivity extends AppCompatActivity {
 
+    protected EditText usernameInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_security_code);
+        usernameInput = (EditText) findViewById(R.id.et_username);
+    }
+
+    protected boolean inputValidation() {
+        if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -42,23 +54,5 @@ public class GetSecurityCodeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void usernameGotConfirm(final Button button, final Class<? extends Activity> ActivityToOpen) {
-        final TextView phoneNumberError = (TextView) findViewById(R.id.tv_username_error);
-        final EditText phoneNumberInput = (EditText) findViewById(R.id.et_username);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String phoneNumber = phoneNumberInput.getText().toString();
-                if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    phoneNumberError.setText(getResources().getString(R.string.username_invalid_format));
-                } else {
-                    phoneNumberError.setText("");
-                    Intent intent = new Intent(getBaseContext(), ActivityToOpen);
-                    startActivityForResult(intent, 0);
-                }
-            }
-        });
     }
 }

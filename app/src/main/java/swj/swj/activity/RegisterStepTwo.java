@@ -21,54 +21,57 @@ import swj.swj.common.RestClient;
 
 public class RegisterStepTwo extends VerifySecurityCodeActivity {
 
+    private View.OnClickListener onResendSecurityCode = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = getIntent();
+            String username = intent.getStringExtra("username");
+            RestClient.getInstance().newSecurityCode4Account(username,
+                    null, new JsonErrorListener(getApplicationContext(), null));
+            intent.putExtra("counter_start", System.currentTimeMillis());
+            startResendCountDown();
+        }
+    };
+
+    private View.OnClickListener onSubmit = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final String username = getIntent().getStringExtra("username");
+            if (!inputValidation()) {
+                return;
+            }
+            String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
+            RestClient.getInstance().verifySecurityCode(username, securityCode,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject errors) {
+                            CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
+                        }
+                    }));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_step_two);
 
-        Intent intentFromPhoneInput = getIntent();
-        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
-        TextView SCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
-        SCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
+        String username = getIntent().getStringExtra("username");
+        TextView sCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
+        sCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + username);
 
-        Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
-        btnResendCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
-                RestClient.getInstance().newSecurityCode4Account(username,
-                        null, new JsonErrorListener(getApplicationContext(), null));
-                intent.putExtra("counter_start", System.currentTimeMillis());
-                startResendCountDown();
-            }
-        });
-
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = getIntent().getStringExtra("username");
-                if (!inputValidation()) {
-                    return;
-                }
-                String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-                RestClient.getInstance().verifySecurityCode(username, securityCode,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
-                                intent.putExtra("username", username);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject errors) {
-                                CommonMethods.toastError(RegisterStepTwo.this, errors, "security_code");
-                            }
-                        }));
-            }
-        });
+        Button resendButton = (Button) findViewById(R.id.btn_resend_security_code);
+        resendButton.setOnClickListener(onResendSecurityCode);
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
+        submitButton.setOnClickListener(onSubmit);
     }
 
     private boolean inputValidation() {

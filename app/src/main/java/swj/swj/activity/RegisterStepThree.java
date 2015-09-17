@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -52,6 +51,29 @@ public class RegisterStepThree extends Activity {
     private EditText passwordInput;
     private RadioGroup radioGroup4Gender;
 
+    private View.OnClickListener onSubmit = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (!inputValidation()) {
+                return;
+            }
+            String username = getIntent().getStringExtra("username");
+            String nickname = nicknameInput.getText().toString();
+            String password = passwordInput.getText().toString();
+
+            RestClient.getInstance().signUp(username, nickname,
+                    password, getSelectedGender(), getAvatar(),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            User.updateCurrentUser(response.toString());
+                            startActivity(new Intent(RegisterStepThree.this, HomeActivity.class));
+                            finish();
+                        }
+                    }, new JsonErrorListener(getApplicationContext(), null));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,29 +91,8 @@ public class RegisterStepThree extends Activity {
         passwordInput = (EditText) findViewById(R.id.et_password);
         radioGroup4Gender = (RadioGroup) findViewById(R.id.rg_gender);
 
-        Button btnSubmit = (Button) findViewById(R.id.btn_submit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!inputValidation()) {
-                    return;
-                }
-                String username = getIntent().getStringExtra("username");
-                String nickname = nicknameInput.getText().toString();
-                String password = passwordInput.getText().toString();
-
-                RestClient.getInstance().signUp(username, nickname,
-                        password, getSelectedGender(), getAvatar(),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                User.updateCurrentUser(response.toString());
-                                startActivity(new Intent(RegisterStepThree.this, HomeActivity.class));
-                                finish();
-                            }
-                        }, new JsonErrorListener(getApplicationContext(), null));
-            }
-        });
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
+        submitButton.setOnClickListener(onSubmit);
     }
 
     private ByteArrayBody getAvatar() {
