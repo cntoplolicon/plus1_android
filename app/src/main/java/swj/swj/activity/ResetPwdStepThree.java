@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +24,34 @@ public class ResetPwdStepThree extends Activity {
     private EditText passwordInput;
     private EditText passwordConfirmationInput;
 
+    private View.OnClickListener onSubmit = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            if (!inputValidation()) {
+                return;
+            }
+
+            String username = getIntent().getStringExtra("username");
+            String password = passwordInput.getText().toString();
+            RestClient.getInstance().resetPassword(username, password, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject errors) {
+                    CommonMethods.toastError(getApplicationContext(), errors, "username");
+                    CommonMethods.toastError(getApplicationContext(), errors, "password");
+                }
+            }));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,30 +59,9 @@ public class ResetPwdStepThree extends Activity {
 
         passwordInput = (EditText) findViewById(R.id.et_password);
         passwordConfirmationInput = (EditText) findViewById(R.id.et_password_confirmation);
-    }
 
-    public void onSubmit(View view) {
-        if (!inputValidation()) {
-            return;
-        }
-
-        String username = getIntent().getStringExtra("username");
-        String password = passwordInput.getText().toString();
-        RestClient.getInstance().resetPassword(username, password, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject errors) {
-                CommonMethods.toastError(getApplicationContext(), errors, "username");
-                CommonMethods.toastError(getApplicationContext(), errors, "password");
-            }
-        }));
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
+        submitButton.setOnClickListener(onSubmit);
     }
 
     private boolean inputValidation() {
