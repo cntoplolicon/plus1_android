@@ -5,45 +5,67 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import swj.swj.R;
+import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
+import swj.swj.common.RestClient;
+import swj.swj.model.User;
 
 /**
  * Created by jiewei on 9/3/15.
  */
 public class UpdateNicknameActivity extends Activity {
 
-    private TextView tvSave, tvNick;
-    private String newNick;
+    private EditText nicknameInput;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nickname);
 
-        final String nick = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        tvNick = (EditText) findViewById(R.id.et_nick);
-        tvNick.setText(nick);
-        tvSave = (TextView) findViewById(R.id.tv_nickname_save);
-        tvSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newNick = tvNick.getText().toString().trim();
-                if (nick.equals(newNick) || newNick.isEmpty()) {
-                    return;
-                }
-                temp_updateNick(newNick);
-            }
-        });
+        nicknameInput = (EditText) findViewById(R.id.et_nick);
+        nicknameInput.setText(User.current.getNickname());
+    }
 
+    public void onSubmit(View view) {
+        if (!inputValidtion()) {
+            return;
+        }
+        String nickname = nicknameInput.getText().toString();
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("nickname", nickname);
+        RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                User.updateCurrentUser(response.toString());
+                finish();
+            }
+        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject errors) {
+                CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
+            }
+        }));
+    }
+
+    private boolean inputValidtion() {
+        if (nicknameInput.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.nickname_required, Toast.LENGTH_LONG);
+            return false;
+        }
+        return true;
     }
 
     public void back(View view) {
-        finish();
-    }
-
-    private void temp_updateNick(String newNick) {
-        LocalUserInfo.getInstance().setUserInfo("nick_name", newNick);
         finish();
     }
 }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
@@ -17,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import swj.swj.R;
+import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.LocalUserInfo;
 
 /**
@@ -24,14 +24,11 @@ import swj.swj.common.LocalUserInfo;
  */
 public class PersonalProfileActivity extends Activity {
 
-    private String TAG = "PersonalProfileActivity";
-
     private RelativeLayout reAvatar, reNickname, rePassword, reSign, rePhone;
     private TextView tvNickname, tvSign, tvPhone;
     private String nickname, sign, telephone, imageName;
-    private static final int PHOTO_REQUEST_TAKEPHOTO = 1;  //take photo
+    private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
-    private static final int PHOTO_REQUEST_CUT = 3;// result
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,34 +56,10 @@ public class PersonalProfileActivity extends Activity {
         tvSign.setText(sign);
         tvPhone.setText(telephone);
 
-        reAvatar.setOnClickListener(new MyListener());
-        reNickname.setOnClickListener(new MyListener());
-        rePassword.setOnClickListener(new MyListener());
-        reSign.setOnClickListener(new MyListener());
-        rePhone.setOnClickListener(new MyListener());
-    }
-
-    class MyListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.re_avatar:
-                    showPhotoDialog();
-                    break;
-                case R.id.re_nickname:
-                    startActivity(new Intent(PersonalProfileActivity.this, UpdateNicknameActivity.class));
-                    break;
-                case R.id.re_password:
-                    startActivity(new Intent(PersonalProfileActivity.this, ChangePasswordActivity.class));
-                    break;
-                case R.id.re_sign:
-                    startActivity(new Intent(PersonalProfileActivity.this, UpdateSignActivity.class));
-                    break;
-                case R.id.re_phone:
-                    startActivity(new Intent(PersonalProfileActivity.this, ResetPhoneActivity.class));
-                    break;
-            }
-        }
+        reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
+        rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
+        reSign.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
+        rePhone.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
     }
 
     private void showPhotoDialog() {
@@ -103,7 +76,7 @@ public class PersonalProfileActivity extends Activity {
                 imageName = getNowTime() + ".png";
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("sdcard/swj/", imageName)));
-                startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+                startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
                 alertDialog.cancel();
             }
         });

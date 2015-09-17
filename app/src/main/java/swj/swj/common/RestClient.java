@@ -108,9 +108,19 @@ public class RestClient {
         requestQueue.add(request);
     }
 
+    public void updateUserAttributes(Map<String, Object> attributes,
+                                    Listener<JSONObject> onSucess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        params.putAll(attributes);
+        String userId = params.get("user_id").toString();
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
+                getResourceUrl("/users/" + userId), params, onSucess, onError);
+        requestQueue.add(request);
+    }
+
     private Map<String, Object> createUserParams() {
         Map<String, Object> params = new HashMap<>();
-        params.put("user_id", String.valueOf(User.current.getId()));
+        params.put("user_id", User.current.getId());
         params.put("access_token", User.current.getAccessToken());
         return params;
     }
