@@ -60,6 +60,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                                 Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
                                 intent.putExtra("username", username);
                                 startActivity(intent);
+                                finish();
                             }
                         }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                             @Override

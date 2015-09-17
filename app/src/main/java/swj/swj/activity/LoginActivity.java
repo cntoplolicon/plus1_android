@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         User.updateCurrentUser(response.toString());
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        LoginActivity.this.finish();
+                        finish();
                     }
                 }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override

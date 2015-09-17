@@ -50,7 +50,7 @@ public class PersonalSettingsActivity extends Activity {
                                             public void onResponse(JSONObject response) {
                                                 User.clearCurrentUser();
                                                 startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
-                                                PersonalSettingsActivity.this.finish();
+                                                finish();
                                             }
                                         }, new JsonErrorListener(getApplicationContext(), null));
                                     }
