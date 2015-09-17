@@ -2,13 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/new_card_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/publish_button_margin_top"
+        android:layout_weight="0.9"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -29,12 +31,32 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginRight="@dimen/publish_button_spacing"
             android:background="@drawable/button_border"
-
-
             android:onClick="addText"
             android:text="@string/publish_add_text"
             android:textColor="@color/new_card_button" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="0.1">
+
+        <ImageView
+            android:id="@+id/iv_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/publish_point_margin"
+            android:src="@drawable/point" />
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/publish_add_margin"
+            android:src="@drawable/add" />
+    </RelativeLayout>
 
 </LinearLayout>

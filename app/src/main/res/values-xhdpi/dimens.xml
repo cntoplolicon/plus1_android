@@ -32,5 +32,10 @@
     <dimen name="publish_button">105dp</dimen>
     <dimen name="publish_button_margin_top">10dp</dimen>
     <dimen name="publish_button_spacing">2dp</dimen>
+    <dimen name="publish_point_margin">162dp</dimen>
+    <dimen name="publish_add_margin">180dp</dimen>
+    <dimen name="publish_add_image_margin">10dp</dimen>
+    <dimen name="publish_add_image_height">226dp</dimen>
+    <dimen name="publish_delete_image_size">14sp</dimen>
 
 </resources>

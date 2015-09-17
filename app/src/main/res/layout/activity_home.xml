@@ -1,21 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/TitleStyle"
-            android:layout_marginTop="@dimen/home_text_margin_top"
-            android:text="@string/home_tab" />
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TitleStyle"
+        android:text="@string/home_tab" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/tv_title"
-            android:layout_marginTop="@dimen/home_text_margin_bottom"
-            android:background="@color/home_title_color" />
-
+    <TextView style="@style/LineStyle" />
 
         <TextView
             android:id="@+id/personal_settings_tv"
@@ -72,6 +66,7 @@
             android:onClick="onPublish" />
 
         <RadioButton
+
             android:id="@+id/rb_message"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_message_selector"

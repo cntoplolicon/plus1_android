@@ -19,9 +19,9 @@ public class PublishActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_image);
         Log.d("SecondActivity", "进入第二个界面");
-        setContentView(R.layout.activity_push);
-        image = (ImageView) findViewById(R.id.iv_image);
+        image = (ImageView) findViewById(R.id.iv_add_image);
         Intent intent = getIntent();
         if (intent.getAction().equals("getCamera")) {
             String fileName = intent.getStringExtra("fileName");
