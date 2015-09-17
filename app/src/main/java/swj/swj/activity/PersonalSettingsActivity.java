@@ -4,26 +4,27 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+
+import org.json.JSONObject;
+
 import swj.swj.R;
-import swj.swj.common.LocalUserInfo;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
+import swj.swj.model.User;
 
 /**
  * Created by jiewei on 9/3/15.
  */
 public class PersonalSettingsActivity extends Activity {
 
-    private static final String TAG = "PersonalSettings";
-
     private Button btnLogOut;
     private TextView tvNickName, tvPersonalProfile;
-    private String nickname;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,51 +35,43 @@ public class PersonalSettingsActivity extends Activity {
     private void initView() {
         tvNickName = (TextView) findViewById(R.id.tv_personal_settings_nickname);
         tvPersonalProfile = (TextView) findViewById(R.id.tv_personal_settings_profile);
-        btnLogOut = (Button) findViewById(R.id.btnLogout);
-        nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        Log.d(TAG, nickname);
-        if (nickname.isEmpty()) {
-            tvNickName.setText(getResources().getString(R.string.log_in_required));
-            tvPersonalProfile.setTextColor(Color.GRAY);
-            btnLogOut.setVisibility(View.GONE);
-            tvNickName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                    startActivity(new Intent(PersonalSettingsActivity.this,LoginActivity.class));
-                }
-            });
-        } else {
-            tvNickName.setText(nickname);
-            btnLogOut = (Button) findViewById(R.id.btnLogout);
-            btnLogOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder alertdialogbuilder = new AlertDialog.Builder(PersonalSettingsActivity.this);
-                    alertdialogbuilder.setMessage(getResources().getString(R.string.log_out_confirm)).setPositiveButton(getResources().getString(R.string.submit), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            LocalUserInfo.getInstance().setUserInfo("nick_name","");
-                            PersonalSettingsActivity.this.finish();
-                        }
-                    })
-                            .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog altLogOut = alertdialogbuilder.create();
-                    altLogOut.show();
-                }
-            });
+        btnLogOut = (Button) findViewById(R.id.btn_logout);
 
-            tvPersonalProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(PersonalSettingsActivity.this, PersonalProfileActivity.class));
-                }
-            });
-        }
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(PersonalSettingsActivity.this)
+                        .setMessage(getResources().getString(R.string.log_out_confirm))
+                        .setPositiveButton(getResources().getString(R.string.submit),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        RestClient.getInstance().signOut(new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                User.clearCurrentUser();
+                                                startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
+                                                PersonalSettingsActivity.this.finish();
+                                            }
+                                        }, new JsonErrorListener(getApplicationContext(), null));
+                                    }
+                                })
+                        .setNegativeButton(getResources().getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .create().show();
+            }
+        });
+
+        tvPersonalProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PersonalSettingsActivity.this, PersonalProfileActivity.class));
+            }
+        });
     }
 
     public void back(View view) {
@@ -87,12 +80,6 @@ public class PersonalSettingsActivity extends Activity {
 
     public void onResume() {
         super.onResume();
-        String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp.isEmpty()) {
-                tvNickName.setText(getResources().getString(R.string.unset));
-            }
-            tvNickName.setText(nickname_temp);
-        }
+        tvNickName.setText(User.current.getNickname());
     }
 }

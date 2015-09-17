@@ -11,6 +11,7 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.json.JSONObject;
@@ -56,15 +57,9 @@ public class RestClient {
         return serverUrl + path;
     }
 
-    public void newTempUser(Listener<JSONObject> onSuccess, ErrorListener onError) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
-                getResourceUrl("/users"), onSuccess, onError);
-        requestQueue.add(request);
-    }
-
     public void newSecurityCode4Account(String username, Listener<JSONObject> onSuccess,
                                         ErrorListener onError) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/security_codes/account"), params, onSuccess, onError);
@@ -73,7 +68,7 @@ public class RestClient {
 
     public void verifySecurityCode(String username, String securityCode,
                                    Listener<JSONObject> onSucess, ErrorListener onError) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("security_code", securityCode);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
@@ -81,22 +76,39 @@ public class RestClient {
         requestQueue.add(request);
     }
 
-    public void signUp(boolean createNewUser, String username, String nickname, String password, int gender, AbstractContentBody avatar,
+    public void signUp(String username, String nickname, String password, int gender, AbstractContentBody avatar,
                        Listener<JSONObject> onSuccess, ErrorListener onError) {
-        Map<String, Object> params = createMultipartParams4User();
+        Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("nickname", nickname);
         params.put("password", password);
         params.put("avatar", avatar);
         params.put("gender", gender);
 
-        String userId = createNewUser ? "new" : params.get("user_id").toString();
-        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
-                getResourceUrl("/users/" + userId), params, onSuccess, onError);
+        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
+                getResourceUrl("/users"), params, onSuccess, onError);
         requestQueue.add(request);
     }
 
-    private Map<String, Object> createMultipartParams4User() {
+    public void signIn(String username, String password, Listener<JSONObject> onSucess, ErrorListener onError) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/sign_in"), params, onSucess, onError);
+        requestQueue.add(request);
+    }
+
+    public void signOut(Listener<JSONObject> onSuccess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        String userId = params.get("user_id").toString();
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/users/" + userId + "/sign_out"), params, onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    private Map<String, Object> createUserParams() {
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", String.valueOf(User.current.getId()));
         params.put("access_token", User.current.getAccessToken());

@@ -43,15 +43,15 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
-                                intent.putExtra("counter_start", System.currentTimeMillis());
-                                intent.putExtra("username", username);
-
                                 String securityCode = response.optString("security_code", "");
                                 if (!securityCode.isEmpty()) {
                                     Log.d("security_code", securityCode);
-                                    Toast.makeText(RegisterStepOne.this, securityCode, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterStepOne.this, securityCode, Toast.LENGTH_LONG).show();
                                 }
+
+                                Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
+                                intent.putExtra("counter_start", System.currentTimeMillis());
+                                intent.putExtra("username", username);
                                 startActivity(intent);
                             }
                         },

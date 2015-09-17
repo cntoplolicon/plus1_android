@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,9 +17,9 @@ public class JsonObjectFormRequest extends JsonObjectRequest {
 
     private static final String PARAMS_ENCODING = "UTF-8";
 
-    private Map<String, String> params;
+    private Map<String, Object> params;
 
-    public JsonObjectFormRequest(int method, String url, Map<String, String> params,
+    public JsonObjectFormRequest(int method, String url, Map<String, Object> params,
                                  Response.Listener<JSONObject> onSuccess,
                                  Response.ErrorListener onError) {
         super(method, url, onSuccess, onError);
@@ -27,7 +28,15 @@ public class JsonObjectFormRequest extends JsonObjectRequest {
 
     @Override
     protected Map<String, String> getParams() {
-        return params;
+        Map<String, String> strParams = new HashMap<String, String>();
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            if (entry.getValue() == null) {
+                strParams.put(entry.getKey(), null);
+            } else {
+                strParams.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
+        return strParams;
     }
 
     @Override

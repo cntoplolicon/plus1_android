@@ -80,8 +80,7 @@ public class RegisterStepThree extends Activity {
                 String nickname = nicknameInput.getText().toString();
                 String password = passwordInput.getText().toString();
 
-                boolean createNewUser = User.current.getUsername() != null;
-                RestClient.getInstance().signUp(createNewUser, username, nickname,
+                RestClient.getInstance().signUp(username, nickname,
                         password, getSelectedGender(), getAvatar(),
                         new Response.Listener<JSONObject>() {
                             @Override

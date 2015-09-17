@@ -138,4 +138,9 @@ public class User {
         current = CommonMethods.createDefaultGson().fromJson(json, User.class);
         LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, json);
     }
+
+    public static void clearCurrentUser() {
+        current = null;
+        LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, "");
+    }
 }

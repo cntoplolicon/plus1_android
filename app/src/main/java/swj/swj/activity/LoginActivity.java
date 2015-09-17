@@ -1,8 +1,8 @@
 package swj.swj.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,14 +11,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+
+import org.json.JSONObject;
+
 import swj.swj.R;
+import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
-import swj.swj.common.LocalUserInfo;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
+import swj.swj.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String phoneNumber;
-    private String pwd;
+    private EditText usernameInput;
+    private EditText passwordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,66 +33,57 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button loginSubmit = (Button) findViewById(R.id.btn_submit);
-        TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
-        TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
-        final EditText usernameInput = (EditText) findViewById(R.id.et_username);
-        final EditText pwdInput = (EditText) findViewById(R.id.et_password);
-        final TextView loginMessage = (TextView) findViewById(R.id.tv_login_error_message);
+        usernameInput = (EditText) findViewById(R.id.et_username);
+        passwordInput = (EditText) findViewById(R.id.et_password);
 
         //get extras from reset pwd activities to set message
         Intent intentFromResetPwd = getIntent();
         String msgFromResetPwd = intentFromResetPwd.getStringExtra("resetPwdStepThree");
+        TextView loginMessage = (TextView) findViewById(R.id.tv_login_error_message);
         loginMessage.setText(msgFromResetPwd);
 
         loginSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phoneNumber = usernameInput.getText().toString();
-                pwd = pwdInput.getText().toString();
-                if (!CommonMethods.isValidUsername(phoneNumber)) {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
-                } else if (!CommonMethods.isValidPwd(pwd)) {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
-                } else {
-                    loginMessage.setText("Loading...");
-                    tempInitUser();
-                    finish();
+                if (!inputValidation()) {
+                    return;
                 }
+                String username = usernameInput.getText().toString();
+                String password = passwordInput.getText().toString();
+                RestClient.getInstance().signIn(username, password, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        User.updateCurrentUser(response.toString());
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        LoginActivity.this.finish();
+                    }
+                }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject errors) {
+                        CommonMethods.toastError(LoginActivity.this, errors, "username");
+                        CommonMethods.toastError(LoginActivity.this, errors, "password");
+                    }
+                }));
             }
         });
 
-        toForgetPwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ResetPwdStepOne.class);
-                startActivityForResult(intent, 0);
-            }
-        });
+        TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
+        toForgetPwd.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPwdStepOne.class));
 
-        toRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), RegisterStepOne.class);
-                startActivityForResult(intent, 0);
-            }
-        });
-
+        TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
+        toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
     }
 
-    private void tempInitUser() {
-
-        String nickname = "andywangpku";
-        String sign = "word is big, let me see see";
-
-        LocalUserInfo.getInstance().setUserInfo("nick_name", nickname);
-        LocalUserInfo.getInstance().setUserInfo("sign", sign);
-        LocalUserInfo.getInstance().setUserInfo("telephone", phoneNumber);
-        LocalUserInfo.getInstance().setUserInfo("password", pwd);
-        /*LocalUserInfo.getInstance(PersonalSettingsActivity.this).setUserInfo("avatar",
-                avatar);*/
+    private boolean inputValidation() {
+        if (!CommonMethods.isValidUsername(usernameInput.getText().toString())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
