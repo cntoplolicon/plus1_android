@@ -9,7 +9,6 @@ public class FriendFragment extends BaseFragment {
     @Override
     public View initView() {
         View v = View.inflate(mActivity, R.layout.fragment_friend, null);
-
         return v;
     }
 
