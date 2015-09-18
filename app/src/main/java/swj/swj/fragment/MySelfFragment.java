@@ -1,20 +1,15 @@
 package swj.swj.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
-import swj.swj.activity.LoginActivity;
 import swj.swj.activity.PersonalSettingsActivity;
-import swj.swj.activity.RegisterStepOne;
 import swj.swj.adapter.PersonalGridViewAdapter;
-import swj.swj.common.LocalUserInfo;
 import swj.swj.model.User;
 
 
@@ -34,7 +29,7 @@ public class MySelfFragment extends BaseFragment {
         gridView.setAdapter(adapter);
 
         TextView tvPersonalSettings = (TextView) mActivity.findViewById(R.id.personal_settings_tv);
-        tvPersonalSettings.setOnClickListener(new MyListener());
+        tvPersonalSettings.setOnClickListener(onClick);
 
         return v;
     }
@@ -60,16 +55,16 @@ public class MySelfFragment extends BaseFragment {
         tvSign.setText("风雨之后一定是彩虹");
         tvMyPublish = (TextView) headerView.findViewById(R.id.tv_myself_publish);
         tvMyCollection = (TextView) headerView.findViewById(R.id.tv_myself_collect);
-        tvMyPublish.setOnClickListener(new MyListener());
-        tvMyCollection.setOnClickListener(new MyListener());
+        tvMyPublish.setOnClickListener(onClick);
+        tvMyCollection.setOnClickListener(onClick);
     }
 
 
     private void UpdateUserInfo(String userNickName) {
-            showUserInfo(userNickName);
+        showUserInfo(userNickName);
     }
 
-    class MyListener implements View.OnClickListener {
+    private View.OnClickListener onClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -86,5 +81,5 @@ public class MySelfFragment extends BaseFragment {
                     break;
             }
         }
-    }
+    };
 }

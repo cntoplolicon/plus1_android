@@ -8,12 +8,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import swj.swj.R;
-import swj.swj.fragment.PublishFragment;
-
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
+import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {

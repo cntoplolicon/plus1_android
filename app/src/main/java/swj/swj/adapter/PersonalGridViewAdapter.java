@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import swj.swj.R;
@@ -18,7 +16,7 @@ public class PersonalGridViewAdapter extends BaseAdapter {
 
     private Context context;
 
-    public PersonalGridViewAdapter(Context context){
+    public PersonalGridViewAdapter(Context context) {
         this.context = context;
     }
 
@@ -41,14 +39,12 @@ public class PersonalGridViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View gridView;
-        if (convertView == null){
+        if (convertView == null) {
             gridView = new View(context);
             gridView = inflater.inflate(R.layout.myself_gridview_item, null);
-//            ImageView imageView = (ImageView)gridView.findViewById(R.id.gridview_item_image);
-//            imageView.setImageResource(R.drawable.test);
-            TextView textView = (TextView)  gridView.findViewById(R.id.tv_forward_count);
+            TextView textView = (TextView) gridView.findViewById(R.id.tv_forward_count);
             textView.setText("32人转发");
-        }else {
+        } else {
             gridView = convertView;
         }
 

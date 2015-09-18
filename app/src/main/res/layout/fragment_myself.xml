@@ -7,11 +7,11 @@
         android:id="@+id/gd_myself_content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:horizontalSpacing="4dp"
+        android:layout_marginLeft="@dimen/personal_send_margin_left"
+        android:layout_marginRight="@dimen/personal_send_margin_left"
+        android:horizontalSpacing="@dimen/personal_grid_spacing"
         android:numColumns="2"
-        android:verticalSpacing="5dp">
+        android:verticalSpacing="@dimen/personal_grid_spacing">
     </in.srain.cube.views.GridViewWithHeaderAndFooter>
 
 </FrameLayout>
