@@ -26,6 +26,8 @@
         <activity android:name=".activity.UpdateSignActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.PublishActivity"/>
+        <activity android:name=".activity.AddTextActivity"/>
+        <activity android:name=".activity.PublishTextActivity"/>
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/app_name" />

@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import swj.swj.R;
+import swj.swj.activity.AddTextActivity;
 import swj.swj.activity.PublishActivity;
 
 
@@ -34,7 +35,10 @@ public class PublishFragment extends BaseFragment {
     public View initView() {
         View v = View.inflate(mActivity, R.layout.fragment_publish, null);
         Button bt_image = (Button) v.findViewById(R.id.bt_image);
+        Button bt_text = (Button) v.findViewById(R.id.bt_text);
+
         bt_image.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
@@ -48,10 +52,16 @@ public class PublishFragment extends BaseFragment {
                             case 1:
                                 getGallery();
                                 break;
-
                         }
                     }
                 }).show();
+            }
+        });
+
+        bt_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mActivity, AddTextActivity.class));
             }
         });
         return v;

@@ -29,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
     </FrameLayout>
 
     <TextView
@@ -79,7 +78,6 @@
             android:drawableTop="@drawable/btn_myself_selector"
             android:onClick="onMySelf"
             android:text="@string/myself_tab" />
-
 
     </RadioGroup>
 

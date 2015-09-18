@@ -37,5 +37,5 @@
     <dimen name="publish_add_image_margin">10dp</dimen>
     <dimen name="publish_add_image_height">226dp</dimen>
     <dimen name="publish_delete_image_size">14sp</dimen>
-
+    
 </resources>
