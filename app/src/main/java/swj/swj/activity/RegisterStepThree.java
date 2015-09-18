@@ -35,8 +35,8 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
-import swj.swj.common.RoundedImageView;
 import swj.swj.model.User;
+import swj.swj.view.RoundedImageView;
 
 public class RegisterStepThree extends Activity {
 

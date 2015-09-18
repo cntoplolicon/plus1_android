@@ -6,14 +6,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="swj.swj.activity.RegisterStepThree">
 
-
-    <swj.swj.common.RoundedImageView
+    <swj.swj.view.RoundedImageView
         android:id="@+id/iv_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_above="@+id/et_nickname"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"></swj.swj.common.RoundedImageView>
+        android:layout_marginBottom="30dp"></swj.swj.view.RoundedImageView>
 
     <EditText
         android:id="@+id/et_nickname"

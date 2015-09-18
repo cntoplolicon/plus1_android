@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="personal_main_text_size">16sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+
+    <dimen name="personal_avatar_size">80dp</dimen>
+    <dimen name="personal_avatar_margin">10dp</dimen>
+    <dimen name="personal_profile_margin_left">10dp</dimen>
+    <dimen name="personal_nick_margin_top">10dp</dimen>
+    <dimen name="personal_sex_margin_left">6dp</dimen>
+    <dimen name="personal_send_margin_left">15dp</dimen>
+    <dimen name="personal_grid_title_margin">16dp</dimen>
+    <dimen name="personal_grid_title_height">27dp</dimen>
+    <dimen name="personal_grid_spacing">4dp</dimen>
+
+    <dimen name="settings_username_size">60dp</dimen>
+    <dimen name="settings_common_title_size">48dp</dimen>
+    <dimen name="settings_common_margin_left">15dp</dimen>
+    <dimen name="settings_logout_margin_top">6dp</dimen>
+    <dimen name="settings_preference_margin_top">18dp</dimen>
+    <dimen name="settings_switch_margin">12dp</dimen>
+    <dimen name="settings_logout_margin_horizontal">36dp</dimen>
+
+    <dimen name="personal_username_text">14sp</dimen>
+    <dimen name="personal_profile_text">12sp</dimen>
+    <dimen name="personal_grid_title_text">13sp</dimen>
+    <dimen name="settings_common_text">16sp</dimen>
+
+</resources>

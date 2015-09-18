@@ -1,34 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
+        android:id="@+id/gd_myself_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/personal_send_margin_left"
+        android:layout_marginRight="@dimen/personal_send_margin_left"
+        android:horizontalSpacing="@dimen/personal_grid_spacing"
+        android:numColumns="2"
+        android:verticalSpacing="@dimen/personal_grid_spacing">
+    </in.srain.cube.views.GridViewWithHeaderAndFooter>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/personal_settings_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:text="@string/action_settings"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/mySelf_fl"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </FrameLayout>
-
-</LinearLayout>
+</FrameLayout>

@@ -12,14 +12,29 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/TitleStyle"
-            android:text="@string/home_tab"
-            />
+            android:text="@string/home_tab" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/tv_title"
             android:background="#b3b3b3"
-            />
+            android:text="@string/home_tab" />
+
+
+        <TextView
+            android:id="@+id/personal_settings_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="@string/action_settings"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
     </RelativeLayout>
 
     <FrameLayout
@@ -29,10 +44,11 @@
         android:layout_weight="1">
 
     </FrameLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#b3b3b3"/>
+        android:background="#b3b3b3" />
 
     <RadioGroup
         android:id="@+id/rg_group"
@@ -44,36 +60,36 @@
         <RadioButton
             android:id="@+id/rb_home"
             style="@style/ButtonTabStyle"
-            android:onClick="onHome"
-            android:text="@string/home_tab"
             android:checked="true"
-            android:drawableTop="@drawable/btn_home_selector"/>
+            android:drawableTop="@drawable/btn_home_selector"
+            android:onClick="onHome"
+            android:text="@string/home_tab" />
 
         <RadioButton
             android:id="@+id/rb_friends"
             style="@style/ButtonTabStyle"
-            android:onClick="onFriends"
             android:drawableTop="@drawable/btn_found_selector"
+            android:onClick="onFriends"
             android:text="@string/friends_tab" />
 
         <RadioButton
             android:id="@+id/rb_Publish"
             style="@style/ButtonTabStyle"
-            android:onClick="onPublish"
-            android:drawableTop="@drawable/btn_publish_selector" />
+            android:drawableTop="@drawable/btn_publish_selector"
+            android:onClick="onPublish" />
 
         <RadioButton
             android:id="@+id/rb_message"
             style="@style/ButtonTabStyle"
-            android:onClick="onMessage"
             android:drawableTop="@drawable/btn_message_selector"
+            android:onClick="onMessage"
             android:text="@string/message_tab" />
 
         <RadioButton
             android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
-            android:onClick="onMySelf"
             android:drawableTop="@drawable/btn_myself_selector"
+            android:onClick="onMySelf"
             android:text="@string/myself_tab" />
 
 

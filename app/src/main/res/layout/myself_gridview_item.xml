@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/gridview_item_image"
+        android:layout_width="162dp"
+        android:layout_height="162dp"
+        android:background="@drawable/personal_image_border"
+        android:src="@drawable/default_useravatar">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_image_info"
+        android:layout_width="162dp"
+        android:layout_height="28dp"
+        android:layout_alignBottom="@+id/gridview_item_image"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/bg_personal_image">
+
+        <TextView
+            android:id="@+id/tv_forward_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="6dp"
+            android:text="32人转发"
+            android:textColor="#fcfcfc"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="剩余7天"
+            android:textColor="#fcfcfc"
+            android:textSize="12dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
