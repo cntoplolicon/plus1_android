@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -59,7 +60,6 @@ public class HomeActivity extends Activity {
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }
 
-    /*相机*/
     public void onPublish(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         radioButton.setTextColor(Color.WHITE);

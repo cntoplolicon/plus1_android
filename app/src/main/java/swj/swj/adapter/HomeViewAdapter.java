@@ -43,6 +43,7 @@ public class HomeViewAdapter extends SlidingViewAdapter {
         }
         HomeItemBean bean = mList.get(position);
         viewHolder.ivImage.setImageResource(bean.getHomeImage());
+
         viewHolder.tvUser.setText(bean.getHomeUser());
         viewHolder.tvContext.setText(bean.getHomeContext());
         viewHolder.tvMessage.setText(bean.getHomeMessage());

@@ -56,7 +56,14 @@
     <string name="publish_add_image">加图片</string>
     <string name="publish_add_text">加文字</string>
     <string name="publish_confirm">确定</string>
-    <string name="publish_tab">发布</string>
+    <string name="publish_publish">发布</string>
+    <string name="publish_hint">为图片配上文字吧</string>
+    <string name="publish_delete_image">删除当前照片</string>
+    <string name="publish_text">发文字</string>
+    <string name="publish_use_text">使用文字</string>
+    <string name="publish_input_text">在这里输入文字</string>
+
+
 
     <!--validation-->
     <string name="username_invalid_format">请输入正确的手机号</string>
