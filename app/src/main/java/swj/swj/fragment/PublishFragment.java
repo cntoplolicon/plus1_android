@@ -101,9 +101,7 @@ public class PublishFragment extends BaseFragment {
                 // 把数据写入文件
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outPutStream);
             } catch (IOException e) {
-
                 Log.e(PublishFragment.class.getName(), "failed writing to file", e);
-
             } finally {
                 try {
                     if (outPutStream != null) {
