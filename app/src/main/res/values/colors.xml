@@ -4,6 +4,7 @@
     <color name="settings_title_color">#88888888</color>
     <color name="settings_top_bar_blue">#0066FF</color>
     <color name="common_yellow">#FED724</color>
+    <color name="common_white_bg">#ffffff</color>
     <color name="personal_common_female_username">#ff62b8</color>
     <color name="personal_show_value">#ff7800</color>
     <color name="personal_sign">#000000</color>

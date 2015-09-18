@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
-    android:orientation="vertical">
+    android:background="#efefef">
 
 
     <RelativeLayout
@@ -34,7 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/btn_back"
             android:text="@string/action_settings"
-            android:textColor="#ffffff"
+            android:textColor="@color/common_white_bg"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -46,7 +45,7 @@
         android:layout_height="@dimen/settings_username_size"
         android:layout_below="@+id/title"
         android:layout_marginTop="@dimen/settings_logout_margin_top"
-        android:background="#ffffff"
+        android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="昵称"
@@ -60,7 +59,7 @@
         android:layout_height="@dimen/settings_common_title_size"
         android:layout_below="@+id/tv_personal_settings_nickname"
         android:layout_marginTop="1dp"
-        android:background="#ffffff"
+        android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="@string/personal_information"
@@ -74,7 +73,7 @@
         android:layout_height="@dimen/settings_common_title_size"
         android:layout_below="@+id/tv_personal_settings_profile"
         android:layout_marginTop="@dimen/settings_preference_margin_top"
-        android:background="#ffffff"
+        android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="@string/preferences"
@@ -87,7 +86,7 @@
         android:layout_height="@dimen/settings_common_title_size"
         android:layout_below="@+id/tv_settings_preference_title"
         android:layout_marginTop="1dp"
-        android:background="#ffffff"
+        android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="@string/notifications_from_app"
@@ -113,7 +112,7 @@
         android:layout_height="@dimen/settings_common_title_size"
         android:layout_below="@+id/tv_notification_switch"
         android:layout_marginTop="@dimen/settings_preference_margin_top"
-        android:background="#ffffff"
+        android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="清除缓存"

@@ -25,7 +25,6 @@
     <string name="log_out_confirm">确认退出吗？</string>
     <string name="unable_to_find_sd_card">没有SD卡!</string>
     <string name="save_changes">保存</string>
-    <string name="biography">个性签名</string>
     <string name="telephone">电话</string>
     <string name="preferences">偏好</string>
     <string name="log_out">退出登录</string>
@@ -99,7 +98,9 @@
     <string name="gender_can_not_change">性别设定后无法改变</string>
 
     <!--avatar and pictures-->
-    <string name="personal_avatar">头像</string>
+    <string name="change_personal_avatar">修改头像</string>
+    <string name="change_personal_nickname">修改昵称</string>
+    <string name="change_biography">修改个性签名</string>
     <!--<string name="title_activity_set_avatar">设置头像</string>-->
     <string name="get_image_from_gallery">从相册选择</string>
     <string name="get_image_from_camera">拍照</string>
