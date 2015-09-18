@@ -39,7 +39,7 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/et_sign"
+        android:id="@+id/et_biography"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -48,8 +48,8 @@
         android:singleLine="false"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_sign_save"
+    <Button
+        android:id="@+id/btn_submit"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="32dp"
