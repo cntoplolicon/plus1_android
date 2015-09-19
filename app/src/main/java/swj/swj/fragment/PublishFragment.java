@@ -85,12 +85,12 @@ public class PublishFragment extends BaseFragment {
                 Log.v("TestFile", "SD card is not available/writable right now.");
                 return;
             }
-            String name = getNowTime() + ".jpg";
-            Toast.makeText(mActivity, name, Toast.LENGTH_LONG).show();
             Bundle bundle = data.getExtras();
             if (bundle == null) {
                 return;
             }
+            String name = getNowTime() + ".jpg";
+            Toast.makeText(mActivity, name, Toast.LENGTH_LONG).show();
             Bitmap bitmap = (Bitmap) bundle.get("data");
             FileOutputStream outPutStream = null;
             File file = new File("/sdcard/myImage/");

@@ -22,4 +22,6 @@ public class ActivityHyperlinkClickListener implements ViewStub.OnClickListener 
     public void onClick(View view) {
         context.startActivity(new Intent(context, activity));
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,11 +52,11 @@ public class PublishActivity extends Activity {
         if (intent.getAction().equals("getCamera")) {
             String fileName = intent.getStringExtra("fileName");
             Bitmap myCamera = BitmapFactory.decodeFile(fileName);
-            imageView.setImageBitmap(myCamera);
+            imageView.setImageBitmap(createScaledBitmap(myCamera));
         } else if (intent.getAction().equals("getGallery")) {
             String picPath = intent.getStringExtra("picPath");
             Bitmap myGallery = BitmapFactory.decodeFile(picPath);
-            imageView.setImageBitmap(myGallery);
+            imageView.setImageBitmap(createScaledBitmap(myGallery));
         }
     }
 
@@ -91,5 +92,33 @@ public class PublishActivity extends Activity {
             Log.d(RegisterStepThree.class.getName(), "failed getting avatar data", e);
             return null;
         }
+    }
+
+    private Bitmap createScaledBitmap(Bitmap bitmap) {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels + 1;
+        int height = dm.heightPixels + 1;
+        int t_width;
+        int t_height;
+        if (bitmap.getWidth() > width || bitmap.getHeight() > height) {
+            t_width = width;
+            t_height = bitmap.getHeight() * width / bitmap.getWidth();
+            if (t_height > height) {
+                t_width = t_width * height / t_height;
+                t_height = height;
+            }
+        } else if (bitmap.getWidth() < width && bitmap.getHeight() < height) {
+            t_width = width;
+            t_height = bitmap.getHeight() * width / bitmap.getWidth();
+            if (t_height > height) {
+                t_width = t_width * height / t_height;
+                t_height = height;
+            }
+        } else {
+            t_width = bitmap.getWidth();
+            t_height = bitmap.getHeight();
+        }
+        return  Bitmap.createScaledBitmap(bitmap, t_width, t_height, true);
     }
 }

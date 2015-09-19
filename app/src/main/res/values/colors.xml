@@ -31,4 +31,7 @@
     <item name="login_page_link" type="color">#00aeef</item>
     <item name="et_hint" type="color">#bababa</item>
     <item name="et_background" type="color">#f5f5f5</item>
+    
+    <color name="edit_text_cursor_color">#31C37C</color>
+
 </resources>

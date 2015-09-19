@@ -1,7 +1,11 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import swj.swj.R;
 
@@ -13,5 +17,12 @@ public class PublishTextActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_text);
+        ImageView backActivity = (ImageView) findViewById(R.id.iv_publish_back);
+        backActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
