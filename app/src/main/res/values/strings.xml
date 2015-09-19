@@ -103,5 +103,6 @@
     <!--<string name="title_activity_set_avatar">设置头像</string>-->
     <string name="get_image_from_gallery">从相册选择</string>
     <string name="get_image_from_camera">拍照</string>
+    <string name="title_activity_user_home">UserHomeActivity</string>
 
 </resources>

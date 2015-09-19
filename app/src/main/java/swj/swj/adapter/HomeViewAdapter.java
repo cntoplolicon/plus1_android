@@ -18,6 +18,7 @@ import swj.swj.bean.HomeItemBean;
 public class HomeViewAdapter extends SlidingViewAdapter {
     private List<HomeItemBean> mList;
     private LayoutInflater mInflater;
+    public  ViewHolder viewHolder;
 
     public HomeViewAdapter(Context context, List<HomeItemBean> list) {
         mList = list;
@@ -33,7 +34,6 @@ public class HomeViewAdapter extends SlidingViewAdapter {
     public View getView(int position, View convertView) {
         Log.d("getView", position + "");
 
-        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.home_list_item, null);
             viewHolder = new ViewHolder(convertView);
@@ -66,4 +66,5 @@ public class HomeViewAdapter extends SlidingViewAdapter {
             this.ivImage = (ImageView) convertView.findViewById(R.id.iv_image);
         }
     }
+
 }
