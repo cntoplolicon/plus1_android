@@ -8,9 +8,5 @@
     <dimen name="home_img_height">329dp</dimen>
     <dimen name="home_img_mgt">10dp</dimen>
     <dimen name="commin_margin">15dp</dimen>
-<<<<<<< df17634592f71569694fac35fdaac78d4fa7f70a
-=======
-    <!-- Default screen margins, per the Android Design guidelines. -->
->>>>>>> others homepager
     <dimen name="activity_horizontal_margin">16dp</dimen>
 </resources>

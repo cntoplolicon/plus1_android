@@ -47,7 +47,6 @@ public class HomeActivity extends Activity {
         //提交事务
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
-        radioButton.setTextColor(Color.RED);
         tvTitle.setText(getResources().getString(R.string.home_tab));
         tvPersonalSettings.setVisibility(View.INVISIBLE);
     }

@@ -9,7 +9,7 @@ import swj.swj.R;
  * Created by shw on 2015/9/18.
  */
 public class ImageLoaderCfg {
-    public static DisplayImageOptions options = new DisplayImageOptions.Builder()
+    public static final DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.abc)
             .showImageForEmptyUri(R.drawable.abc)
             .showImageOnFail(R.drawable.abc)

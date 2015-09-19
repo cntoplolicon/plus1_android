@@ -18,7 +18,7 @@ public class HomeFragment extends BaseFragment {
     private MySlidingView mSlidingView;
     private View view;
     private List<HomeItemBean> homeBeanList;
-    TextView tvUser;
+    private TextView tvUser;
 
     @Override
     public View initView() {
@@ -34,8 +34,8 @@ public class HomeFragment extends BaseFragment {
             homeBeanList.add(new HomeItemBean(R.drawable.abc, "用户" + i, "内容" + i, "消息" + i, "浏览" + i));
         }
         mSlidingView = (MySlidingView) view.findViewById(R.id.sl_swipelayout);
-        HomeViewAdapter HomeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
-        mSlidingView.setAdapter(HomeViewAdapter);
+        HomeViewAdapter homeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
+        mSlidingView.setAdapter(homeViewAdapter);
         tvUser = (TextView) view.findViewById(R.id.tv_user);
         init();
     }
@@ -44,27 +44,27 @@ public class HomeFragment extends BaseFragment {
         mSlidingView.setOnSlidingStateChangeListener(new MySlidingView.OnSlidingStateChangeListener() {
             @Override
             public void onSmoothUp(MySlidingView swipeLayout, View nextView) {
-                Log.e("aaaaa", "向上");
+                Log.d("aaaaa", "向上");
             }
 
             @Override
             public void onTouchMoving(MySlidingView mySlidingView, View movingView, View nextView) {
-                Log.e("aaaaa", "移动");
+                Log.d("aaaaa", "移动");
             }
 
             @Override
             public void onSmoothDown(MySlidingView swipeLayout, View nextView) {
-                Log.e("aaaaa", "向下");
+                Log.d("aaaaa", "向下");
             }
 
             @Override
             public void onTouchStartMove(MySlidingView swipeLayout, View movingView, View nextView) {
-                Log.e("aaaaa", "开始移动");
+                Log.d("aaaaa", "开始移动");
             }
 
             @Override
             public void onSmoothStop(MySlidingView swipeLayout, View displayView) {
-                Log.e("aaaaa", "停止移动");
+                Log.d("aaaaa", "停止移动");
 //                holder.iv_image.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
@@ -75,7 +75,7 @@ public class HomeFragment extends BaseFragment {
                 tvUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("跳转", "第二个也可以了");
+                        Log.d("跳转", "第二个也可以了");
                         startActivity(new Intent(mActivity, UserHomeActivity.class));
                     }
                 });

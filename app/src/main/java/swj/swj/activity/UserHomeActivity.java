@@ -13,7 +13,7 @@ import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
 
 public class UserHomeActivity extends Activity {
-    GridViewWithHeaderAndFooter others_home;
+    private GridViewWithHeaderAndFooter othersHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,13 @@ public class UserHomeActivity extends Activity {
         init();
     }
 
-    public void init(){
-        others_home = (GridViewWithHeaderAndFooter) findViewById(R.id.others_home);
-        others_home.addHeaderView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_user_home_heard, null));
-        others_home.setAdapter(new HomeAdapter());
+    public void init() {
+        othersHome = (GridViewWithHeaderAndFooter) findViewById(R.id.others_home);
+        othersHome.addHeaderView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_user_home_heard, null));
+        othersHome.setAdapter(new HomeAdapter());
     }
-    class HomeAdapter extends BaseAdapter {
 
+    class HomeAdapter extends BaseAdapter {
         @Override
         public int getCount() {
             return 500;
@@ -50,10 +50,9 @@ public class UserHomeActivity extends Activity {
                     R.layout.activity_user_home_item, null);
             ImageView ivItem = (ImageView) view.findViewById(R.id.iv_item);
             TextView tvItem = (TextView) view.findViewById(R.id.tv_item);
-            tvItem.setText("传播"+position);
+            tvItem.setText("传播" + position);
             ivItem.setImageResource(R.drawable.abc);
             return view;
         }
-
     }
 }
