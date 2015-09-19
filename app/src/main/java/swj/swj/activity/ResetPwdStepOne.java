@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -56,6 +58,9 @@ public class ResetPwdStepOne extends GetSecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
+        pageTitle.setText(getResources().getString(R.string.reset_pwd_step_one));
 
         Button submitButton = (Button)findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);

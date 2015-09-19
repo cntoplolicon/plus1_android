@@ -8,52 +8,71 @@
 
     <swj.swj.view.RoundedImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_above="@+id/et_nickname"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"></swj.swj.view.RoundedImageView>
+        android:layout_marginTop="71dp"></swj.swj.view.RoundedImageView>
+
 
     <EditText
         android:id="@+id/et_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:hint="@string/nickname"
-        android:layout_above="@+id/et_password"
-        android:layout_marginBottom="24dp"
-        android:layout_alignLeft="@+id/et_password"
-        android:layout_alignStart="@+id/et_password"
-        android:layout_alignRight="@+id/et_password"
-        android:layout_alignEnd="@+id/et_password" />
+        android:layout_below="@+id/iv_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:drawableLeft="@drawable/username"
+        android:background="@color/et_background"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:drawablePadding="15dp"
+        android:textColorHint="@color/et_hint"/>
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:drawableLeft="@drawable/password"
+        android:background="@color/et_background"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:paddingLeft="15dp"
+        android:drawablePadding="15dp"
+        android:textColorHint="@color/et_hint"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/et_nickname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/set_gender"
-        android:layout_above="@+id/tv_message"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/et_password"
         android:layout_alignLeft="@+id/et_password"
         android:layout_alignStart="@+id/et_password"
-        android:layout_marginBottom="35dp" />
+        android:textSize="16dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/black"/>
 
     <RadioGroup
         android:id="@+id/rg_gender"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
         android:orientation="horizontal"
         android:layout_alignBottom="@+id/tv_gender"
-        android:layout_alignRight="@+id/et_password"
-        android:layout_alignEnd="@+id/et_password">
+        android:layout_alignLeft="@+id/tv_gender"
+        android:layout_marginLeft="35dp">
 
         <RadioButton
             android:id="@+id/rb_male"
@@ -65,6 +84,7 @@
             android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/set_gender_female" />
 
     </RadioGroup>
@@ -74,20 +94,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit"
-        android:layout_marginBottom="45dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tv_message"
         android:layout_alignLeft="@+id/tv_gender"
         android:layout_alignStart="@+id/tv_gender"
-        android:layout_alignRight="@+id/et_password"
-        android:layout_alignEnd="@+id/et_password" />
+        android:layout_alignRight="@+id/et_nickname"
+        android:layout_alignEnd="@+id/et_nickname"
+        android:layout_marginTop="20dp"
+        android:background="@color/test_yellow"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gender_can_not_change"
         android:id="@+id/tv_message"
-        android:layout_above="@+id/btn_submit"
-        android:layout_alignLeft="@+id/btn_submit"
-        android:layout_alignStart="@+id/btn_submit"
-        android:layout_marginBottom="27dp" />
+        android:layout_alignBottom="@+id/rg_gender"
+        android:layout_alignRight="@+id/et_nickname"
+        android:layout_alignEnd="@+id/et_nickname"
+        android:textSize="16dp"
+        android:textColor="@color/black"/>
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:name="swj.swj.fragment.CustomActionBarFragment"
+        android:id="@+id/fragment2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

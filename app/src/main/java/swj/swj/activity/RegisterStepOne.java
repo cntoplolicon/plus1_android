@@ -1,5 +1,6 @@
 package swj.swj.activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,12 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -55,8 +59,11 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Button submitButton = (Button)findViewById(R.id.btn_submit);
+        setContentView(R.layout.activity_register_step_one);
+        ButterKnife.bind(this);
+//        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
+//        pageTitle.setText(getResources().getString(R.string.register_step_one));
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
     }
 
@@ -81,4 +88,5 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

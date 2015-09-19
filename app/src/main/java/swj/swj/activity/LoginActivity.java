@@ -1,5 +1,6 @@
 package swj.swj.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,7 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     private EditText usernameInput;
     private EditText passwordInput;
@@ -32,15 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack.setVisibility(View.GONE);
+        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
+        pageTitle.setText(getResources().getString(R.string.log_in));
+
         Button loginSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);
         passwordInput = (EditText) findViewById(R.id.et_password);
-
-        //get extras from reset pwd activities to set message
-        Intent intentFromResetPwd = getIntent();
-        String msgFromResetPwd = intentFromResetPwd.getStringExtra("resetPwdStepThree");
-        TextView loginMessage = (TextView) findViewById(R.id.tv_login_error_message);
-        loginMessage.setText(msgFromResetPwd);
 
         loginSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

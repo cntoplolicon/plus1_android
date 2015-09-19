@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,12 +63,13 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_pwd_step_two);
 
+        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
+        pageTitle.setText(getResources().getString(R.string.reset_pwd_step_three));
         Intent intentFromPhoneInput = getIntent();
         String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
-        TextView sCodeFragmentTopHint = (TextView) findViewById(R.id.tv_security_code_sent);
-        sCodeFragmentTopHint.setText(getResources().getString(R.string.security_code_sent) + msgFromPhoneInput);
+        TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);
+        choosenUsername.setText(msgFromPhoneInput);
 
         Button resendButton = (Button) findViewById(R.id.btn_resend_security_code);
         resendButton.setOnClickListener(onResendSecurityCode);

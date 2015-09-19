@@ -12,18 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class GetSecurityCodeActivity extends AppCompatActivity {
+public class GetSecurityCodeActivity extends Activity {
 
+    @Bind(R.id.et_username)
     protected EditText usernameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_security_code);
-        usernameInput = (EditText) findViewById(R.id.et_username);
     }
 
     protected boolean inputValidation() {
