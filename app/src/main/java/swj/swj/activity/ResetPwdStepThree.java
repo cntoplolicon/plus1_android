@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -39,6 +41,7 @@ public class ResetPwdStepThree extends Activity {
                 public void onResponse(JSONObject response) {
                     Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 }
@@ -56,6 +59,9 @@ public class ResetPwdStepThree extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_three);
+
+        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
+        pageTitle.setText(getResources().getString(R.string.reset_pwd_step_three));
 
         passwordInput = (EditText) findViewById(R.id.et_password);
         passwordConfirmationInput = (EditText) findViewById(R.id.et_password_confirmation);

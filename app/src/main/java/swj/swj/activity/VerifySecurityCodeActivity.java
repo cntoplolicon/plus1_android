@@ -16,7 +16,7 @@ import android.widget.TextView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
-public class VerifySecurityCodeActivity extends AppCompatActivity {
+public class VerifySecurityCodeActivity extends Activity {
 
     protected SecurityCodeCountDownTimer timer;
 

@@ -8,51 +8,63 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_password"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="53dp"
-        android:hint="@string/hint_input_new_pwd"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/et_password_confirmation"
-        android:layout_below="@+id/et_password"
-        android:layout_alignLeft="@+id/et_password"
-        android:layout_alignStart="@+id/et_password"
-        android:layout_marginTop="41dp"
-        android:hint="@string/hint_new_pwd_confirm"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/resetPwdStepThreeErrorMessage"
-        android:layout_centerVertical="true"
+        android:hint="@string/hint_input_new_pwd"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="81dp"
+        android:background="@color/et_background"
+        android:textColorHint="@color/et_hint"
         android:layout_alignLeft="@+id/et_password_confirmation"
         android:layout_alignStart="@+id/et_password_confirmation"
         android:layout_alignRight="@+id/et_password_confirmation"
         android:layout_alignEnd="@+id/et_password_confirmation" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:textColorHint="@color/et_hint"
+        android:background="@color/et_background"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/et_password_confirmation"
+        android:hint="@string/hint_new_pwd_confirm"
+        android:layout_below="@+id/et_password"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="15dp"/>
+
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@color/test_yellow"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:text="@string/save_new_pwd"
-        android:layout_marginTop="48dp"
-        android:layout_below="@+id/resetPwdStepThreeErrorMessage"
-        android:layout_alignLeft="@+id/resetPwdStepThreeErrorMessage"
-        android:layout_alignStart="@+id/resetPwdStepThreeErrorMessage"
-        android:layout_alignRight="@+id/resetPwdStepThreeErrorMessage"
-        android:layout_alignEnd="@+id/resetPwdStepThreeErrorMessage" />
+        android:layout_below="@+id/et_password_confirmation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:name="swj.swj.fragment.CustomActionBarFragment"
+        android:id="@+id/fragment3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

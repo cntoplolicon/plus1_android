@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="swj.swj"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="swj.swj">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".application.SnsApplication"
@@ -17,57 +18,35 @@
             android:label="@string/title_activity_splash"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PersonalSettingsActivity"/>
-        <activity android:name=".activity.PersonalProfileActivity"/>
-        <activity android:name=".activity.UpdateNicknameActivity"/>
-        <activity android:name=".activity.UpdateSignActivity"/>
-        <activity android:name=".activity.ChangePasswordActivity"/>
-        <activity android:name=".activity.PublishActivity"/>
-        <activity android:name=".activity.AddTextActivity"/>
-        <activity android:name=".activity.PublishTextActivity"/>
+        <activity android:name=".activity.PersonalSettingsActivity" />
+        <activity android:name=".activity.PersonalProfileActivity" />
+        <activity android:name=".activity.UpdateNicknameActivity" />
+        <activity android:name=".activity.UpdateSignActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.PublishActivity" />
+        <activity android:name=".activity.AddTextActivity" />
+        <activity android:name=".activity.PublishTextActivity" />
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity android:name=".activity.ResetPhoneActivity"/>
-        <activity android:name=".activity.ResetPhoneStepTwoActivity"/>
-        <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/app_name"/>
-        <activity
-            android:name=".activity.RegisterStepOne"
-            android:label="@string/register_step_one"
-            android:parentActivityName=".activity.LoginActivity"/>
-        <activity
-            android:name=".activity.RegisterStepTwo"
-            android:label="@string/register_step_two"
-            android:parentActivityName=".activity.RegisterStepOne"/>
-        <activity
-            android:name=".activity.RegisterStepThree"
-            android:label="@string/register_step_three"
-            android:parentActivityName=".activity.RegisterStepTwo"/>
-        <activity
-            android:name=".activity.ResetPwdStepOne"
-            android:label="@string/reset_pwd_step_one"
-            android:parentActivityName=".activity.LoginActivity"/>
-        <activity
-            android:name=".activity.ResetPwdStepTwo"
-            android:label="@string/reset_pwd_step_two"
-            android:parentActivityName=".activity.ResetPwdStepOne"/>
-        <activity
-            android:name=".activity.ResetPwdStepThree"
-            android:label="@string/reset_pwd_step_three"
-            android:parentActivityName=".activity.ResetPwdStepTwo"/>
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
+            android:label="@string/app_name"></activity>
+        <activity android:name=".activity.ResetPhoneActivity" />
+        <activity android:name=".activity.ResetPhoneStepTwoActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterStepOne" />
+        <activity android:name=".activity.RegisterStepTwo" />
+        <activity android:name=".activity.RegisterStepThree" />
+        <activity android:name=".activity.ResetPwdStepOne" />
+        <activity android:name=".activity.ResetPwdStepTwo" />
+        <activity android:name=".activity.ResetPwdStepThree" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity
             android:name=".activity.UserHomeActivity"
-            android:label="@string/title_activity_user_home">
-        </activity>
+            android:label="@string/title_activity_user_home"></activity>
     </application>
 
 </manifest>
