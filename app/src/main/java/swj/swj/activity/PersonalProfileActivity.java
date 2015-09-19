@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -17,16 +16,15 @@ import java.util.Date;
 
 import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
-import swj.swj.common.LocalUserInfo;
+import swj.swj.model.User;
 
 /**
  * Created by jiewei on 9/3/15.
  */
 public class PersonalProfileActivity extends Activity {
 
-    private RelativeLayout reAvatar, reNickname, rePassword, reSign, rePhone;
-    private TextView tvNickname, tvSign, tvPhone;
-    private String nickname, sign, telephone, imageName;
+    private TextView tvNickname, tvPhone, reAvatar, reNickname, rePassword, reSign, rePhone;
+    private String imageName;
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
@@ -38,23 +36,15 @@ public class PersonalProfileActivity extends Activity {
 
     private void initView() {
 
-        nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        sign = LocalUserInfo.getInstance().getUserInfo("sign");
-        telephone = LocalUserInfo.getInstance().getUserInfo("telephone");
-
-        reAvatar = (RelativeLayout) findViewById(R.id.re_avatar);
-        reNickname = (RelativeLayout) findViewById(R.id.re_nickname);
-        rePassword = (RelativeLayout) findViewById(R.id.re_password);
-        reSign = (RelativeLayout) findViewById(R.id.re_sign);
-        rePhone = (RelativeLayout) findViewById(R.id.re_phone);
-
+        reAvatar = (TextView) findViewById(R.id.re_avatar);
+        reNickname = (TextView) findViewById(R.id.re_nickname);
+        rePassword = (TextView) findViewById(R.id.re_password);
+        reSign = (TextView) findViewById(R.id.re_sign);
+        rePhone = (TextView) findViewById(R.id.re_phone);
         tvNickname = (TextView) findViewById(R.id.tv_profile_nickname);
-        tvSign = (TextView) findViewById(R.id.tv_profile_sign);
         tvPhone = (TextView) findViewById(R.id.tv_profile_phone);
 
-        tvNickname.setText(nickname);
-        tvSign.setText(sign);
-        tvPhone.setText(telephone);
+        tvPhone.setText(User.current.getUsername());
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
@@ -105,16 +95,7 @@ public class PersonalProfileActivity extends Activity {
 
     public void onResume() {
         super.onResume();
-        String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        if (!nickname_temp.equals(nickname)) {
-            if (nickname_temp.isEmpty()) {
-                tvNickname.setText(getResources().getString(R.string.unset));
-            }
-            tvNickname.setText(nickname_temp);
-        }
-
-        String sign_temp = LocalUserInfo.getInstance().getUserInfo("sign");
-        tvSign.setText(sign_temp);
+        tvNickname.setText(User.current.getNickname());
     }
 
     public void back(View view) {

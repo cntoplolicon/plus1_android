@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,7 +19,8 @@ import swj.swj.fragment.PublishFragment;
 
 public class HomeActivity extends Activity {
     RadioButton radioButton;
-    TextView tvTitle, tvPersonalSettings;
+    TextView tvTitle;
+    ImageView ivSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class HomeActivity extends Activity {
     public void init() {
         radioButton = (RadioButton) findViewById(R.id.rb_home);
         tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvPersonalSettings = (TextView) findViewById(R.id.personal_settings_tv);
+        ivSettings = (ImageView) findViewById(R.id.iv_settings);
         onHome(radioButton);
     }
 
@@ -48,30 +50,30 @@ public class HomeActivity extends Activity {
         ft.commit();*/
         getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
         tvTitle.setText(getResources().getString(R.string.home_tab));
-        tvPersonalSettings.setVisibility(View.INVISIBLE);
+        ivSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onFriends(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
         tvTitle.setText(getResources().getString(R.string.friends_tab));
-        tvPersonalSettings.setVisibility(View.INVISIBLE);
+        ivSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onPublish(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
         tvTitle.setText(getResources().getString(R.string.publish_title));
-        tvPersonalSettings.setVisibility(View.INVISIBLE);
+        ivSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onMessage(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
         tvTitle.setText(getResources().getString(R.string.message_tab));
-        tvPersonalSettings.setVisibility(View.INVISIBLE);
+        ivSettings.setVisibility(View.INVISIBLE);
     }
 
     public void onMySelf(View view) {
         getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
         tvTitle.setText(getResources().getString(R.string.myself_tab));
-        tvPersonalSettings.setVisibility(View.VISIBLE);
+        ivSettings.setVisibility(View.VISIBLE);
     }
 }

@@ -4,6 +4,7 @@
     <color name="settings_title_color">#88888888</color>
     <color name="settings_top_bar_blue">#0066FF</color>
     <color name="common_yellow">#FED724</color>
+    <color name="common_white_bg">#ffffff</color>
     <color name="personal_common_female_username">#ff62b8</color>
     <color name="personal_show_value">#ff7800</color>
     <color name="personal_sign">#000000</color>
@@ -11,6 +12,11 @@
     <color name="personal_gridview_title_pressed">#303030</color>
     <color name="personal_gridview_title_unpressed">#929292</color>
     <color name="settings_common_title">#303030</color>
+    <color name="profile_show_user_info">#929292</color>
+    <color name="profile_background">#efefef</color>
+    <color name="profile_input_background">#efefef</color>
+    <color name="profile_common_text">#303030</color>
+    <color name="profile_hint_text">#929292</color>
 
     <color name="home_title_color">#b3b3b3</color>
     <color name="register_hint_color">#bababa</color>

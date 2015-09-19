@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
@@ -28,8 +29,8 @@ public class MySelfFragment extends BaseFragment {
         PersonalGridViewAdapter adapter = new PersonalGridViewAdapter(mActivity);
         gridView.setAdapter(adapter);
 
-        TextView tvPersonalSettings = (TextView) mActivity.findViewById(R.id.personal_settings_tv);
-        tvPersonalSettings.setOnClickListener(onClick);
+        ImageView ivPersonalSettings = (ImageView) mActivity.findViewById(R.id.iv_settings);
+        ivPersonalSettings.setOnClickListener(onClick);
 
         return v;
     }
@@ -49,10 +50,8 @@ public class MySelfFragment extends BaseFragment {
     private void showUserInfo(String userNickName) {
         TextView tvNickName = (TextView) headerView.findViewById(R.id.tv_myself_nickname);
         tvNickName.setText(userNickName);
-//        TextView tvSex = (TextView) headerView.findViewById(R.id.tv_myself_sex);
-//        tvSex.setText(LocalUserInfo.getInstance().getUserInfo("sex"));
         TextView tvSign = (TextView) headerView.findViewById(R.id.tv_myself_sign);
-        tvSign.setText("风雨之后一定是彩虹");
+        tvSign.setText(User.current.getBiography());
         tvMyPublish = (TextView) headerView.findViewById(R.id.tv_myself_publish);
         tvMyCollection = (TextView) headerView.findViewById(R.id.tv_myself_collect);
         tvMyPublish.setOnClickListener(onClick);
@@ -68,7 +67,7 @@ public class MySelfFragment extends BaseFragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.personal_settings_tv:
+                case R.id.iv_settings:
                     startActivity(new Intent(getActivity(), PersonalSettingsActivity.class));
                     break;
                 case R.id.tv_myself_publish:
