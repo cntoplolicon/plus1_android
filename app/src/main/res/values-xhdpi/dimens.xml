@@ -21,10 +21,25 @@
     <dimen name="settings_switch_margin">12dp</dimen>
     <dimen name="settings_logout_margin_horizontal">36dp</dimen>
 
+    <dimen name="profile_text_height">45dp</dimen>
+    <dimen name="profile_text_padding">15dp</dimen>
+    <dimen name="profile_text_avatar_height">56dp</dimen>
+    <dimen name="profile_text_avatar_margin">5dp</dimen>
+    <dimen name="profile_arrow_margin">15dp</dimen>
+    <dimen name="profile_avatar_arrow_top">19dp</dimen>
+    <dimen name="profile_common_arrow_top">13dp</dimen>
+    <dimen name="profile_avatar_size">40dp</dimen>
+    <dimen name="profile_avatar_margin_top">8dp</dimen>
+    <dimen name="profile_margin_between_module">20dp</dimen>
+    <dimen name="profile_text_margin_horizontal">15dp</dimen>
+    <dimen name="profile_edit_margin_top">10dp</dimen>
+    <dimen name="profile_update_biography_width">100dp</dimen>
+
     <dimen name="personal_username_text">14sp</dimen>
     <dimen name="personal_profile_text">12sp</dimen>
     <dimen name="personal_grid_title_text">13sp</dimen>
     <dimen name="settings_common_text">16sp</dimen>
+    <dimen name="profile_show_info">14sp</dimen>
 
     <dimen name="home_title_text_size">19sp</dimen>
     <dimen name="home_text_margin_bottom">16dp</dimen>

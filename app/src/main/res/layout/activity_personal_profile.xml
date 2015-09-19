@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef">
+    android:background="@color/profile_background">
 
 
     <RelativeLayout
@@ -41,15 +41,15 @@
     <TextView
         android:id="@+id/re_avatar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/profile_text_avatar_height"
         android:layout_below="@+id/title"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/profile_text_avatar_margin"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="@dimen/profile_text_padding"
         android:text="@string/change_personal_avatar"
-        android:textColor="#303030"
-        android:textSize="16sp" />
+        android:textColor="@color/settings_common_title"
+        android:textSize="@dimen/settings_common_text" />
 
     <ImageView
         android:id="@+id/iv_forward_avatar"
@@ -57,32 +57,32 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_avatar"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginTop="@dimen/profile_avatar_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <ImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/profile_avatar_size"
+        android:layout_height="@dimen/profile_avatar_size"
         android:layout_alignTop="@+id/re_avatar"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginTop="@dimen/profile_avatar_margin_top"
         android:layout_toLeftOf="@+id/iv_forward_avatar"
         android:src="@drawable/default_useravatar" />
 
     <TextView
         android:id="@+id/re_nickname"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/profile_text_height"
         android:layout_below="@+id/re_avatar"
         android:layout_marginTop="1dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="@dimen/profile_text_padding"
         android:text="@string/change_personal_nickname"
-        android:textColor="#303030"
-        android:textSize="16sp" />
+        android:textColor="@color/settings_common_title"
+        android:textSize="@dimen/settings_common_text" />
 
     <ImageView
         android:id="@+id/iv_forward_nick"
@@ -90,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_nickname"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="13.5dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
@@ -99,43 +99,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_forward_nick"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
         android:layout_toLeftOf="@+id/iv_forward_nick"
         android:layout_toStartOf="@+id/iv_forward_nick"
         android:ellipsize="end"
         android:gravity="end"
         android:singleLine="true"
         android:text="海绵宝宝"
-        android:textColor="#929292"
-        android:textSize="14sp" />
+        android:textColor="@color/profile_show_user_info"
+        android:textSize="@dimen/profile_show_info" />
 
 
     <TextView
         android:id="@+id/re_password"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/profile_text_height"
         android:layout_below="@+id/re_nickname"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/profile_margin_between_module"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="@dimen/profile_text_padding"
         android:text="@string/pwd_reset"
-        android:textColor="#303030"
-        android:textSize="16sp" />
+        android:textColor="@color/settings_common_title"
+        android:textSize="@dimen/settings_common_text" />
 
 
     <TextView
         android:id="@+id/re_sign"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/profile_text_height"
         android:layout_below="@+id/re_password"
         android:layout_marginTop="1dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="@dimen/profile_text_padding"
         android:text="@string/change_biography"
-        android:textColor="#303030"
-        android:textSize="16sp" />
+        android:textColor="@color/settings_common_title"
+        android:textSize="@dimen/settings_common_text" />
 
     <ImageView
         android:id="@+id/iv_forward_password"
@@ -143,22 +143,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_sign"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="13.5dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
         android:id="@+id/re_phone"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/profile_text_height"
         android:layout_below="@+id/re_sign"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/profile_margin_between_module"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
+        android:paddingLeft="@dimen/profile_text_padding"
         android:text="@string/telephone"
-        android:textColor="#303030"
-        android:textSize="16sp" />
+        android:textColor="@color/settings_common_title"
+        android:textSize="@dimen/settings_common_text" />
 
     <ImageView
         android:id="@+id/iv_forward_phone"
@@ -166,8 +166,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_phone"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="13.5dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
@@ -175,12 +175,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_forward_phone"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
         android:layout_toLeftOf="@+id/iv_forward_phone"
         android:layout_toStartOf="@+id/iv_forward_phone"
         android:gravity="end"
-        android:text="1234567890123"
-        android:textColor="#929292"
-        android:textSize="14sp" />
-    
+        android:textColor="@color/profile_show_user_info"
+        android:textSize="@dimen/profile_show_info" />
+
 </RelativeLayout>

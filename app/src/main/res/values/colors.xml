@@ -12,6 +12,11 @@
     <color name="personal_gridview_title_pressed">#303030</color>
     <color name="personal_gridview_title_unpressed">#929292</color>
     <color name="settings_common_title">#303030</color>
+    <color name="profile_show_user_info">#929292</color>
+    <color name="profile_background">#efefef</color>
+    <color name="profile_input_background">#efefef</color>
+    <color name="profile_common_text">#303030</color>
+    <color name="profile_hint_text">#929292</color>
 
     <color name="home_title_color">#b3b3b3</color>
     <color name="register_hint_color">#bababa</color>

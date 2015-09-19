@@ -16,7 +16,7 @@ import java.util.Date;
 
 import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
-import swj.swj.common.LocalUserInfo;
+import swj.swj.model.User;
 
 /**
  * Created by jiewei on 9/3/15.
@@ -24,7 +24,7 @@ import swj.swj.common.LocalUserInfo;
 public class PersonalProfileActivity extends Activity {
 
     private TextView tvNickname, tvPhone, reAvatar, reNickname, rePassword, reSign, rePhone;
-    private String nickname, telephone, imageName;
+    private String nickname, imageName;
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
@@ -36,8 +36,7 @@ public class PersonalProfileActivity extends Activity {
 
     private void initView() {
 
-        nickname = LocalUserInfo.getInstance().getUserInfo("nick_name");
-        telephone = LocalUserInfo.getInstance().getUserInfo("telephone");
+        nickname = User.current.getNickname();
 
         reAvatar = (TextView) findViewById(R.id.re_avatar);
         reNickname = (TextView) findViewById(R.id.re_nickname);
@@ -49,7 +48,7 @@ public class PersonalProfileActivity extends Activity {
         tvPhone = (TextView) findViewById(R.id.tv_profile_phone);
 
         tvNickname.setText(nickname);
-        tvPhone.setText(telephone);
+        tvPhone.setText(User.current.getUsername());
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
@@ -100,7 +99,7 @@ public class PersonalProfileActivity extends Activity {
 
     public void onResume() {
         super.onResume();
-        String nickname_temp = LocalUserInfo.getInstance().getUserInfo("nick_name");
+        String nickname_temp = User.current.getNickname();
         if (!nickname_temp.equals(nickname)) {
             if (nickname_temp.isEmpty()) {
                 tvNickname.setText(getResources().getString(R.string.unset));
