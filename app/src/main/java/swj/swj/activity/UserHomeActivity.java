@@ -1,0 +1,59 @@
+package swj.swj.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import swj.swj.R;
+
+public class UserHomeActivity extends Activity {
+    GridViewWithHeaderAndFooter others_home;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_home);
+        init();
+    }
+
+    public void init(){
+        others_home = (GridViewWithHeaderAndFooter) findViewById(R.id.others_home);
+        others_home.addHeaderView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_user_home_heard, null));
+        others_home.setAdapter(new HomeAdapter());
+    }
+    class HomeAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 500;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return "大家好！";
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = View.inflate(UserHomeActivity.this,
+                    R.layout.activity_user_home_item, null);
+            ImageView ivItem = (ImageView) view.findViewById(R.id.iv_item);
+            TextView tvItem = (TextView) view.findViewById(R.id.tv_item);
+            tvItem.setText("传播"+position);
+            ivItem.setImageResource(R.drawable.abc);
+            return view;
+        }
+
+    }
+}

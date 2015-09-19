@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:maxWidth="180dp"
+        android:maxHeight="180dp"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@drawable/abc"/>
+
+    <RelativeLayout
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="bottom"
+        >
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:text="hh"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:id="@+id/tv_items"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="1dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:text="dd"
+            android:textSize="15sp"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>
