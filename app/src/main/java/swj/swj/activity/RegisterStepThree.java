@@ -101,20 +101,12 @@ public class RegisterStepThree extends Activity {
             return null;
         }
         Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
-        ByteArrayOutputStream os = null;
         try {
-            os = new ByteArrayOutputStream();
-            avatarBitmap.compress(Bitmap.CompressFormat.PNG, 0, os);
-            byte[] avatarData = os.toByteArray();
+            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
             return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    Log.e(RegisterStepThree.class.getName(), "failed closing stream", e);
-                }
-            }
+        } catch (IOException e) {
+            Log.d(RegisterStepThree.class.getName(), "failed getting avatar data", e);
+            return null;
         }
     }
 

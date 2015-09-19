@@ -10,15 +10,11 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MIME;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.AbstractContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -28,17 +24,17 @@ public class JsonObjectMultipartRequest extends JsonObjectRequest {
 
     private HttpEntity entity;
 
-    public JsonObjectMultipartRequest(int method, String url, Map<String, Object> params,
+    public JsonObjectMultipartRequest(int method, String url, Collection<Map.Entry<String, Object>> params,
                                       Response.Listener<JSONObject> onSuccess, Response.ErrorListener onError) {
         super(method, url, onSuccess, onError);
         buildMultipartEntity(params);
     }
 
-    private void buildMultipartEntity(Map<String, Object> params) {
+    private void buildMultipartEntity(Collection<Map.Entry<String, Object>> entries) {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setCharset(MIME.UTF8_CHARSET);
         ContentType textContentType = ContentType.create("text/plain", MIME.UTF8_CHARSET);
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
+        for (Map.Entry<String, Object> entry : entries) {
             Object objValue = entry.getValue();
             if (objValue instanceof AbstractContentBody) {
                 AbstractContentBody fileBody = (AbstractContentBody) objValue;

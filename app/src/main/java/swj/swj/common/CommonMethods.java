@@ -1,18 +1,20 @@
 package swj.swj.common;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,5 +78,18 @@ public class CommonMethods {
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         builder.registerTypeAdapter(DateTime.class, new GsonJodaTimeHandler());
         return builder.create();
+    }
+
+    public static byte[] bitmap2ByteArray(Bitmap b) throws IOException {
+        ByteArrayOutputStream os = null;
+        try {
+            os = new ByteArrayOutputStream();
+            b.compress(Bitmap.CompressFormat.PNG, 0, os);
+            return os.toByteArray();
+        } finally {
+            if (os != null) {
+                os.close();
+            }
+        }
     }
 }

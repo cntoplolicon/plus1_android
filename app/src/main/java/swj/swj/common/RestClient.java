@@ -14,8 +14,12 @@ import com.android.volley.toolbox.HurlStack;
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.json.JSONObject;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import swj.swj.BuildConfig;
 import swj.swj.model.User;
@@ -93,7 +97,7 @@ public class RestClient {
         params.put("gender", gender);
 
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
-                getResourceUrl("/users"), params, onSuccess, onError);
+                getResourceUrl("/users"), params.entrySet(), onSuccess, onError);
         requestQueue.add(request);
     }
 
@@ -132,6 +136,27 @@ public class RestClient {
         params.put("password", password);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
                 getResourceUrl("/users/password"), params, onSucess, onError);
+        requestQueue.add(request);
+    }
+
+    public void post(String[] texts, AbstractContentBody[] images,
+                     Listener<JSONObject> onSuccess, ErrorListener onError) {
+        if (texts.length != images.length) {
+            throw new IllegalArgumentException("texts & images lengths unequal");
+        }
+
+        List<Map.Entry<String, Object>> params = new LinkedList<>();
+        Map<String, Object> userParams = createUserParams();
+        params.addAll(userParams.entrySet());
+
+        for (int i = 0; i < texts.length; i++) {
+            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][text]", texts[i]));
+            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][image]", images[i]));
+        }
+
+        String userId = userParams.get("user_id").toString();
+        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
+                getResourceUrl("/users/" + userId + "/posts"), params, onSuccess, onError);
         requestQueue.add(request);
     }
 
