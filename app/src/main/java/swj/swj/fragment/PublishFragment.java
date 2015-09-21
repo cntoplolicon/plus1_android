@@ -1,7 +1,6 @@
 package swj.swj.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,9 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import swj.swj.R;
-import swj.swj.activity.AddTextActivity;
 import swj.swj.activity.PublishActivity;
-import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.view.MyDialog;
 
 
 public class PublishFragment extends BaseFragment {
@@ -31,6 +29,7 @@ public class PublishFragment extends BaseFragment {
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
     private static final String[] items = {"拍照", "从照片库里选择", "取消"};
+    private AlertDialog.Builder dialog;
 
     @Override
     public View initView() {
@@ -41,26 +40,21 @@ public class PublishFragment extends BaseFragment {
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setItems(items, new DialogInterface.OnClickListener() {
+                MyDialog myDialog = new MyDialog(mActivity, R.layout.activity_dialog, new MyDialog.LeaveMyDialogListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
+                    public void onClick(View view) {
+                        switch (view.getId()) {
+                            case R.id.tv_1:
                                 getCamera();
-                                break;
-                            case 1:
-                                getGallery();
-                                break;
                         }
                     }
-                }).show();
+                });
+                myDialog.show();
             }
         });
-
-        btnAddText.setOnClickListener(new ActivityHyperlinkClickListener(mActivity, AddTextActivity.class));
         return v;
     }
+
 
     //use camera
     public void getCamera() {
@@ -135,4 +129,5 @@ public class PublishFragment extends BaseFragment {
         SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
         return dataFormat.format(date);
     }
+
 }
