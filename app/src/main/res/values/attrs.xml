@@ -2,6 +2,5 @@
 <resources>
     <declare-styleable name="CustomActionBarFragment">
         <attr name="my_string" format="string"/>
-        <attr name="my_integer" format="integer"/>
     </declare-styleable>
 </resources>

@@ -12,7 +12,8 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"></swj.swj.view.RoundedImageView>
+        android:layout_marginTop="71dp"
+        android:src="@drawable/test_default_face"></swj.swj.view.RoundedImageView>
 
 
     <EditText
@@ -23,25 +24,21 @@
         android:layout_below="@+id/iv_avatar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:drawableLeft="@drawable/username"
         android:background="@color/et_background"
-        android:paddingLeft="15dp"
+        android:paddingLeft="60dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:drawablePadding="15dp"
         android:textColorHint="@color/et_hint"/>
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:drawableLeft="@drawable/password"
         android:background="@color/et_background"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
-        android:paddingLeft="15dp"
-        android:drawablePadding="15dp"
+        android:paddingLeft="60dp"
         android:textColorHint="@color/et_hint"
         android:ems="10"
         android:hint="@string/password"
@@ -122,6 +119,29 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        tools:layout="@layout/fragment_custom_action_bar" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView5"
+        android:layout_alignTop="@+id/et_nickname"
+        android:layout_alignLeft="@+id/et_nickname"
+        android:layout_alignStart="@+id/et_nickname"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/username"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView6"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/password"
+        android:layout_alignTop="@+id/et_password"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password" />
 
 </RelativeLayout>
