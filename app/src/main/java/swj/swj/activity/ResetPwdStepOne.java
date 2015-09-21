@@ -15,6 +15,7 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -58,9 +59,9 @@ public class ResetPwdStepOne extends GetSecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reset_pwd_step_one);
 
-        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-        pageTitle.setText(getResources().getString(R.string.reset_pwd_step_one));
+        ButterKnife.bind(this);
 
         Button submitButton = (Button)findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);

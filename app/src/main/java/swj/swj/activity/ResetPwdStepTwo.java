@@ -63,9 +63,8 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reset_pwd_step_two);
 
-        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-        pageTitle.setText(getResources().getString(R.string.reset_pwd_step_three));
         Intent intentFromPhoneInput = getIntent();
         String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
         TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);

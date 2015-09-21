@@ -12,8 +12,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:src="@drawable/test_default_face"></swj.swj.view.RoundedImageView>
+        android:layout_marginTop="71dp"></swj.swj.view.RoundedImageView>
 
 
     <EditText

@@ -63,16 +63,8 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_step_two);
 
-        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-        ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
-        pageTitle.setText(getResources().getString(R.string.register_step_two));
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
         String username = getIntent().getStringExtra("username");
         TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);
         choosenUsername.setText(username);

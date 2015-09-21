@@ -60,9 +60,9 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_one);
+
         ButterKnife.bind(this);
-//        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-//        pageTitle.setText(getResources().getString(R.string.register_step_one));
+
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
     }

@@ -10,7 +10,18 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         layout="@layout/activity_verify_security_code"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/fragment5" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:name="swj.swj.fragment.CustomActionBarFragment"
+        android:id="@+id/fragment5"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:layout="@layout/fragment_custom_action_bar" />
+
 
 </RelativeLayout>
