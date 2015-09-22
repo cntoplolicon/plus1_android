@@ -3,12 +3,18 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -25,6 +31,7 @@ public class PersonalProfileActivity extends Activity {
 
     private TextView tvNickname, tvPhone, reAvatar, reNickname, rePassword, reSign, rePhone;
     private String imageName;
+    ImageView ivAvatar;
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
@@ -43,6 +50,21 @@ public class PersonalProfileActivity extends Activity {
         rePhone = (TextView) findViewById(R.id.re_phone);
         tvNickname = (TextView) findViewById(R.id.tv_profile_nickname);
         tvPhone = (TextView) findViewById(R.id.tv_profile_phone);
+
+        ivAvatar = (ImageView)findViewById(R.id.iv_avatar);
+        Log.d("PersonalProfile", User.current.getAvatar());
+        String imageUrl = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/" + User.current.getAvatar();
+
+        ImageLoader.getInstance().loadImage(imageUrl, new SimpleImageLoadingListener(){
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view,
+                                          Bitmap loadedImage) {
+                super.onLoadingComplete(imageUri, view, loadedImage);
+                ivAvatar.setImageBitmap(loadedImage);
+            }
+
+        });
 
         tvPhone.setText(User.current.getUsername());
 
