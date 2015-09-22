@@ -82,8 +82,8 @@ public class RegisterStepThree extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_three);
 
-        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-        pageTitle.setText(getResources().getString(R.string.register_step_three));
+        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
+        tvPageTitle.setText(getResources().getString(R.string.register_step_three));
 
         faceImage = (RoundedImageView) findViewById(R.id.iv_avatar);
         faceImage.setOnClickListener(new View.OnClickListener() {
