@@ -36,8 +36,8 @@ public class LoginActivity extends Activity {
 
         ImageView ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setVisibility(View.GONE);
-        TextView pageTitle = (TextView) findViewById(R.id.tv_page_title);
-        pageTitle.setText(getResources().getString(R.string.log_in));
+        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
+        tvPageTitle.setText(getResources().getString(R.string.log_in));
 
         Button loginSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);

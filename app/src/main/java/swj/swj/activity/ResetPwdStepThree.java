@@ -62,6 +62,8 @@ public class ResetPwdStepThree extends Activity {
 
         passwordInput = (EditText) findViewById(R.id.et_password);
         passwordConfirmationInput = (EditText) findViewById(R.id.et_password_confirmation);
+        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
+        tvPageTitle.setText(getResources().getString(R.string.reset_pwd_step_three));
 
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);

@@ -69,6 +69,9 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
         String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
         TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);
         choosenUsername.setText(msgFromPhoneInput);
+        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
+        tvPageTitle.setText(getResources().getString(R.string.reset_pwd_step_two));
+        startResendCountDown();
 
         Button resendButton = (Button) findViewById(R.id.btn_resend_security_code);
         resendButton.setOnClickListener(onResendSecurityCode);

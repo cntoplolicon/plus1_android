@@ -62,8 +62,10 @@ public class ResetPwdStepOne extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_reset_pwd_step_one);
 
         ButterKnife.bind(this);
+        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
+        tvPageTitle.setText(getResources().getString(R.string.reset_pwd_step_one));
 
-        Button submitButton = (Button)findViewById(R.id.btn_submit);
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
     }
 

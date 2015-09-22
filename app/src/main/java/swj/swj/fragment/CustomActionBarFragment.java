@@ -17,17 +17,6 @@ import swj.swj.R;
 
 public class CustomActionBarFragment extends Fragment {
 
-    private CharSequence title;
-
-    @Override
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
-        super.onInflate(activity, attrs, savedInstanceState);
-
-        TypedArray typedArray = activity.obtainStyledAttributes(attrs, R.styleable.CustomActionBarFragment);
-        title = typedArray.getText(R.styleable.CustomActionBarFragment_my_string);
-        typedArray.recycle();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,8 +28,6 @@ public class CustomActionBarFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        TextView pageTitle = (TextView) getActivity().findViewById(R.id.tv_page_title);
-        pageTitle.setText(title);
         ImageView ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
