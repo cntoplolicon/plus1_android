@@ -1,5 +1,6 @@
 package swj.swj.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import swj.swj.R;
+import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.HomeViewAdapter;
 import swj.swj.bean.HomeItemBean;
@@ -35,6 +37,7 @@ public class HomeFragment extends BaseFragment {
         mSlidingView.setCallback(new HomePageLayout.Callback() {
             @Override
             public void onViewAdded(View view) {
+                view.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), CardDetailsActivity.class));
                 TextView tvUser = (TextView)view.findViewById(R.id.tv_user);
                 tvUser.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), UserHomeActivity.class));
             }
