@@ -104,13 +104,14 @@ public class PersonalProfileActivity extends Activity {
         final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.alert_dialog);
-        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_content1);
-        TextView tv_gallery = (TextView) window.findViewById(R.id.tv_content2);
+        window.setContentView(R.layout.activity_dialog);
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
+        TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
         tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
-        tv_gallery.setText(getResources().getString(R.string.gallery));
+        tvGallery.setText(getResources().getString(R.string.gallery));
+        tvCancel.setText(getResources().getString(R.string.cancel));
         tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -122,12 +123,19 @@ public class PersonalProfileActivity extends Activity {
                 alertDialog.cancel();
             }
         });
-        tv_gallery.setOnClickListener(new View.OnClickListener() {
+        tvGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent intentFromGallery = new Intent();
                 intentFromGallery.setType("image/*");
                 intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intentFromGallery, PHOTO_REQUEST_GALLERY);
+                alertDialog.cancel();
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 alertDialog.cancel();
             }
         });
