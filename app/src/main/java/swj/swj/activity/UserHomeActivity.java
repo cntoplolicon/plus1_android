@@ -47,9 +47,9 @@ public class UserHomeActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = View.inflate(UserHomeActivity.this,
-                    R.layout.activity_user_home_item, null);
-            ImageView ivItem = (ImageView) view.findViewById(R.id.iv_item);
-            TextView tvItem = (TextView) view.findViewById(R.id.tv_item);
+                    R.layout.myself_gridview_item, null);
+            ImageView ivItem = (ImageView) view.findViewById(R.id.gridview_item_image);
+            TextView tvItem = (TextView) view.findViewById(R.id.tv_forward_count);
             tvItem.setText("传播" + position);
             ivItem.setImageResource(R.drawable.abc);
             return view;

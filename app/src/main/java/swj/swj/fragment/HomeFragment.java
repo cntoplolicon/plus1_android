@@ -31,4 +31,5 @@ public class HomeFragment extends BaseFragment {
         HomeViewAdapter homeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
         mSlidingView.setAdapter(homeViewAdapter);
     }
+
 }

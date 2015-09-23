@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
 
     <ImageView
@@ -28,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginBottom="6dp"
+            android:layout_marginLeft="8dp"
             android:text="32人转发"
             android:textColor="#fcfcfc"
             android:textSize="12dp"/>
@@ -40,8 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="6dp"
             android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
             android:text="剩余7天"
             android:textColor="#fcfcfc"
             android:textSize="12dp"/>

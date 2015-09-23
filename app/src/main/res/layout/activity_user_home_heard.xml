@@ -1,74 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <TextView
-        android:id="@+id/user_home_title"
-        android:drawableLeft="@drawable/back"
-        style="@style/TitleStyle"
-        android:text="用户01"
-        />
-    <TextView
-        android:id="@+id/tv_lin"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@id/user_home_title"
-        android:layout_height="1dp"
-        android:background="#b3b3b3"
-        />
+        android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imc_image"
-        android:layout_below="@id/tv_lin"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/abc"
-        app:border_color="#b3b3b3"
-        app:border_width="2dp"/>
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@id/tv_lin"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imc_image"
-        android:text="魔鬼幽灵"
-        android:drawablePadding="5dp"
-        android:drawableRight="@drawable/icon_woman"
-        android:textSize="14sp"
-        android:textColor="#ff62b8"
-        />
-    <TextView
-        android:id="@+id/tv_context"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imc_image"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@id/tv_name"
-        android:lines="1"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        android:textColor="#000"
-        android:text="这是一个好地方啊..."
-        />
-    <TextView
-        android:id="@+id/tv_diffuse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imc_image"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@id/tv_context"
-        android:textSize="12sp"
-        android:textColor="#919191"
-        android:text="影响力；800"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rounded_image_personal_avatar"
+            android:layout_width="@dimen/personal_avatar_size"
+            android:layout_height="@dimen/personal_avatar_size"
+            android:layout_marginTop="@dimen/personal_avatar_margin"
+            android:src="@drawable/default_useravatar"
+            app:border_color="#b3b3b3"
+            app:border_width="2px"
+            />
 
-</RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_myself_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/personal_profile_margin_left"
+            android:layout_marginTop="@dimen/personal_nick_margin_top"
+            android:layout_toRightOf="@+id/rounded_image_personal_avatar"
+            android:text="用户昵称"
+            android:textColor="@color/personal_common_female_username"
+            android:textSize="@dimen/personal_username_text" />
+
+        <ImageView
+            android:id="@+id/tv_myself_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_myself_nickname"
+            android:layout_marginLeft="@dimen/personal_sex_margin_left"
+            android:layout_toRightOf="@+id/tv_myself_nickname"
+            android:src="@drawable/icon_woman"/>
+
+        <TextView
+            android:id="@+id/tv_myself_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_myself_nickname"
+            android:layout_below="@+id/tv_myself_nickname"
+            android:layout_marginTop="@dimen/personal_profile_margin_left"
+            android:text="个性签名个性签名"
+            android:textColor="@color/personal_sign"
+            android:textSize="@dimen/personal_profile_text" />
+
+        <TextView
+            android:id="@+id/tv_influence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_myself_sign"
+            android:layout_below="@+id/tv_myself_sign"
+            android:layout_marginTop="@dimen/personal_profile_margin_left"
+            android:text="影响力: "
+            android:textColor="@color/personal_level_title"
+            android:textSize="@dimen/personal_profile_text" />
+
+        <TextView
+            android:id="@+id/tv_influence_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_influence"
+            android:layout_toRightOf="@+id/tv_influence"
+            android:text=" 800"
+            android:textColor="@color/personal_show_value"
+            android:textSize="@dimen/personal_profile_text" />
+
+
+        <TextView
+            android:id="@+id/tv_send_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_influence"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/personal_send_margin_left"
+            android:layout_toRightOf="@+id/tv_influence_value"
+            android:text="每次发给4个陌生人"
+            android:textColor="@color/personal_level_title"
+            android:textSize="@dimen/personal_profile_text" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rounded_image_personal_avatar"
+            android:layout_below="@+id/rounded_image_personal_avatar"
+            android:layout_marginTop="@dimen/personal_grid_title_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_myself_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/personal_grid_title_height"
+                android:layout_weight="0.50"
+                android:background="@drawable/personal_tv_border_left_pressed"
+                android:gravity="center"
+                android:text="我发布的"
+                android:textColor="@color/personal_gridview_title_pressed"
+                android:textSize="@dimen/personal_grid_title_text" />
+
+            <TextView
+                android:id="@+id/tv_myself_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/personal_grid_title_height"
+                android:layout_weight="0.50"
+                android:background="@drawable/personal_tv_border_right_unpressed"
+                android:gravity="center"
+                android:text="我的收藏"
+                android:textColor="@color/personal_gridview_title_unpressed"
+                android:textSize="@dimen/personal_grid_title_text" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
