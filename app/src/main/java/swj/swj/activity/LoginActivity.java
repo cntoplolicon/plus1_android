@@ -3,7 +3,6 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,10 +75,10 @@ public class LoginActivity extends Activity {
     }
 
     private boolean inputValidation() {
-        if (!CommonMethods.isValidUsername(usernameInput.getText().toString())) {
+        if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
             return false;
-        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
+        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
             return false;
         }

@@ -68,7 +68,7 @@ public class ResetPhoneActivity extends Activity {
     }
 
     private boolean inputValidation() {
-        if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
+        if (CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
             return false;
         }

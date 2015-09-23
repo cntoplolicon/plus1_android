@@ -10,6 +10,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -29,7 +30,7 @@ public class RoundedImageView extends ImageView {
         super(context, attrs, defStyle);
     }
 
-    public Bitmap getCroppedBitmap() {
+    private Bitmap getCroppedBitmap() {
         Drawable drawable = getDrawable();
         int w = getWidth(), h = getHeight();
         if (drawable == null || w == 0 || h == 0) {
@@ -41,14 +42,14 @@ public class RoundedImageView extends ImageView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         Bitmap croppedBitmap = getCroppedBitmap();
         if (croppedBitmap != null) {
             canvas.drawBitmap(croppedBitmap, 0, 0, null);
         }
     }
 
-    public static Bitmap cropBitmap(Bitmap bmp, int radius) {
+    private static Bitmap cropBitmap(Bitmap bmp, int radius) {
         Bitmap sbmp;
 
         if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
