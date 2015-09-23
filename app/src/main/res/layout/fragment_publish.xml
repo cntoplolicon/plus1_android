@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,27 +35,4 @@
             android:textColor="@color/new_card_button" />
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="0.1">
-
-        <ImageView
-            android:id="@+id/iv_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/publish_point_margin"
-            android:src="@drawable/point" />
-
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/publish_add_margin"
-            android:src="@drawable/add" />
-    </RelativeLayout>
-
 </LinearLayout>
