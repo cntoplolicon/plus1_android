@@ -73,13 +73,4 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
         submitButton.setOnClickListener(onSubmit);
     }
 
-    private boolean inputValidation() {
-        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        if (!CommonMethods.isValidSCode(securityCode)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
-    }
-
 }

@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -22,11 +22,13 @@ import swj.swj.common.RestClient;
 
 public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
 
+    private static final String USERNAME = "username";
+
     private View.OnClickListener onResendSecurityCode = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = getIntent();
-            String username = intent.getStringExtra("username");
+            String username = intent.getStringExtra(USERNAME);
             RestClient.getInstance().newSecurityCode4Account(username,
                     null, new JsonErrorListener(getApplicationContext(), null));
             intent.putExtra("counter_start", System.currentTimeMillis());
@@ -40,14 +42,14 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
             if (!inputValidation()) {
                 return;
             }
-            final String username = getIntent().getStringExtra("username");
+            final String username = getIntent().getStringExtra(USERNAME);
             String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
             RestClient.getInstance().verifySecurityCode(username, securityCode,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Intent intent = new Intent(ResetPwdStepTwo.this, ResetPwdStepThree.class);
-                            intent.putExtra("username", username);
+                            intent.putExtra(USERNAME, username);
                             startActivity(intent);
                             finish();
                         }
@@ -65,8 +67,9 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd_step_two);
 
+        ButterKnife.bind(this);
         Intent intentFromPhoneInput = getIntent();
-        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra("username");
+        String msgFromPhoneInput = intentFromPhoneInput.getStringExtra(USERNAME);
         TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);
         choosenUsername.setText(msgFromPhoneInput);
         TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
@@ -77,16 +80,6 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
         resendButton.setOnClickListener(onResendSecurityCode);
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
-    }
-
-
-    private boolean inputValidation() {
-        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        if (!CommonMethods.isValidSCode(securityCode)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
     }
 
     @Override

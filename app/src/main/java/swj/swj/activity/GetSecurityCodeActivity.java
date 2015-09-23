@@ -1,15 +1,10 @@
 package swj.swj.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -19,14 +14,14 @@ import swj.swj.common.CommonMethods;
 public class GetSecurityCodeActivity extends Activity {
 
     @Bind(R.id.et_username)
-    protected EditText usernameInput;
+    EditText usernameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    protected boolean inputValidation() {
+    boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
             return false;

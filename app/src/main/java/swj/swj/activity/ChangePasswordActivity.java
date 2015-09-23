@@ -71,13 +71,13 @@ public class ChangePasswordActivity extends Activity {
 
     private boolean inputValidation() {
         String oldPassword = etOldPwd.getText().toString();
-        if (!CommonMethods.isValidPwd(oldPassword)) {
+        if (CommonMethods.isValidPwd(oldPassword)) {
             Toast.makeText(this, R.string.password_invalid_format, Toast.LENGTH_LONG).show();
             return false;
         }
 
         String password = etNewPwd.getText().toString();
-        if (!CommonMethods.isValidPwd(password)) {
+        if (CommonMethods.isValidPwd(password)) {
             Toast.makeText(this, R.string.password_invalid_format, Toast.LENGTH_LONG).show();
             return false;
         }
