@@ -53,5 +53,7 @@
     <dimen name="publish_add_margin">180dp</dimen>
     <dimen name="publish_add_image_margin">10dp</dimen>
     <dimen name="publish_add_image_height">226dp</dimen>
+    <dimen name="publish_title_line_margin">54dp</dimen>
+    <dimen name="publish_delete_margin_top">10dp</dimen>
 
 </resources>

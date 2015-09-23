@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="280dp"
@@ -11,14 +11,14 @@
         android:background="#ffffff"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:id="@+id/ll_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -27,7 +27,6 @@
                 android:background="@drawable/bg_white_aaaaaa"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-
                 android:textColor="#3cac17"
                 android:textSize="18sp" />
 
@@ -44,7 +43,6 @@
             android:background="@drawable/bg_white_aaaaaa"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-
             android:textColor="#353535"
             android:textSize="16sp" />
 
@@ -52,8 +50,7 @@
             android:id="@+id/ll_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -67,7 +64,6 @@
                 android:background="@drawable/bg_white_aaaaaa"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -77,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -91,7 +87,6 @@
                 android:background="@drawable/bg_white_aaaaaa"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -101,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -115,7 +110,6 @@
                 android:background="@drawable/bg_white_aaaaaa"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -125,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -139,7 +133,6 @@
                 android:background="@drawable/bg_white_aaaaaa"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </LinearLayout>

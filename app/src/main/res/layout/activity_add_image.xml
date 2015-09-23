@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:textColor="@color/new_card_text_color"
             android:text="@string/publish_title"
+            android:textColor="@color/new_card_text_color"
             android:textSize="@dimen/home_title_text_size" />
 
         <TextView
@@ -25,19 +26,20 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:paddingRight="@dimen/home_text_margin_top"
-            android:textColor="@color/new_card_text_color"
             android:text="@string/publish_publish"
+            android:textColor="@color/new_card_text_color"
             android:textSize="@dimen/publish_publish_text_size" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/publish_title_line_margin"
             android:background="@color/home_title_color" />
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/iv_publish_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
@@ -54,16 +56,18 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
-            android:adjustViewBounds="true"
-            android:layout_height="@dimen/publish_add_image_height" />
+            android:layout_height="@dimen/publish_add_image_height"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerInside" />
 
         <TextView
+            android:id="@+id/tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/iv_image"
             android:layout_marginRight="@dimen/publish_add_image_margin"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/publish_delete_margin_top"
             android:text="@string/publish_delete_image"
             android:textSize="@dimen/publish_delete_image_size" />
     </RelativeLayout>
@@ -81,7 +85,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="top"
-            android:textCursorDrawable="@null"
-            android:hint="@string/publish_hint" />
+            android:hint="@string/publish_hint"
+            android:textCursorDrawable="@null" />
     </RelativeLayout>
 </LinearLayout>
