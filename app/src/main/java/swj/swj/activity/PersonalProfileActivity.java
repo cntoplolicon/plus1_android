@@ -31,6 +31,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
@@ -43,28 +46,40 @@ import swj.swj.model.User;
  */
 public class PersonalProfileActivity extends Activity {
 
-    private TextView tvNickname, tvPhone, reAvatar, reNickname, rePassword, reSign, rePhone;
-    private static final String IMAGE_FILE_NAME = "personalImage.jpg";
+    @Bind(R.id.re_nickname)
+    TextView reNickname;
+
+    @Bind(R.id.tv_profile_nickname)
+    TextView tvNickname;
+
+    @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
+
+    @Bind(R.id.re_password)
+    TextView rePassword;
+
+    @Bind(R.id.re_sign)
+    TextView reSign;
+
+    @Bind(R.id.re_phone)
+    TextView rePhone;
+
+    @Bind(R.id.tv_profile_phone)
+    TextView tvPhone;
+
+    private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
+        ButterKnife.bind(this);
+
         initView();
     }
 
     private void initView() {
-
-        reAvatar = (TextView) findViewById(R.id.re_avatar);
-        reNickname = (TextView) findViewById(R.id.re_nickname);
-        rePassword = (TextView) findViewById(R.id.re_password);
-        reSign = (TextView) findViewById(R.id.re_sign);
-        rePhone = (TextView) findViewById(R.id.re_phone);
-        tvNickname = (TextView) findViewById(R.id.tv_profile_nickname);
-        tvPhone = (TextView) findViewById(R.id.tv_profile_phone);
-        ivAvatar = (ImageView) findViewById(R.id.iv_avatar);
 
         String imageUrl = RestClient.IMAGE_SERVER_URL + User.current.getAvatar();
 
@@ -82,22 +97,18 @@ public class PersonalProfileActivity extends Activity {
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
         reSign.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
         rePhone.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
-        reAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPhotoDialog();
-            }
-        });
-
     }
 
-    private void showPhotoDialog() {
+    @OnClick(R.id.re_avatar)
+    public void showPhotoDialog() {
         final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.alert_dialog);
         TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_content1);
+        TextView tv_gallery = (TextView) window.findViewById(R.id.tv_content2);
         tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
+        tv_gallery.setText(getResources().getString(R.string.gallery));
         tvTakePhoto.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -111,8 +122,6 @@ public class PersonalProfileActivity extends Activity {
                 alertDialog.cancel();
             }
         });
-        TextView tv_gallery = (TextView) window.findViewById(R.id.tv_content2);
-        tv_gallery.setText(getResources().getString(R.string.gallery));
         tv_gallery.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intentFromGallery = new Intent();
