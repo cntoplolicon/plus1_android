@@ -16,6 +16,9 @@
         android:maxHeight="@dimen/home_img_height"
         android:maxWidth="500dp"
         android:layout_marginTop="@dimen/home_img_mgt"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="centerInside"
         android:src="@drawable/abc"/>
 
@@ -48,23 +51,44 @@
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/tv_line"
+        android:drawableLeft="@drawable/icon_comment"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/message"
-        android:drawablePadding="10dp"
-        android:text="55"
-        android:textSize="15sp"/>
+        android:drawablePadding="5dp"
+        android:text="21"
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/tv_views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/tv_line"
         android:layout_toRightOf="@id/tv_message"
-        android:drawableLeft="@drawable/found"
-        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/icon_views"
+        android:layout_alignParentBottom="true"
+        android:drawablePadding="5dp"
         android:text="150"
-        android:textSize="15sp"/>
-
+        android:textSize="12sp"/>
+    <TextView
+        android:id="@+id/tv_adaress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="61dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/tv_time"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_line"
+        android:drawableLeft="@drawable/icon_address"
+        android:layout_alignParentBottom="true"
+        android:drawablePadding="5dp"
+        android:text="北京，朝阳"
+        android:textSize="12sp"/>
 </RelativeLayout>
