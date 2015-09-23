@@ -24,7 +24,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initData() {
         homeBeanList = new ArrayList<>();
-        for (int i = 0; i < 99; i++) {
+        for (int i = 0; i < 4; i++) {
             homeBeanList.add(new HomeItemBean(R.drawable.abc, "用户" + i, "内容" + i, "消息" + i, "浏览" + i));
         }
         mSlidingView = (HomePageLayout) view.findViewById(R.id.sliding_layout);

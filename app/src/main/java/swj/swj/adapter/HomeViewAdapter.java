@@ -41,6 +41,9 @@ public class HomeViewAdapter extends SlidingViewAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        if (position >= mList.size()) {
+            return null;
+        }
         HomeItemBean bean = mList.get(position);
         viewHolder.ivImage.setImageResource(bean.getHomeImage());
 

@@ -42,15 +42,29 @@ public class HomePageLayout extends ViewGroup {
         this(context, attrs, 0);
     }
 
+    public void fetchContentView() {
+        if (currentContentView != null && nextContentView != null) {
+            throw new IllegalStateException("content views already exist");
+        }
+        View view = adapter.getView(viewIndex++, null);
+        if (view == null) {
+            return;
+        }
+        this.addView(view, 0);
+        if (currentContentView == null) {
+            currentContentView = view;
+        } else {
+            nextContentView = view;
+        }
+    }
+
     public void setAdapter(HomeViewAdapter adapter) {
         if (this.adapter != null) {
             throw new IllegalStateException("adapter already set");
         }
         this.adapter = adapter;
-        currentContentView = adapter.getView(viewIndex++, null);
-        this.addView(currentContentView, 0);
-        nextContentView = adapter.getView(viewIndex++, null);
-        this.addView(nextContentView, 0);
+        fetchContentView();
+        fetchContentView();
     }
 
     @Override
@@ -84,8 +98,10 @@ public class HomePageLayout extends ViewGroup {
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             settleStart = offset;
             settleEnd = offset > 0 ? dragRange : -dragRange;
-            settling = true;
-            dragHelper.settleCapturedViewAt(releasedChild.getLeft(), settleEnd);
+            settling = dragHelper.settleCapturedViewAt(releasedChild.getLeft(), settleEnd);
+            if (!settling) {
+                onCapturedViewSettled();
+            }
             invalidate();
         }
 
@@ -101,6 +117,14 @@ public class HomePageLayout extends ViewGroup {
 
     }
 
+    private void onCapturedViewSettled() {
+        offset = 0;
+        this.removeView(currentContentView);
+        currentContentView = nextContentView;
+        nextContentView = null;
+        fetchContentView();
+    }
+
     @Override
     public void computeScroll() {
         Log.d("computeScroll()", "" + settling);
@@ -110,11 +134,7 @@ public class HomePageLayout extends ViewGroup {
             ViewCompat.postInvalidateOnAnimation(this);
         } else if (settling) {
             settling = false;
-            offset = 0;
-            this.removeView(currentContentView);
-            currentContentView = nextContentView;
-            nextContentView = adapter.getView(viewIndex++, null);
-            this.addView(nextContentView, 0);
+            onCapturedViewSettled();
         }
     }
 
