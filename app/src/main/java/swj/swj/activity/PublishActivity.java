@@ -43,7 +43,6 @@ public class PublishActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("onCreate", "onCreate");
         setContentView(R.layout.activity_add_image);
         ButterKnife.bind(this);
         Intent intent = getIntent();

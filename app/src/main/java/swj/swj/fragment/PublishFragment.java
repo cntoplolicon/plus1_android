@@ -35,10 +35,10 @@ public class PublishFragment extends BaseFragment {
         View v = View.inflate(mActivity, R.layout.fragment_publish, null);
         Button btnAddImage = (Button) v.findViewById(R.id.btn_image);
         Button btnAddText = (Button) v.findViewById(R.id.btn_text);
+        final AlertDialog alertDialog = new AlertDialog.Builder(mActivity).create();
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(mActivity).create();
                 alertDialog.show();
                 Window window = alertDialog.getWindow();
                 window.setContentView(R.layout.activity_dialog);
@@ -84,7 +84,7 @@ public class PublishFragment extends BaseFragment {
         Toast.makeText(mActivity, "进入相机", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImage");
-        if (!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdirs();
         }
         fileNames = getNowTime() + ".jpg";
@@ -103,7 +103,6 @@ public class PublishFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(PublishFragment.class.toString(), "file not found");
         switch (requestCode) {
             case PHOTO_REQUEST_TAKE_PHOTO:
                 String sdStatus = Environment.getExternalStorageState();
@@ -118,7 +117,7 @@ public class PublishFragment extends BaseFragment {
                     String photoPath = getFilePath(photoUri);
                     startActivity(new Intent(mActivity, PublishActivity.class).setAction("getCamera").putExtra("photoPath", photoPath));
                 } catch (FileNotFoundException e) {
-                    Log.e(PublishFragment.class.toString(), "file not found");
+                    Log.e(PublishFragment.class.toString(), "file not found", e);
                 }
                 break;
             case PHOTO_REQUEST_GALLERY:
