@@ -33,6 +33,7 @@ public class HomePageLayout extends ViewGroup {
     private int viewIndex;
 
     private HomeViewAdapter adapter;
+    private Callback callback;
 
     public HomePageLayout(Context context) {
         this(context, null);
@@ -51,6 +52,9 @@ public class HomePageLayout extends ViewGroup {
             return;
         }
         this.addView(view, 0);
+        if (callback != null) {
+            callback.onViewAdded(view);
+        }
         if (currentContentView == null) {
             currentContentView = view;
         } else {
@@ -65,6 +69,10 @@ public class HomePageLayout extends ViewGroup {
         this.adapter = adapter;
         fetchContentView();
         fetchContentView();
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -96,9 +104,17 @@ public class HomePageLayout extends ViewGroup {
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
+            if (Math.abs(offset) < dragHelper.getTouchSlop()) {
+                dragHelper.settleCapturedViewAt(releasedChild.getLeft(), 0);
+                invalidate();
+                return;
+            }
             settleStart = offset;
             settleEnd = offset > 0 ? dragRange : -dragRange;
             settling = dragHelper.settleCapturedViewAt(releasedChild.getLeft(), settleEnd);
+            if (callback != null) {
+                callback.onViewAdded(releasedChild);
+            }
             if (!settling) {
                 onCapturedViewSettled();
             }
@@ -140,25 +156,8 @@ public class HomePageLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        final int action = MotionEventCompat.getActionMasked(ev);
-
-        if ((action != MotionEvent.ACTION_DOWN)) {
-            dragHelper.cancel();
-            return super.onInterceptTouchEvent(ev);
-        }
-
-        final float x = ev.getX();
-        final float y = ev.getY();
-        boolean interceptTap = false;
-
-        switch (action) {
-            case MotionEvent.ACTION_DOWN: {
-                interceptTap = dragHelper.isViewUnder(currentContentView, (int) x, (int) y);
-                break;
-            }
-        }
-
-        return dragHelper.shouldInterceptTouchEvent(ev) || interceptTap;
+        Log.d("onInterceptTouchEvent", "" + dragHelper.shouldInterceptTouchEvent(ev));
+        return dragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
@@ -227,5 +226,10 @@ public class HomePageLayout extends ViewGroup {
                 currentContentView.layout(l, b - bottomViewHeight - currentContentView.getMeasuredHeight(), r, b - bottomViewHeight);
             }
         }
+    }
+
+    public interface Callback {
+        void onViewAdded(View view);
+        void onViewReleased(View view);
     }
 }

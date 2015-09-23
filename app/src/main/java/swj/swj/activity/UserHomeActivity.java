@@ -31,7 +31,7 @@ public class UserHomeActivity extends Activity {
     class HomeAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 500;
+            return 10;
         }
 
         @Override
