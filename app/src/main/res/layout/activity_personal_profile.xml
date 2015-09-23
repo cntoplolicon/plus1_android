@@ -68,8 +68,7 @@
         android:layout_alignTop="@+id/re_avatar"
         android:layout_marginRight="@dimen/profile_arrow_margin"
         android:layout_marginTop="@dimen/profile_avatar_margin_top"
-        android:layout_toLeftOf="@+id/iv_forward_avatar"
-        android:src="@drawable/default_useravatar" />
+        android:layout_toLeftOf="@+id/iv_forward_avatar" />
 
     <TextView
         android:id="@+id/re_nickname"
