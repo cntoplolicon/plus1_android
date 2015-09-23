@@ -113,7 +113,7 @@ public class HomePageLayout extends ViewGroup {
             settleEnd = offset > 0 ? dragRange : -dragRange;
             settling = dragHelper.settleCapturedViewAt(releasedChild.getLeft(), settleEnd);
             if (callback != null) {
-                callback.onViewAdded(releasedChild);
+                callback.onViewReleased(releasedChild);
             }
             if (!settling) {
                 onCapturedViewSettled();

@@ -32,7 +32,6 @@ public class HomeFragment extends BaseFragment {
         }
         mSlidingView = (HomePageLayout) view.findViewById(R.id.sliding_layout);
         HomeViewAdapter homeViewAdapter = new HomeViewAdapter(mActivity, homeBeanList);
-        mSlidingView.setAdapter(homeViewAdapter);
         mSlidingView.setCallback(new HomePageLayout.Callback() {
             @Override
             public void onViewAdded(View view) {
@@ -45,6 +44,9 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+
+        // adapter must be set after callbacks for the callbacks to work
+        mSlidingView.setAdapter(homeViewAdapter);
     }
 
 }
