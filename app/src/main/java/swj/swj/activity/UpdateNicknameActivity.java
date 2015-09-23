@@ -64,7 +64,7 @@ public class UpdateNicknameActivity extends Activity {
 
     private boolean inputValidation() {
         if (nicknameInput.getText().toString().isEmpty()) {
-            Toast.makeText(this, R.string.nickname_required, Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.nickname_required, Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
