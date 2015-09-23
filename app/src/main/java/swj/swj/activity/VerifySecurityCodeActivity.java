@@ -2,30 +2,42 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.Bind;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 
 public class VerifySecurityCodeActivity extends Activity {
 
-    protected SecurityCodeCountDownTimer timer;
+    private SecurityCodeCountDownTimer timer;
+    private static final Integer ONE_MINUTE = 60000;
+    private static final Integer ONE_SECOND = 1000;
+
+    @Bind(R.id.et_security_code)
+    EditText securityCodeInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_security_code);
 
+
         startResendCountDown();
+    }
+
+    boolean inputValidation() {
+        if (!CommonMethods.isValidSCode(securityCodeInput.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -50,46 +62,26 @@ public class VerifySecurityCodeActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void securityCodeConfirm(final Button button, final Class<? extends Activity> ActivityToOpen) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText securityCodeInput = (EditText) findViewById(R.id.et_security_code);
-                TextView securityCodeError = (TextView) findViewById(R.id.tv_security_code_error);
-                String securityCode = securityCodeInput.getText().toString();
-                if (!CommonMethods.isValidSCode(securityCode)) {
-                    securityCodeError.setText(getResources().getString(R.string.security_code_invalid_format));
-                } else if (!securityCode.equals("123456")) {
-                    securityCodeError.setText(getResources().getString(R.string.security_code_incorrect));
-                } else {
-                    securityCodeError.setText("Loading");
-                    Intent intent = new Intent(getBaseContext(), ActivityToOpen);
-                    startActivityForResult(intent, 0);
-                }
-            }
-        });
-    }
-
-    protected void startResendCountDown() {
+    void startResendCountDown() {
         Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
         long counterStart = getIntent().getLongExtra("counter_start", System.currentTimeMillis());
-        long remainingTime = counterStart + 60000 - System.currentTimeMillis();
+        long remainingTime = counterStart + ONE_MINUTE - System.currentTimeMillis();
         if (remainingTime > 0) {
             if (timer != null) {
                 timer.cancel();
             }
-            timer = new SecurityCodeCountDownTimer(this, btnResendCode, remainingTime, 1000);
+            timer = new SecurityCodeCountDownTimer(this, btnResendCode, remainingTime);
             timer.start();
         }
     }
 
-    protected static class SecurityCodeCountDownTimer extends CountDownTimer {
-        private Button button;
-        private Context context;
+    static class SecurityCodeCountDownTimer extends CountDownTimer {
+        private final Button button;
+        private final Context context;
 
         public SecurityCodeCountDownTimer(Context context, Button button,
-                                          long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
+                                          long millisInFuture) {
+            super(millisInFuture, (long) VerifySecurityCodeActivity.ONE_SECOND);
             this.context = context;
             this.button = button;
         }
@@ -97,7 +89,7 @@ public class VerifySecurityCodeActivity extends Activity {
         @Override
         public void onTick(long millisUntilFinished) {
             button.setClickable(false);
-            button.setText(millisUntilFinished / 1000 + "秒");
+            button.setText(millisUntilFinished / ONE_SECOND + "秒");
         }
 
         @Override

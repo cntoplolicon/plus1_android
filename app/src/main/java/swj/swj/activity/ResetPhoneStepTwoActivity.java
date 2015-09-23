@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -69,17 +70,9 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_phone_step_two);
 
+        ButterKnife.bind(this);
         Button submitButton = (Button)findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
-    }
-
-    private boolean inputValidation() {
-        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        if (!CommonMethods.isValidSCode(securityCode)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
     }
 
 }

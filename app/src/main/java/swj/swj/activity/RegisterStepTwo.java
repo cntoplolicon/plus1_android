@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -22,11 +22,13 @@ import swj.swj.common.RestClient;
 
 public class RegisterStepTwo extends VerifySecurityCodeActivity {
 
+    private static final String USERNAME = "username";
+
     private View.OnClickListener onResendSecurityCode = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = getIntent();
-            String username = intent.getStringExtra("username");
+            String username = intent.getStringExtra(USERNAME);
             RestClient.getInstance().newSecurityCode4Account(username,
                     null, new JsonErrorListener(getApplicationContext(), null));
             intent.putExtra("counter_start", System.currentTimeMillis());
@@ -37,7 +39,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
     private View.OnClickListener onSubmit = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            final String username = getIntent().getStringExtra("username");
+            final String username = getIntent().getStringExtra(USERNAME);
             if (!inputValidation()) {
                 return;
             }
@@ -47,7 +49,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Intent intent = new Intent(RegisterStepTwo.this, RegisterStepThree.class);
-                            intent.putExtra("username", username);
+                            intent.putExtra(USERNAME, username);
                             startActivity(intent);
                             finish();
                         }
@@ -65,7 +67,8 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_two);
 
-        String username = getIntent().getStringExtra("username");
+        ButterKnife.bind(this);
+        String username = getIntent().getStringExtra(USERNAME);
         TextView choosenUsername = (TextView) findViewById(R.id.tv_choosen_username);
         choosenUsername.setText(username);
         TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
@@ -76,15 +79,6 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         resendButton.setOnClickListener(onResendSecurityCode);
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
-    }
-
-    private boolean inputValidation() {
-        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        if (!CommonMethods.isValidSCode(securityCode)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
     }
 
     @Override
