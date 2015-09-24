@@ -50,6 +50,7 @@ public class ChangePasswordActivity extends Activity {
         RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Toast.makeText(ChangePasswordActivity.this, R.string.pwd_reset_succeed, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
