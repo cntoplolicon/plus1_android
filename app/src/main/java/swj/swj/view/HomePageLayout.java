@@ -1,7 +1,6 @@
 package swj.swj.view;
 
 import android.content.Context;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import swj.swj.R;
-import swj.swj.adapter.HomeViewAdapter;
+import swj.swj.adapter.HomePageListItemViewsAdapter;
 
 /**
  * Created by cntoplolicon on 9/21/15.
@@ -30,9 +29,7 @@ public class HomePageLayout extends ViewGroup {
     private int settleStart, settleEnd;
     private boolean settling;
 
-    private int viewIndex;
-
-    private HomeViewAdapter adapter;
+    private HomePageListItemViewsAdapter adapter;
     private Callback callback;
 
     public HomePageLayout(Context context) {
@@ -43,32 +40,33 @@ public class HomePageLayout extends ViewGroup {
         this(context, attrs, 0);
     }
 
-    public void fetchContentView() {
-        if (currentContentView != null && nextContentView != null) {
-            throw new IllegalStateException("content views already exist");
+    public void syncContentViews() {
+        if (currentContentView != null) {
+            this.removeView(currentContentView);
         }
-        View view = adapter.getView(viewIndex++, null);
-        if (view == null) {
-            return;
+        if (nextContentView != null) {
+            this.removeView(nextContentView);
         }
-        this.addView(view, 0);
-        if (callback != null) {
-            callback.onViewAdded(view);
+
+        currentContentView = adapter.getViewAt(0);
+        if (currentContentView != null) {
+            this.addView(currentContentView, 0);
         }
-        if (currentContentView == null) {
-            currentContentView = view;
-        } else {
-            nextContentView = view;
+
+        nextContentView = adapter.getViewAt(1);
+        if (nextContentView != null) {
+            this.addView(nextContentView, 0);
         }
+
+        requestLayout();
     }
 
-    public void setAdapter(HomeViewAdapter adapter) {
+    public void setAdapter(HomePageListItemViewsAdapter adapter) {
         if (this.adapter != null) {
             throw new IllegalStateException("adapter already set");
         }
         this.adapter = adapter;
-        fetchContentView();
-        fetchContentView();
+        syncContentViews();
     }
 
     public void setCallback(Callback callback) {
@@ -130,15 +128,12 @@ public class HomePageLayout extends ViewGroup {
         public int clampViewPositionVertical(View child, int top, int dy) {
             return Math.min(Math.max(top, -dragRange), dragRange);
         }
-
     }
 
     private void onCapturedViewSettled() {
+        adapter.removeView(currentContentView);
         offset = 0;
-        this.removeView(currentContentView);
-        currentContentView = nextContentView;
-        nextContentView = null;
-        fetchContentView();
+        syncContentViews();
     }
 
     @Override
@@ -228,8 +223,20 @@ public class HomePageLayout extends ViewGroup {
         }
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (currentContentView != null) {
+            this.removeView(currentContentView);
+        }
+        if (nextContentView != null) {
+            this.removeView(nextContentView);
+        }
+    }
+
     public interface Callback {
         void onViewAdded(View view);
+
         void onViewReleased(View view);
     }
 }

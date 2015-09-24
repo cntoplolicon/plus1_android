@@ -11,6 +11,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import swj.swj.BuildConfig;
+import swj.swj.adapter.HomePageListItemViewsAdapter;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 
@@ -26,6 +27,7 @@ public class SnsApplication extends Application {
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
+        HomePageListItemViewsAdapter.initialize(getApplicationContext());
     }
 
     private void initImageLoader(Context context) {

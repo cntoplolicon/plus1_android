@@ -134,8 +134,12 @@ public class User {
         this.accessToken = accessToken;
     }
 
+    public static User fromJson(String json) {
+        return CommonMethods.createDefaultGson().fromJson(json, User.class);
+    }
+
     public static void updateCurrentUser(String json) {
-        current = CommonMethods.createDefaultGson().fromJson(json, User.class);
+        current = User.fromJson(json);
         LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, json);
     }
 

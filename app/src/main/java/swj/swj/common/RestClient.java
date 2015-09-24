@@ -1,6 +1,7 @@
 package swj.swj.common;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -10,8 +11,10 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.AbstractMap;
@@ -19,7 +22,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import swj.swj.BuildConfig;
 import swj.swj.model.User;
@@ -152,8 +154,8 @@ public class RestClient {
         requestQueue.add(request);
     }
 
-    public void post(String[] texts, AbstractContentBody[] images,
-                     Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public void newPost(String[] texts, AbstractContentBody[] images,
+                        Listener<JSONObject> onSuccess, ErrorListener onError) {
         if (texts.length != images.length) {
             throw new IllegalArgumentException("texts & images lengths unequal");
         }
@@ -171,6 +173,23 @@ public class RestClient {
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/posts"), params, onSuccess, onError);
         requestQueue.add(request);
+    }
+
+    public void getActiveInfections(int idGreaterThan, Listener<JSONArray> onSuccess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        String userId = params.remove("user_id").toString();
+        params.put("id_greater_than", idGreaterThan);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                buildUrlForGetRequests("/users/" + userId + "/infections/active", params), onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    private String buildUrlForGetRequests(String path, Map<String, Object> params) {
+        Uri.Builder uri = Uri.parse(getResourceUrl(path)).buildUpon();
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            uri.appendQueryParameter(entry.getKey(), String.valueOf(entry.getValue()));
+        }
+        return uri.build().toString();
     }
 
     private Map<String, Object> createUserParams() {

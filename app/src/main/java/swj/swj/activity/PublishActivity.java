@@ -71,7 +71,7 @@ public class PublishActivity extends Activity {
     public void submit() {
         String text = editText.getText().toString();
         ByteArrayBody imageBody = getImageBody();
-        RestClient.getInstance().post(new String[]{text}, new AbstractContentBody[]{imageBody},
+        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

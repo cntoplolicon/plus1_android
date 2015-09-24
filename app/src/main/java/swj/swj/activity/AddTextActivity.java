@@ -42,7 +42,7 @@ public class AddTextActivity extends Activity {
     public void submit() {
         String text = editText.getText().toString();
 
-        RestClient.getInstance().post(new String[]{text}, new AbstractContentBody[]{null},
+        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null},
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
