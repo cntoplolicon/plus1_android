@@ -31,6 +31,7 @@ public class RestClient {
 
     private static final String DEBUG_SERVER_URL = "http://192.168.0.16:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
+    public static final String IMAGE_SERVER_URL = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
 
     private static RestClient instance;
 
@@ -128,6 +129,18 @@ public class RestClient {
                 getResourceUrl("/users/" + userId), params, onSucess, onError);
         requestQueue.add(request);
     }
+
+    public void updateUserAvatar(Map<String, Object> attributes,
+                                     Listener<JSONObject> onSucess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        params.putAll(attributes);
+        String userId = params.get("user_id").toString();
+        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
+                getResourceUrl("/users/" + userId), params.entrySet(), onSucess, onError);
+        requestQueue.add(request);
+    }
+
+
 
     public void resetPassword(String username, String password,
                               Listener<JSONObject> onSucess, ErrorListener onError) {

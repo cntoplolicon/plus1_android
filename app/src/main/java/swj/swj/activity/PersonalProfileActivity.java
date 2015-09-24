@@ -3,19 +3,42 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.soundcloud.android.crop.Crop;
+
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.json.JSONObject;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
 /**
@@ -23,28 +46,52 @@ import swj.swj.model.User;
  */
 public class PersonalProfileActivity extends Activity {
 
-    private TextView tvNickname, tvPhone, reAvatar, reNickname, rePassword, reSign, rePhone;
-    private String imageName;
+    @Bind(R.id.re_nickname)
+    TextView reNickname;
+
+    @Bind(R.id.tv_profile_nickname)
+    TextView tvNickname;
+
+    @Bind(R.id.iv_avatar)
+    ImageView ivAvatar;
+
+    @Bind(R.id.re_password)
+    TextView rePassword;
+
+    @Bind(R.id.re_sign)
+    TextView reSign;
+
+    @Bind(R.id.re_phone)
+    TextView rePhone;
+
+    @Bind(R.id.tv_profile_phone)
+    TextView tvPhone;
+
+    private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
+        ButterKnife.bind(this);
+
         initView();
     }
 
     private void initView() {
 
-        reAvatar = (TextView) findViewById(R.id.re_avatar);
-        reNickname = (TextView) findViewById(R.id.re_nickname);
-        rePassword = (TextView) findViewById(R.id.re_password);
-        reSign = (TextView) findViewById(R.id.re_sign);
-        rePhone = (TextView) findViewById(R.id.re_phone);
-        tvNickname = (TextView) findViewById(R.id.tv_profile_nickname);
-        tvPhone = (TextView) findViewById(R.id.tv_profile_phone);
+        String imageUrl = RestClient.IMAGE_SERVER_URL + User.current.getAvatar();
 
-        tvPhone.setText(User.current.getUsername());
+        ImageLoader.getInstance().loadImage(imageUrl, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view,
+                                          Bitmap loadedImage) {
+                super.onLoadingComplete(imageUri, view, loadedImage);
+                ivAvatar.setImageBitmap(loadedImage);
+            }
+
+        });
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
@@ -52,53 +99,119 @@ public class PersonalProfileActivity extends Activity {
         rePhone.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
     }
 
-    private void showPhotoDialog() {
+    @OnClick(R.id.re_avatar)
+    public void showPhotoDialog() {
         final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.alert_dialog);
-        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_content1);
+        window.setContentView(R.layout.activity_dialog);
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
+        TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
         tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
+        tvGallery.setText(getResources().getString(R.string.gallery));
+        tvCancel.setText(getResources().getString(R.string.cancel));
         tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                imageName = getNowTime() + ".png";
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("sdcard/swj/", imageName)));
-                startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
+                Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (CommonMethods.hasSdCard()) {
+                    File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                    intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(avatar));
+                }
+                startActivityForResult(intentFromCamera, PHOTO_REQUEST_TAKE_PHOTO);
                 alertDialog.cancel();
             }
         });
-        TextView tv_gallery = (TextView) window.findViewById(R.id.tv_content2);
-        tv_gallery.setText(getResources().getString(R.string.gallery));
-        tv_gallery.setOnClickListener(new View.OnClickListener() {
+        tvGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-
-                imageName = getNowTime() + ".png";
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
-
+                Intent intentFromGallery = new Intent();
+                intentFromGallery.setType("image/*");
+                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intentFromGallery, PHOTO_REQUEST_GALLERY);
+                alertDialog.cancel();
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 alertDialog.cancel();
             }
         });
 
     }
 
-    private String getNowTime() {
-        Date date = new Date();
-        SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
-        return dataFormat.format(date);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case PHOTO_REQUEST_GALLERY:
+                    beginCrop(data.getData());
+                    break;
+                case PHOTO_REQUEST_TAKE_PHOTO:
+                    if (CommonMethods.hasSdCard()) {
+                        File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                        beginCrop(Uri.fromFile(avatar));
+                    } else {
+                        //toast error message when unable to find sdcard
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case Crop.REQUEST_CROP:
+                    if (data != null) {
+                        handleCrop(resultCode, data);
+                        Map<String, Object> attributes = new HashMap<>();
+                        attributes.put("avatar", getAvatar());
+                        RestClient.getInstance().updateUserAvatar(attributes,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        User.updateCurrentUser(response.toString());
+                                    }
+                                }, new JsonErrorListener(getApplicationContext(), null));
+                    }
+                    break;
+            }
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     public void onResume() {
         super.onResume();
         tvNickname.setText(User.current.getNickname());
+        tvPhone.setText(User.current.getUsername());
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            ivAvatar.setImageDrawable(null);
+            ivAvatar.setImageURI(Crop.getOutput(result));
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void back(View view) {
         finish();
+    }
+
+    private ByteArrayBody getAvatar() {
+        Drawable drawable = ivAvatar.getDrawable();
+        if (drawable == null) {
+            return null;
+        }
+        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
+        try {
+            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
+            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
+        } catch (IOException e) {
+            Log.e(PersonalProfileActivity.class.getName(), "failed getting avatar data", e);
+            return null;
+        }
     }
 }

@@ -3,7 +3,6 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +13,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -25,41 +27,37 @@ import swj.swj.model.User;
  */
 public class UpdateNicknameActivity extends Activity {
 
-    private EditText nicknameInput;
+    @Bind(R.id.et_nick)
+    EditText nicknameInput;
 
-    private View.OnClickListener onSubmit = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (!inputValidation()) {
-                return;
-            }
-            String nickname = nicknameInput.getText().toString();
-            Map<String, Object> attributes = new HashMap<>();
-            attributes.put("nickname", nickname);
-            RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    User.updateCurrentUser(response.toString());
-                    finish();
-                }
-            }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject errors) {
-                    CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
-                }
-            }));
+    @OnClick(R.id.btn_submit)
+    public void submit() {
+        if (!inputValidation()) {
+            return;
         }
-    };
+        String nickname = nicknameInput.getText().toString();
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("nickname", nickname);
+        RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                User.updateCurrentUser(response.toString());
+                finish();
+            }
+        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject errors) {
+                CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
+            }
+        }));
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_nickname);
+        ButterKnife.bind(this);
 
-        nicknameInput = (EditText) findViewById(R.id.et_nick);
         nicknameInput.setText(User.current.getNickname());
-
-        Button submitButton = (Button)findViewById(R.id.btn_submit);
-        submitButton.setOnClickListener(onSubmit);
     }
 
     private boolean inputValidation() {

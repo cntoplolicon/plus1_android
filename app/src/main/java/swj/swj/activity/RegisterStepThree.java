@@ -111,7 +111,7 @@ public class RegisterStepThree extends Activity {
             byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
             return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
         } catch (IOException e) {
-            Log.d(RegisterStepThree.class.getName(), "failed getting avatar data", e);
+            Log.e(RegisterStepThree.class.getName(), "failed getting avatar data", e);
             return null;
         }
     }
