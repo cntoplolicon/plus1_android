@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 
@@ -71,8 +71,16 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
         setContentView(R.layout.activity_reset_phone_step_two);
 
         ButterKnife.bind(this);
-        Button submitButton = (Button)findViewById(R.id.btn_submit);
+        setChoosenUsername();
+        setPageTitle(getResources().getString(R.string.change_username_step_two));
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
+        startResendCountDown();
+    }
+
+    @Override
+    protected Class<?> getNextActivity() {
+        return PersonalProfileActivity.class;
     }
 
 }
