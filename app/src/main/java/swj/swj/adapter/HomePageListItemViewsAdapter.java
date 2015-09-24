@@ -6,12 +6,15 @@ import android.view.View;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.internal.LinkedHashTreeMap;
 
 import org.json.JSONArray;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
@@ -31,11 +34,11 @@ public class HomePageListItemViewsAdapter {
     private static HomePageListItemViewsAdapter instance;
     private Context context;
 
-    private Map<Infection, View> infections2views = new HashMap<>();
+    private Map<Infection, View> infections2views = new LinkedHashMap<>();
+    private Set<Integer> loadedInfectionIds = new HashSet<>();
     private int state = STATE_CLEARED;
     private boolean loading = false;
     private Callback callback;
-    private int maxId;
 
     public static HomePageListItemViewsAdapter getInstance() {
         return instance;
@@ -103,13 +106,15 @@ public class HomePageListItemViewsAdapter {
         if (loading) {
             return;
         }
-        RestClient.getInstance().getActiveInfections(maxId, new Response.Listener<JSONArray>() {
+        RestClient.getInstance().getActiveInfections(new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Infection[] infections = CommonMethods.createDefaultGson().fromJson(response.toString(), Infection[].class);
                 for (Infection infection : infections) {
-                    maxId = Math.max(maxId, infection.getId());
-                    infections2views.put(infection, null);
+                    if (!loadedInfectionIds.contains(infection.getId())) {
+                        loadedInfectionIds.add(infection.getId());
+                        infections2views.put(infection, null);
+                    }
                 }
                 loading = false;
                 updateState();

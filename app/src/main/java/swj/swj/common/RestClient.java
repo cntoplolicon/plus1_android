@@ -175,10 +175,9 @@ public class RestClient {
         requestQueue.add(request);
     }
 
-    public void getActiveInfections(int idGreaterThan, Listener<JSONArray> onSuccess, ErrorListener onError) {
+    public void getActiveInfections(Listener<JSONArray> onSuccess, ErrorListener onError) {
         Map<String, Object> params = createUserParams();
         String userId = params.remove("user_id").toString();
-        params.put("id_greater_than", idGreaterThan);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 buildUrlForGetRequests("/users/" + userId + "/infections/active", params), onSuccess, onError);
         requestQueue.add(request);

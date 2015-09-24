@@ -51,11 +51,17 @@ public class HomePageLayout extends ViewGroup {
         currentContentView = adapter.getViewAt(0);
         if (currentContentView != null) {
             this.addView(currentContentView, 0);
+            if (callback != null) {
+                callback.onViewAdded(currentContentView);
+            }
         }
 
         nextContentView = adapter.getViewAt(1);
         if (nextContentView != null) {
             this.addView(nextContentView, 0);
+            if (callback != null) {
+                callback.onViewAdded(nextContentView);
+            }
         }
 
         requestLayout();
