@@ -1,14 +1,9 @@
 package swj.swj.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -16,43 +11,10 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import swj.swj.R;
-import swj.swj.common.CommonMethods;
-import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 
 public class RegisterStepOne extends GetSecurityCodeActivity {
 
-    private View.OnClickListener onSubmit = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (!inputValidation()) {
-                return;
-            }
-            final String username = usernameInput.getText().toString();
-            RestClient.getInstance().newSecurityCode4Account(username,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            String securityCode = response.optString("security_code", "");
-                            if (!securityCode.isEmpty()) {
-                                Log.d("security_code", securityCode);
-                                Toast.makeText(RegisterStepOne.this, securityCode, Toast.LENGTH_LONG).show();
-                            }
-
-                            Intent intent = new Intent(RegisterStepOne.this, RegisterStepTwo.class);
-                            intent.putExtra("counter_start", System.currentTimeMillis());
-                            intent.putExtra("username", username);
-                            startActivity(intent);
-                        }
-                    },
-                    new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject errors) {
-                            CommonMethods.toastError(RegisterStepOne.this, errors, "username");
-                        }
-                    }));
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +22,17 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_register_step_one);
 
         ButterKnife.bind(this);
-        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
-        tvPageTitle.setText(getResources().getString(R.string.register_step_one));
+        setPageTitle(getResources().getString(R.string.register_step_one));
+    }
 
-        Button submitButton = (Button) findViewById(R.id.btn_submit);
-        submitButton.setOnClickListener(onSubmit);
+    @Override
+    protected Class<?> getNextActivity() {
+        return RegisterStepTwo.class;
+    }
+
+    @Override
+    protected void getSecurityCode(String username, Response.Listener<JSONObject> onSuccess, Response.ErrorListener onError) {
+        RestClient.getInstance().newSecurityCode4Account(username, onSuccess, onError);
     }
 
     @Override
