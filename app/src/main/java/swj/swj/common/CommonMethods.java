@@ -1,6 +1,5 @@
 package swj.swj.common;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -24,11 +23,14 @@ import swj.swj.R;
 /**
  * Created by silentgod on 15-9-5.
  */
-public class CommonMethods {
+public final class CommonMethods {
     // input pattern for validation checked on front_end
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[0-9]{11}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[ -~]{6,20}$");
     private static final Pattern SECURITY_CODE_PATTERN = Pattern.compile("^[0-9]{6}$");
+
+    private CommonMethods() {
+    }
 
     //method to check input validation
     //username 11digits
@@ -65,7 +67,7 @@ public class CommonMethods {
     public static void toastError(Context context, JSONObject errors, String field) {
         String errorDetail = getFirstError(errors, field);
         if (!errorDetail.isEmpty()) {
-            errorDetail.replace(" ", "_");
+            errorDetail = errorDetail.replace(" ", "_");
             int resourceId = context.getResources().getIdentifier(field + "_" + errorDetail, "string", context.getPackageName());
             if (resourceId == 0) {
                 resourceId = R.string.unknown_error;

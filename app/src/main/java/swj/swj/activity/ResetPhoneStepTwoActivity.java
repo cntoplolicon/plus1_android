@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 
@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -69,17 +70,17 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_phone_step_two);
 
-        Button submitButton = (Button)findViewById(R.id.btn_submit);
+        ButterKnife.bind(this);
+        setChoosenUsername();
+        setPageTitle(getResources().getString(R.string.change_username_step_two));
+        Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
+        startResendCountDown();
     }
 
-    private boolean inputValidation() {
-        String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        if (!CommonMethods.isValidSCode(securityCode)) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
+    @Override
+    protected Class<?> getNextActivity() {
+        return PersonalProfileActivity.class;
     }
 
 }

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +28,6 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -46,7 +43,7 @@ public class RegisterStepThree extends Activity {
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
-    private static final String[] options = new String[]{"从相册选择", "拍照"};
+    private static final String[] OPTIONS = new String[]{"从相册选择", "拍照"};
 
     private RoundedImageView faceImage;
 
@@ -132,7 +129,7 @@ public class RegisterStepThree extends Activity {
         if (nicknameInput.getText().toString().trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.nickname_required), Toast.LENGTH_LONG).show();
             return false;
-        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString())) {
+        } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
             return false;
         } else if (radioGroup4Gender.getCheckedRadioButtonId() == -1) {
@@ -143,8 +140,8 @@ public class RegisterStepThree extends Activity {
     }
 
     //show the option dialog to select
-    public void showAvatarOptionDialog() {
-        new AlertDialog.Builder(this).setItems(options, new DialogInterface.OnClickListener() {
+    private void showAvatarOptionDialog() {
+        new AlertDialog.Builder(this).setItems(OPTIONS, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
@@ -190,14 +187,14 @@ public class RegisterStepThree extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void getImageFromGallery() {
+    private void getImageFromGallery() {
         Intent intentFromGallery = new Intent();
         intentFromGallery.setType("image/*");
         intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intentFromGallery, IMAGE_REQUEST_CODE);
     }
 
-    public void getImageFromCamera() {
+    private void getImageFromCamera() {
         Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (CommonMethods.hasSdCard()) {
             File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
