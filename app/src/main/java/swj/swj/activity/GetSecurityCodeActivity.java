@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -24,8 +23,6 @@ public abstract class GetSecurityCodeActivity extends Activity {
 
     @Bind(R.id.et_username)
     EditText usernameInput;
-    @Bind(R.id.tv_page_title)
-    TextView pageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +37,6 @@ public abstract class GetSecurityCodeActivity extends Activity {
         return true;
     }
 
-    protected void setPageTitle(String title) {
-        pageTitle.setText(title);
-    }
 
     @OnClick(R.id.btn_submit)
     protected void onSubmit() {

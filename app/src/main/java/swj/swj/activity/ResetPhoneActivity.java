@@ -22,7 +22,6 @@ public class ResetPhoneActivity extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_reset_phone_step_one);
 
         ButterKnife.bind(this);
-        setPageTitle(getResources().getString(R.string.change_username_step_one));
     }
 
 

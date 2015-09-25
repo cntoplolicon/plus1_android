@@ -20,7 +20,6 @@ public class ResetPwdStepOne extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_reset_pwd_step_one);
 
         ButterKnife.bind(this);
-        setPageTitle(getResources().getString(R.string.reset_pwd_step_one));
     }
 
     @Override

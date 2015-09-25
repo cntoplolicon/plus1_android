@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -61,8 +60,6 @@ public class ResetPwdStepThree extends Activity {
 
         passwordInput = (EditText) findViewById(R.id.et_password);
         passwordConfirmationInput = (EditText) findViewById(R.id.et_password_confirmation);
-        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
-        tvPageTitle.setText(getResources().getString(R.string.reset_pwd_step_three));
 
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);

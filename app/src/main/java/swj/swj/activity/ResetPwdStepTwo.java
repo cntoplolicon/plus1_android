@@ -15,7 +15,6 @@ public class ResetPwdStepTwo extends VerifySecurityCodeActivity {
         setContentView(R.layout.activity_reset_pwd_step_two);
 
         ButterKnife.bind(this);
-        setPageTitle(getResources().getString(R.string.reset_pwd_step_two));
         setChoosenUsername();
         startResendCountDown();
     }

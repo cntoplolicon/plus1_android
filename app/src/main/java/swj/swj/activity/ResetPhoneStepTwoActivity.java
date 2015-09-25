@@ -71,7 +71,6 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
 
         ButterKnife.bind(this);
         setChoosenUsername();
-        setPageTitle(getResources().getString(R.string.change_username_step_two));
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
         startResendCountDown();
