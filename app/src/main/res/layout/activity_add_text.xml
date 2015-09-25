@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:textColor="@color/new_card_text_color"
             android:text="@string/publish_text"
+            android:textColor="@color/new_card_text_color"
             android:textSize="@dimen/home_title_text_size" />
 
         <TextView
@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:text="@string/publish_publish"
             android:paddingRight="14dp"
+            android:text="@string/publish_publish"
             android:textColor="@color/new_card_text_color"
             android:textSize="15sp" />
 
@@ -50,9 +50,9 @@
         android:id="@+id/et_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:background="@null"
         android:gravity="top"
-        android:textCursorDrawable="@null"
-        android:layout_margin="10dp"
-        android:hint="@string/publish_input_text" />
+        android:hint="@string/publish_input_text"
+        android:textCursorDrawable="@null" />
 </LinearLayout>

@@ -46,30 +46,23 @@ import swj.swj.model.User;
  */
 public class PersonalProfileActivity extends Activity {
 
-    @Bind(R.id.re_nickname)
-    TextView reNickname;
-
-    @Bind(R.id.tv_profile_nickname)
-    TextView tvNickname;
-
-    @Bind(R.id.iv_avatar)
-    ImageView ivAvatar;
-
-    @Bind(R.id.re_password)
-    TextView rePassword;
-
-    @Bind(R.id.re_sign)
-    TextView reSign;
-
-    @Bind(R.id.re_phone)
-    TextView rePhone;
-
-    @Bind(R.id.tv_profile_phone)
-    TextView tvPhone;
-
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
+    @Bind(R.id.re_nickname)
+    TextView reNickname;
+    @Bind(R.id.tv_profile_nickname)
+    TextView tvNickname;
+    @Bind(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @Bind(R.id.re_password)
+    TextView rePassword;
+    @Bind(R.id.re_sign)
+    TextView reSign;
+    @Bind(R.id.re_phone)
+    TextView rePhone;
+    @Bind(R.id.tv_profile_phone)
+    TextView tvPhone;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

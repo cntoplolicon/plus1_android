@@ -20,8 +20,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         custom:hide_back_arrow="true"
-        custom:page_title="@string/log_in">
-    </swj.swj.view.ActionBarLayout>
+        custom:page_title="@string/log_in"></swj.swj.view.ActionBarLayout>
 
     <Button
         android:id="@+id/btn_submit"

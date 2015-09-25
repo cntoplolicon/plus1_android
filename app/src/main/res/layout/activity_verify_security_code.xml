@@ -12,71 +12,70 @@
         android:id="@+id/tv_security_code_sent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/security_code_sent"
-        android:textSize="15dp"
-        android:textColor="@color/et_hint"
-        android:layout_below="@+id/fragment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/fragment"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"/>
+        android:text="@string/security_code_sent"
+        android:textColor="@color/et_hint"
+        android:textSize="15dp" />
 
     <EditText
         android:id="@+id/et_security_code"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_security_code_sent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/btn_resend_security_code"
+        android:layout_toStartOf="@+id/btn_resend_security_code"
+        android:background="@color/et_background"
         android:gravity="left"
         android:hint="@string/hint_security_code"
         android:inputType="phone"
         android:paddingLeft="10dp"
-        android:textColorHint="@color/et_hint"
-        android:background="@color/et_background"
         android:paddingTop="16dp"
-        android:layout_below="@+id/tv_security_code_sent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/btn_resend_security_code"
-        android:layout_toStartOf="@+id/btn_resend_security_code" />
+        android:textColorHint="@color/et_hint" />
 
     <Button
         android:id="@+id/btn_resend_security_code"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="@string/send_again"
-        android:textColor="@color/et_hint"
-        android:background="@color/white"
         android:layout_above="@+id/btn_submit"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:background="@color/white"
+        android:text="@string/send_again"
+        android:textColor="@color/et_hint" />
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next_activity"
-        android:background="@color/test_yellow"
-        android:layout_below="@+id/et_security_code"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/et_security_code"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"/>
-
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/test_yellow"
+        android:text="@string/next_activity" />
 
 
     <TextView
+        android:id="@+id/tv_choosen_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_choosen_username"
-        android:textColor="@color/login_page_link"
         android:layout_alignTop="@+id/tv_security_code_sent"
+        android:layout_toEndOf="@+id/tv_security_code_sent"
         android:layout_toRightOf="@+id/tv_security_code_sent"
-        android:layout_toEndOf="@+id/tv_security_code_sent" />
+        android:textColor="@color/login_page_link" />
 
 </RelativeLayout>

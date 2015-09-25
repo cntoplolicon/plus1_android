@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
-    >
+    android:background="#fff">
 
     <ListView
         android:id="@+id/lv_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
+
     <FrameLayout
         android:id="@+id/fl_card_details"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#fff"
-        >
+        android:background="#fff">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imc_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_alignParentLeft="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/abc"
                 app:border_color="#b3b3b3"
-                app:border_width="2px"/>
+                app:border_width="2px" />
+
             <EditText
                 android:id="@+id/ed"
                 android:layout_width="224dp"
-                android:background="@drawable/icon_edittext_background"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/imc_image"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/imc_image"
+                android:background="@drawable/icon_edittext_background"
                 android:hint="文字输入框"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/ed"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ed"
+                android:background="#FED724"
                 android:gravity="center"
                 android:text="发送"
-                android:background="#FED724"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
         </RelativeLayout>
     </FrameLayout>
 

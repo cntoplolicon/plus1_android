@@ -24,6 +24,8 @@ public abstract class GetSecurityCodeActivity extends Activity {
 
     @Bind(R.id.et_username)
     EditText usernameInput;
+    @Bind(R.id.tv_page_title)
+    TextView pageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
         return true;
     }
 
-    @Bind(R.id.tv_page_title)
-    TextView pageTitle;
-    protected void setPageTitle(String title){
+    protected void setPageTitle(String title) {
         pageTitle.setText(title);
     }
 

@@ -26,24 +26,22 @@ import swj.swj.common.RestClient;
 public abstract class VerifySecurityCodeActivity extends Activity {
 
     private static final String USERNAME = "username";
-
-    private SecurityCodeCountDownTimer timer;
     private static final Integer ONE_MINUTE = 60000;
     private static final Integer ONE_SECOND = 1000;
-
     @Bind(R.id.et_security_code)
     EditText securityCodeInput;
-
     @Bind(R.id.tv_choosen_username)
     TextView choosenUsername;
-    protected void setChoosenUsername(){
+    @Bind(R.id.tv_page_title)
+    TextView pageTitle;
+    private SecurityCodeCountDownTimer timer;
+
+    protected void setChoosenUsername() {
         Intent intent = getIntent();
         choosenUsername.setText(intent.getStringExtra(USERNAME));
     }
 
-    @Bind(R.id.tv_page_title)
-    TextView pageTitle;
-    protected void setPageTitle(String title){
+    protected void setPageTitle(String title) {
         pageTitle.setText(title);
     }
 
