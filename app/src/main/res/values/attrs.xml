@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ActionBarLayout">
+        <attr name="page_title" format="string" />
+        <attr name="hide_back_arrow" format="boolean" />
+    </declare-styleable>
+</resources>

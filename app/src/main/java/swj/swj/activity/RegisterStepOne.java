@@ -22,7 +22,6 @@ public class RegisterStepOne extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_register_step_one);
 
         ButterKnife.bind(this);
-        setPageTitle(getResources().getString(R.string.register_step_one));
     }
 
     @Override

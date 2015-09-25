@@ -23,6 +23,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_custom_action_bar" />
+        tools:layout="@layout/action_bar_layout" />
 
 </RelativeLayout>
