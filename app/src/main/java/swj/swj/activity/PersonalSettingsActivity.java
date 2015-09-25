@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -64,10 +63,6 @@ public class PersonalSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
-    }
-
-    public void back(View view) {
-        finish();
     }
 
     public void onResume() {

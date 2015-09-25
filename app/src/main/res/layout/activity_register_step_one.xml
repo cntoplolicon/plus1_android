@@ -10,7 +10,7 @@
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/action_bar_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

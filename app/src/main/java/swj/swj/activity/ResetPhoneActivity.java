@@ -1,7 +1,6 @@
 package swj.swj.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.android.volley.Response;
 
@@ -22,7 +21,6 @@ public class ResetPhoneActivity extends GetSecurityCodeActivity {
         setContentView(R.layout.activity_reset_phone_step_one);
 
         ButterKnife.bind(this);
-        setPageTitle(getResources().getString(R.string.change_username_step_one));
     }
 
 
@@ -36,7 +34,4 @@ public class ResetPhoneActivity extends GetSecurityCodeActivity {
         RestClient.getInstance().newSecurityCode4Account(username, onSuccess, onError);
     }
 
-    public void back(View view) {
-        finish();
-    }
 }

@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,22 +10,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="swj.swj.activity.ResetPwdStepTwo">
 
+    <swj.swj.view.ActionBarLayout
+        android:id="@+id/action_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/action_bar_height"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        custom:page_title="@string/reset_pwd_step_two" />
+
     <include
         layout="@layout/activity_verify_security_code"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/fragment7" />
-
-    <fragment
-        android:id="@+id/fragment7"
-        android:name="swj.swj.fragment.CustomActionBarFragment"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        tools:layout="@layout/action_bar_layout" />
+        android:layout_below="@id/action_bar" />
 
 </RelativeLayout>

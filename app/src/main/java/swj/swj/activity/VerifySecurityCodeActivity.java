@@ -32,8 +32,6 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     EditText securityCodeInput;
     @Bind(R.id.tv_choosen_username)
     TextView choosenUsername;
-    @Bind(R.id.tv_page_title)
-    TextView pageTitle;
     private SecurityCodeCountDownTimer timer;
 
     protected void setChoosenUsername() {
@@ -41,9 +39,6 @@ public abstract class VerifySecurityCodeActivity extends Activity {
         choosenUsername.setText(intent.getStringExtra(USERNAME));
     }
 
-    protected void setPageTitle(String title) {
-        pageTitle.setText(title);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

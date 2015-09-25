@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -80,9 +79,6 @@ public class RegisterStepThree extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_three);
-
-        TextView tvPageTitle = (TextView) findViewById(R.id.tv_page_title);
-        tvPageTitle.setText(getResources().getString(R.string.register_step_three));
 
         faceImage = (RoundedImageView) findViewById(R.id.iv_avatar);
         faceImage.setOnClickListener(new View.OnClickListener() {

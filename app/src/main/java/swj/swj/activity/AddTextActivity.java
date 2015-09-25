@@ -33,10 +33,6 @@ public class AddTextActivity extends Activity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.iv_use_back)
-    public void useBack() {
-        finish();
-    }
 
     @OnClick(R.id.tv_publish)
     public void submit() {

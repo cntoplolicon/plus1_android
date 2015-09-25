@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
@@ -16,21 +18,23 @@ import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {
+    @Bind(R.id.rb_home)
     RadioButton radioButton;
+    @Bind(R.id.tv_page_title)
     TextView tvTitle;
+    @Bind(R.id.iv_settings)
     ImageView ivSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ButterKnife.bind(this);
         init();
     }
 
-    public void init() {
-        radioButton = (RadioButton) findViewById(R.id.rb_home);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        ivSettings = (ImageView) findViewById(R.id.iv_settings);
+    private void init() {
         onHome(radioButton);
     }
 
