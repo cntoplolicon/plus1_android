@@ -57,11 +57,6 @@ public class PublishActivity extends Activity {
         }
     }
 
-    @OnClick(R.id.iv_publish_back)
-    public void back() {
-        finish();
-    }
-
     @OnClick(R.id.tv_delete)
     public void delete() {
         finish();

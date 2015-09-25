@@ -189,10 +189,6 @@ public class PersonalProfileActivity extends Activity {
         }
     }
 
-    public void back(View view) {
-        finish();
-    }
-
     private ByteArrayBody getAvatar() {
         Drawable drawable = ivAvatar.getDrawable();
         if (drawable == null) {

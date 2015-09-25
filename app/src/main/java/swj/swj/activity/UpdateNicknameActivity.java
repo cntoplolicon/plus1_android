@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -68,7 +67,4 @@ public class UpdateNicknameActivity extends Activity {
         return true;
     }
 
-    public void back(View view) {
-        finish();
-    }
 }

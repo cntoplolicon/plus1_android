@@ -1,7 +1,6 @@
 package swj.swj.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.android.volley.Response;
 
@@ -35,7 +34,4 @@ public class ResetPhoneActivity extends GetSecurityCodeActivity {
         RestClient.getInstance().newSecurityCode4Account(username, onSuccess, onError);
     }
 
-    public void back(View view) {
-        finish();
-    }
 }

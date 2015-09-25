@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 
 import com.android.volley.Response;
@@ -52,7 +51,4 @@ public class UpdateSignActivity extends Activity {
 
     }
 
-    public void back(View view) {
-        finish();
-    }
 }
