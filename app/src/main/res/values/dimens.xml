@@ -6,4 +6,5 @@
     <dimen name="home_img_height">329dp</dimen>
     <dimen name="home_img_mgt">10dp</dimen>
     <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="action_bar_height">52dp</dimen>
 </resources>
