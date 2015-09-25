@@ -32,10 +32,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:textColor="@color/personal_sign"
-            android:onClick="camera"
             android:background="#FED724"
+            android:gravity="center"
+            android:onClick="camera"
+            android:textColor="@color/personal_sign"
             android:textSize="16dp" />
 
 
@@ -43,13 +43,13 @@
             android:id="@+id/tv_3"
             android:layout_width="match_parent"
             android:layout_height="46dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:background="#FED724"
             android:gravity="center"
             android:textColor="@color/personal_sign"
-            android:background="#FED724"
-            android:layout_marginBottom="15dp"
             android:textSize="16dp" />
 
     </LinearLayout>

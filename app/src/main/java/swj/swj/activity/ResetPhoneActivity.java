@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 

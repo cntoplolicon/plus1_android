@@ -33,7 +33,7 @@
             android:layout_alignBottom="@+id/tv_myself_nickname"
             android:layout_marginLeft="@dimen/personal_sex_margin_left"
             android:layout_toRightOf="@+id/tv_myself_nickname"
-            android:src="@drawable/icon_woman"/>
+            android:src="@drawable/icon_woman" />
 
         <TextView
             android:id="@+id/tv_myself_sign"

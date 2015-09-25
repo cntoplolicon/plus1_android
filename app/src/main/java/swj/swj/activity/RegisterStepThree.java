@@ -67,7 +67,9 @@ public class RegisterStepThree extends Activity {
                         @Override
                         public void onResponse(JSONObject response) {
                             User.updateCurrentUser(response.toString());
-                            startActivity(new Intent(RegisterStepThree.this, HomeActivity.class));
+                            Intent intent = new Intent(RegisterStepThree.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             finish();
                         }
                     }, new JsonErrorListener(getApplicationContext(), null));
