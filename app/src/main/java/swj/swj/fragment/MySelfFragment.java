@@ -1,9 +1,12 @@
 package swj.swj.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,30 +17,26 @@ import swj.swj.adapter.PersonalGridViewAdapter;
 import swj.swj.model.User;
 
 
-public class MySelfFragment extends BaseFragment {
+public class MySelfFragment extends Fragment {
 
     private View headerView;
     private GridViewWithHeaderAndFooter gridView;
     private TextView tvMyPublish, tvMyCollection;
 
     @Override
-    public View initView() {
-        View v = View.inflate(mActivity, R.layout.fragment_myself, null);
-        gridView = (GridViewWithHeaderAndFooter) v.findViewById(R.id.gd_myself_content);
-        headerView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_myself_header, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_myself, container, false);
+        gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gd_myself_content);
+        headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
-        PersonalGridViewAdapter adapter = new PersonalGridViewAdapter(mActivity);
+        PersonalGridViewAdapter adapter = new PersonalGridViewAdapter(getActivity());
         gridView.setAdapter(adapter);
 
-        ImageView ivPersonalSettings = (ImageView) mActivity.findViewById(R.id.iv_settings);
+        ImageView ivPersonalSettings = (ImageView) getActivity().findViewById(R.id.iv_settings);
         ivPersonalSettings.setOnClickListener(onClick);
 
-        return v;
-    }
-
-    @Override
-    public void initData() {
-        super.initData();
+        return view;
     }
 
     @Override

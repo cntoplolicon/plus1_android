@@ -1,13 +1,17 @@
 package swj.swj.fragment;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,21 +25,21 @@ import java.util.Date;
 import swj.swj.R;
 import swj.swj.activity.AddTextActivity;
 import swj.swj.activity.PublishActivity;
+import swj.swj.common.ActivityHyperlinkClickListener;
 
 
-public class PublishFragment extends BaseFragment {
+public class PublishFragment extends Fragment {
 
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
-    private static final String[] items = {"拍照", "从照片库里选择", "取消"};
     private String fileNames;
 
-    @Override
-    public View initView() {
-        View v = View.inflate(mActivity, R.layout.fragment_publish, null);
-        Button btnAddImage = (Button) v.findViewById(R.id.btn_image);
-        Button btnAddText = (Button) v.findViewById(R.id.btn_text);
-        final AlertDialog alertDialog = new AlertDialog.Builder(mActivity).create();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_publish, container, false);
+        Button btnAddImage = (Button) view.findViewById(R.id.btn_image);
+        Button btnAddText = (Button) view.findViewById(R.id.btn_text);
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,17 +75,12 @@ public class PublishFragment extends BaseFragment {
             }
         });
 
-        btnAddText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mActivity, AddTextActivity.class));
-            }
-        });
-        return v;
+        btnAddText.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), AddTextActivity.class));
+        return view;
     }
 
     private void getCamera() {
-        Toast.makeText(mActivity, "进入相机", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "进入相机", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImage");
         if (!dir.exists()) {
@@ -96,7 +95,7 @@ public class PublishFragment extends BaseFragment {
     }
 
     private void getGallery() {
-        Toast.makeText(mActivity, "进入相册", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "进入相册", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
     }
@@ -113,9 +112,9 @@ public class PublishFragment extends BaseFragment {
                 }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + fileNames);
                 try {
-                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(mActivity.getContentResolver(), file.getAbsolutePath(), null, null));
+                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
-                    startActivity(new Intent(mActivity, PublishActivity.class).setAction("getCamera").putExtra("photoPath", photoPath));
+                    startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("photoPath", photoPath));
                 } catch (FileNotFoundException e) {
                     Log.e(PublishFragment.class.toString(), "file not found", e);
                 }
@@ -126,7 +125,7 @@ public class PublishFragment extends BaseFragment {
                 }
                 Uri originalUri = data.getData();
                 String picturePath = getFilePath(originalUri);
-                startActivity(new Intent(mActivity, PublishActivity.class).setAction("getGallery").putExtra("picturePath", picturePath));
+                startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("picturePath", picturePath));
         }
     }
 
@@ -138,7 +137,7 @@ public class PublishFragment extends BaseFragment {
 
     private String getFilePath(Uri uri) {
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = mActivity.getContentResolver().query(uri, filePathColumn, null, null, null);
+        Cursor cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         String filePath = cursor.getString(columnIndex);

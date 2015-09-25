@@ -52,14 +52,6 @@ public class JsonErrorListener implements Response.ErrorListener {
             }
         }
 
-        if (error.networkResponse != null && error.networkResponse.statusCode == HttpURLConnection.HTTP_FORBIDDEN) {
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            User.clearCurrentUser();
-            context.startActivity(intent);
-            return;
-        }
-
         if (!jsonResponseHandled) {
             Log.e(ERROR_TAG, "network error", error);
             Toast.makeText(context, context.getResources().getString(R.string.network_error),

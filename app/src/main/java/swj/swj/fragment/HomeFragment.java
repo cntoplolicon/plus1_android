@@ -1,6 +1,10 @@
 package swj.swj.fragment;
 
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -12,7 +16,7 @@ import swj.swj.adapter.HomePageListItemViewsAdapter;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.view.HomePageLayout;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends Fragment {
 
     @Bind(R.id.loading_layout)
     View loadingView;
@@ -39,15 +43,11 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_home, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        return view;
-    }
 
-    @Override
-    public void initData() {
         adapter = HomePageListItemViewsAdapter.getInstance();
         slidingView.setAdapter(adapter);
 
@@ -55,6 +55,8 @@ public class HomeFragment extends BaseFragment {
         adapter.setCallback(new AdapterCallbacks());
 
         changeViewsByAdapterState(adapter.getState());
+
+        return view;
     }
 
     private class LayoutCallbacks implements HomePageLayout.Callback {

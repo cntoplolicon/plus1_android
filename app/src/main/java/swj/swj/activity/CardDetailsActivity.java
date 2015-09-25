@@ -24,13 +24,13 @@ public class CardDetailsActivity extends Activity {
     }
 
     public void initData() {
-        mList = new ArrayList<CardDetailsItemBean>();
+        mList = new ArrayList<>();
         for (int i = 0; i < 99; i++) {
             mList.add(new CardDetailsItemBean(R.drawable.abc, "用户" + i, "内容" + i));
         }
         ListView lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
-        View heardeViewLayout = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_card_details_head, null);
+        View heardeViewLayout = LayoutInflater.from(this).inflate(R.layout.activity_card_details_head, null);
         lvListView.addHeaderView(heardeViewLayout, null, false);
         CardDetailsAdapter cardDetailsAdapter = new CardDetailsAdapter(this, mList);
         lvListView.setAdapter(cardDetailsAdapter);
