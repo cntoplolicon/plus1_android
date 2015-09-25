@@ -63,8 +63,6 @@ public class HomePageLayout extends ViewGroup {
                 callback.onViewAdded(nextContentView);
             }
         }
-
-        requestLayout();
     }
 
     public void setAdapter(HomePageListItemViewsAdapter adapter) {

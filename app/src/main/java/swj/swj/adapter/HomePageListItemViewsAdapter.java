@@ -3,24 +3,30 @@ package swj.swj.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.internal.LinkedHashTreeMap;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.LRUCacheMap;
 import swj.swj.common.RestClient;
 import swj.swj.model.Infection;
+import swj.swj.model.Post;
 
 /**
  * Created by shw on 2015/9/15.
@@ -31,11 +37,13 @@ public class HomePageListItemViewsAdapter {
     public static final int STATE_LOADING = 1;
     public static final int STATE_NORMAL = 2;
 
+    private static final int ID_CACHE_CAPACITY = 256;
+
     private static HomePageListItemViewsAdapter instance;
     private Context context;
 
     private Map<Infection, View> infections2views = new LinkedHashMap<>();
-    private Set<Integer> loadedInfectionIds = new HashSet<>();
+    private Set<Integer> loadedInfectionIds;
     private int state = STATE_CLEARED;
     private boolean loading = false;
     private Callback callback;
@@ -50,6 +58,7 @@ public class HomePageListItemViewsAdapter {
 
     private HomePageListItemViewsAdapter(Context context) {
         this.context = context;
+        loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
     }
 
     private void updateState() {
@@ -66,6 +75,21 @@ public class HomePageListItemViewsAdapter {
 
     private View createView(Infection infection) {
         View view = LayoutInflater.from(context).inflate(R.layout.home_list_item, null);
+        HomePageItemViews itemViews = new HomePageItemViews();
+        ButterKnife.bind(itemViews, view);
+
+        Post post = infection.getPost();
+        itemViews.tvUser.setText(post.getUser().getNickname());
+        itemViews.tvContent.setText(post.getPostPages()[0].getText());
+        itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
+        itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
+        String imagePath = post.getPostPages()[0].getImage();
+        if (imagePath == null || imagePath.isEmpty()) {
+            itemViews.ivImage.setVisibility(View.INVISIBLE);
+        } else {
+            ImageLoader.getInstance().displayImage(RestClient.IMAGE_SERVER_URL + imagePath, itemViews.ivImage);
+        }
+
         return view;
     }
 
@@ -141,5 +165,22 @@ public class HomePageListItemViewsAdapter {
 
     public interface Callback {
         void onStateChanged(int oldState, int newState);
+    }
+
+    static class HomePageItemViews {
+        @Bind(R.id.tv_user)
+        TextView tvUser;
+
+        @Bind(R.id.tv_content)
+        TextView tvContent;
+
+        @Bind(R.id.tv_comments)
+        TextView tvComments;
+
+        @Bind(R.id.tv_views)
+        TextView tvViews;
+
+        @Bind(R.id.iv_image)
+        ImageView ivImage;
     }
 }

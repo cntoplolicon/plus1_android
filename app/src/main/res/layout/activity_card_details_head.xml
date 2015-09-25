@@ -80,7 +80,7 @@
 
 
     <TextView
-        android:id="@+id/tv_message"
+        android:id="@+id/tv_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -100,7 +100,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_below="@id/tv_line"
-        android:layout_toRightOf="@id/tv_message"
+        android:layout_toRightOf="@id/tv_comments"
         android:drawableLeft="@drawable/icon_views"
         android:drawablePadding="5dp"
         android:text="150"
@@ -120,7 +120,7 @@
         android:text="四天前"
         android:textSize="12sp"/>
     <TextView
-        android:id="@+id/tv_adaress"
+        android:id="@+id/tv_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="61dp"
@@ -137,7 +137,7 @@
         android:id="@+id/tv_lines"
         android:layout_width="wrap_content"
         android:layout_height="1px"
-        android:layout_below="@id/tv_adaress"
+        android:layout_below="@id/tv_location"
         android:background="@drawable/icon_line"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"

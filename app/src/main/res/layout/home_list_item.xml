@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    >
-
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="@dimen/home_img_mgt"
         android:adjustViewBounds="true"
         android:maxHeight="@dimen/home_img_height"
         android:maxWidth="500dp"
-        android:layout_marginTop="@dimen/home_img_mgt"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
         android:scaleType="centerInside"
-        android:src="@drawable/abc"/>
-
+        android:src="@drawable/loading"/>
 
     <TextView
         android:id="@+id/tv_user"
@@ -31,7 +27,7 @@
         android:layout_marginLeft="15dp"
         android:text="用户"
         android:textColor="#25AFF8"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -44,51 +40,51 @@
         android:ellipsize="end"
         android:lines="4"
         android:text="喔噢"
-        android:textSize="15sp"/>
-
+        android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/tv_message"
+        android:id="@+id/tv_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_line"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@id/tv_line"
         android:drawableLeft="@drawable/icon_comment"
-        android:layout_alignParentBottom="true"
         android:drawablePadding="5dp"
         android:text="21"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_line"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@id/tv_line"
-        android:layout_toRightOf="@id/tv_message"
+        android:layout_toRightOf="@id/tv_comments"
         android:drawableLeft="@drawable/icon_views"
-        android:layout_alignParentBottom="true"
         android:drawablePadding="5dp"
         android:text="150"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
+
     <TextView
-        android:id="@+id/tv_adaress"
+        android:id="@+id/tv_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_line"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="61dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
         android:layout_toRightOf="@id/tv_time"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tv_line"
         android:drawableLeft="@drawable/icon_address"
-        android:layout_alignParentBottom="true"
         android:drawablePadding="5dp"
         android:text="北京，朝阳"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 </RelativeLayout>

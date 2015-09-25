@@ -5,6 +5,10 @@ package swj.swj.model;
  */
 public class Post {
     private int id;
+    private int spreadsCount;
+    private int viewsCount;
+    private int commentsCount;
+    private User user;
     private PostPage[] postPages;
 
     public int getId() {
@@ -13,6 +17,38 @@ public class Post {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSpreadsCount() {
+        return spreadsCount;
+    }
+
+    public void setSpreadsCount(int spreadsCount) {
+        this.spreadsCount = spreadsCount;
+    }
+
+    public int getViewsCount() {
+        return viewsCount;
+    }
+
+    public void setViewsCount(int viewsCount) {
+        this.viewsCount = viewsCount;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public PostPage[] getPostPages() {
