@@ -14,7 +14,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        custom:page_title="@string/home_tab">
+        custom:page_title="@string/home_tab"
+        custom:hide_back_arrow="true">
 
         <ImageView
             android:id="@+id/iv_settings"
