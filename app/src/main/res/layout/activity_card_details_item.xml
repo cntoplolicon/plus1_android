@@ -41,6 +41,4 @@
         android:text="阳光少年"
         android:textColor="#5c5c5c"
         android:textSize="12dp" />
-
-
 </RelativeLayout>

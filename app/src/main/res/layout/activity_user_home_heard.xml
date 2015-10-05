@@ -1,8 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_marginRight="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/rounded_image_personal_avatar"
             android:layout_below="@+id/rounded_image_personal_avatar"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="@dimen/personal_grid_title_margin"
             android:orientation="horizontal">
 
@@ -117,4 +118,4 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

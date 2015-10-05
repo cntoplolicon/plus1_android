@@ -1,19 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <swj.swj.view.ActionBarLayout
+            android:id="@+id/action_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/action_bar_height">
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="用户001"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </swj.swj.view.ActionBarLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="15dp"
+        android:layout_height="162dp"
+        android:layout_below="@id/fl_title"
+        android:background="#0000"
+        android:visibility="invisible" />
 
     <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:id="@+id/others_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/fl_title"
+        android:layout_toRightOf="@id/tv"
         android:numColumns="2"
-        android:verticalSpacing="15dp"
-
-        >
-
-    </in.srain.cube.views.GridViewWithHeaderAndFooter>
-
-
-</FrameLayout>
+        android:verticalSpacing="15dp"></in.srain.cube.views.GridViewWithHeaderAndFooter>
+</RelativeLayout>
 

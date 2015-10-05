@@ -23,7 +23,6 @@ import swj.swj.common.RestClient;
  * Created by syb on 2015/9/18.
  */
 public class AddTextActivity extends Activity {
-
     @Bind(R.id.et_text)
     EditText editText;
 
@@ -34,11 +33,9 @@ public class AddTextActivity extends Activity {
         ButterKnife.bind(this);
     }
 
-
     @OnClick(R.id.tv_publish)
     public void submit() {
         String text = editText.getText().toString();
-
         RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null},
                 new Response.Listener<JSONObject>() {
                     @Override
