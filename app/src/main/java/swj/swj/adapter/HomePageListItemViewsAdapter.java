@@ -61,6 +61,14 @@ public class HomePageListItemViewsAdapter {
         loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
     }
 
+    public void reset() {
+        loadedInfectionIds.clear();
+        infections2views.clear();
+        state = STATE_CLEARED;
+        loading = false;
+        callback = null;
+    }
+
     private void updateState() {
         int oldState = state;
         if (infections2views.isEmpty()) {

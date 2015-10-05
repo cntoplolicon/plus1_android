@@ -15,6 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.adapter.HomePageListItemViewsAdapter;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
@@ -43,6 +44,7 @@ public class PersonalSettingsActivity extends Activity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         User.clearCurrentUser();
+                                        HomePageListItemViewsAdapter.getInstance().reset();
                                         startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
                                         finish();
                                     }

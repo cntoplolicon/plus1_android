@@ -14,6 +14,10 @@ import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.HomePageListItemViewsAdapter;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
+import swj.swj.model.Infection;
+import swj.swj.model.PostView;
 import swj.swj.view.HomePageLayout;
 
 public class HomeFragment extends Fragment {
@@ -69,8 +73,11 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        public void onViewReleased(View view) {
-
+        public void onViewReleased(View view, int offset) {
+            Infection infection = adapter.getInfectionByView(view);
+            int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
+            RestClient.getInstance().newPostView(infection.getId(), result,
+                    null, new JsonErrorListener(getActivity(), null));
         }
     }
 

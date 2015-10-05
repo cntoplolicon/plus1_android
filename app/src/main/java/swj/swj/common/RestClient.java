@@ -31,8 +31,9 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.0.16:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.0.28:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
+    private static final boolean POST_VIEWS_ENABLED = true;
     public static final String IMAGE_SERVER_URL = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
 
     private static RestClient instance;
@@ -133,7 +134,7 @@ public class RestClient {
     }
 
     public void updateUserAvatar(Map<String, Object> attributes,
-                                     Listener<JSONObject> onSucess, ErrorListener onError) {
+                                 Listener<JSONObject> onSucess, ErrorListener onError) {
         Map<String, Object> params = createUserParams();
         params.putAll(attributes);
         String userId = params.get("user_id").toString();
@@ -141,7 +142,6 @@ public class RestClient {
                 getResourceUrl("/users/" + userId), params.entrySet(), onSucess, onError);
         requestQueue.add(request);
     }
-
 
 
     public void resetPassword(String username, String password,
@@ -180,6 +180,22 @@ public class RestClient {
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 buildUrlForGetRequests("/users/" + userId + "/infections/active", params), onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    public void newPostView(int infectionId, int result,
+                            Listener<JSONObject> onSuccess, ErrorListener onError) {
+        if (!POST_VIEWS_ENABLED) {
+            return;
+        }
+
+        Map<String, Object> params = createUserParams();
+        params.put("result", result);
+        String userId = params.remove("user_id").toString();
+
+        String path = "/users/" + userId + "/infections/" + infectionId + "/post_view";
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl(path), params, onSuccess, onError);
         requestQueue.add(request);
     }
 
