@@ -70,6 +70,7 @@ public class PublishActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
                 });
+        setResult(Activity.RESULT_OK);
         finish();
     }
 }
