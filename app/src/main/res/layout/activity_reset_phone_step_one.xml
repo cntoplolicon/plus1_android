@@ -16,7 +16,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        custom:page_title="@string/reset_pwd_step_one" />
+        custom:page_title="@string/change_username_step_one" />
 
 
     <include
