@@ -45,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_rbg"
         android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
         android:orientation="horizontal">
 
         <RadioButton
