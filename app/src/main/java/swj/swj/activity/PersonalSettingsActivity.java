@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
@@ -37,10 +38,7 @@ public class PersonalSettingsActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 RestClient.getInstance().signOut(null, new JsonErrorListener(getApplicationContext(), null));
-                                User.clearCurrentUser();
-                                HomePageListItemViewsAdapter.getInstance().reset();
-                                startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
-                                finish();
+                                CommonMethods.clientSideSignOut(PersonalSettingsActivity.this);
                             }
                         })
                 .setNegativeButton(getResources().getString(R.string.cancel),

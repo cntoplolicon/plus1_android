@@ -1,6 +1,7 @@
 package swj.swj.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.widget.Toast;
@@ -19,6 +20,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import swj.swj.R;
+import swj.swj.activity.LoginActivity;
+import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.model.User;
 
 /**
  * Created by silentgod on 15-9-5.
@@ -94,5 +98,13 @@ public final class CommonMethods {
                 os.close();
             }
         }
+    }
+
+    public static void clientSideSignOut(Context context) {
+        User.clearCurrentUser();
+        HomePageListItemViewsAdapter.getInstance().reset();
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }

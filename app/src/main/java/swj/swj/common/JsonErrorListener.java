@@ -1,7 +1,6 @@
 package swj.swj.common;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,8 +14,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 
 import swj.swj.R;
-import swj.swj.activity.LoginActivity;
-import swj.swj.model.User;
 
 /**
  * Created by cntoplolicon on 9/11/15.
@@ -34,6 +31,11 @@ public class JsonErrorListener implements Response.ErrorListener {
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        if (error.networkResponse != null && error.networkResponse.statusCode == HttpURLConnection.HTTP_FORBIDDEN) {
+            CommonMethods.clientSideSignOut(context);
+            return;
+        }
+
         boolean jsonResponseHandled = false;
         if (error.networkResponse != null &&
                 error.networkResponse.headers.get("Content-Type").equals("application/json")) {
