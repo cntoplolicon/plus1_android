@@ -114,7 +114,7 @@ public class PublishFragment extends Fragment {
                 try {
                     Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
-                    startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("photoPath", photoPath));
+                    startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath));
                 } catch (FileNotFoundException e) {
                     Log.e(PublishFragment.class.toString(), "file not found", e);
                 }
@@ -125,7 +125,7 @@ public class PublishFragment extends Fragment {
                 }
                 Uri originalUri = data.getData();
                 String picturePath = getFilePath(originalUri);
-                startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("picturePath", picturePath));
+                startActivity(new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath));
         }
     }
 

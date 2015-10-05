@@ -1,11 +1,8 @@
 package swj.swj.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -15,18 +12,16 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
-import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
-import swj.swj.common.CommonMethods;
 import swj.swj.common.RestClient;
 
 /**
@@ -40,21 +35,17 @@ public class PublishActivity extends Activity {
     @Bind(R.id.et_text)
     EditText editText;
 
+    String imageFilePath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        if (intent.getAction().equals("getCamera")) {
-            String photoPath = intent.getStringExtra("photoPath");
-            Bitmap myGallery = BitmapFactory.decodeFile(photoPath);
-            imageView.setImageBitmap(myGallery);
-        } else if (intent.getAction().equals("getGallery")) {
-            String picturePath = intent.getStringExtra("picturePath");
-            Bitmap myGallery = BitmapFactory.decodeFile(picturePath);
-            imageView.setImageBitmap((myGallery));
-        }
+
+        imageFilePath = getIntent().getStringExtra("imagePath");
+        Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
+        imageView.setImageBitmap(bitmap);
     }
 
     @OnClick(R.id.tv_delete)
@@ -65,7 +56,7 @@ public class PublishActivity extends Activity {
     @OnClick(R.id.tv_publish)
     public void submit() {
         String text = editText.getText().toString();
-        ByteArrayBody imageBody = getImageBody();
+        FileBody imageBody = new FileBody(new File(imageFilePath));
         RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -79,20 +70,6 @@ public class PublishActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    private ByteArrayBody getImageBody() {
-        Drawable drawable = imageView.getDrawable();
-        if (drawable == null) {
-            return null;
-        }
-        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
-        try {
-            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
-            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "image.png");
-        } catch (IOException e) {
-            Log.d(RegisterStepThree.class.getName(), "failed getting avatar data", e);
-            return null;
-        }
+        finish();
     }
 }
