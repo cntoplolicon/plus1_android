@@ -4,47 +4,6 @@
     android:layout_height="wrap_content"
     android:background="#fff">
 
-    <swj.swj.view.ActionBarLayout
-        android:id="@+id/action_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/action_bar_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/iv_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/icon_more" />
-
-        <ImageView
-            android:id="@+id/iv_praise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="62dp"
-            android:layout_marginTop="15dp"
-            android:layout_toLeftOf="@id/iv_more"
-            android:src="@drawable/icon_praise" />
-
-        <ImageView
-            android:id="@+id/iv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="105dp"
-            android:layout_marginTop="15dp"
-            android:layout_toLeftOf="@id/iv_more"
-            android:src="@drawable/icon_share" />
-
-    </swj.swj.view.ActionBarLayout>
-
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
@@ -57,7 +16,6 @@
         android:maxWidth="500dp"
         android:scaleType="centerInside"
         android:src="@drawable/abc" />
-
 
     <TextView
         android:id="@+id/tv_content"
@@ -80,7 +38,6 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/icon_line" />
-
 
     <TextView
         android:id="@+id/tv_comments"
@@ -160,5 +117,4 @@
         android:text="评论"
         android:textColor="#303030"
         android:textSize="14sp" />
-
 </RelativeLayout>

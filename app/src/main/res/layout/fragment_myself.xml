@@ -1,16 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="15dp"
+        android:layout_height="162dp"
+        android:background="#0000"
+        android:visibility="invisible" />
+
     <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:id="@+id/gd_myself_content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/personal_send_margin_left"
-        android:layout_marginRight="@dimen/personal_send_margin_left"
-        android:horizontalSpacing="@dimen/personal_grid_spacing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/tv"
+        android:horizontalSpacing="4dp"
         android:numColumns="2"
-        android:verticalSpacing="@dimen/personal_grid_spacing"></in.srain.cube.views.GridViewWithHeaderAndFooter>
-
-</FrameLayout>
+        android:verticalSpacing="4dp"></in.srain.cube.views.GridViewWithHeaderAndFooter>
+</RelativeLayout>
