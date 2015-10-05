@@ -1,6 +1,7 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -51,5 +52,9 @@ public class AddTextActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
                 });
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

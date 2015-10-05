@@ -1,6 +1,7 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -70,7 +71,9 @@ public class PublishActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
                 });
-        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 }

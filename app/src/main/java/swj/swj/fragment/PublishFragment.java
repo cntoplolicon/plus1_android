@@ -34,8 +34,6 @@ public class PublishFragment extends Fragment {
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
-    private static final int PUBLISH_REQUEST = 1024;
-
     private String fileNames;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,7 +117,7 @@ public class PublishFragment extends Fragment {
                     Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
                     Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
-                    startActivityForResult(intent, PUBLISH_REQUEST);
+                    startActivity(intent);
                 } catch (FileNotFoundException e) {
                     Log.e(PublishFragment.class.toString(), "file not found", e);
                 }
@@ -131,10 +129,7 @@ public class PublishFragment extends Fragment {
                 Uri originalUri = data.getData();
                 String picturePath = getFilePath(originalUri);
                 Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
-                startActivityForResult(intent, PUBLISH_REQUEST);
-                break;
-            case PUBLISH_REQUEST:
-                ((HomeActivity)getActivity()).switchTab(R.id.rb_home);
+                startActivity(intent);
                 break;
         }
     }
