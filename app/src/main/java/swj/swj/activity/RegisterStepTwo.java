@@ -15,7 +15,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         setContentView(R.layout.activity_register_step_two);
 
         ButterKnife.bind(this);
-        setChoosenUsername();
+        setupChosenUsername();
         startResendCountDown();
     }
 

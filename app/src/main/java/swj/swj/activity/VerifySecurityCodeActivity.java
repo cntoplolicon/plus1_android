@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -28,17 +29,19 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     private static final String USERNAME = "username";
     private static final Integer ONE_MINUTE = 60000;
     private static final Integer ONE_SECOND = 1000;
+
     @Bind(R.id.et_security_code)
     EditText securityCodeInput;
+
     @Bind(R.id.tv_choosen_username)
-    TextView choosenUsername;
+    TextView chosenUsername;
+
     private SecurityCodeCountDownTimer timer;
 
-    protected void setChoosenUsername() {
+    protected void setupChosenUsername() {
         Intent intent = getIntent();
-        choosenUsername.setText(intent.getStringExtra(USERNAME));
+        chosenUsername.setText(intent.getStringExtra(USERNAME));
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,16 @@ public abstract class VerifySecurityCodeActivity extends Activity {
         Intent intent = getIntent();
         String username = intent.getStringExtra(USERNAME);
         RestClient.getInstance().newSecurityCode4Account(username,
-                null, new JsonErrorListener(getApplicationContext(), null));
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String securityCode = response.optString("security_code", "");
+                        if (!securityCode.isEmpty()) {
+                            Log.d("security_code", securityCode);
+                            Toast.makeText(getBaseContext(), securityCode, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new JsonErrorListener(getApplicationContext(), null));
         intent.putExtra("counter_start", System.currentTimeMillis());
         startResendCountDown();
     }

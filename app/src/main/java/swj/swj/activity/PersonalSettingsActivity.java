@@ -7,10 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-
-import org.json.JSONObject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,15 +36,11 @@ public class PersonalSettingsActivity extends Activity {
                 .setPositiveButton(getResources().getString(R.string.submit),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                RestClient.getInstance().signOut(new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        User.clearCurrentUser();
-                                        HomePageListItemViewsAdapter.getInstance().reset();
-                                        startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
-                                        finish();
-                                    }
-                                }, new JsonErrorListener(getApplicationContext(), null));
+                                RestClient.getInstance().signOut(null, new JsonErrorListener(getApplicationContext(), null));
+                                User.clearCurrentUser();
+                                HomePageListItemViewsAdapter.getInstance().reset();
+                                startActivity(new Intent(PersonalSettingsActivity.this, LoginActivity.class));
+                                finish();
                             }
                         })
                 .setNegativeButton(getResources().getString(R.string.cancel),
