@@ -134,7 +134,7 @@ public class PublishFragment extends Fragment {
                 startActivityForResult(intent, PUBLISH_REQUEST);
                 break;
             case PUBLISH_REQUEST:
-                ((HomeActivity)getActivity()).onHome(null);
+                ((HomeActivity)getActivity()).switchTab(R.id.rb_home);
                 break;
         }
     }

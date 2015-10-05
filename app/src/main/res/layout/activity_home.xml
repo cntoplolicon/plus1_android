@@ -14,8 +14,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        custom:page_title="@string/home_tab"
-        custom:hide_back_arrow="true">
+        custom:hide_back_arrow="true"
+        custom:page_title="@string/home_tab">
 
         <ImageView
             android:id="@+id/iv_settings"
@@ -52,35 +52,29 @@
             style="@style/ButtonTabStyle"
             android:checked="true"
             android:drawableTop="@drawable/btn_home_selector"
-            android:onClick="onHome"
             android:text="@string/home_tab" />
 
         <RadioButton
             android:id="@+id/rb_friends"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_found_selector"
-            android:onClick="onFriends"
             android:text="@string/friends_tab" />
 
         <RadioButton
-            android:id="@+id/rb_Publish"
+            android:id="@+id/rb_publish"
             style="@style/ButtonTabStyle"
-            android:drawableTop="@drawable/btn_publish_selector"
-            android:onClick="onPublish" />
+            android:drawableTop="@drawable/btn_publish_selector" />
 
         <RadioButton
-
             android:id="@+id/rb_message"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_message_selector"
-            android:onClick="onMessage"
             android:text="@string/message_tab" />
 
         <RadioButton
             android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_myself_selector"
-            android:onClick="onMySelf"
             android:text="@string/myself_tab" />
 
     </RadioGroup>

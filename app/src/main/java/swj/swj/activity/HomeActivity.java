@@ -1,14 +1,19 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
@@ -18,12 +23,20 @@ import swj.swj.fragment.PublishFragment;
 
 
 public class HomeActivity extends Activity {
-    @Bind(R.id.rb_home)
-    RadioButton radioButton;
     @Bind(R.id.tv_page_title)
     TextView tvTitle;
     @Bind(R.id.iv_settings)
     ImageView ivSettings;
+
+    private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
+
+    static {
+        fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
+        fragments.put(R.id.rb_friends, new HomeActivityFragment(FriendFragment.class, R.string.friends_tab));
+        fragments.put(R.id.rb_publish, new HomeActivityFragment(PublishFragment.class, R.string.publish_title));
+        fragments.put(R.id.rb_message, new HomeActivityFragment(MessageFragment.class, R.string.message_tab));
+        fragments.put(R.id.rb_myself, new HomeActivityFragment(MySelfFragment.class, R.string.myself_tab));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,51 +44,34 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
-        init();
+        switchTab(R.id.rb_home);
     }
 
-    private void init() {
-        onHome(radioButton);
+    public void switchTab(int radioButtonId) {
+        try {
+            HomeActivityFragment fragment = fragments.get(radioButtonId);
+            getFragmentManager().beginTransaction().replace(R.id.fl, (Fragment) fragment.fragment.newInstance()).commit();
+            tvTitle.setText(fragment.titleTextResource);
+            ivSettings.setVisibility(radioButtonId == R.id.rb_myself ? View.VISIBLE : View.INVISIBLE);
+        } catch (IllegalAccessException e) {
+            Log.e(HomeActivity.class.getName(), "failed initializing fragment", e);
+        } catch (InstantiationException e) {
+            Log.e(HomeActivity.class.getName(), "failed initializing fragment", e);
+        }
     }
 
-    public void onHome(View view) {
-       /* //new对象
-        HomeFragment homeFragment = new HomeFragment();
-        //获取管理器
-        FragmentManager fm = getFragmentManager();
-        //开启事务
-        FragmentTransaction ft = fm.beginTransaction();
-        //设置显示
-        ft.replace(R.id.fl, homeFragment);
-        radioButton.setTextColor(Color.RED);
-        //提交事务
-        ft.commit();*/
-        getFragmentManager().beginTransaction().replace(R.id.fl, new HomeFragment()).commit();
-        tvTitle.setText(getResources().getString(R.string.home_tab));
-        ivSettings.setVisibility(View.INVISIBLE);
+    @OnClick({R.id.rb_home, R.id.rb_friends, R.id.rb_message, R.id.rb_publish, R.id.rb_myself})
+    public void onRadioTabClicked(View view) {
+        switchTab(view.getId());
     }
 
-    public void onFriends(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new FriendFragment()).commit();
-        tvTitle.setText(getResources().getString(R.string.friends_tab));
-        ivSettings.setVisibility(View.INVISIBLE);
-    }
+    private static class HomeActivityFragment {
+        private Class<?> fragment;
+        private int titleTextResource;
 
-    public void onPublish(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new PublishFragment()).commit();
-        tvTitle.setText(getResources().getString(R.string.publish_title));
-        ivSettings.setVisibility(View.INVISIBLE);
-    }
-
-    public void onMessage(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new MessageFragment()).commit();
-        tvTitle.setText(getResources().getString(R.string.message_tab));
-        ivSettings.setVisibility(View.INVISIBLE);
-    }
-
-    public void onMySelf(View view) {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new MySelfFragment()).commit();
-        tvTitle.setText(getResources().getString(R.string.myself_tab));
-        ivSettings.setVisibility(View.VISIBLE);
+        public HomeActivityFragment(Class<?> fragment, int titleTextResource) {
+            this.fragment = fragment;
+            this.titleTextResource = titleTextResource;
+        }
     }
 }
