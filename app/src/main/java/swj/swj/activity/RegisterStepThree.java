@@ -13,9 +13,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -137,24 +139,36 @@ public class RegisterStepThree extends Activity {
 
     //show the option dialog to select
     private void showAvatarOptionDialog() {
-        new AlertDialog.Builder(this).setItems(OPTIONS, new DialogInterface.OnClickListener() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(RegisterStepThree.this).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.activity_dialog);
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
+        TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
+        tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
+        tvGallery.setText(getResources().getString(R.string.gallery));
+        tvCancel.setText(getResources().getString(R.string.cancel));
+        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        getImageFromGallery();
-                        break;
-                    case 1:
-                        getImageFromCamera();
-                        break;
-                }
+            public void onClick(View v) {
+                getImageFromCamera();
+                alertDialog.cancel();
             }
-        }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        });
+        tvGallery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onClick(View v) {
+                getImageFromGallery();
+                alertDialog.cancel();
             }
-        }).show();
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
     }
 
     @Override

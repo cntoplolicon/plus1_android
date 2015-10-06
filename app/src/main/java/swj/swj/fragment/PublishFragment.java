@@ -2,8 +2,6 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.SearchManager;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,9 +52,9 @@ public class PublishFragment extends Fragment {
                 TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
                 TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
                 TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
-                tvTakePhoto.setText("拍照");
-                tvGallery.setText("从相册获取");
-                tvCancel.setText("取消");
+                tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
+                tvGallery.setText(getResources().getString(R.string.gallery));
+                tvCancel.setText(getResources().getString(R.string.cancel));
                 tvTakePhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -110,9 +107,6 @@ public class PublishFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKE_PHOTO:
-
-                ContentResolver resolver = getActivity().getContentResolver();
-
                 String sdStatus = Environment.getExternalStorageState();
                 // 检测sd是否可用
                 if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
@@ -124,9 +118,6 @@ public class PublishFragment extends Fragment {
                     Uri photoUri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
                             file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
-
-                    Log.d("wahahahha", photoPath);
-
                     Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
                     startActivity(intent);
                 } catch (FileNotFoundException e) {
