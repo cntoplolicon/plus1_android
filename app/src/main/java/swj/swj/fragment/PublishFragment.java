@@ -121,7 +121,8 @@ public class PublishFragment extends Fragment {
                 }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + fileNames);
                 try {
-                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
+                    Uri photoUri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
+                            file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
 
                     Log.d("wahahahha", photoPath);
@@ -164,4 +165,5 @@ public class PublishFragment extends Fragment {
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
     }
+
 }

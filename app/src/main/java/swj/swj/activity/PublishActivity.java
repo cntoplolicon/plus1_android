@@ -47,8 +47,6 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         imageFilePath = getIntent().getStringExtra("imagePath");
-//        PictureUtil pictureUtil = new PictureUtil();
-//        Bitmap smallBitmap = pictureUtil.getSmallBitmap(imageFilePath);
         Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
         imageView.setImageBitmap(bitmap);
     }
@@ -57,7 +55,6 @@ public class PublishActivity extends Activity {
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
     }
-
 
     @OnClick(R.id.tv_delete)
     public void delete() {
