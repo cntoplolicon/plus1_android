@@ -23,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 
 /**
@@ -64,9 +65,10 @@ public class PublishActivity extends Activity {
                     public void onResponse(JSONObject response) {
                         Toast.makeText(getApplicationContext(), R.string.post_success, Toast.LENGTH_LONG).show();
                     }
-                }, new Response.ErrorListener() {
+                }, new JsonErrorListener(getApplicationContext(), null) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        super.onErrorResponse(error);
                         Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
