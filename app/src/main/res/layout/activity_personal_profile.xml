@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,14 +40,16 @@
         android:layout_marginTop="@dimen/profile_avatar_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
-    <swj.swj.view.RoundedImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
         android:layout_width="@dimen/profile_avatar_size"
         android:layout_height="@dimen/profile_avatar_size"
         android:layout_alignTop="@+id/re_avatar"
         android:layout_marginRight="@dimen/profile_arrow_margin"
         android:layout_marginTop="@dimen/profile_avatar_margin_top"
-        android:layout_toLeftOf="@+id/iv_forward_avatar" />
+        android:layout_toLeftOf="@+id/iv_forward_avatar"
+        app:border_color="#b3b3b3"
+        app:border_width="2px" />
 
     <TextView
         android:id="@+id/re_nickname"

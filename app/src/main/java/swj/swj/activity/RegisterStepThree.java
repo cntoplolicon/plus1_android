@@ -30,12 +30,12 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
-import swj.swj.view.RoundedImageView;
 
 public class RegisterStepThree extends Activity {
 
@@ -44,7 +44,7 @@ public class RegisterStepThree extends Activity {
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final String[] OPTIONS = new String[]{"从相册选择", "拍照"};
 
-    private RoundedImageView faceImage;
+    private CircleImageView faceImage;
 
     private EditText nicknameInput;
     private EditText passwordInput;
@@ -80,7 +80,7 @@ public class RegisterStepThree extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_step_three);
 
-        faceImage = (RoundedImageView) findViewById(R.id.iv_avatar);
+        faceImage = (CircleImageView) findViewById(R.id.iv_avatar);
         faceImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
