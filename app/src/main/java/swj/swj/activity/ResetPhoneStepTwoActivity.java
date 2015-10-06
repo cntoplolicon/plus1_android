@@ -17,6 +17,7 @@ import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
+import swj.swj.model.User;
 
 /**
  * Created by jiewei on 9/7/15.
@@ -53,6 +54,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                                         Intent intent = new Intent(ResetPhoneStepTwoActivity.this, PersonalProfileActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
+                                        User.updateCurrentUser(response.toString());
                                         finish();
                                     }
                                 },
