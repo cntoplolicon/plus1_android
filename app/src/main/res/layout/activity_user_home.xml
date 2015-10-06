@@ -40,6 +40,6 @@
         android:layout_below="@id/fl_title"
         android:layout_toRightOf="@id/tv"
         android:numColumns="2"
-        android:verticalSpacing="15dp"></in.srain.cube.views.GridViewWithHeaderAndFooter>
+        android:verticalSpacing="15dp" />
 </RelativeLayout>
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
+import swj.swj.adapter.PersonalGridViewAdapter;
 
 public class UserHomeActivity extends Activity {
     private GridViewWithHeaderAndFooter othersHome;
@@ -24,8 +25,8 @@ public class UserHomeActivity extends Activity {
 
     public void init() {
         othersHome = (GridViewWithHeaderAndFooter) findViewById(R.id.others_home);
-        othersHome.addHeaderView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_user_home_heard, null));
-        othersHome.setAdapter(new HomeAdapter());
+        othersHome.addHeaderView(LayoutInflater.from(this).inflate(R.layout.fragment_myself_header, null));
+        othersHome.setAdapter(new PersonalGridViewAdapter(this));
     }
 
     class HomeAdapter extends BaseAdapter {

@@ -33,7 +33,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     @Bind(R.id.et_security_code)
     EditText securityCodeInput;
 
-    @Bind(R.id.tv_choosen_username)
+    @Bind(R.id.tv_chosen_username)
     TextView chosenUsername;
 
     private SecurityCodeCountDownTimer timer;

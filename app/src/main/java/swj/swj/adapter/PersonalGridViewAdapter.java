@@ -37,10 +37,9 @@ public class PersonalGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = LayoutInflater.from(context);
         View gridView;
         if (convertView == null) {
-            gridView = new View(context);
             gridView = inflater.inflate(R.layout.myself_gridview_item, null);
             TextView textView = (TextView) gridView.findViewById(R.id.tv_forward_count);
             textView.setText("32人转发");
