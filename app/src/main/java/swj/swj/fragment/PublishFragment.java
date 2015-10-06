@@ -2,7 +2,10 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,6 +45,7 @@ public class PublishFragment extends Fragment {
         Button btnAddImage = (Button) view.findViewById(R.id.btn_image);
         Button btnAddText = (Button) view.findViewById(R.id.btn_text);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setCanceledOnTouchOutside(false);
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +92,7 @@ public class PublishFragment extends Fragment {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        fileNames = getNowTime() + ".jpg";
+        fileNames = "IMG_" + getNowTime() + ".jpg";
         File file = new File(dir, fileNames);
         Uri uri = Uri.fromFile(file);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
@@ -105,6 +110,9 @@ public class PublishFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKE_PHOTO:
+
+                ContentResolver resolver = getActivity().getContentResolver();
+
                 String sdStatus = Environment.getExternalStorageState();
                 // 检测sd是否可用
                 if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
@@ -115,6 +123,9 @@ public class PublishFragment extends Fragment {
                 try {
                     Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
                     String photoPath = getFilePath(photoUri);
+
+                    Log.d("wahahahha", photoPath);
+
                     Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
                     startActivity(intent);
                 } catch (FileNotFoundException e) {
@@ -147,5 +158,10 @@ public class PublishFragment extends Fragment {
         String filePath = cursor.getString(columnIndex);
         cursor.close();
         return filePath;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
     }
 }

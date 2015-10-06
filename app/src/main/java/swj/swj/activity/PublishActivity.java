@@ -2,6 +2,7 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -46,9 +47,17 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         imageFilePath = getIntent().getStringExtra("imagePath");
+//        PictureUtil pictureUtil = new PictureUtil();
+//        Bitmap smallBitmap = pictureUtil.getSmallBitmap(imageFilePath);
         Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
         imageView.setImageBitmap(bitmap);
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+    }
+
 
     @OnClick(R.id.tv_delete)
     public void delete() {
