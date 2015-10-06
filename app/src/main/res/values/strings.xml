@@ -37,6 +37,7 @@
     <string name="save_new_pwd">保存新密码</string>
     <string name="pwd_reset_succeed">密码修改成功</string>
     <string name="unknown_error">未知错误</string>
+    <string name="spreads_count">%d人转发</string>
 
     <!--activity titles-->
     <string name="register_step_one">注册（1/3）</string>

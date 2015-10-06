@@ -2,6 +2,7 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,6 +64,11 @@ public class HomeActivity extends Activity {
     @OnClick({R.id.rb_home, R.id.rb_friends, R.id.rb_message, R.id.rb_publish, R.id.rb_myself})
     public void onRadioTabClicked(View view) {
         switchTab(view.getId());
+    }
+
+    @OnClick(R.id.iv_settings)
+    public void onPersonalSettingsViewClicked() {
+        startActivity(new Intent(this, PersonalSettingsActivity.class));
     }
 
     private static class HomeActivityFragment {

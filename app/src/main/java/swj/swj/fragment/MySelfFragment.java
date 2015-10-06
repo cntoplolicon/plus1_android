@@ -1,19 +1,19 @@
 package swj.swj.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
-import swj.swj.activity.PersonalSettingsActivity;
-import swj.swj.adapter.PersonalGridViewAdapter;
+import swj.swj.adapter.UserPostGridViewAdapter;
 import swj.swj.model.User;
 
 
@@ -21,63 +21,61 @@ public class MySelfFragment extends Fragment {
 
     private View headerView;
     private GridViewWithHeaderAndFooter gridView;
-    private TextView tvMyPublish, tvMyCollection;
+
+    @Bind(R.id.tv_myself_publish)
+    TextView tvMyPublish;
+
+    @Bind(R.id.tv_myself_collect)
+    TextView tvMyCollection;
+
+    @Bind(R.id.tv_biography)
+    TextView tvBiography;
+
+    @Bind(R.id.tv_nickname)
+    TextView tvNickname;
+
+    @Bind(R.id.iv_gender)
+    ImageView ivGender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myself, container, false);
-        gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gd_myself_content);
+
+        gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
-        PersonalGridViewAdapter adapter = new PersonalGridViewAdapter(getActivity());
+        UserPostGridViewAdapter adapter = new UserPostGridViewAdapter(getActivity(), User.current.getId());
         gridView.setAdapter(adapter);
 
-        ImageView ivPersonalSettings = (ImageView) getActivity().findViewById(R.id.iv_settings);
-        ivPersonalSettings.setOnClickListener(onClick);
+        ButterKnife.bind(this, headerView);
 
         return view;
     }
 
     @Override
     public void onResume() {
-        Log.d("MyselfFragment", "onResume");
         super.onResume();
-        UpdateUserInfo(User.current.getNickname());
+        showCurrentUserInfo();
     }
 
-    private void showUserInfo(String userNickName) {
-        TextView tvNickName = (TextView) headerView.findViewById(R.id.tv_myself_nickname);
-        tvNickName.setText(userNickName);
-        TextView tvSign = (TextView) headerView.findViewById(R.id.tv_myself_sign);
-        tvSign.setText(User.current.getBiography());
-        tvMyPublish = (TextView) headerView.findViewById(R.id.tv_myself_publish);
-        tvMyCollection = (TextView) headerView.findViewById(R.id.tv_myself_collect);
-        tvMyPublish.setOnClickListener(onClick);
-        tvMyCollection.setOnClickListener(onClick);
-    }
-
-
-    private void UpdateUserInfo(String userNickName) {
-        showUserInfo(userNickName);
-    }
-
-    private View.OnClickListener onClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.iv_settings:
-                    startActivity(new Intent(getActivity(), PersonalSettingsActivity.class));
-                    break;
-                case R.id.tv_myself_publish:
-                    tvMyPublish.setBackgroundResource(R.drawable.personal_tv_border_left_pressed);
-                    tvMyCollection.setBackgroundResource(R.drawable.personal_tv_border_right_unpressed);
-                    break;
-                case R.id.tv_myself_collect:
-                    tvMyPublish.setBackgroundResource(R.drawable.personal_tv_border_left_unpressed);
-                    tvMyCollection.setBackgroundResource(R.drawable.personal_tv_border_right_pressed);
-                    break;
-            }
+    private void showCurrentUserInfo() {
+        tvNickname.setText(User.current.getNickname());
+        tvBiography.setText(User.current.getBiography());
+        if (User.current.getGender() == User.GENDER_UNKNOWN) {
+            ivGender.setVisibility(View.INVISIBLE);
+        } else {
+            ivGender.setVisibility(View.VISIBLE);
+            int resource = User.current.getGender() == User.GENDER_FEMALE ?
+                    R.drawable.icon_woman : R.drawable.icon_man;
+            ivGender.setImageResource(resource);
         }
-    };
+    }
+
+    @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})
+    public void onTabClicked(TextView view) {
+        view.setBackgroundResource(R.drawable.personal_tv_border_left_pressed);
+        TextView theOtherTab = view.getId() == R.id.tv_myself_collect ? tvMyPublish : tvMyCollection;
+        theOtherTab.setBackgroundResource(R.drawable.personal_tv_border_left_unpressed);
+    }
 }

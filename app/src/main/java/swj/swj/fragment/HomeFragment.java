@@ -1,6 +1,7 @@
 package swj.swj.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.HomePageListItemViewsAdapter;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 import swj.swj.model.Infection;
@@ -69,7 +71,15 @@ public class HomeFragment extends Fragment {
         public void onViewAdded(View view) {
             view.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), CardDetailsActivity.class));
             TextView tvUser = (TextView) view.findViewById(R.id.tv_user);
-            tvUser.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), UserHomeActivity.class));
+            final Infection infection = adapter.getInfectionByView(view);
+            tvUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

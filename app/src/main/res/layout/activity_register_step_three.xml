@@ -67,7 +67,7 @@
         android:textColorHint="@color/et_hint" />
 
     <TextView
-        android:id="@+id/tv_gender"
+        android:id="@+id/iv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/et_password"
@@ -83,8 +83,8 @@
         android:id="@+id/rg_gender"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_alignBottom="@+id/tv_gender"
-        android:layout_alignLeft="@+id/tv_gender"
+        android:layout_alignBottom="@+id/iv_gender"
+        android:layout_alignLeft="@+id/iv_gender"
         android:layout_marginLeft="35dp"
         android:orientation="horizontal">
 
@@ -108,9 +108,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/et_nickname"
-        android:layout_alignLeft="@+id/tv_gender"
+        android:layout_alignLeft="@+id/iv_gender"
         android:layout_alignRight="@+id/et_nickname"
-        android:layout_alignStart="@+id/tv_gender"
+        android:layout_alignStart="@+id/iv_gender"
         android:layout_below="@+id/tv_comments"
         android:layout_marginTop="20dp"
         android:background="@color/test_yellow"

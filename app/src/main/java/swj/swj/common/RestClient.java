@@ -31,7 +31,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.146:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
     private static final boolean POST_VIEWS_ENABLED = true;
 
@@ -197,6 +197,13 @@ public class RestClient {
         String path = "/users/" + userId + "/infections/" + infectionId + "/post_view";
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl(path), params, onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    public void getUserPosts(int authorId, Listener<JSONArray> onSuccess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                buildUrlForGetRequests("/users/" + authorId + "/posts", params), onSuccess, onError);
         requestQueue.add(request);
     }
 

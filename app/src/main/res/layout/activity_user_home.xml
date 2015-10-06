@@ -34,7 +34,7 @@
         android:visibility="invisible" />
 
     <in.srain.cube.views.GridViewWithHeaderAndFooter
-        android:id="@+id/others_home"
+        android:id="@+id/grid_view_user_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fl_title"

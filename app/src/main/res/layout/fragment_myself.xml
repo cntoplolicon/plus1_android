@@ -11,11 +11,11 @@
         android:visibility="invisible" />
 
     <in.srain.cube.views.GridViewWithHeaderAndFooter
-        android:id="@+id/gd_myself_content"
+        android:id="@+id/grid_view_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/tv"
         android:horizontalSpacing="4dp"
         android:numColumns="2"
-        android:verticalSpacing="4dp"></in.srain.cube.views.GridViewWithHeaderAndFooter>
+        android:verticalSpacing="4dp" />
 </RelativeLayout>

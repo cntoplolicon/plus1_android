@@ -19,7 +19,7 @@
             app:border_width="2px" />
 
         <TextView
-            android:id="@+id/tv_myself_nickname"
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/personal_profile_margin_left"
@@ -30,56 +30,23 @@
             android:textSize="@dimen/personal_username_text" />
 
         <ImageView
-            android:id="@+id/tv_myself_sex"
+            android:id="@+id/iv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_myself_nickname"
+            android:layout_alignBottom="@+id/tv_nickname"
             android:layout_marginLeft="@dimen/personal_sex_margin_left"
-            android:layout_toRightOf="@+id/tv_myself_nickname"
+            android:layout_toRightOf="@+id/tv_nickname"
             android:src="@drawable/icon_woman" />
 
         <TextView
-            android:id="@+id/tv_myself_sign"
+            android:id="@+id/tv_biography"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_myself_nickname"
-            android:layout_below="@+id/tv_myself_nickname"
+            android:layout_alignLeft="@+id/tv_nickname"
+            android:layout_below="@+id/tv_nickname"
             android:layout_marginTop="@dimen/personal_profile_margin_left"
             android:text="个性签名个性签名"
             android:textColor="@color/personal_sign"
-            android:textSize="@dimen/personal_profile_text" />
-
-        <TextView
-            android:id="@+id/tv_influence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_myself_sign"
-            android:layout_below="@+id/tv_myself_sign"
-            android:layout_marginTop="@dimen/personal_profile_margin_left"
-            android:text="影响力: "
-            android:textColor="@color/personal_level_title"
-            android:textSize="@dimen/personal_profile_text" />
-
-        <TextView
-            android:id="@+id/tv_influence_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tv_influence"
-            android:layout_toRightOf="@+id/tv_influence"
-            android:text=" 800"
-            android:textColor="@color/personal_show_value"
-            android:textSize="@dimen/personal_profile_text" />
-
-        <TextView
-            android:id="@+id/tv_send_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tv_influence"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/personal_send_margin_left"
-            android:layout_toRightOf="@+id/tv_influence_value"
-            android:text="每次发给4个陌生人"
-            android:textColor="@color/personal_level_title"
             android:textSize="@dimen/personal_profile_text" />
 
         <LinearLayout
