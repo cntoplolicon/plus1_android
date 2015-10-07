@@ -31,7 +31,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.147:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
     private static final boolean POST_VIEWS_ENABLED = true;
 
