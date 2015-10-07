@@ -2,8 +2,6 @@ package swj.swj.model;
 
 import org.joda.time.DateTime;
 
-import java.io.File;
-
 import swj.swj.common.CommonMethods;
 import swj.swj.common.LocalUserInfo;
 

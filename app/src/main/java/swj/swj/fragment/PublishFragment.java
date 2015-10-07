@@ -24,7 +24,6 @@ import java.util.Date;
 
 import swj.swj.R;
 import swj.swj.activity.AddTextActivity;
-import swj.swj.activity.HomeActivity;
 import swj.swj.activity.PublishActivity;
 import swj.swj.common.ActivityHyperlinkClickListener;
 
