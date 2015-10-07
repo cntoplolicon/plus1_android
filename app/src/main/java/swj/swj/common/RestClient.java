@@ -35,8 +35,6 @@ public class RestClient {
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
     private static final boolean POST_VIEWS_ENABLED = true;
 
-    public static final String IMAGE_SERVER_URL = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
-
     private static RestClient instance;
 
     private RequestQueue requestQueue;
@@ -237,5 +235,10 @@ public class RestClient {
         params.put("user_id", User.current.getId());
         params.put("access_token", User.current.getAccessToken());
         return params;
+    }
+
+    public void loadImageServerUrl(Listener<JSONArray> onSuccess, ErrorListener onError) {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getResourceUrl("/image_hosts"), onSuccess, onError);
+        requestQueue.add(request);
     }
 }

@@ -35,6 +35,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -74,7 +75,7 @@ public class PersonalProfileActivity extends Activity {
 
     private void initView() {
 
-        String imageUrl = RestClient.IMAGE_SERVER_URL + User.current.getAvatar();
+        String imageUrl = SnsApplication.getImageServerUrl() + User.current.getAvatar();
 
         ImageLoader.getInstance().loadImage(imageUrl, new SimpleImageLoadingListener() {
             @Override

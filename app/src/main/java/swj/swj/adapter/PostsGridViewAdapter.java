@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONArray;
 
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -69,7 +70,7 @@ public class PostsGridViewAdapter extends BaseAdapter {
             imageView.setBackgroundResource(R.color.common_yellow);
         } else {
             imageView.setImageResource(R.drawable.loading);
-            ImageLoader.getInstance().displayImage(RestClient.IMAGE_SERVER_URL + imageUrl, imageView);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, imageView);
         }
 
         return gridView;
