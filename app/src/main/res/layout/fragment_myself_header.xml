@@ -47,7 +47,9 @@
             android:layout_marginTop="@dimen/personal_profile_margin_left"
             android:text="个性签名个性签名"
             android:textColor="@color/personal_sign"
-            android:textSize="@dimen/personal_profile_text" />
+            android:textSize="@dimen/personal_profile_text"
+            android:maxLines="2"
+            android:minLines="1"/>
 
         <LinearLayout
             android:layout_width="fill_parent"

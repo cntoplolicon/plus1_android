@@ -60,7 +60,7 @@ public class CardDetailsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static  class ViewHoldeder {
+    static class ViewHoldeder {
         public ImageView imageView;
         public TextView userName;
         public TextView context;
