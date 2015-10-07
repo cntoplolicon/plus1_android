@@ -39,7 +39,7 @@
             android:id="@+id/iv_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/iv_praise"
+            android:layout_toLeftOf="@+id/iv_bookmark"
             android:paddingBottom="18dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
