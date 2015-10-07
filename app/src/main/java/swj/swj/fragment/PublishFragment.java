@@ -2,10 +2,14 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -115,9 +119,9 @@ public class PublishFragment extends Fragment {
                 }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + fileNames);
                 try {
-                    Uri photoUri = Uri.parse(android.provider.MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
+                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
                             file.getAbsolutePath(), null, null));
-                    String photoPath = getFilePath(photoUri);
+                    String photoPath = getRealFilePath(getActivity(), photoUri);
                     Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
                     startActivity(intent);
                 } catch (FileNotFoundException e) {
@@ -129,7 +133,7 @@ public class PublishFragment extends Fragment {
                     return;
                 }
                 Uri originalUri = data.getData();
-                String picturePath = getFilePath(originalUri);
+                String picturePath = getRealFilePath(getActivity(), originalUri);
                 Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
                 startActivity(intent);
                 break;
@@ -142,19 +146,26 @@ public class PublishFragment extends Fragment {
         return dataFormat.format(date);
     }
 
-    private String getFilePath(Uri uri) {
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration config) {
-        super.onConfigurationChanged(config);
-    }
-
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -42,7 +43,6 @@ public class RegisterStepThree extends Activity {
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
-    private static final String[] OPTIONS = new String[]{"从相册选择", "拍照"};
 
     private CircleImageView faceImage;
 
@@ -226,4 +226,5 @@ public class RegisterStepThree extends Activity {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
 }
