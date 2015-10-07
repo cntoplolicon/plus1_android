@@ -3,7 +3,7 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.PictureUtil;
 import swj.swj.common.RestClient;
 
 /**
@@ -31,13 +32,14 @@ import swj.swj.common.RestClient;
  */
 public class PublishActivity extends Activity {
 
+    private Bitmap bitmap;
+    private String imageFilePath;
+
     @Bind(R.id.iv_image)
     ImageView imageView;
 
     @Bind(R.id.et_text)
     EditText editText;
-
-    String imageFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +48,9 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         imageFilePath = getIntent().getStringExtra("imagePath");
-        Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
+        Bitmap bitmap = PictureUtil.getSmallBitmap(imageFilePath);
+        bitmap = getScaledBitmap(bitmap);
         imageView.setImageBitmap(bitmap);
-    }
-
-    @OnClick(R.id.tv_delete)
-    public void delete() {
-        finish();
     }
 
     @OnClick(R.id.tv_publish)
@@ -77,5 +75,17 @@ public class PublishActivity extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+    }
+
+    private Bitmap getScaledBitmap(Bitmap bitmap) {
+        int height = (int) (bitmap.getHeight() * (1000.0 / bitmap.getWidth()));
+        return Bitmap.createScaledBitmap(bitmap, 1000, height, true);
+    }
+
+    //  image rotation
+    private Bitmap getRotateImage(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.setRotate(90, (float) bitmap.getWidth() / 2, (float) bitmap.getHeight() / 2);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 }

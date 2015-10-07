@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,9 +12,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -40,7 +41,6 @@ public class RegisterStepThree extends Activity {
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
-    private static final String[] OPTIONS = new String[]{"从相册选择", "拍照"};
 
     private CircleImageView faceImage;
 
@@ -137,24 +137,33 @@ public class RegisterStepThree extends Activity {
 
     //show the option dialog to select
     private void showAvatarOptionDialog() {
-        new AlertDialog.Builder(this).setItems(OPTIONS, new DialogInterface.OnClickListener() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(RegisterStepThree.this).create();
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.activity_dialog);
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
+        TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
+        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        getImageFromGallery();
-                        break;
-                    case 1:
-                        getImageFromCamera();
-                        break;
-                }
+            public void onClick(View v) {
+                getImageFromCamera();
+                alertDialog.cancel();
             }
-        }).setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        });
+        tvGallery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onClick(View v) {
+                getImageFromGallery();
+                alertDialog.cancel();
             }
-        }).show();
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
     }
 
     @Override
@@ -212,4 +221,5 @@ public class RegisterStepThree extends Activity {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
 }

@@ -6,14 +6,13 @@
 
 
     <LinearLayout
-        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_1"
+            android:id="@+id/tv_camera"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginLeft="10dp"
@@ -22,11 +21,12 @@
             android:background="#FED724"
             android:gravity="center"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:text="@string/get_image_from_camera"/>
 
 
         <TextView
-            android:id="@+id/tv_2"
+            android:id="@+id/tv_gallery"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginLeft="10dp"
@@ -36,11 +36,12 @@
             android:gravity="center"
             android:onClick="camera"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:text="@string/get_image_from_gallery"/>
 
 
         <TextView
-            android:id="@+id/tv_3"
+            android:id="@+id/tv_cancel"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginBottom="15dp"
@@ -50,7 +51,8 @@
             android:background="#FED724"
             android:gravity="center"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:text="@string/cancel"/>
 
     </LinearLayout>
 

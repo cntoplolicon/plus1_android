@@ -2,6 +2,8 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -41,18 +43,16 @@ public class PublishFragment extends Fragment {
         Button btnAddImage = (Button) view.findViewById(R.id.btn_image);
         Button btnAddText = (Button) view.findViewById(R.id.btn_text);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setCanceledOnTouchOutside(false);
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.show();
                 Window window = alertDialog.getWindow();
                 window.setContentView(R.layout.activity_dialog);
-                TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
-                TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
-                TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
-                tvTakePhoto.setText("拍照");
-                tvGallery.setText("从相册获取");
-                tvCancel.setText("取消");
+                TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
+                TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
+                TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
                 tvTakePhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -87,7 +87,7 @@ public class PublishFragment extends Fragment {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        fileNames = getNowTime() + ".jpg";
+        fileNames = "IMG_" + getNowTime() + ".jpg";
         File file = new File(dir, fileNames);
         Uri uri = Uri.fromFile(file);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
@@ -113,8 +113,9 @@ public class PublishFragment extends Fragment {
                 }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + fileNames);
                 try {
-                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), null, null));
-                    String photoPath = getFilePath(photoUri);
+                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
+                            file.getAbsolutePath(), null, null));
+                    String photoPath = getRealFilePath(getActivity(), photoUri);
                     Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
                     startActivity(intent);
                 } catch (FileNotFoundException e) {
@@ -126,26 +127,44 @@ public class PublishFragment extends Fragment {
                     return;
                 }
                 Uri originalUri = data.getData();
-                String picturePath = getFilePath(originalUri);
+                String picturePath = getRealFilePath(getActivity(), originalUri);
                 Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
                 startActivity(intent);
                 break;
         }
     }
 
-    public String getNowTime() {
+    private String getNowTime() {
         Date date = new Date();
         SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
         return dataFormat.format(date);
     }
 
-    private String getFilePath(Uri uri) {
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String filePath = cursor.getString(columnIndex);
+    private static String getRealFilePath(Context context, Uri uri) {
+        if (null == uri) {
+            return null;
+        }
+        final String scheme = uri.getScheme();
+
+        if (scheme == null || ContentResolver.SCHEME_FILE.equals(scheme)) {
+            return uri.getPath();
+        }
+        if (!ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            return null;
+        }
+
+        Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String data = null;
+        if (cursor.moveToFirst()) {
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            if (index > -1) {
+                data = cursor.getString(index);
+            }
+        }
         cursor.close();
-        return filePath;
+        return data;
     }
 }
