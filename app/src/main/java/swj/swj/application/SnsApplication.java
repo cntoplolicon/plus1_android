@@ -20,6 +20,8 @@ import swj.swj.common.RestClient;
  */
 public class SnsApplication extends Application {
 
+    private static String imageHost;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,6 +49,15 @@ public class SnsApplication extends Application {
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
+    }
+
+
+    public static String getImageServerUrl() {
+        return imageHost;
+    }
+
+    public static void setImageServerUrl(String imageServerUrl) {
+        imageHost = imageServerUrl;
     }
 
 }

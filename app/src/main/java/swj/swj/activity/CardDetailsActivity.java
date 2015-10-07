@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.adapter.CardDetailsAdapter;
+import swj.swj.application.SnsApplication;
 import swj.swj.bean.CardDetailsItemBean;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -77,7 +78,7 @@ public class CardDetailsActivity extends Activity {
         if (imageUrl == null) {
             ivImage.setVisibility(View.GONE);
         } else {
-            ImageLoader.getInstance().displayImage(RestClient.IMAGE_SERVER_URL + imageUrl, ivImage);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
         }
     }
 

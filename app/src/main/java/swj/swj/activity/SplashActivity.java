@@ -5,8 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.android.volley.Response;
+
+import org.json.JSONArray;
+
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
+import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
+import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
 public class SplashActivity extends AppCompatActivity {
@@ -31,6 +38,14 @@ public class SplashActivity extends AppCompatActivity {
 
         if (!userJson.isEmpty()) {
             User.updateCurrentUser(userJson);
+            RestClient.getInstance().loadImageServerUrl(new Response.Listener<JSONArray>() {
+
+                @Override
+                public void onResponse(JSONArray response) {
+                    SnsApplication.setImageServerUrl(response.optString(0));
+                }
+
+            }, new JsonErrorListener(getApplicationContext(), null));
             goToActivity(HomeActivity.class);
         } else {
             goToActivity(LoginActivity.class);

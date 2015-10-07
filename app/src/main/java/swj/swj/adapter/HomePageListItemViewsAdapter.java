@@ -21,6 +21,7 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LRUCacheMap;
@@ -95,7 +96,7 @@ public class HomePageListItemViewsAdapter {
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setVisibility(View.INVISIBLE);
         } else {
-            ImageLoader.getInstance().displayImage(RestClient.IMAGE_SERVER_URL + imagePath, itemViews.ivImage);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath, itemViews.ivImage);
         }
 
         return view;
