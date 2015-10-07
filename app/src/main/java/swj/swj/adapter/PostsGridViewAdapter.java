@@ -1,3 +1,6 @@
+/**
+ * Created by cntoplolicon on 10/7/15.
+ */
 package swj.swj.adapter;
 
 import android.content.Context;
@@ -22,20 +25,13 @@ import swj.swj.model.Post;
 /**
  * Created by jiewei on 9/14/15.
  */
-public class UserPostGridViewAdapter extends BaseAdapter {
+public class PostsGridViewAdapter extends BaseAdapter {
 
-    private Context context;
-    private Post[] posts = new Post[]{};
+    protected Context context;
+    protected Post[] posts = new Post[]{};
 
-    public UserPostGridViewAdapter(Context context, int userId) {
+    public PostsGridViewAdapter(Context context) {
         this.context = context;
-        RestClient.getInstance().getUserPosts(userId, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
-                notifyDataSetChanged();
-            }
-        }, new JsonErrorListener(context, null));
     }
 
     @Override

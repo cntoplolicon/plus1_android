@@ -1,5 +1,7 @@
 package swj.swj.model;
 
+import org.joda.time.DateTime;
+
 /**
  * Created by cntoplolicon on 9/23/15.
  */
@@ -10,6 +12,7 @@ public class Post {
     private int commentsCount;
     private User user;
     private PostPage[] postPages;
+    private DateTime createdAt;
 
     public int getId() {
         return id;
@@ -57,5 +60,9 @@ public class Post {
 
     public void setPostPages(PostPage[] postPages) {
         this.postPages = postPages;
+    }
+
+    public DateTime getCreatedAt() {
+        return createdAt;
     }
 }

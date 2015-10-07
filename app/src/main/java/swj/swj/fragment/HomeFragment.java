@@ -69,9 +69,17 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onViewAdded(View view) {
-            view.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), CardDetailsActivity.class));
-            TextView tvUser = (TextView) view.findViewById(R.id.tv_user);
             final Infection infection = adapter.getInfectionByView(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                    intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
+                    startActivity(intent);
+                }
+            });
+
+            TextView tvUser = (TextView) view.findViewById(R.id.tv_user);
             tvUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

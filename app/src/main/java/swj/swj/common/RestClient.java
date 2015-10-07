@@ -31,7 +31,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.146:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.147:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
     private static final boolean POST_VIEWS_ENABLED = true;
 
@@ -204,6 +204,23 @@ public class RestClient {
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 buildUrlForGetRequests("/users/" + authorId + "/posts", params), onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    public void createBookmark(int postId, Listener<JSONObject> onSuccess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        params.put("post_id", postId);
+        String userId = params.remove("user_id").toString();
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/users/" + userId + "/bookmarks"), params, onSuccess, onError);
+        requestQueue.add(request);
+    }
+
+    public void getUserBookmarks(Listener<JSONArray> onSuccess, ErrorListener onError) {
+        Map<String, Object> params = createUserParams();
+        String userId = params.remove("user_id").toString();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                buildUrlForGetRequests("/users/" + userId + "/bookmarks", params), onSuccess, onError);
         requestQueue.add(request);
     }
 

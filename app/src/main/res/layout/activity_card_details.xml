@@ -5,56 +5,50 @@
     android:layout_height="wrap_content"
     android:background="#fff">
 
-    <FrameLayout
-        android:id="@+id/fl_title"
+    <swj.swj.view.ActionBarLayout
+        android:id="@+id/action_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_bar_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true">
 
-        <swj.swj.view.ActionBarLayout
-            android:id="@+id/action_bar"
+        <ImageView
+            android:id="@+id/iv_more"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/action_bar_height">
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/icon_more" />
 
-            <ImageView
-                android:id="@+id/iv_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/icon_more" />
+        <ImageView
+            android:id="@+id/iv_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="62dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@id/iv_more"
+            android:src="@drawable/icon_bookmark" />
 
-            <ImageView
-                android:id="@+id/iv_praise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="62dp"
-                android:layout_marginTop="15dp"
-                android:layout_toLeftOf="@id/iv_more"
-                android:src="@drawable/icon_praise" />
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="105dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@id/iv_more"
+            android:src="@drawable/icon_share" />
 
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="105dp"
-                android:layout_marginTop="15dp"
-                android:layout_toLeftOf="@id/iv_more"
-                android:src="@drawable/icon_share" />
-
-        </swj.swj.view.ActionBarLayout>
-    </FrameLayout>
+    </swj.swj.view.ActionBarLayout>
 
     <ListView
         android:id="@+id/lv_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fl_title"></ListView>
+        android:layout_below="@id/action_bar"></ListView>
 
     <FrameLayout
         android:id="@+id/fl_card_details"

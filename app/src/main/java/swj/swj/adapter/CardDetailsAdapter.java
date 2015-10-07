@@ -45,7 +45,7 @@ public class CardDetailsAdapter extends BaseAdapter {
         ViewHoldeder viewHoldeder;
         if (convertView == null) {
             viewHoldeder = new ViewHoldeder();
-            convertView = mInflater.inflate(R.layout.activity_card_details_item, null);
+            convertView = mInflater.inflate(R.layout.card_details_comment_item, null);
             viewHoldeder.imageView = (ImageView) convertView.findViewById(R.id.imc_image);
             viewHoldeder.userName = (TextView) convertView.findViewById(R.id.tv_user);
             viewHoldeder.context = (TextView) convertView.findViewById(R.id.tv_content);

@@ -13,7 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
-import swj.swj.adapter.UserPostGridViewAdapter;
+import swj.swj.adapter.UserBookmarksGridViewAdapter;
+import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.model.User;
 
 
@@ -21,6 +22,9 @@ public class MySelfFragment extends Fragment {
 
     private View headerView;
     private GridViewWithHeaderAndFooter gridView;
+    private UserPostsGridViewAdapter postsAdapater;
+    private UserBookmarksGridViewAdapter bookmarksAdapater;
+    private int currentTab = R.id.tv_myself_publish;
 
     @Bind(R.id.tv_myself_publish)
     TextView tvMyPublish;
@@ -45,8 +49,10 @@ public class MySelfFragment extends Fragment {
         gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
-        UserPostGridViewAdapter adapter = new UserPostGridViewAdapter(getActivity(), User.current.getId());
-        gridView.setAdapter(adapter);
+
+        postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
+        bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
+        gridView.setAdapter(postsAdapater);
 
         ButterKnife.bind(this, headerView);
 
@@ -77,5 +83,9 @@ public class MySelfFragment extends Fragment {
         view.setBackgroundResource(R.drawable.personal_tv_border_left_pressed);
         TextView theOtherTab = view.getId() == R.id.tv_myself_collect ? tvMyPublish : tvMyCollection;
         theOtherTab.setBackgroundResource(R.drawable.personal_tv_border_left_unpressed);
+        if (view.getId() != currentTab) {
+            currentTab = view.getId();
+            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
+        }
     }
 }

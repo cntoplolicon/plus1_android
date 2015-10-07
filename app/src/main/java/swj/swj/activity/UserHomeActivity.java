@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
-import swj.swj.adapter.UserPostGridViewAdapter;
+import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
 
@@ -40,7 +40,7 @@ public class UserHomeActivity extends Activity {
         ButterKnife.bind(this, headerView);
         updateUserInfo(user);
 
-        gridView.setAdapter(new UserPostGridViewAdapter(this, user.getId()));
+        gridView.setAdapter(new UserPostsGridViewAdapter(this, user.getId()));
     }
 
     private void updateUserInfo(User user) {
