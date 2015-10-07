@@ -39,8 +39,6 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
-            android:maxHeight="1000dip"
-            android:maxWidth="1000dip"
             android:layout_height="@dimen/publish_add_image_height"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside" />

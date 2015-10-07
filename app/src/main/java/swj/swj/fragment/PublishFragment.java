@@ -140,13 +140,13 @@ public class PublishFragment extends Fragment {
         }
     }
 
-    public String getNowTime() {
+    private String getNowTime() {
         Date date = new Date();
         SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
         return dataFormat.format(date);
     }
 
-    public static String getRealFilePath(final Context context, final Uri uri) {
+    private static String getRealFilePath(Context context,Uri uri) {
         if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;

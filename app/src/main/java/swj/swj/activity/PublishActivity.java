@@ -50,12 +50,12 @@ public class PublishActivity extends Activity {
         imageFilePath = getIntent().getStringExtra("imagePath");
         bitmap = PictureUtil.getSmallBitmap(imageFilePath);
         if (intent.getAction().equals("getCamera")) {
-            Bitmap scaledBitmap = getScaledBitmap(this.bitmap);
+            Bitmap scaledBitmap = getScaledBitmap(bitmap);
             Bitmap normalBitmap = getRotateImage(scaledBitmap);
             imageView.setImageBitmap(null);
             imageView.setImageBitmap(normalBitmap);
         } else if (intent.getAction().equals("getGallery")) {
-            Bitmap galleryBitmap = getScaledBitmap(this.bitmap);
+            Bitmap galleryBitmap = getScaledBitmap(bitmap);
             imageView.setImageBitmap(null);
             imageView.setImageBitmap(galleryBitmap);
         }
