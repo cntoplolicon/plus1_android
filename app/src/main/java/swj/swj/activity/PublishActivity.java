@@ -46,29 +46,11 @@ public class PublishActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        imageFilePath = getIntent().getStringExtra("imagePath");
-        bitmap = PictureUtil.getSmallBitmap(imageFilePath);
-        if (intent.getAction().equals("getCamera")) {
-            Bitmap scaledBitmap = getScaledBitmap(bitmap);
-            Bitmap normalBitmap = getRotateImage(scaledBitmap);
-            imageView.setImageBitmap(null);
-            imageView.setImageBitmap(normalBitmap);
-        } else if (intent.getAction().equals("getGallery")) {
-            Bitmap galleryBitmap = getScaledBitmap(bitmap);
-            imageView.setImageBitmap(null);
-            imageView.setImageBitmap(galleryBitmap);
-        }
-    }
 
-    @OnClick(R.id.tv_delete)
-    public void delete() {
-        if (bitmap != null && !bitmap.isRecycled()) {
-            // Recycling and set to null
-            bitmap.recycle();
-            bitmap = null;
-        }
-        finish();
+        imageFilePath = getIntent().getStringExtra("imagePath");
+        Bitmap bitmap = PictureUtil.getSmallBitmap(imageFilePath);
+        bitmap = getScaledBitmap(bitmap);
+        imageView.setImageBitmap(bitmap);
     }
 
     @OnClick(R.id.tv_publish)

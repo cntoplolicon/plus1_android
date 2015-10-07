@@ -99,12 +99,9 @@ public class PersonalProfileActivity extends Activity {
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.activity_dialog);
-        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
-        TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
-        tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
-        tvGallery.setText(getResources().getString(R.string.gallery));
-        tvCancel.setText(getResources().getString(R.string.cancel));
+        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
+        TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
         tvTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

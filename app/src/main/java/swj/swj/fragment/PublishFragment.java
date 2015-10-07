@@ -6,10 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -53,12 +50,9 @@ public class PublishFragment extends Fragment {
                 alertDialog.show();
                 Window window = alertDialog.getWindow();
                 window.setContentView(R.layout.activity_dialog);
-                TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_1);
-                TextView tvGallery = (TextView) window.findViewById(R.id.tv_2);
-                TextView tvCancel = (TextView) window.findViewById(R.id.tv_3);
-                tvTakePhoto.setText(getResources().getString(R.string.get_image_from_camera));
-                tvGallery.setText(getResources().getString(R.string.gallery));
-                tvCancel.setText(getResources().getString(R.string.cancel));
+                TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
+                TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
+                TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
                 tvTakePhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -146,26 +140,31 @@ public class PublishFragment extends Fragment {
         return dataFormat.format(date);
     }
 
-    private static String getRealFilePath(Context context,Uri uri) {
-        if (null == uri) return null;
+    private static String getRealFilePath(Context context, Uri uri) {
+        if (null == uri) {
+            return null;
+        }
         final String scheme = uri.getScheme();
+
+        if (scheme == null || ContentResolver.SCHEME_FILE.equals(scheme)) {
+            return uri.getPath();
+        }
+        if (!ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            return null;
+        }
+
+        Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
         String data = null;
-        if (scheme == null)
-            data = uri.getPath();
-        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
-            data = uri.getPath();
-        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
-            if (null != cursor) {
-                if (cursor.moveToFirst()) {
-                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                    if (index > -1) {
-                        data = cursor.getString(index);
-                    }
-                }
-                cursor.close();
+        if (cursor.moveToFirst()) {
+            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            if (index > -1) {
+                data = cursor.getString(index);
             }
         }
+        cursor.close();
         return data;
     }
 }
