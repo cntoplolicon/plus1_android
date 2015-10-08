@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.jdeferred.DoneCallback;
+import org.jdeferred.DonePipe;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -47,31 +50,36 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
-                        Map<String, Object> attributes = new HashMap<>();
-                        attributes.put("username", username);
-                        RestClient.getInstance().updateUserAttributes(attributes).done(
-                                new DoneCallback<JSONObject>() {
-                                    @Override
-                                    public void onDone(JSONObject response) {
-                                        Intent intent = new Intent(ResetPhoneStepTwoActivity.this, PersonalProfileActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                        User.updateCurrentUser(response.toString());
-                                        finish();
-                                    }
-                                }).fail(
-                                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject errors) {
-                                        CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
-                                    }
-                                }));
                     }
                 }).fail(
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "security_code");
+                    }
+                })).then(
+                new DonePipe<JSONObject, JSONObject, VolleyError, Void>() {
+                    @Override
+                    public Promise<JSONObject, VolleyError, Void> pipeDone(JSONObject result) {
+                        Map<String, Object> attributes = new HashMap<>();
+                        attributes.put("username", username);
+                        return RestClient.getInstance().updateUserAttributes(attributes);
+                    }
+                }).done(
+                new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject response) {
+                        Intent intent = new Intent(ResetPhoneStepTwoActivity.this, PersonalProfileActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        User.updateCurrentUser(response.toString());
+                        finish();
+                    }
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject errors) {
+                        CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
                     }
                 }));
     }
