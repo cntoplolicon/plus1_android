@@ -53,11 +53,12 @@ public class SnsApplication extends Application {
 
 
     public static String getImageServerUrl() {
-        return imageHost;
+        return imageHost.isEmpty() ? LocalUserInfo.getInstance().getUserInfo("image_host") : imageHost;
     }
 
     public static void setImageServerUrl(String imageServerUrl) {
         imageHost = imageServerUrl;
+        LocalUserInfo.getInstance().setUserInfo("image_host", imageHost);
     }
 
 }
