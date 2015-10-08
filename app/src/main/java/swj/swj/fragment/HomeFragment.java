@@ -14,7 +14,6 @@ import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.HomePageListItemViewsAdapter;
-import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
