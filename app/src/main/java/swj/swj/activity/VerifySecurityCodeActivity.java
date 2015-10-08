@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -74,11 +78,12 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     }
 
     @OnClick(R.id.btn_submit)
-    protected void onSubmit() {
+    protected void onSubmit(final View view) {
         final String username = getIntent().getStringExtra(USERNAME);
         if (!inputValidation()) {
             return;
         }
+        view.setEnabled(false);
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
         RestClient.getInstance().verifySecurityCode(username, securityCode).done(
                 new DoneCallback<JSONObject>() {
@@ -95,7 +100,13 @@ public abstract class VerifySecurityCodeActivity extends Activity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(getApplicationContext(), errors, "security_code");
                     }
-                }));
+                })).always(
+                new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        view.setEnabled(true);
+                    }
+                });
     }
 
     protected abstract Class<?> getNextActivity();
