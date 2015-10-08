@@ -22,8 +22,9 @@ public final class BitmapUtil {
         } else if (w < h && h > hh) {
             be = (int) (newOpts.outHeight / hh);
         }
-        if (be <= 0)
+        if (be <= 0) {
             be = 1;
+        }
         newOpts.inSampleSize = be;
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
         return compressImage(bitmap);
