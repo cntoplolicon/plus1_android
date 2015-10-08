@@ -2,7 +2,6 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,7 +33,7 @@ public class PublishFragment extends Fragment {
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
-    private String fileNames;
+    private String filename;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,8 +85,8 @@ public class PublishFragment extends Fragment {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        fileNames = "IMG_" + getNowTime() + ".jpg";
-        File file = new File(dir, fileNames);
+        filename = "IMG_" + getNowTime() + ".jpg";
+        File file = new File(dir, filename);
         Uri uri = Uri.fromFile(file);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -106,21 +104,14 @@ public class PublishFragment extends Fragment {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKE_PHOTO:
                 String sdStatus = Environment.getExternalStorageState();
-                // 检测sd是否可用
                 if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
                     Log.e(PublishFragment.class.toString(), "SD card is not available/writable right now.");
                     return;
                 }
-                File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + fileNames);
-                try {
-                    Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
-                            file.getAbsolutePath(), null, null));
-                    String photoPath = getRealFilePath(getActivity(), photoUri);
-                    Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", photoPath);
-                    startActivity(intent);
-                } catch (FileNotFoundException e) {
-                    Log.e(PublishFragment.class.toString(), "file not found", e);
-                }
+                File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + filename);
+                String absolutePath = file.getAbsolutePath();
+                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", absolutePath);
+                startActivity(intentCamera);
                 break;
             case PHOTO_REQUEST_GALLERY:
                 if (data == null) {
@@ -128,31 +119,19 @@ public class PublishFragment extends Fragment {
                 }
                 Uri originalUri = data.getData();
                 String picturePath = getRealFilePath(getActivity(), originalUri);
-                Intent intent = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
-                startActivity(intent);
+                Intent intentGallery = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
+                startActivity(intentGallery);
                 break;
         }
     }
 
     private String getNowTime() {
         Date date = new Date();
-        SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmssSS");
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
     }
 
     private static String getRealFilePath(Context context, Uri uri) {
-        if (null == uri) {
-            return null;
-        }
-        final String scheme = uri.getScheme();
-
-        if (scheme == null || ContentResolver.SCHEME_FILE.equals(scheme)) {
-            return uri.getPath();
-        }
-        if (!ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            return null;
-        }
-
         Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
         if (cursor == null) {
             return null;
