@@ -13,11 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 
-import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
-import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -25,6 +22,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
 public abstract class VerifySecurityCodeActivity extends Activity {
@@ -100,13 +98,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(getApplicationContext(), errors, "security_code");
                     }
-                })).always(
-                new AlwaysCallback<JSONObject, VolleyError>() {
-                    @Override
-                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                        view.setEnabled(true);
-                    }
-                });
+                })).always(new ResetViewClickable(view));
     }
 
     protected abstract Class<?> getNextActivity();

@@ -8,7 +8,6 @@ import android.widget.EditText;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.DonePipe;
 import org.jdeferred.Promise;
@@ -22,6 +21,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
@@ -83,13 +83,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
                     }
-                })).always(
-                new AlwaysCallback<JSONObject, VolleyError>() {
-                    @Override
-                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                        view.setEnabled(true);
-                    }
-                }
+                })).always(new ResetViewClickable(view)
         );
     }
 
