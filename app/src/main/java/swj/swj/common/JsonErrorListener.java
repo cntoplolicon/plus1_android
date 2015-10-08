@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.jdeferred.FailCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +19,7 @@ import swj.swj.R;
 /**
  * Created by cntoplolicon on 9/11/15.
  */
-public class JsonErrorListener implements Response.ErrorListener {
+public class JsonErrorListener implements Response.ErrorListener, FailCallback<VolleyError> {
     private static final String ERROR_TAG = RestClient.class.getCanonicalName();
 
     private Response.Listener<JSONObject> callback;
@@ -59,5 +60,10 @@ public class JsonErrorListener implements Response.ErrorListener {
             Toast.makeText(context, context.getResources().getString(R.string.network_error),
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onFail(VolleyError error) {
+        onErrorResponse(error);
     }
 }

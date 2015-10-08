@@ -8,7 +8,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
+import org.jdeferred.AlwaysCallback;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.DonePipe;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -16,6 +21,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
 
 public abstract class GetSecurityCodeActivity extends Activity {
 
@@ -35,39 +41,36 @@ public abstract class GetSecurityCodeActivity extends Activity {
         return true;
     }
 
-
     @OnClick(R.id.btn_submit)
     protected void onSubmit() {
         if (!inputValidation()) {
             return;
         }
         final String username = usernameInput.getText().toString();
-        getSecurityCode(username,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        String securityCode = response.optString("security_code", "");
-                        if (!securityCode.isEmpty()) {
-                            Log.d("security_code", securityCode);
-                            Toast.makeText(getBaseContext(), securityCode, Toast.LENGTH_LONG).show();
-                        }
+        getSecurityCode(username).done(new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject response) {
+                String securityCode = response.optString("security_code", "");
+                if (!securityCode.isEmpty()) {
+                    Log.d("security_code", securityCode);
+                    Toast.makeText(getBaseContext(), securityCode, Toast.LENGTH_LONG).show();
+                }
 
-                        Intent intent = new Intent(getBaseContext(), getNextActivity());
-                        intent.putExtra("counter_start", System.currentTimeMillis());
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                    }
-                },
-                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(getApplicationContext(), errors, "username");
-                    }
-                }));
+                Intent intent = new Intent(getBaseContext(), getNextActivity());
+                intent.putExtra("counter_start", System.currentTimeMillis());
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        }).fail(new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject errors) {
+                CommonMethods.toastError(getApplicationContext(), errors, "username");
+            }
+        }));
     }
 
     protected abstract Class<?> getNextActivity();
 
-    protected abstract void getSecurityCode(String username, Response.Listener<JSONObject> onSuccess, Response.ErrorListener onError);
+    protected abstract Promise<JSONObject, VolleyError, Void> getSecurityCode(String username);
 
 }

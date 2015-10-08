@@ -44,4 +44,5 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.jdeferred:jdeferred-android-aar:1.2.0'
 }

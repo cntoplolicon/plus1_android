@@ -8,12 +8,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
+import org.jdeferred.Promise;
+import org.jdeferred.impl.DeferredObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -62,22 +65,28 @@ public class RestClient {
         return serverUrl + path;
     }
 
-    public void newSecurityCode4Account(String username, Listener<JSONObject> onSuccess,
-                                        ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> newSecurityCode4Account(String username) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/security_codes/account"), params, onSuccess, onError);
+                getResourceUrl("/security_codes/account"), params,
+                new ResolvePromiseListener<>(deferredObject),
+                new RejectPromiseErrorListener(deferredObject));
         requestQueue.add(request);
+        return deferredObject.promise();
     }
 
-    public void newSecurityCode4Password(String username, Listener<JSONObject> onSuccess,
-                                         ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> newSecurityCode4Password(String username) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/security_codes/password"), params, onSuccess, onError);
+                getResourceUrl("/security_codes/password"), params,
+                new ResolvePromiseListener<>(deferredObject),
+                new RejectPromiseErrorListener(deferredObject));
         requestQueue.add(request);
+        return deferredObject.promise();
     }
 
     public void verifySecurityCode(String username, String securityCode,
@@ -240,5 +249,31 @@ public class RestClient {
     public void loadImageServerUrl(Listener<JSONArray> onSuccess, ErrorListener onError) {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getResourceUrl("/image_hosts"), onSuccess, onError);
         requestQueue.add(request);
+    }
+
+    private class ResolvePromiseListener<T> implements Listener<T> {
+        private DeferredObject<T, ?, ?> deferredObject;
+
+        private ResolvePromiseListener(DeferredObject<T, ?, ?> deferredObject) {
+            this.deferredObject = deferredObject;
+        }
+
+        @Override
+        public void onResponse(T response) {
+            deferredObject.resolve(response);
+        }
+    }
+
+    private class RejectPromiseErrorListener implements ErrorListener {
+        private DeferredObject<?, VolleyError, ?> deferredObject;
+
+        private RejectPromiseErrorListener(DeferredObject<?, VolleyError, ?> deferredObject) {
+            this.deferredObject = deferredObject;
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            deferredObject.reject(error);
+        }
     }
 }

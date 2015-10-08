@@ -3,7 +3,9 @@ package swj.swj.activity;
 import android.os.Bundle;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import butterknife.ButterKnife;
@@ -26,8 +28,8 @@ public class ResetPwdStepOne extends GetSecurityCodeActivity {
     }
 
     @Override
-    protected void getSecurityCode(String username, Response.Listener<JSONObject> onSuccess, Response.ErrorListener onError) {
-        RestClient.getInstance().newSecurityCode4Password(username, onSuccess, onError);
+    protected Promise<JSONObject, VolleyError, Void> getSecurityCode(String username) {
+        return RestClient.getInstance().newSecurityCode4Password(username);
     }
 
 }

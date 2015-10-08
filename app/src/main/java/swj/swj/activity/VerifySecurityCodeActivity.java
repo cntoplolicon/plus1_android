@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -58,17 +59,16 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     protected void onResendSecurityCode() {
         Intent intent = getIntent();
         String username = intent.getStringExtra(USERNAME);
-        RestClient.getInstance().newSecurityCode4Account(username,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        String securityCode = response.optString("security_code", "");
-                        if (!securityCode.isEmpty()) {
-                            Log.d("security_code", securityCode);
-                            Toast.makeText(getBaseContext(), securityCode, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }, new JsonErrorListener(getApplicationContext(), null));
+        RestClient.getInstance().newSecurityCode4Account(username).done(new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject response) {
+                String securityCode = response.optString("security_code", "");
+                if (!securityCode.isEmpty()) {
+                    Log.d("security_code", securityCode);
+                    Toast.makeText(getBaseContext(), securityCode, Toast.LENGTH_LONG).show();
+                }
+            }
+        }).fail(new JsonErrorListener(getApplicationContext(), null));
         intent.putExtra("counter_start", System.currentTimeMillis());
         startResendCountDown();
     }
