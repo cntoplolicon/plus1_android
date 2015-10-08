@@ -2,11 +2,13 @@ package swj.swj.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.DonePipe;
 import org.jdeferred.Promise;
@@ -38,11 +40,11 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
     }
 
     @OnClick(R.id.btn_submit)
-    public void onSubmit() {
+    public void onSubmit(final View view) {
         if (!inputValidation()) {
             return;
         }
-
+        view.setEnabled(false);
         final String username = getIntent().getStringExtra("username");
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
 
@@ -81,7 +83,14 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
                     }
-                }));
+                })).always(
+                new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        view.setEnabled(true);
+                    }
+                }
+        );
     }
 
     @Override
