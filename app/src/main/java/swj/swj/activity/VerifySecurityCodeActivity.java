@@ -80,16 +80,17 @@ public abstract class VerifySecurityCodeActivity extends Activity {
             return;
         }
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
-        RestClient.getInstance().verifySecurityCode(username, securityCode,
-                new Response.Listener<JSONObject>() {
+        RestClient.getInstance().verifySecurityCode(username, securityCode).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         Intent intent = new Intent(getBaseContext(), getNextActivity());
                         intent.putExtra(USERNAME, username);
                         startActivity(intent);
                         finish();
                     }
-                }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(getApplicationContext(), errors, "security_code");

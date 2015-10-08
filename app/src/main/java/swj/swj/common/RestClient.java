@@ -36,7 +36,7 @@ public class RestClient {
 
     private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
-    private static final boolean POST_VIEWS_ENABLED = true;
+    private static final boolean POST_VIEWS_ENABLED = false;
 
     private static RestClient instance;
 
@@ -67,40 +67,50 @@ public class RestClient {
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Account(String username) {
         DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/security_codes/account"), params,
-                new ResolvePromiseListener<>(deferredObject),
-                new RejectPromiseErrorListener(deferredObject));
+                getResourceUrl("/security_codes/account"), params, listener, listener);
         requestQueue.add(request);
+
         return deferredObject.promise();
     }
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Password(String username) {
         DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/security_codes/password"), params,
-                new ResolvePromiseListener<>(deferredObject),
-                new RejectPromiseErrorListener(deferredObject));
+                getResourceUrl("/security_codes/password"), params, listener, listener);
         requestQueue.add(request);
+
         return deferredObject.promise();
     }
 
-    public void verifySecurityCode(String username, String securityCode,
-                                   Listener<JSONObject> onSucess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> verifySecurityCode(String username, String securityCode) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("security_code", securityCode);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/security_codes/verify"), params, onSucess, onError);
+                getResourceUrl("/security_codes/verify"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void signUp(String username, String nickname, String password, int gender, AbstractContentBody avatar,
-                       Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> signUp(String username, String nickname,
+                                                         String password, int gender,
+                                                         AbstractContentBody avatar) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("nickname", nickname);
@@ -109,64 +119,90 @@ public class RestClient {
         params.put("gender", gender);
 
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
-                getResourceUrl("/users"), params.entrySet(), onSuccess, onError);
+                getResourceUrl("/users"), params.entrySet(), listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void signIn(String username, String password, Listener<JSONObject> onSucess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> signIn(String username, String password) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
 
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/sign_in"), params, onSucess, onError);
+                getResourceUrl("/sign_in"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void signOut(Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> signOut() {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         String userId = params.get("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/users/" + userId + "/sign_out"), params, onSuccess, onError);
+                getResourceUrl("/users/" + userId + "/sign_out"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void updateUserAttributes(Map<String, Object> attributes,
-                                     Listener<JSONObject> onSucess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> updateUserAttributes(Map<String, Object> attributes) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         params.putAll(attributes);
         String userId = params.get("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
-                getResourceUrl("/users/" + userId), params, onSucess, onError);
+                getResourceUrl("/users/" + userId), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void updateUserAvatar(Map<String, Object> attributes,
-                                 Listener<JSONObject> onSucess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> updateUserAvatar(Map<String, Object> attributes) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         params.putAll(attributes);
         String userId = params.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
-                getResourceUrl("/users/" + userId), params.entrySet(), onSucess, onError);
+                getResourceUrl("/users/" + userId), params.entrySet(), listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
 
-    public void resetPassword(String username, String password,
-                              Listener<JSONObject> onSucess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> resetPassword(String username, String password) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
-                getResourceUrl("/users/password"), params, onSucess, onError);
+                getResourceUrl("/users/password"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void newPost(String[] texts, AbstractContentBody[] images,
-                        Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> newPost(String[] texts, AbstractContentBody[] images) {
         if (texts.length != images.length) {
             throw new IllegalArgumentException("texts & images lengths unequal");
         }
+
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         List<Map.Entry<String, Object>> params = new LinkedList<>();
         Map<String, Object> userParams = createUserParams();
@@ -179,22 +215,31 @@ public class RestClient {
 
         String userId = userParams.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
-                getResourceUrl("/users/" + userId + "/posts"), params, onSuccess, onError);
+                getResourceUrl("/users/" + userId + "/posts"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void getActiveInfections(Listener<JSONArray> onSuccess, ErrorListener onError) {
+    public Promise<JSONArray, VolleyError, Void> getActiveInfections() {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + userId + "/infections/active", params), onSuccess, onError);
+                buildUrlForGetRequests("/users/" + userId + "/infections/active", params), listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void newPostView(int infectionId, int result,
-                            Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> newPostView(int infectionId, int result) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         if (!POST_VIEWS_ENABLED) {
-            return;
+            return deferredObject.promise();
         }
 
         Map<String, Object> params = createUserParams();
@@ -203,32 +248,59 @@ public class RestClient {
 
         String path = "/users/" + userId + "/infections/" + infectionId + "/post_view";
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl(path), params, onSuccess, onError);
+                getResourceUrl(path), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void getUserPosts(int authorId, Listener<JSONArray> onSuccess, ErrorListener onError) {
+    public Promise<JSONArray, VolleyError, Void> getUserPosts(int authorId) {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + authorId + "/posts", params), onSuccess, onError);
+                buildUrlForGetRequests("/users/" + authorId + "/posts", params), listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void createBookmark(int postId, Listener<JSONObject> onSuccess, ErrorListener onError) {
+    public Promise<JSONObject, VolleyError, Void> createBookmark(int postId) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         params.put("post_id", postId);
         String userId = params.remove("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/users/" + userId + "/bookmarks"), params, onSuccess, onError);
+                getResourceUrl("/users/" + userId + "/bookmarks"), params, listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
-    public void getUserBookmarks(Listener<JSONArray> onSuccess, ErrorListener onError) {
+    public Promise<JSONArray, VolleyError, Void> getUserBookmarks() {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
         Map<String, Object> params = createUserParams();
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + userId + "/bookmarks", params), onSuccess, onError);
+                buildUrlForGetRequests("/users/" + userId + "/bookmarks", params), listener, listener);
         requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONArray, VolleyError, Void> loadImageServerUrl() {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getResourceUrl("/image_hosts"), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
     private String buildUrlForGetRequests(String path, Map<String, Object> params) {
@@ -246,34 +318,21 @@ public class RestClient {
         return params;
     }
 
-    public void loadImageServerUrl(Listener<JSONArray> onSuccess, ErrorListener onError) {
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getResourceUrl("/image_hosts"), onSuccess, onError);
-        requestQueue.add(request);
-    }
+    private static class PromiseListener<T> implements Listener<T>, ErrorListener {
+        private DeferredObject<T, VolleyError, ?> deferredObject;
 
-    private class ResolvePromiseListener<T> implements Listener<T> {
-        private DeferredObject<T, ?, ?> deferredObject;
-
-        private ResolvePromiseListener(DeferredObject<T, ?, ?> deferredObject) {
-            this.deferredObject = deferredObject;
-        }
-
-        @Override
-        public void onResponse(T response) {
-            deferredObject.resolve(response);
-        }
-    }
-
-    private class RejectPromiseErrorListener implements ErrorListener {
-        private DeferredObject<?, VolleyError, ?> deferredObject;
-
-        private RejectPromiseErrorListener(DeferredObject<?, VolleyError, ?> deferredObject) {
+        private PromiseListener(DeferredObject<T, VolleyError, ?> deferredObject) {
             this.deferredObject = deferredObject;
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
             deferredObject.reject(error);
+        }
+
+        @Override
+        public void onResponse(T error) {
+            deferredObject.resolve(error);
         }
     }
 }

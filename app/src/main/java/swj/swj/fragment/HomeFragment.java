@@ -94,8 +94,8 @@ public class HomeFragment extends Fragment {
         public void onViewReleased(View view, int offset) {
             Infection infection = adapter.getInfectionByView(view);
             int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
-            RestClient.getInstance().newPostView(infection.getId(), result,
-                    null, new JsonErrorListener(getActivity(), null));
+            RestClient.getInstance().newPostView(infection.getId(), result)
+                    .fail(new JsonErrorListener(getActivity(), null));
         }
     }
 

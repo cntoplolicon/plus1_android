@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.R;
@@ -32,22 +33,24 @@ public class ResetPwdStepThree extends Activity {
 
             String username = getIntent().getStringExtra("username");
             String password = passwordInput.getText().toString();
-            RestClient.getInstance().resetPassword(username, password, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
-                    startActivity(intent);
-                    finish();
-                }
-            }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject errors) {
-                    CommonMethods.toastError(getApplicationContext(), errors, "username");
-                    CommonMethods.toastError(getApplicationContext(), errors, "password");
-                }
-            }));
+            RestClient.getInstance().resetPassword(username, password).done(
+                    new DoneCallback<JSONObject>() {
+                        @Override
+                        public void onDone(JSONObject response) {
+                            Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).fail(
+                    new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject errors) {
+                            CommonMethods.toastError(getApplicationContext(), errors, "username");
+                            CommonMethods.toastError(getApplicationContext(), errors, "password");
+                        }
+                    }));
         }
     };
 

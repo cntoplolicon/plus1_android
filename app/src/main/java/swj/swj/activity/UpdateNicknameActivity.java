@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -37,18 +38,20 @@ public class UpdateNicknameActivity extends Activity {
         String nickname = nicknameInput.getText().toString();
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("nickname", nickname);
-        RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                User.updateCurrentUser(response.toString());
-                finish();
-            }
-        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject errors) {
-                CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
-            }
-        }));
+        RestClient.getInstance().updateUserAttributes(attributes).done(
+                new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject response) {
+                        User.updateCurrentUser(response.toString());
+                        finish();
+                    }
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject errors) {
+                        CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
+                    }
+                }));
     }
 
     public void onCreate(Bundle savedInstanceState) {

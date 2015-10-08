@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import swj.swj.R;
@@ -26,12 +27,13 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
 
     public UserPostsGridViewAdapter(Context context, int userId) {
         super(context);
-        RestClient.getInstance().getUserPosts(userId, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
-                notifyDataSetChanged();
-            }
-        }, new JsonErrorListener(context, null));
+        RestClient.getInstance().getUserPosts(userId).done(
+                new DoneCallback<JSONArray>() {
+                    @Override
+                    public void onDone(JSONArray response) {
+                        posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        notifyDataSetChanged();
+                    }
+                }).fail(new JsonErrorListener(context, null));
     }
 }

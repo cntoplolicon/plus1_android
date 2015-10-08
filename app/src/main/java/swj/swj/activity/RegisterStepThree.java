@@ -24,6 +24,7 @@ import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -59,17 +60,17 @@ public class RegisterStepThree extends Activity {
             String password = passwordInput.getText().toString();
 
             RestClient.getInstance().signUp(username, nickname,
-                    password, getSelectedGender(), getAvatar(),
-                    new Response.Listener<JSONObject>() {
+                    password, getSelectedGender(), getAvatar()).done(
+                    new DoneCallback<JSONObject>() {
                         @Override
-                        public void onResponse(JSONObject response) {
+                        public void onDone(JSONObject response) {
                             User.updateCurrentUser(response.toString());
                             Intent intent = new Intent(RegisterStepThree.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
                         }
-                    }, new JsonErrorListener(getApplicationContext(), null));
+                    }).fail(new JsonErrorListener(getApplicationContext(), null));
         }
     };
 

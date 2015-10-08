@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -42,22 +43,23 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
         final String username = getIntent().getStringExtra("username");
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
 
-        RestClient.getInstance().verifySecurityCode(username, securityCode,
-                new Response.Listener<JSONObject>() {
+        RestClient.getInstance().verifySecurityCode(username, securityCode).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         Map<String, Object> attributes = new HashMap<>();
                         attributes.put("username", username);
-                        RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
+                        RestClient.getInstance().updateUserAttributes(attributes).done(
+                                new DoneCallback<JSONObject>() {
                                     @Override
-                                    public void onResponse(JSONObject response) {
+                                    public void onDone(JSONObject response) {
                                         Intent intent = new Intent(ResetPhoneStepTwoActivity.this, PersonalProfileActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         User.updateCurrentUser(response.toString());
                                         finish();
                                     }
-                                },
+                                }).fail(
                                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject errors) {
@@ -65,7 +67,8 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                                     }
                                 }));
                     }
-                }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "security_code");

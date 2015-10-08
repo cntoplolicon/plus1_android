@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -46,19 +47,21 @@ public class ChangePasswordActivity extends Activity {
         attributes.put("old_password", oldPassword);
         attributes.put("password", password);
 
-        RestClient.getInstance().updateUserAttributes(attributes, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(ChangePasswordActivity.this, R.string.pwd_reset_succeed, Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject errors) {
-                CommonMethods.toastError(getApplicationContext(), errors, "old_password");
-                CommonMethods.toastError(getApplicationContext(), errors, "password");
-            }
-        }));
+        RestClient.getInstance().updateUserAttributes(attributes).done(
+                new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject response) {
+                        Toast.makeText(ChangePasswordActivity.this, R.string.pwd_reset_succeed, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject errors) {
+                        CommonMethods.toastError(getApplicationContext(), errors, "old_password");
+                        CommonMethods.toastError(getApplicationContext(), errors, "password");
+                    }
+                }));
     }
 
     public void onCreate(Bundle savedInstanceState) {

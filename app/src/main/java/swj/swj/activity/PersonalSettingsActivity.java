@@ -36,7 +36,7 @@ public class PersonalSettingsActivity extends Activity {
                 .setPositiveButton(getResources().getString(R.string.submit),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                RestClient.getInstance().signOut(null, new JsonErrorListener(getApplicationContext(), null));
+                                RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
                                 CommonMethods.clientSideSignOut(PersonalSettingsActivity.this);
                             }
                         })

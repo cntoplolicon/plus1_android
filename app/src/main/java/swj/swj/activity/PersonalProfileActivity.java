@@ -24,6 +24,7 @@ import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -153,13 +154,13 @@ public class PersonalProfileActivity extends Activity {
                         handleCrop(resultCode, data);
                         Map<String, Object> attributes = new HashMap<>();
                         attributes.put("avatar", getAvatar());
-                        RestClient.getInstance().updateUserAvatar(attributes,
-                                new Response.Listener<JSONObject>() {
+                        RestClient.getInstance().updateUserAvatar(attributes).done(
+                                new DoneCallback<JSONObject>() {
                                     @Override
-                                    public void onResponse(JSONObject response) {
+                                    public void onDone(JSONObject response) {
                                         User.updateCurrentUser(response.toString());
                                     }
-                                }, new JsonErrorListener(getApplicationContext(), null));
+                                }).fail(new JsonErrorListener(getApplicationContext(), null));
                     }
                     break;
             }

@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -37,13 +38,14 @@ public class AddTextActivity extends Activity {
     @OnClick(R.id.tv_publish)
     public void submit() {
         String text = editText.getText().toString();
-        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null},
-                new Response.Listener<JSONObject>() {
+        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null}).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         Toast.makeText(getApplicationContext(), R.string.post_success, Toast.LENGTH_LONG).show();
                     }
-                }, new JsonErrorListener(getApplicationContext(), null) {
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), null) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         super.onErrorResponse(error);

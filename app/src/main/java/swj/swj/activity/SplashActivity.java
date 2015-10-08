@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import swj.swj.R;
@@ -38,14 +39,13 @@ public class SplashActivity extends AppCompatActivity {
 
         if (!userJson.isEmpty()) {
             User.updateCurrentUser(userJson);
-            RestClient.getInstance().loadImageServerUrl(new Response.Listener<JSONArray>() {
-
-                @Override
-                public void onResponse(JSONArray response) {
-                    SnsApplication.setImageServerUrl(response.optString(0));
-                }
-
-            }, new JsonErrorListener(getApplicationContext(), null));
+            RestClient.getInstance().loadImageServerUrl().done(
+                    new DoneCallback<JSONArray>() {
+                        @Override
+                        public void onDone(JSONArray response) {
+                            SnsApplication.setImageServerUrl(response.optString(0));
+                        }
+                    }).fail(new JsonErrorListener(getApplicationContext(), null));
             goToActivity(HomeActivity.class);
         } else {
             goToActivity(LoginActivity.class);

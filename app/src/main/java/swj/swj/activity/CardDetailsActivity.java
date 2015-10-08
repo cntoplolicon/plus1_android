@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jdeferred.DoneCallback;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -97,14 +98,14 @@ public class CardDetailsActivity extends Activity {
 
     @OnClick(R.id.iv_bookmark)
     public void onBookmarkClicked() {
-        RestClient.getInstance().createBookmark(post.getId(), new Response.Listener<JSONObject>() {
+        RestClient.getInstance().createBookmark(post.getId()).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         ivBookmark.setClickable(true);
                         Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                     }
-                },
-
+                }).fail(
                 new JsonErrorListener(getApplicationContext(), null) {
                     @Override
                     public void onErrorResponse(VolleyError error) {

@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import java.util.Collections;
@@ -139,27 +140,29 @@ public class HomePageListItemViewsAdapter {
         if (loading) {
             return;
         }
-        RestClient.getInstance().getActiveInfections(new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                Infection[] infections = CommonMethods.createDefaultGson().fromJson(response.toString(), Infection[].class);
-                for (Infection infection : infections) {
-                    if (!loadedInfectionIds.contains(infection.getId())) {
-                        loadedInfectionIds.add(infection.getId());
-                        infections2views.put(infection, null);
+        RestClient.getInstance().getActiveInfections().done(
+                new DoneCallback<JSONArray>() {
+                    @Override
+                    public void onDone(JSONArray response) {
+                        Infection[] infections = CommonMethods.createDefaultGson().fromJson(response.toString(), Infection[].class);
+                        for (Infection infection : infections) {
+                            if (!loadedInfectionIds.contains(infection.getId())) {
+                                loadedInfectionIds.add(infection.getId());
+                                infections2views.put(infection, null);
+                            }
+                        }
+                        loading = false;
+                        updateState();
                     }
-                }
-                loading = false;
-                updateState();
-            }
-        }, new JsonErrorListener(context, null) {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                super.onErrorResponse(error);
-                loading = false;
-                updateState();
-            }
-        });
+                }).fail(
+                new JsonErrorListener(context, null) {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        super.onErrorResponse(error);
+                        loading = false;
+                        updateState();
+                    }
+                });
         loading = true;
         updateState();
     }

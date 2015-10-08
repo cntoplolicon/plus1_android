@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -32,14 +33,14 @@ public class UpdateSignActivity extends Activity {
         String biography = biographyInput.getText().toString();
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("biography", biography);
-        RestClient.getInstance().updateUserAttributes(attributes,
-                new Response.Listener<JSONObject>() {
+        RestClient.getInstance().updateUserAttributes(attributes).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         User.updateCurrentUser(response.toString());
                         finish();
                     }
-                }, new JsonErrorListener(getApplicationContext(), null));
+                }).fail(new JsonErrorListener(getApplicationContext(), null));
     }
 
     public void onCreate(Bundle savedInstanceState) {

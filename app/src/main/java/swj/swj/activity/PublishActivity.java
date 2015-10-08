@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -57,13 +58,14 @@ public class PublishActivity extends Activity {
     public void submit() {
         String text = editText.getText().toString();
         FileBody imageBody = new FileBody(new File(imageFilePath));
-        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
-                new Response.Listener<JSONObject>() {
+        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}).done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onDone(JSONObject response) {
                         Toast.makeText(getApplicationContext(), R.string.post_success, Toast.LENGTH_LONG).show();
                     }
-                }, new JsonErrorListener(getApplicationContext(), null) {
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), null) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         super.onErrorResponse(error);

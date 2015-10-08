@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 
+import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.R;
@@ -42,20 +43,22 @@ public class LoginActivity extends Activity {
                 }
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                RestClient.getInstance().signIn(username, password, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        User.updateCurrentUser(response.toString());
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
-                    }
-                }, new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(LoginActivity.this, errors, "username");
-                        CommonMethods.toastError(LoginActivity.this, errors, "password");
-                    }
-                }));
+                RestClient.getInstance().signIn(username, password).done(
+                        new DoneCallback<JSONObject>() {
+                            @Override
+                            public void onDone(JSONObject response) {
+                                User.updateCurrentUser(response.toString());
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                finish();
+                            }
+                        }).fail(
+                        new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject errors) {
+                                CommonMethods.toastError(LoginActivity.this, errors, "username");
+                                CommonMethods.toastError(LoginActivity.this, errors, "password");
+                            }
+                        }));
             }
         });
 
