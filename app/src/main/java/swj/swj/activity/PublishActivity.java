@@ -2,9 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +18,6 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,8 +47,8 @@ public class PublishActivity extends Activity {
         setContentView(R.layout.activity_add_image);
         ButterKnife.bind(this);
 
-        String imagePath = getIntent().getStringExtra("imagePath");
-        File compressedImageFile = BitmapUtil.prepareBitmapForUploading(imagePath);
+        Uri uri = getIntent().getParcelableExtra("imagePath");
+        File compressedImageFile = BitmapUtil.prepareBitmapForUploading(uri);
         imageFilePath = compressedImageFile.getAbsolutePath();
         ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView);
     }

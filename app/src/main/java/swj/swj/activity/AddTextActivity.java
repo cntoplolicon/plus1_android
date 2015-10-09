@@ -37,6 +37,10 @@ public class AddTextActivity extends Activity {
     @OnClick(R.id.tv_publish)
     public void submit() {
         String text = editText.getText().toString();
+        if (text.isEmpty()) {
+            Toast.makeText(getApplicationContext(), R.string.post_text_required, Toast.LENGTH_LONG).show();
+            return;
+        }
         RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null}).done(
                 new DoneCallback<JSONObject>() {
                     @Override

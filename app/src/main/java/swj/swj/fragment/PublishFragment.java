@@ -2,9 +2,7 @@ package swj.swj.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -108,9 +106,13 @@ public class PublishFragment extends Fragment {
                     Log.e(PublishFragment.class.toString(), "SD card is not available/writable right now.");
                     return;
                 }
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + filename);
-                String absolutePath = file.getAbsolutePath();
-                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", absolutePath);
+                Uri fileUri = Uri.fromFile(file);
+                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", fileUri);
                 startActivity(intentCamera);
                 break;
             case PHOTO_REQUEST_GALLERY:
@@ -118,8 +120,7 @@ public class PublishFragment extends Fragment {
                     return;
                 }
                 Uri originalUri = data.getData();
-                String picturePath = getRealFilePath(getActivity(), originalUri);
-                Intent intentGallery = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", picturePath);
+                Intent intentGallery = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", originalUri);
                 startActivity(intentGallery);
                 break;
         }
@@ -131,19 +132,4 @@ public class PublishFragment extends Fragment {
         return dataFormat.format(date);
     }
 
-    private static String getRealFilePath(Context context, Uri uri) {
-        Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        String data = null;
-        if (cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            if (index > -1) {
-                data = cursor.getString(index);
-            }
-        }
-        cursor.close();
-        return data;
-    }
 }
