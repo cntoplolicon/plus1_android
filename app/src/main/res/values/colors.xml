@@ -31,7 +31,17 @@
     <item name="login_page_link" type="color">#00aeef</item>
     <item name="et_hint" type="color">#bababa</item>
     <item name="et_background" type="color">#f5f5f5</item>
-    
+
     <color name="edit_text_cursor_color">#31C37C</color>
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+    <color name="gplus_color_1">#3e802f</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
 
 </resources>
