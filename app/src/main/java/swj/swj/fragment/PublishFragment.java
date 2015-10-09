@@ -77,7 +77,6 @@ public class PublishFragment extends Fragment {
     }
 
     private void getCamera() {
-        Toast.makeText(getActivity(), "进入相机", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImage");
         if (!dir.exists()) {
@@ -92,7 +91,6 @@ public class PublishFragment extends Fragment {
     }
 
     private void getGallery() {
-        Toast.makeText(getActivity(), "进入相册", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
     }
