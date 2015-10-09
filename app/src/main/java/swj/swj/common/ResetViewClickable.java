@@ -2,11 +2,8 @@ package swj.swj.common;
 
 import android.view.View;
 
-import com.android.volley.VolleyError;
-
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.Promise;
-import org.json.JSONObject;
 
 /**
  * Created by silentgod on 15-10-8.

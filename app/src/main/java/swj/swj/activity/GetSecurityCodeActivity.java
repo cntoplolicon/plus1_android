@@ -41,7 +41,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
     }
 
     @OnClick(R.id.btn_submit)
-    protected void onSubmit(final View view) {
+    protected void onSubmit(View view) {
         if (!inputValidation()) {
             return;
         }

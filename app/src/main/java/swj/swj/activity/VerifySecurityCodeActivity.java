@@ -76,7 +76,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
     }
 
     @OnClick(R.id.btn_submit)
-    protected void onSubmit(final View view) {
+    protected void onSubmit(View view) {
         final String username = getIntent().getStringExtra(USERNAME);
         if (!inputValidation()) {
             return;

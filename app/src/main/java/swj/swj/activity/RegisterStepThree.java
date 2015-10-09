@@ -19,7 +19,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -34,6 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
@@ -55,6 +55,7 @@ public class RegisterStepThree extends Activity {
             if (!inputValidation()) {
                 return;
             }
+            view.setEnabled(false);
             String username = getIntent().getStringExtra("username");
             String nickname = nicknameInput.getText().toString();
             String password = passwordInput.getText().toString();
@@ -70,7 +71,8 @@ public class RegisterStepThree extends Activity {
                             startActivity(intent);
                             finish();
                         }
-                    }).fail(new JsonErrorListener(getApplicationContext(), null));
+                    }).fail(new JsonErrorListener(getApplicationContext(), null))
+                    .always(new ResetViewClickable(view));
         }
     };
 
