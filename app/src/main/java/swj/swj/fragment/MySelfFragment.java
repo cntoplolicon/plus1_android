@@ -11,17 +11,17 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.model.User;
+import swj.swj.view.HeaderGridView;
 
 
 public class MySelfFragment extends Fragment {
 
     private View headerView;
-    private GridViewWithHeaderAndFooter gridView;
+    private HeaderGridView gridView;
     private UserPostsGridViewAdapter postsAdapater;
     private UserBookmarksGridViewAdapter bookmarksAdapater;
     private int currentTab = R.id.tv_myself_publish;
@@ -46,7 +46,7 @@ public class MySelfFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myself, container, false);
 
-        gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.grid_view_authored_posts);
+        gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
 

@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
+import swj.swj.view.HeaderGridView;
 
 public class UserHomeActivity extends Activity {
 
@@ -33,7 +33,7 @@ public class UserHomeActivity extends Activity {
 
         String userJson = getIntent().getStringExtra("user_json");
         User user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
-        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view_user_authored_posts);
+        HeaderGridView gridView = (HeaderGridView) findViewById(R.id.grid_view_user_authored_posts);
         View headerView = LayoutInflater.from(this).inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
 

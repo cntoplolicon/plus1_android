@@ -10,12 +10,14 @@
         android:background="#0000"
         android:visibility="invisible" />
 
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
+    <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/tv"
         android:horizontalSpacing="4dp"
         android:numColumns="2"
-        android:verticalSpacing="4dp" />
+        android:verticalSpacing="4dp">
+    </swj.swj.view.HeaderGridView>
+
 </RelativeLayout>
