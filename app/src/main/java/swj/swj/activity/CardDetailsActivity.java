@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -77,14 +78,15 @@ public class CardDetailsActivity extends Activity {
         if (imageUrl == null) {
             ivImage.setVisibility(View.GONE);
         } else {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
+            DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.loading).build();
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
         }
     }
 
     private void initData() {
         mList = new ArrayList<>();
         for (int i = 0; i < 99; i++) {
-            mList.add(new CardDetailsItemBean(R.drawable.abc, "用户" + i, "内容" + i));
+            mList.add(new CardDetailsItemBean(R.drawable.default_useravatar, "用户" + i, "内容" + i));
         }
         ListView lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);

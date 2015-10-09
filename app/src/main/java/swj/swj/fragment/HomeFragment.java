@@ -2,11 +2,17 @@ package swj.swj.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +29,13 @@ import swj.swj.view.HomePageLayout;
 
 public class HomeFragment extends Fragment {
 
+    private static Bitmap bitmapSkip;
+    private static Bitmap bitmapSpread;
+
+    @Bind(R.id.iv_skip)
+    ImageView ivSkip;
+    @Bind(R.id.iv_spread)
+    ImageView ivSpread;
     @Bind(R.id.loading_layout)
     View loadingView;
     @Bind(R.id.cleared_layout)
@@ -53,13 +66,23 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
+        slidingView.setCallback(new LayoutCallbacks());
+
         adapter = HomePageListItemViewsAdapter.getInstance();
+        adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
 
-        slidingView.setCallback(new LayoutCallbacks());
-        adapter.setCallback(new AdapterCallbacks());
-
         changeViewsByAdapterState(adapter.getState());
+
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
+        if (bitmapSkip == null) {
+            bitmapSkip = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.skip, displayOptions);
+        }
+        ivSkip.setImageBitmap(bitmapSkip);
+        if (bitmapSpread == null) {
+            bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, displayOptions);
+        }
+        ivSpread.setImageBitmap(bitmapSpread);
 
         return view;
     }

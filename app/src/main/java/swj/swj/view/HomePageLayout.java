@@ -1,6 +1,8 @@
 package swj.swj.view;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import swj.swj.R;
 import swj.swj.adapter.HomePageListItemViewsAdapter;
@@ -41,9 +44,11 @@ public class HomePageLayout extends ViewGroup {
     }
 
     public void syncContentViews() {
+        View oldCurrentContentView = currentContentView;
         if (currentContentView != null) {
             this.removeView(currentContentView);
         }
+        View oldNextContentView = nextContentView;
         if (nextContentView != null) {
             this.removeView(nextContentView);
         }
@@ -62,6 +67,22 @@ public class HomePageLayout extends ViewGroup {
             if (callback != null) {
                 callback.onViewAdded(nextContentView);
             }
+        }
+
+        recycleContentViewBitmap(oldCurrentContentView);
+        recycleContentViewBitmap(oldNextContentView);
+    }
+
+    private void recycleContentViewBitmap(View contentView) {
+        if (contentView == null || contentView.getParent() != null) {
+            return;
+        }
+        ImageView imageView = (ImageView)contentView.findViewById(R.id.iv_image);
+        Drawable drawable = imageView.getDrawable();
+        if (drawable instanceof BitmapDrawable) {
+            imageView.setImageBitmap(null);
+            BitmapDrawable bitmapDrawable = (BitmapDrawable)drawable;
+            bitmapDrawable.getBitmap().recycle();
         }
     }
 

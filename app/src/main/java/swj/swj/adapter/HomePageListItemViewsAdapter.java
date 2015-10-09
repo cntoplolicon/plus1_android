@@ -101,6 +101,8 @@ public class HomePageListItemViewsAdapter {
         } else {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .showImageOnLoading(R.drawable.loading)
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
                     .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
                     itemViews.ivImage, options);

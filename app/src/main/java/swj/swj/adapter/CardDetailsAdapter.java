@@ -42,27 +42,27 @@ public class CardDetailsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHoldeder viewHoldeder;
+        ViewHolder viewHolder;
         if (convertView == null) {
-            viewHoldeder = new ViewHoldeder();
+            viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.card_details_comment_item, null);
-            viewHoldeder.imageView = (ImageView) convertView.findViewById(R.id.imc_image);
-            viewHoldeder.userName = (TextView) convertView.findViewById(R.id.tv_user);
-            viewHoldeder.context = (TextView) convertView.findViewById(R.id.tv_content);
-            convertView.setTag(viewHoldeder);
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imc_image);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.tv_user);
+            viewHolder.context = (TextView) convertView.findViewById(R.id.tv_content);
+            convertView.setTag(viewHolder);
         } else {
-            viewHoldeder = (ViewHoldeder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         CardDetailsItemBean bean = mList.get(position);
-        viewHoldeder.imageView.setImageResource(bean.getImageView());
-        viewHoldeder.userName.setText(bean.getUserName());
-        viewHoldeder.context.setText(bean.getContent());
+        viewHolder.imageView.setImageResource(bean.getImageView());
+        viewHolder.userName.setText(bean.getUserName());
+        viewHolder.context.setText(bean.getContent());
         return convertView;
     }
 
-    static class ViewHoldeder {
-        public ImageView imageView;
-        public TextView userName;
-        public TextView context;
+    private static class ViewHolder {
+        private ImageView imageView;
+        private TextView userName;
+        private TextView context;
     }
 }
