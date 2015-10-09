@@ -1,10 +1,12 @@
 package swj.swj.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +17,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.activity.CardDetailsActivity;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.application.SnsApplication;
+import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
 import swj.swj.view.HeaderGridView;
 
@@ -60,6 +64,15 @@ public class MySelfFragment extends Fragment {
         postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
         bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
         gridView.setAdapter(postsAdapater);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(parent.getAdapter().getItem(position)));
+                startActivity(intent);
+            }
+        });
 
         ButterKnife.bind(this, headerView);
 

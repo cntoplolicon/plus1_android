@@ -1,9 +1,11 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,15 @@ public class UserHomeActivity extends Activity {
         updateUserInfo(user);
 
         gridView.setAdapter(new UserPostsGridViewAdapter(this, user.getId()));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UserHomeActivity.this, CardDetailsActivity.class);
+                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(parent.getAdapter().getItem(position)));
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateUserInfo(User user) {
