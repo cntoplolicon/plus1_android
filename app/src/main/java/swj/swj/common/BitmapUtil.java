@@ -24,20 +24,19 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_HEIGHT = 960;
     private static int MAX_IMAGE_BYTES = 150 * 1024;
 
-    public static File prepareBitmapForUploading(String filePath) {
-        Bitmap bitmap = loadScaledBitmap(filePath);
+    public static File prepareBitmapForUploading(Uri uri) {
+        Bitmap bitmap = loadScaledBitmap(uri);
         ByteArrayOutputStream byteArrayOutputStream = reduceQualityToMatchCapacity(bitmap, MAX_IMAGE_BYTES);
         File result = saveCompressedBitmap(byteArrayOutputStream);
         bitmap.recycle();
         return result;
     }
 
-    private static Bitmap loadScaledBitmap(String filePath) {
+    private static Bitmap loadScaledBitmap(Uri uri) {
         ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-        File imageFile = new File(filePath);
         DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
                 .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
-        return ImageLoader.getInstance().loadImageSync(Uri.fromFile(imageFile).toString(),
+        return ImageLoader.getInstance().loadImageSync(uri.toString(),
                 imageSize, displayOptions);
     }
 
