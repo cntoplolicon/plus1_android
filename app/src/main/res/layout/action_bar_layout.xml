@@ -30,6 +30,17 @@
         android:layout_alignParentStart="true"
         android:padding="15dp"
         android:src="@drawable/top_bar_back" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp">
+
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            style="@style/GNowProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </FrameLayout>
 
 </RelativeLayout>
 

@@ -39,6 +39,7 @@
         android:ellipsize="end"
         android:lines="4"
         android:text="喔噢"
+        android:textColor="#787878"
         android:textSize="15sp" />
 
     <TextView
@@ -86,4 +87,5 @@
         android:drawablePadding="5dp"
         android:text="北京，朝阳"
         android:textSize="12sp" />
+
 </RelativeLayout>

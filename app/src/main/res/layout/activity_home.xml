@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:padding="16dp"
             android:gravity="center"
+            android:padding="16dp"
             android:src="@drawable/settings" />
     </swj.swj.view.ActionBarLayout>
 
