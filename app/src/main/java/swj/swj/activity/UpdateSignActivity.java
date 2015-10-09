@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.android.volley.Response;
-
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 

@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.os.Bundle;
 
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import org.jdeferred.Promise;

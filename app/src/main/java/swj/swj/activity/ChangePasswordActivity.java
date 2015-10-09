@@ -2,6 +2,7 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
 /**
@@ -36,11 +38,11 @@ public class ChangePasswordActivity extends Activity {
     EditText etNewPwdConfirm;
 
     @OnClick(R.id.btn_submit)
-    public void submit() {
+    public void submit(View view) {
         if (!inputValidation()) {
             return;
         }
-
+        view.setEnabled(false);
         String oldPassword = etOldPwd.getText().toString();
         String password = etNewPwd.getText().toString();
         Map<String, Object> attributes = new HashMap<>();
@@ -61,7 +63,7 @@ public class ChangePasswordActivity extends Activity {
                         CommonMethods.toastError(getApplicationContext(), errors, "old_password");
                         CommonMethods.toastError(getApplicationContext(), errors, "password");
                     }
-                }));
+                })).always(new ResetViewClickable(view));
     }
 
     public void onCreate(Bundle savedInstanceState) {

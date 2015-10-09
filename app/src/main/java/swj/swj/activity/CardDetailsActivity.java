@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,6 +29,7 @@ import swj.swj.application.SnsApplication;
 import swj.swj.bean.CardDetailsItemBean;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.Post;
 
@@ -46,8 +46,6 @@ public class CardDetailsActivity extends Activity {
     TextView tvViews;
     @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.iv_bookmark)
-    ImageView ivBookmark;
 
     private Post post;
 
@@ -97,12 +95,12 @@ public class CardDetailsActivity extends Activity {
     }
 
     @OnClick(R.id.iv_bookmark)
-    public void onBookmarkClicked() {
+    public void onBookmarkClicked(View view) {
+        view.setEnabled(false);
         RestClient.getInstance().createBookmark(post.getId()).done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
-                        ivBookmark.setClickable(true);
                         Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                     }
                 }).fail(
@@ -110,8 +108,7 @@ public class CardDetailsActivity extends Activity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         super.onErrorResponse(error);
-                        ivBookmark.setClickable(true);
                     }
-                });
+                }).always(new ResetViewClickable(view));
     }
 }

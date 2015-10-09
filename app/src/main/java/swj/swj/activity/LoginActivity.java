@@ -18,6 +18,7 @@ import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends Activity {
                 if (!inputValidation()) {
                     return;
                 }
+                v.setEnabled(false);
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
                 RestClient.getInstance().signIn(username, password).done(
@@ -58,7 +60,7 @@ public class LoginActivity extends Activity {
                                 CommonMethods.toastError(LoginActivity.this, errors, "username");
                                 CommonMethods.toastError(LoginActivity.this, errors, "password");
                             }
-                        }));
+                        })).always(new ResetViewClickable(v));
             }
         });
 

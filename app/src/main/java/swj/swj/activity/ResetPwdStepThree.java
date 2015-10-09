@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
 public class ResetPwdStepThree extends Activity {
@@ -30,7 +31,7 @@ public class ResetPwdStepThree extends Activity {
             if (!inputValidation()) {
                 return;
             }
-
+            view.setEnabled(false);
             String username = getIntent().getStringExtra("username");
             String password = passwordInput.getText().toString();
             RestClient.getInstance().resetPassword(username, password).done(
@@ -50,7 +51,7 @@ public class ResetPwdStepThree extends Activity {
                             CommonMethods.toastError(getApplicationContext(), errors, "username");
                             CommonMethods.toastError(getApplicationContext(), errors, "password");
                         }
-                    }));
+                    })).always(new ResetViewClickable(view));
         }
     };
 
