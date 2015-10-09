@@ -16,8 +16,7 @@
         android:adjustViewBounds="true"
         android:maxHeight="@dimen/home_img_height"
         android:maxWidth="500dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/loading" />
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/tv_user"

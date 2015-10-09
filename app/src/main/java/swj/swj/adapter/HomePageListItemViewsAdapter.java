@@ -1,6 +1,7 @@
 package swj.swj.adapter;
 
 import android.content.Context;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -97,7 +99,11 @@ public class HomePageListItemViewsAdapter {
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setVisibility(View.INVISIBLE);
         } else {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath, itemViews.ivImage);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.loading)
+                    .build();
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
+                    itemViews.ivImage, options);
         }
 
         return view;

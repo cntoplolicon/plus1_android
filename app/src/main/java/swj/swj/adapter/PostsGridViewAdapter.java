@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
@@ -65,12 +66,18 @@ public class PostsGridViewAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView) gridView.findViewById(R.id.iv_image);
         String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null) {
+        if (imageUrl == null || imageUrl.isEmpty()) {
             imageView.setImageDrawable(null);
             imageView.setBackgroundResource(R.color.common_yellow);
         } else {
-            imageView.setImageResource(R.drawable.loading);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, imageView);
+            ImageLoader.getInstance().cancelDisplayTask(imageView);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.loading)
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .build();
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
+                    imageView, options);
         }
 
         return gridView;
