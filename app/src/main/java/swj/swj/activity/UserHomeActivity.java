@@ -1,19 +1,21 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import swj.swj.R;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
+import swj.swj.view.HeaderGridView;
 
 public class UserHomeActivity extends Activity {
 
@@ -33,7 +35,7 @@ public class UserHomeActivity extends Activity {
 
         String userJson = getIntent().getStringExtra("user_json");
         User user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
-        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) findViewById(R.id.grid_view_user_authored_posts);
+        HeaderGridView gridView = (HeaderGridView) findViewById(R.id.grid_view_user_authored_posts);
         View headerView = LayoutInflater.from(this).inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView);
 
@@ -41,6 +43,15 @@ public class UserHomeActivity extends Activity {
         updateUserInfo(user);
 
         gridView.setAdapter(new UserPostsGridViewAdapter(this, user.getId()));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UserHomeActivity.this, CardDetailsActivity.class);
+                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(parent.getAdapter().getItem(position)));
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateUserInfo(User user) {
