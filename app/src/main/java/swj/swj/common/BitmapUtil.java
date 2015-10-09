@@ -1,11 +1,15 @@
 package swj.swj.common;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import java.io.ByteArrayInputStream;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,67 +20,62 @@ import java.util.Date;
 
 public final class BitmapUtil {
 
-    public static Bitmap getImage(String srcPath) {
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-        newOpts.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(srcPath, newOpts);
-        newOpts.inJustDecodeBounds = false;
-        int w = newOpts.outWidth;
-        int h = newOpts.outHeight;
-        float hh = 960f;
-        float ww = 960f;
-        int be = 1;
-        if (w > h && w > ww) {
-            be = (int) (newOpts.outWidth / ww);
-        } else if (w < h && h > hh) {
-            be = (int) (newOpts.outHeight / hh);
-        }
-        if (be <= 0) {
-            be = 1;
-        }
-        newOpts.inSampleSize = be;
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-        return compressImage(bitmap);
+    private static int MAX_IMAGE_WIDTH = 960;
+    private static int MAX_IMAGE_HEIGHT = 960;
+    private static int MAX_IMAGE_BYTES = 150 * 1024;
+
+    public static File prepareBitmapForUploading(String filePath) {
+        Bitmap bitmap = loadScaledBitmap(filePath);
+        ByteArrayOutputStream byteArrayOutputStream = reduceQualityToMatchCapacity(bitmap, MAX_IMAGE_BYTES);
+        File result = saveCompressedBitmap(byteArrayOutputStream);
+        bitmap.recycle();
+        return result;
     }
 
-    public static Bitmap compressImage(Bitmap image) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        int options = 90;
-        while (outputStream.toByteArray().length / 1024 > 100) {
-            outputStream.reset();
-            image.compress(Bitmap.CompressFormat.JPEG, options, outputStream);
-            options -= 10;
-        }
-        ByteArrayInputStream isBm = new ByteArrayInputStream(outputStream.toByteArray());
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
-        return bitmap;
+    private static Bitmap loadScaledBitmap(String filePath) {
+        ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+        File imageFile = new File(filePath);
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
+                .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
+        return ImageLoader.getInstance().loadImageSync(Uri.fromFile(imageFile).toString(),
+                imageSize, displayOptions);
     }
 
-    public static String saveBitmap(Bitmap bm) {
+    private static ByteArrayOutputStream reduceQualityToMatchCapacity(Bitmap image, int capacity) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        for (int quality = 100; quality > 0; quality -= 5) {
+            byteArrayOutputStream.reset();
+            image.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
+            if (byteArrayOutputStream.size() <= capacity) {
+                break;
+            }
+        }
+        return byteArrayOutputStream;
+    }
+
+    private static File saveCompressedBitmap(ByteArrayOutputStream byteArrayOutputStream) {
         File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImages");
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        String fileNames = new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + ".jpg";
-        File file = new File(dir, fileNames);
-        String absolutePath = file.getAbsolutePath();
-        FileOutputStream outputStream = null;
+        String filename = new SimpleDateFormat("yyyy-MM-dd_hhmmss").format(new Date()) + ".jpg";
+        File file = new File(dir, filename);
+        FileOutputStream fileOutputStream = null;
         try {
-            outputStream = new FileOutputStream(file);
-            bm.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+            fileOutputStream = new FileOutputStream(file);
+            byteArrayOutputStream.writeTo(fileOutputStream);
         } catch (IOException e) {
             Log.e(BitmapUtil.class.getName(), "failed saving bitmap", e);
         } finally {
             try {
-                if (outputStream != null) {
-                    outputStream.close();
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
                 }
             } catch (IOException e) {
                 Log.e(BitmapUtil.class.getName(), "failed closing fileOutputStream", e);
             }
         }
-        return absolutePath;
+        return file;
     }
 }
 

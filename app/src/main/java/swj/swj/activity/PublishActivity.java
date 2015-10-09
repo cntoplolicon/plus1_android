@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.apache.http.entity.mime.content.FileBody;
@@ -50,11 +52,9 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         String imagePath = getIntent().getStringExtra("imagePath");
-        Bitmap image = BitmapUtil.getImage(imagePath);
-        int degrees = readPictureDegree(imagePath);
-        Bitmap bitmap = rotateBitmap(image, degrees);
-        imageFilePath = BitmapUtil.saveBitmap(image);
-        imageView.setImageBitmap(bitmap);
+        File compressedImageFile = BitmapUtil.prepareBitmapForUploading(imagePath);
+        imageFilePath = compressedImageFile.getAbsolutePath();
+        ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView);
     }
 
     @OnClick(R.id.tv_delete)
@@ -85,40 +85,5 @@ public class PublishActivity extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-    }
-
-    private static int readPictureDegree(String imagePath) {
-        int degree = 0;
-        try {
-            ExifInterface exifInterface = new ExifInterface(imagePath);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
-            }
-        } catch (IOException e) {
-            Log.e(PublishActivity.class.getName(), "failed reading image rotation degree", e);
-        }
-        return degree;
-    }
-
-    public static Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
-        if (degrees == 0 || bitmap == null) {
-            return bitmap;
-        }
-        Matrix matrix = new Matrix();
-        matrix.setRotate(degrees, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
-        Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        if (bitmap != null) {
-            bitmap.recycle();
-        }
-        return bmp;
     }
 }

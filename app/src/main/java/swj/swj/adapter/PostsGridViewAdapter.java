@@ -66,11 +66,11 @@ public class PostsGridViewAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView) gridView.findViewById(R.id.iv_image);
         String imageUrl = post.getPostPages()[0].getImage();
+        ImageLoader.getInstance().cancelDisplayTask(imageView);
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageView.setImageDrawable(null);
             imageView.setBackgroundResource(R.color.common_yellow);
         } else {
-            ImageLoader.getInstance().cancelDisplayTask(imageView);
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .showImageOnLoading(R.drawable.loading)
                     .cacheInMemory(true)
