@@ -10,7 +10,7 @@
         android:layout_marginRight="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/rounded_image_personal_avatar"
+            android:id="@+id/iv_avatar"
             android:layout_width="@dimen/personal_avatar_size"
             android:layout_height="@dimen/personal_avatar_size"
             android:layout_marginTop="@dimen/personal_avatar_margin"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/personal_profile_margin_left"
             android:layout_marginTop="@dimen/personal_nick_margin_top"
-            android:layout_toRightOf="@+id/rounded_image_personal_avatar"
+            android:layout_toRightOf="@+id/iv_avatar"
             android:text="用户昵称"
             android:textColor="@color/personal_common_female_username"
             android:textSize="@dimen/personal_username_text" />
@@ -54,8 +54,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/rounded_image_personal_avatar"
-            android:layout_below="@+id/rounded_image_personal_avatar"
+            android:layout_alignLeft="@+id/iv_avatar"
+            android:layout_below="@+id/iv_avatar"
             android:layout_marginTop="@dimen/personal_grid_title_margin"
             android:orientation="horizontal">
 
