@@ -3,7 +3,6 @@ package swj.swj.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,7 +90,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onViewAdded(View view) {
-            final Infection infection = (Infection)view.getTag();
+            final Infection infection = (Infection) view.getTag();
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -114,7 +113,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onViewReleased(View view, int offset) {
-            Infection infection = (Infection)view.getTag();
+            Infection infection = (Infection) view.getTag();
             int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
             RestClient.getInstance().newPostView(infection.getId(), result)
                     .fail(new JsonErrorListener(getActivity(), null));

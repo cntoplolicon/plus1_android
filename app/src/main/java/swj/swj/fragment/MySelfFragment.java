@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
@@ -96,11 +95,7 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
-        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar, options);
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
     }
 
     @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})

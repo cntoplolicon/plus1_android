@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -78,8 +77,8 @@ public class CardDetailsActivity extends Activity {
         if (imageUrl == null) {
             ivImage.setVisibility(View.GONE);
         } else {
-            DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.loading).build();
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
+            ivImage.setImageResource(R.drawable.loading);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
         }
     }
 

@@ -107,14 +107,10 @@ public class HomePageListItemViewsAdapter {
             itemViews.ivImage.setVisibility(View.GONE);
         } else {
             itemViews.ivImage.setVisibility(View.VISIBLE);
+            itemViews.ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .showImageOnLoading(R.drawable.loading)
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
-                    itemViews.ivImage, options);
+                    itemViews.ivImage);
         }
         view.setTag(infection);
 

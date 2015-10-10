@@ -11,17 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.json.JSONArray;
 
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
-import swj.swj.common.CommonMethods;
-import swj.swj.common.JsonErrorListener;
-import swj.swj.common.RestClient;
 import swj.swj.model.Post;
 
 /**
@@ -71,13 +64,8 @@ public class PostsGridViewAdapter extends BaseAdapter {
             imageView.setImageDrawable(null);
             imageView.setBackgroundResource(R.color.common_yellow);
         } else {
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .showImageOnLoading(R.drawable.loading)
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
-                    imageView, options);
+                    imageView);
         }
 
         return gridView;

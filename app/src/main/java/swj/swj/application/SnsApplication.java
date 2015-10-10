@@ -38,11 +38,16 @@ public class SnsApplication extends Application {
     }
 
     private void initImageLoader(Context context) {
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .diskCacheSize(50 * 1024 * 1024)
-                .memoryCacheSizePercentage(20);
+                .memoryCacheSizePercentage(20)
+                .defaultDisplayImageOptions(displayOptions);
         if (BuildConfig.DEBUG) {
             config.writeDebugLogs();
         }
