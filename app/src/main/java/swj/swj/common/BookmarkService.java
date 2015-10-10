@@ -37,5 +37,4 @@ public class BookmarkService {
         bookmarkedPostsIds.addAll(postIds);
     }
 
-
 }
