@@ -35,10 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp">
 
+        <!-- style="@style/GNowProgressBar"-->
+        <!-- style="@style/SmoothProgressBar"-->
+        <!-- style="@style/OneProgressBar"-->
         <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:id="@+id/spb"
             style="@style/GNowProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:indeterminate="true" />
     </FrameLayout>
 

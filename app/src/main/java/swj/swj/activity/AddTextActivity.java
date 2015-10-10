@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -27,15 +28,22 @@ public class AddTextActivity extends Activity {
     @Bind(R.id.et_text)
     EditText editText;
 
+    public static boolean isSend;
+    public static boolean isLoadState;
+    private TextView tvPublish;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_text);
         ButterKnife.bind(this);
+        tvPublish = (TextView) findViewById(R.id.tv_publish);
     }
 
     @OnClick(R.id.tv_publish)
     public void submit() {
+        isSend = tvPublish.isClickable();
+        Log.e("sendText", isSend + "");
         String text = editText.getText().toString();
         if (text.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.post_text_required, Toast.LENGTH_LONG).show();
@@ -46,6 +54,8 @@ public class AddTextActivity extends Activity {
                     @Override
                     public void onDone(JSONObject response) {
                         Toast.makeText(getApplicationContext(), R.string.post_success, Toast.LENGTH_LONG).show();
+                        isLoadState = true;
+                        Log.e("isLoadState",isLoadState+"");
                     }
                 }).fail(
                 new JsonErrorListener(getApplicationContext(), null) {
@@ -54,6 +64,8 @@ public class AddTextActivity extends Activity {
                         super.onFail(error);
                         Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
+                        isLoadState = true;
+                        Log.e("isLoadState",isLoadState+"");
                     }
                 });
         Intent intent = new Intent(this, HomeActivity.class);

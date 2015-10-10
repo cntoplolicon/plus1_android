@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +17,9 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
+import swj.swj.common.ProgressBarUtil;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
@@ -29,7 +33,23 @@ public class HomeActivity extends Activity {
     @Bind(R.id.iv_settings)
     ImageView ivSettings;
 
+    SmoothProgressBar spb;
+
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case 1:
+                    spb.setVisibility(View.GONE);
+                    break;
+            }
+        }
+    };
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
@@ -43,9 +63,12 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        spb = (SmoothProgressBar) findViewById(R.id.spb);
         ButterKnife.bind(this);
         switchTab(R.id.rb_home);
+
+        ProgressBarUtil.LoadProgeressBar(PublishActivity.isSend, isLoading(PublishActivity.isLoadState), spb);
+        ProgressBarUtil.LoadProgeressBar(AddTextActivity.isSend, isLoading(AddTextActivity.isLoadState), spb);
     }
 
     public void switchTab(int radioButtonId) {
@@ -79,5 +102,25 @@ public class HomeActivity extends Activity {
             this.fragment = fragment;
             this.titleTextResource = titleTextResource;
         }
+    }
+
+    public boolean isLoading(boolean bln) {
+        if (!bln) {
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    Message message = handler.obtainMessage();
+                    message.what = 1;
+                    handler.sendMessage(message);
+                    Log.e("load", "load end");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        return true;
     }
 }
