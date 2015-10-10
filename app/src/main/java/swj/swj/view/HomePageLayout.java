@@ -48,12 +48,11 @@ public class HomePageLayout extends ViewGroup {
         if (currentContentView != null) {
             this.removeView(currentContentView);
         }
-        View oldNextContentView = nextContentView;
         if (nextContentView != null) {
             this.removeView(nextContentView);
         }
 
-        currentContentView = adapter.getViewAt(0);
+        currentContentView = adapter.getViewAt(0, nextContentView);
         if (currentContentView != null) {
             this.addView(currentContentView, 0);
             if (callback != null) {
@@ -61,16 +60,13 @@ public class HomePageLayout extends ViewGroup {
             }
         }
 
-        nextContentView = adapter.getViewAt(1);
+        nextContentView = adapter.getViewAt(1, oldCurrentContentView);
         if (nextContentView != null) {
             this.addView(nextContentView, 0);
             if (callback != null) {
                 callback.onViewAdded(nextContentView);
             }
         }
-
-        recycleContentViewBitmap(oldCurrentContentView);
-        recycleContentViewBitmap(oldNextContentView);
     }
 
     private void recycleContentViewBitmap(View contentView) {
@@ -156,7 +152,10 @@ public class HomePageLayout extends ViewGroup {
     }
 
     private void onCapturedViewSettled() {
-        adapter.removeView(currentContentView);
+        if (currentContentView != null) {
+            adapter.remove(currentContentView);
+            recycleContentViewBitmap(currentContentView);
+        }
         offset = 0;
         syncContentViews();
     }

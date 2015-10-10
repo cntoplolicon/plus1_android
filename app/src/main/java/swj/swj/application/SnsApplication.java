@@ -11,6 +11,9 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import swj.swj.BuildConfig;
 import swj.swj.R;
 import swj.swj.adapter.HomePageListItemViewsAdapter;

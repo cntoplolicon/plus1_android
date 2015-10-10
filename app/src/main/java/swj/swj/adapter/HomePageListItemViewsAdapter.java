@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class HomePageListItemViewsAdapter {
     private static HomePageListItemViewsAdapter instance;
     private Context context;
 
-    private Map<Infection, View> infections2views = new LinkedHashMap<>();
+    private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
     private Set<Integer> loadedInfectionIds;
     private int state = STATE_CLEARED;
     private boolean loading = false;
@@ -67,7 +68,7 @@ public class HomePageListItemViewsAdapter {
 
     public void reset() {
         loadedInfectionIds.clear();
-        infections2views.clear();
+        id2infections.clear();
         state = STATE_CLEARED;
         loading = false;
         callback = null;
@@ -75,7 +76,7 @@ public class HomePageListItemViewsAdapter {
 
     private void updateState() {
         int oldState = state;
-        if (infections2views.isEmpty()) {
+        if (id2infections.isEmpty()) {
             state = loading ? STATE_LOADING : STATE_CLEARED;
         } else {
             state = STATE_NORMAL;
@@ -85,8 +86,14 @@ public class HomePageListItemViewsAdapter {
         }
     }
 
-    private View createView(Infection infection) {
-        View view = LayoutInflater.from(context).inflate(R.layout.home_list_item, null);
+    private View getView(Infection infection, View convertView) {
+        View view = convertView;
+        if (view != null && view.getTag() == infection) {
+            return view;
+        }
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.home_list_item, null);
+        }
         HomePageItemViews itemViews = new HomePageItemViews();
         ButterKnife.bind(itemViews, view);
 
@@ -97,8 +104,10 @@ public class HomePageListItemViewsAdapter {
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         String imagePath = post.getPostPages()[0].getImage();
         if (imagePath == null || imagePath.isEmpty()) {
-            itemViews.ivImage.setVisibility(View.INVISIBLE);
+            itemViews.ivImage.setVisibility(View.GONE);
         } else {
+            itemViews.ivImage.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .showImageOnLoading(R.drawable.loading)
                     .cacheInMemory(true)
@@ -107,13 +116,14 @@ public class HomePageListItemViewsAdapter {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
                     itemViews.ivImage, options);
         }
+        view.setTag(infection);
 
         return view;
     }
 
-    public View getViewAt(int index) {
-        Iterator<Map.Entry<Infection, View>> iterator = infections2views.entrySet().iterator();
-        Map.Entry<Infection, View> entry = null;
+    public View getViewAt(int index, View convertView) {
+        Iterator<Map.Entry<Integer, Infection>> iterator = id2infections.entrySet().iterator();
+        Map.Entry<Integer, Infection> entry = null;
         while (iterator.hasNext() && index-- >= 0) {
             entry = iterator.next();
         }
@@ -121,27 +131,12 @@ public class HomePageListItemViewsAdapter {
             loadInfections();
             return null;
         }
-        if (entry.getValue() == null) {
-            entry.setValue(createView(entry.getKey()));
-        }
-        return entry.getValue();
+        return getView(entry.getValue(), convertView);
     }
 
-    public Infection getInfectionByView(View view) {
-        for (Map.Entry<Infection, View> entry : infections2views.entrySet()) {
-            if (entry.getValue() == view) {
-                return entry.getKey();
-            }
-        }
-        return null;
-    }
-
-    public void removeView(View view) {
-        Infection infection = getInfectionByView(view);
-        if (infection != null) {
-            infections2views.remove(infection);
-            updateState();
-        }
+    public void remove(View view) {
+        Infection infection = (Infection) view.getTag();
+        id2infections.remove(infection.getId());
     }
 
     public void loadInfections() {
@@ -156,7 +151,7 @@ public class HomePageListItemViewsAdapter {
                         for (Infection infection : infections) {
                             if (!loadedInfectionIds.contains(infection.getId())) {
                                 loadedInfectionIds.add(infection.getId());
-                                infections2views.put(infection, null);
+                                id2infections.put(infection.getId(), infection);
                             }
                         }
                         loading = false;
