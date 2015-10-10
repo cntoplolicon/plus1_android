@@ -2,6 +2,7 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,8 @@ public class CardDetailsActivity extends Activity {
     TextView tvViews;
     @Bind(R.id.tv_time)
     TextView tvTime;
+    @Bind(R.id.iv_bookmark)
+    ImageView ivBookmark;
 
     private Post post;
 
@@ -57,11 +60,11 @@ public class CardDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
         initData();
-        //view cache sync
 
         ButterKnife.bind(this);
 
         updatePostInfo();
+        syncBookmarkInfo();
     }
 
     private void updatePostInfo() {
@@ -103,7 +106,7 @@ public class CardDetailsActivity extends Activity {
     public void onBookmarkClicked(View view) {
         view.setEnabled(false);
         if (!BookmarkService.getInstance().isBookmarked(post.getId())) {
-            //change view
+            ivBookmark.setImageResource(R.drawable.settings);
             RestClient.getInstance().createBookmark(post.getId())
                     .fail(new JsonErrorListener(getApplicationContext(), null))
                     .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
@@ -114,11 +117,11 @@ public class CardDetailsActivity extends Activity {
                                 Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().addBookmark(post.getId());
                             }
-                            //sync
+                            syncBookmarkInfo();
                         }
                     });
         } else {
-            //change view
+            ivBookmark.setImageResource(R.drawable.icon_bookmark);
             RestClient.getInstance().removeBookmark(post.getId())
                     .fail(new JsonErrorListener(getApplicationContext(), null))
                     .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
@@ -129,10 +132,18 @@ public class CardDetailsActivity extends Activity {
                                 Toast.makeText(CardDetailsActivity.this, "取消", Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().removeBookmark(post.getId());
                             }
-                            //sync
+                            syncBookmarkInfo();
                         }
                     });
         }
 
+    }
+
+    private void syncBookmarkInfo() {
+        if(BookmarkService.getInstance().isBookmarked(post.getId())) {
+            ivBookmark.setImageResource(R.drawable.settings);
+        } else {
+            ivBookmark.setImageResource(R.drawable.icon_bookmark);
+        }
     }
 }

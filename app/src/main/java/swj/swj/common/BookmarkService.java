@@ -8,7 +8,6 @@ import java.util.HashSet;
  */
 public class BookmarkService {
 
-
     public static HashSet<Integer> bookmarkedPostsIds = new HashSet<>();
 
     private static BookmarkService instance = new BookmarkService();
