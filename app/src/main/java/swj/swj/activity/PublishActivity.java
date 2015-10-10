@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -50,7 +51,8 @@ public class PublishActivity extends Activity {
         Uri uri = getIntent().getParcelableExtra("imagePath");
         File compressedImageFile = BitmapUtil.prepareBitmapForUploading(uri);
         imageFilePath = compressedImageFile.getAbsolutePath();
-        ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView);
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false).build();
+        ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView, options);
     }
 
     @OnClick(R.id.tv_delete)

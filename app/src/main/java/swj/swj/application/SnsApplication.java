@@ -41,6 +41,7 @@ public class SnsApplication extends Application {
         DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .considerExifParams(true)
                 .build();
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context)
                 .denyCacheImageMultipleSizesInMemory()
