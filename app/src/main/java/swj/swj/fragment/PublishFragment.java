@@ -97,15 +97,14 @@ public class PublishFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == getActivity().RESULT_CANCELED) {
+            return;
+        }
         switch (requestCode) {
             case PHOTO_REQUEST_TAKE_PHOTO:
                 String sdStatus = Environment.getExternalStorageState();
                 if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
                     Log.e(PublishFragment.class.toString(), "SD card is not available/writable right now.");
-                    return;
-                }
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
                     return;
                 }
                 File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + filename);
