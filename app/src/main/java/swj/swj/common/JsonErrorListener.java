@@ -19,7 +19,7 @@ import swj.swj.R;
 /**
  * Created by cntoplolicon on 9/11/15.
  */
-public class JsonErrorListener implements Response.ErrorListener, FailCallback<VolleyError> {
+public class JsonErrorListener implements FailCallback<VolleyError> {
     private static final String ERROR_TAG = RestClient.class.getCanonicalName();
 
     private Response.Listener<JSONObject> callback;
@@ -31,7 +31,7 @@ public class JsonErrorListener implements Response.ErrorListener, FailCallback<V
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onFail(VolleyError error) {
         if (error.networkResponse != null && error.networkResponse.statusCode == HttpURLConnection.HTTP_FORBIDDEN) {
             CommonMethods.clientSideSignOut(context);
             return;
@@ -60,10 +60,5 @@ public class JsonErrorListener implements Response.ErrorListener, FailCallback<V
             Toast.makeText(context, context.getResources().getString(R.string.network_error),
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onFail(VolleyError error) {
-        onErrorResponse(error);
     }
 }

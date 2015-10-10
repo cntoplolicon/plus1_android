@@ -73,8 +73,8 @@ public class PublishActivity extends Activity {
                 }).fail(
                 new JsonErrorListener(getApplicationContext(), null) {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
+                    public void onFail(VolleyError error) {
+                        super.onFail(error);
                         Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }

@@ -8,7 +8,7 @@ import org.jdeferred.Promise;
 /**
  * Created by silentgod on 15-10-8.
  */
-public class ResetViewClickable implements AlwaysCallback {
+public class ResetViewClickable<D, R> implements AlwaysCallback<D, R> {
     private View view;
 
     public ResetViewClickable(View view) {
@@ -16,7 +16,7 @@ public class ResetViewClickable implements AlwaysCallback {
     }
 
     @Override
-    public void onAlways(Promise.State state, Object resolved, Object rejected) {
+    public void onAlways(Promise.State state, D resolved, R rejected) {
         view.setEnabled(true);
     }
 }

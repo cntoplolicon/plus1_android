@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ import swj.swj.R;
 import swj.swj.adapter.CardDetailsAdapter;
 import swj.swj.application.SnsApplication;
 import swj.swj.bean.CardDetailsItemBean;
+import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -49,11 +51,13 @@ public class CardDetailsActivity extends Activity {
 
     private Post post;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
         initData();
+        //view cache sync
 
         ButterKnife.bind(this);
 
@@ -98,18 +102,37 @@ public class CardDetailsActivity extends Activity {
     @OnClick(R.id.iv_bookmark)
     public void onBookmarkClicked(View view) {
         view.setEnabled(false);
-        RestClient.getInstance().createBookmark(post.getId()).done(
-                new DoneCallback<JSONObject>() {
-                    @Override
-                    public void onDone(JSONObject response) {
-                        Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                    }
-                }).fail(
-                new JsonErrorListener(getApplicationContext(), null) {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
-                    }
-                }).always(new ResetViewClickable(view));
+        if (!BookmarkService.getInstance().isBookmarked(post.getId())) {
+            //change view
+            RestClient.getInstance().createBookmark(post.getId())
+                    .fail(new JsonErrorListener(getApplicationContext(), null))
+                    .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
+                        @Override
+                        public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                            super.onAlways(state, resolved, rejected);
+                            if (state == Promise.State.RESOLVED) {
+                                Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                                BookmarkService.getInstance().addBookmark(post.getId());
+                            }
+                            //sync
+                        }
+                    });
+        } else {
+            //change view
+            RestClient.getInstance().removeBookmark(post.getId())
+                    .fail(new JsonErrorListener(getApplicationContext(), null))
+                    .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
+                        @Override
+                        public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                            super.onAlways(state, resolved, rejected);
+                            if (state == Promise.State.RESOLVED) {
+                                Toast.makeText(CardDetailsActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                                BookmarkService.getInstance().removeBookmark(post.getId());
+                            }
+                            //sync
+                        }
+                    });
+        }
+
     }
 }
