@@ -122,36 +122,36 @@ public class PersonalProfileActivity extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_CANCELED) {
-            switch (requestCode) {
-                case PHOTO_REQUEST_GALLERY:
-                    beginCrop(data.getData());
-                    break;
-                case PHOTO_REQUEST_TAKE_PHOTO:
-                    if (CommonMethods.hasSdCard()) {
-                        File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                        beginCrop(Uri.fromFile(avatar));
-                    } else {
-                        //toast error message when unable to find sdcard
-                        Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                case Crop.REQUEST_CROP:
-                    if (data != null) {
-                        handleCrop(resultCode, data);
-                        Map<String, Object> attributes = new HashMap<>();
-                        attributes.put("avatar", getAvatar());
-                        RestClient.getInstance().updateUserAvatar(attributes).done(
-                                new DoneCallback<JSONObject>() {
-                                    @Override
-                                    public void onDone(JSONObject response) {
-                                        User.updateCurrentUser(response.toString());
-                                    }
-                                }).fail(new JsonErrorListener(getApplicationContext(), null));
-                    }
-                    break;
-            }
-            super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) {
+            return;
+        }
+        switch (requestCode) {
+            case PHOTO_REQUEST_GALLERY:
+                beginCrop(data.getData());
+                break;
+            case PHOTO_REQUEST_TAKE_PHOTO:
+                if (CommonMethods.hasSdCard()) {
+                    File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                    beginCrop(Uri.fromFile(avatar));
+                } else {
+                    //toast error message when unable to find sdcard
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
+                }
+                break;
+            case Crop.REQUEST_CROP:
+                if (data != null) {
+                    handleCrop(resultCode, data);
+                    Map<String, Object> attributes = new HashMap<>();
+                    attributes.put("avatar", getAvatar());
+                    RestClient.getInstance().updateUserAvatar(attributes).done(
+                            new DoneCallback<JSONObject>() {
+                                @Override
+                                public void onDone(JSONObject response) {
+                                    User.updateCurrentUser(response.toString());
+                                }
+                            }).fail(new JsonErrorListener(getApplicationContext(), null));
+                }
+                break;
         }
     }
 
