@@ -9,12 +9,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.jdeferred.AlwaysCallback;
+import org.jdeferred.Promise;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
@@ -28,8 +35,13 @@ public class HomeActivity extends Activity {
     TextView tvTitle;
     @Bind(R.id.iv_settings)
     ImageView ivSettings;
+    @Bind(R.id.spb)
+    SmoothProgressBar spb;
+
+    public Promise promise;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
+
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
@@ -43,9 +55,14 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         ButterKnife.bind(this);
         switchTab(R.id.rb_home);
+        if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
+            loadProgressBar(PublishActivity.getPromise());
+        }
+        if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
+            loadProgressBar(AddTextActivity.getPromise());
+        }
     }
 
     public void switchTab(int radioButtonId) {
@@ -78,6 +95,18 @@ public class HomeActivity extends Activity {
         public HomeActivityFragment(Class<?> fragment, int titleTextResource) {
             this.fragment = fragment;
             this.titleTextResource = titleTextResource;
+        }
+    }
+
+    public void loadProgressBar(Promise<JSONObject, VolleyError, Void> promise) {
+        if (promise != null) {
+            spb.setVisibility(View.VISIBLE);
+            promise.always(new AlwaysCallback<JSONObject, VolleyError>() {
+                @Override
+                public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                    spb.setVisibility(View.GONE);
+                }
+            });
         }
     }
 }
