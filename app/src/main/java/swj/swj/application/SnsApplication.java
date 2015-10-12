@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import io.yunba.android.manager.YunBaManager;
 import swj.swj.BuildConfig;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.LocalUserInfo;
@@ -30,6 +31,7 @@ public class SnsApplication extends Application {
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
         InfectionsAdapter.initialize(getApplicationContext());
+        YunBaManager.start(getApplicationContext());
     }
 
     private void initImageLoader(Context context) {
