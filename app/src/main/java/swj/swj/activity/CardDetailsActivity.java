@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -140,7 +138,7 @@ public class CardDetailsActivity extends Activity {
     }
 
     private void syncBookmarkInfo() {
-        if(BookmarkService.getInstance().isBookmarked(post.getId())) {
+        if (BookmarkService.getInstance().isBookmarked(post.getId())) {
             ivBookmark.setImageResource(R.drawable.settings);
         } else {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
