@@ -3,14 +3,11 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -21,12 +18,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,6 +65,7 @@ public class PersonalProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
         ButterKnife.bind(this);
+        ExifInterface i;
 
         initView();
     }
@@ -126,34 +123,36 @@ public class PersonalProfileActivity extends Activity {
         }
         switch (requestCode) {
             case PHOTO_REQUEST_GALLERY:
-                Bitmap galleryPhoto = BitmapUtil.getNormalPhoto(data.getData(), IMAGE_FILE_NAME);
-                Uri galleryUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), galleryPhoto, null, null));
-                beginCrop(galleryUri);
+                beginCrop(data.getData());
                 break;
             case PHOTO_REQUEST_TAKE_PHOTO:
                 if (CommonMethods.hasSdCard()) {
                     File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                    Bitmap cameraBitmap = BitmapUtil.getNormalPhoto(Uri.fromFile(avatar), IMAGE_FILE_NAME);
-                    Uri cameraUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), cameraBitmap, null, null));
-                    beginCrop(cameraUri);
+                    beginCrop(Uri.fromFile(avatar));
                 } else {
                     //toast error message when unable to find sdcard
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
                 }
                 break;
             case Crop.REQUEST_CROP:
-                if (data != null) {
-                    handleCrop(resultCode, data);
-                    Map<String, Object> attributes = new HashMap<>();
-                    attributes.put("avatar", getAvatar());
-                    RestClient.getInstance().updateUserAvatar(attributes).done(
-                            new DoneCallback<JSONObject>() {
-                                @Override
-                                public void onDone(JSONObject response) {
-                                    User.updateCurrentUser(response.toString());
-                                }
-                            }).fail(new JsonErrorListener(getApplicationContext(), null));
+                if (data == null) {
+                    return;
                 }
+                if (resultCode == Crop.RESULT_ERROR) {
+                    Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Map<String, Object> attributes = new HashMap<>();
+                File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data));
+                attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg"));
+                RestClient.getInstance().updateUserAvatar(attributes).done(
+                        new DoneCallback<JSONObject>() {
+                            @Override
+                            public void onDone(JSONObject response) {
+                                User.updateCurrentUser(response.toString());
+                            }
+                        }).fail(new JsonErrorListener(getApplicationContext(), null));
+                ivAvatar.setImageURI(Uri.fromFile(file));
                 break;
         }
     }
@@ -167,29 +166,5 @@ public class PersonalProfileActivity extends Activity {
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);
-    }
-
-    private void handleCrop(int resultCode, Intent result) {
-        if (resultCode == RESULT_OK) {
-            ivAvatar.setImageDrawable(null);
-            ivAvatar.setImageURI(Crop.getOutput(result));
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private ByteArrayBody getAvatar() {
-        Drawable drawable = ivAvatar.getDrawable();
-        if (drawable == null) {
-            return null;
-        }
-        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
-        try {
-            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
-            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
-        } catch (IOException e) {
-            Log.e(PersonalProfileActivity.class.getName(), "failed getting avatar data", e);
-            return null;
-        }
     }
 }
