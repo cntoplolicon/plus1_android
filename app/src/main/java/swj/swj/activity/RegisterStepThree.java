@@ -24,14 +24,18 @@ import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
+import swj.swj.common.BitmapUtil;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -188,18 +192,30 @@ public class RegisterStepThree extends Activity {
                     break;
                 case Crop.REQUEST_CROP:
                     if (data != null) {
-                        handleCrop(resultCode, data);
+                        return;
                     }
+                    if (resultCode == Crop.RESULT_ERROR) {
+                        Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Map<String, Object> attributes = new HashMap<>();
+                    File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data));
+                    attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.png"));
+                    RestClient.getInstance().updateUserAvatar(attributes).done(
+                            new DoneCallback<JSONObject>() {
+                                @Override
+                                public void onDone(JSONObject response) {
+                                    User.updateCurrentUser(response.toString());
+                                }
+                            }).fail(new JsonErrorListener(getApplicationContext(), null));
+                    faceImage.setImageURI(Crop.getOutput(data));
                     break;
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void getImageFromGallery() {
-        Intent intentFromGallery = new Intent();
-        intentFromGallery.setType("image/*");
-        intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intentFromGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intentFromGallery, IMAGE_REQUEST_CODE);
     }
 
@@ -216,14 +232,4 @@ public class RegisterStepThree extends Activity {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);
     }
-
-    private void handleCrop(int resultCode, Intent result) {
-        if (resultCode == RESULT_OK) {
-            faceImage.setImageDrawable(null);
-            faceImage.setImageURI(Crop.getOutput(result));
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
 }

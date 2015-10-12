@@ -3,14 +3,11 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -21,12 +18,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +32,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.BitmapUtil;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -68,6 +65,7 @@ public class PersonalProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
         ButterKnife.bind(this);
+        ExifInterface i;
 
         initView();
     }
@@ -105,9 +103,7 @@ public class PersonalProfileActivity extends Activity {
         tvGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentFromGallery = new Intent();
-                intentFromGallery.setType("image/*");
-                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                Intent intentFromGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intentFromGallery, PHOTO_REQUEST_GALLERY);
                 alertDialog.cancel();
             }
@@ -139,18 +135,24 @@ public class PersonalProfileActivity extends Activity {
                 }
                 break;
             case Crop.REQUEST_CROP:
-                if (data != null) {
-                    handleCrop(resultCode, data);
-                    Map<String, Object> attributes = new HashMap<>();
-                    attributes.put("avatar", getAvatar());
-                    RestClient.getInstance().updateUserAvatar(attributes).done(
-                            new DoneCallback<JSONObject>() {
-                                @Override
-                                public void onDone(JSONObject response) {
-                                    User.updateCurrentUser(response.toString());
-                                }
-                            }).fail(new JsonErrorListener(getApplicationContext(), null));
+                if (data == null) {
+                    return;
                 }
+                if (resultCode == Crop.RESULT_ERROR) {
+                    Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Map<String, Object> attributes = new HashMap<>();
+                File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data));
+                attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg"));
+                RestClient.getInstance().updateUserAvatar(attributes).done(
+                        new DoneCallback<JSONObject>() {
+                            @Override
+                            public void onDone(JSONObject response) {
+                                User.updateCurrentUser(response.toString());
+                            }
+                        }).fail(new JsonErrorListener(getApplicationContext(), null));
+                ivAvatar.setImageURI(Uri.fromFile(file));
                 break;
         }
     }
@@ -164,29 +166,5 @@ public class PersonalProfileActivity extends Activity {
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);
-    }
-
-    private void handleCrop(int resultCode, Intent result) {
-        if (resultCode == RESULT_OK) {
-            ivAvatar.setImageDrawable(null);
-            ivAvatar.setImageURI(Crop.getOutput(result));
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private ByteArrayBody getAvatar() {
-        Drawable drawable = ivAvatar.getDrawable();
-        if (drawable == null) {
-            return null;
-        }
-        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
-        try {
-            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
-            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
-        } catch (IOException e) {
-            Log.e(PersonalProfileActivity.class.getName(), "failed getting avatar data", e);
-            return null;
-        }
     }
 }
