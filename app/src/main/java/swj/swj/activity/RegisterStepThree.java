@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
+import swj.swj.common.BitmapUtil;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -175,12 +176,16 @@ public class RegisterStepThree extends Activity {
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case IMAGE_REQUEST_CODE:
-                    beginCrop(data.getData());
+                    Bitmap galleryPhoto = BitmapUtil.getNormalPhoto(data.getData(), IMAGE_FILE_NAME);
+                    Uri galleryUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), galleryPhoto, null, null));
+                    beginCrop(galleryUri);
                     break;
                 case CAMERA_REQUEST_CODE:
                     if (CommonMethods.hasSdCard()) {
                         File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                        beginCrop(Uri.fromFile(avatar));
+                        Bitmap cameraBitmap = BitmapUtil.getNormalPhoto(Uri.fromFile(avatar), IMAGE_FILE_NAME);
+                        Uri cameraUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), cameraBitmap, null, null));
+                        beginCrop(cameraUri);
                     } else {
                         //toast error message when unable to find sdcard
                         Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
@@ -197,9 +202,7 @@ public class RegisterStepThree extends Activity {
     }
 
     private void getImageFromGallery() {
-        Intent intentFromGallery = new Intent();
-        intentFromGallery.setType("image/*");
-        intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intentFromGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intentFromGallery, IMAGE_REQUEST_CODE);
     }
 

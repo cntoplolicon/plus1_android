@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -75,6 +76,32 @@ public final class BitmapUtil {
             }
         }
         return file;
+    }
+
+    public static Bitmap getNormalPhoto(Uri uri, String imageName) {
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().considerExifParams(true).build();
+        Bitmap bitmap = ImageLoader.getInstance().loadImageSync(uri.toString(), displayOptions);
+        File head = new File(Environment.getExternalStorageDirectory() + "/" + "head");
+        if (!head.exists()) {
+            head.mkdirs();
+        }
+        File file = new File(head, imageName);
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        } catch (FileNotFoundException e) {
+            Log.e(BitmapUtil.class.getName(), "failed found file", e);
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                Log.e(BitmapUtil.class.getName(), "failed closing outputStream", e);
+            }
+        }
+        return bitmap;
     }
 }
 
