@@ -69,7 +69,7 @@ public class AddTextActivity extends Activity {
                 }).always(new ResetViewClickable<JSONObject, VolleyError>(tvPublish));
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("publish_class",AddTextActivity.class);
+        intent.putExtra("publish_class", AddTextActivity.class);
         startActivity(intent);
         finish();
     }

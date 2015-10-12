@@ -37,7 +37,7 @@ public class UserHomeActivity extends Activity {
         User user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
         HeaderGridView gridView = (HeaderGridView) findViewById(R.id.grid_view_user_authored_posts);
         View headerView = LayoutInflater.from(this).inflate(R.layout.fragment_myself_header, null);
-        gridView.addHeaderView(headerView,null,false);
+        gridView.addHeaderView(headerView, null, false);
 
         ButterKnife.bind(this, headerView);
         updateUserInfo(user);
