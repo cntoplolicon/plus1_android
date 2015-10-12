@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -98,7 +99,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(getApplicationContext(), errors, "security_code");
                     }
-                })).always(new ResetViewClickable(view));
+                })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
     protected abstract Class<?> getNextActivity();

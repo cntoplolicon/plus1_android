@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -60,7 +61,7 @@ public class LoginActivity extends Activity {
                                 CommonMethods.toastError(LoginActivity.this, errors, "username");
                                 CommonMethods.toastError(LoginActivity.this, errors, "password");
                             }
-                        })).always(new ResetViewClickable(v));
+                        })).always(new ResetViewClickable<JSONObject, VolleyError>(v));
             }
         });
 
