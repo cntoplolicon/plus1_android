@@ -58,7 +58,7 @@ public class MySelfFragment extends Fragment {
 
         gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
-        gridView.addHeaderView(headerView);
+        gridView.addHeaderView(headerView, null, false);
 
         postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
         bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
