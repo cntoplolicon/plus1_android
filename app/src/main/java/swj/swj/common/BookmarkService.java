@@ -1,14 +1,16 @@
 package swj.swj.common;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
+
+import swj.swj.model.Post;
 
 /**
  * Created by jiewei on 10/10/15.
  */
 public class BookmarkService {
 
-    public static HashSet<Integer> bookmarkedPostsIds = new HashSet<>();
+    private static Map<Integer, Post> bookmarkedPosts = new HashMap<>();
 
     private static BookmarkService instance = new BookmarkService();
 
@@ -19,21 +21,26 @@ public class BookmarkService {
     private BookmarkService() {
     }
 
-    public void addBookmark(int postId) {
-        bookmarkedPostsIds.add(postId);
+    public void addBookmark(Post post) {
+        bookmarkedPosts.put(post.getId(), post);
     }
 
-    public void removeBookmark(int postId) {
-        bookmarkedPostsIds.remove(postId);
+    public void removeBookmark(Post post) {
+        bookmarkedPosts.remove(post.getId());
     }
 
-    public boolean isBookmarked(int postId) {
-        return bookmarkedPostsIds.contains(postId);
+    public boolean isBookmarked(Post post) {
+        return bookmarkedPosts.containsKey(post.getId());
     }
 
-    public void updateBookmarks(Collection<Integer> postIds) {
-        bookmarkedPostsIds.clear();
-        bookmarkedPostsIds.addAll(postIds);
+    public void updateBookmarkCache(Post[] posts) {
+        bookmarkedPosts.clear();
+        for (Post p : posts) {
+            bookmarkedPosts.put(p.getId(), p);
+        }
     }
 
+    public Post[] getBookmarkedPosts() {
+        return BookmarkService.bookmarkedPosts.values().toArray(new Post[]{});
+    }
 }

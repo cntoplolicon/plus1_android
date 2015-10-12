@@ -103,7 +103,7 @@ public class CardDetailsActivity extends Activity {
     @OnClick(R.id.iv_bookmark)
     public void onBookmarkClicked(View view) {
         view.setEnabled(false);
-        if (!BookmarkService.getInstance().isBookmarked(post.getId())) {
+        if (!BookmarkService.getInstance().isBookmarked(post)) {
             ivBookmark.setImageResource(R.drawable.settings);
             RestClient.getInstance().createBookmark(post.getId())
                     .fail(new JsonErrorListener(getApplicationContext(), null))
@@ -113,7 +113,7 @@ public class CardDetailsActivity extends Activity {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
                                 Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                                BookmarkService.getInstance().addBookmark(post.getId());
+                                BookmarkService.getInstance().addBookmark(post);
                             }
                             syncBookmarkInfo();
                         }
@@ -128,7 +128,7 @@ public class CardDetailsActivity extends Activity {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
                                 Toast.makeText(CardDetailsActivity.this, "取消", Toast.LENGTH_SHORT).show();
-                                BookmarkService.getInstance().removeBookmark(post.getId());
+                                BookmarkService.getInstance().removeBookmark(post);
                             }
                             syncBookmarkInfo();
                         }
@@ -138,7 +138,7 @@ public class CardDetailsActivity extends Activity {
     }
 
     private void syncBookmarkInfo() {
-        if (BookmarkService.getInstance().isBookmarked(post.getId())) {
+        if (BookmarkService.getInstance().isBookmarked(post)) {
             ivBookmark.setImageResource(R.drawable.settings);
         } else {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
