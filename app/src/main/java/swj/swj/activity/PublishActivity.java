@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,11 +25,10 @@ import java.io.File;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
 import swj.swj.common.BitmapUtil;
 import swj.swj.common.JsonErrorListener;
-import swj.swj.common.ProgressBarUtil;
+import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
 
@@ -42,8 +38,7 @@ import swj.swj.common.RestClient;
 public class PublishActivity extends Activity {
 
     private String imageFilePath;
-    public static boolean isSend;
-    public static boolean isLoadState;
+    public static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.iv_image)
     ImageView imageView;
@@ -75,16 +70,13 @@ public class PublishActivity extends Activity {
 
     @OnClick(R.id.tv_publish)
     public void submit() {
-        isSend = tvPublish.isClickable();
         String text = editText.getText().toString();
         FileBody imageBody = new FileBody(new File(imageFilePath));
-        RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}).done(
+        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}).done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
                         Toast.makeText(getApplicationContext(), R.string.post_success, Toast.LENGTH_LONG).show();
-                        isLoadState = true;
-                        Log.e("isLoadState", isLoadState + "");
                     }
                 }).fail(
                 new JsonErrorListener(getApplicationContext(), null) {
@@ -93,12 +85,11 @@ public class PublishActivity extends Activity {
                         super.onFail(error);
                         Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
-                        isLoadState = true;
-                        Log.e("isLoadState", isLoadState + "");
                     }
-                });
+                }).always(new ResetViewClickable<JSONObject, VolleyError>(tvPublish));
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("publish_class", PublishActivity.class);
         startActivity(intent);
         finish();
     }

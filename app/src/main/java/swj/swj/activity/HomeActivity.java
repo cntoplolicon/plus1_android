@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.volley.VolleyError;
+
+import org.jdeferred.AlwaysCallback;
+import org.jdeferred.Promise;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +23,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
-import swj.swj.common.ProgressBarUtil;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
@@ -32,24 +35,11 @@ public class HomeActivity extends Activity {
     TextView tvTitle;
     @Bind(R.id.iv_settings)
     ImageView ivSettings;
-
+    @Bind(R.id.spb)
     SmoothProgressBar spb;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
-    private Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            switch (msg.what) {
-                case 1:
-                    spb.setVisibility(View.GONE);
-                    break;
-            }
-        }
-    };
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
@@ -63,12 +53,30 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        spb = (SmoothProgressBar) findViewById(R.id.spb);
         ButterKnife.bind(this);
         switchTab(R.id.rb_home);
-
-        ProgressBarUtil.LoadProgeressBar(PublishActivity.isSend, isLoading(PublishActivity.isLoadState), spb);
-        ProgressBarUtil.LoadProgeressBar(AddTextActivity.isSend, isLoading(AddTextActivity.isLoadState), spb);
+        if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
+            if (PublishActivity.promise != null) {
+                spb.setVisibility(View.VISIBLE);
+                PublishActivity.promise.always(new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        spb.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }
+        if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
+            if (AddTextActivity.promise != null) {
+                spb.setVisibility(View.VISIBLE);
+                AddTextActivity.promise.always(new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        spb.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }
     }
 
     public void switchTab(int radioButtonId) {
@@ -102,25 +110,5 @@ public class HomeActivity extends Activity {
             this.fragment = fragment;
             this.titleTextResource = titleTextResource;
         }
-    }
-
-    public boolean isLoading(boolean bln) {
-        if (!bln) {
-        }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                    Message message = handler.obtainMessage();
-                    message.what = 1;
-                    handler.sendMessage(message);
-                    Log.e("load", "load end");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        return true;
     }
 }
