@@ -156,8 +156,8 @@ public class HomePageListItemViewsAdapter {
                 }).fail(
                 new JsonErrorListener(context, null) {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        super.onErrorResponse(error);
+                    public void onFail(VolleyError error) {
+                        super.onFail(error);
                         loading = false;
                         updateState();
                     }

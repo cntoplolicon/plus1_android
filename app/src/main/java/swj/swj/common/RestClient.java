@@ -13,6 +13,7 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.Promise;
@@ -228,7 +229,7 @@ public class RestClient {
         Map<String, Object> params = createUserParams();
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + userId + "/infections/active", params), listener, listener);
+                encodeUrlParams("/users/" + userId + "/infections/active", params), listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -260,7 +261,7 @@ public class RestClient {
 
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + authorId + "/posts", params), listener, listener);
+                encodeUrlParams("/users/" + authorId + "/posts", params), listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -280,6 +281,19 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> removeBookmark(int postId) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        String userId = params.remove("user_id").toString();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
+                encodeUrlParams("/users/" + userId + "/bookmarks/" + postId, params), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
     public Promise<JSONArray, VolleyError, Void> getUserBookmarks() {
         DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
@@ -287,7 +301,7 @@ public class RestClient {
         Map<String, Object> params = createUserParams();
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                buildUrlForGetRequests("/users/" + userId + "/bookmarks", params), listener, listener);
+                encodeUrlParams("/users/" + userId + "/bookmarks", params), listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -303,7 +317,7 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    private String buildUrlForGetRequests(String path, Map<String, Object> params) {
+    private String encodeUrlParams(String path, Map<String, Object> params) {
         Uri.Builder uri = Uri.parse(getResourceUrl(path)).buildUpon();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             uri.appendQueryParameter(entry.getKey(), String.valueOf(entry.getValue()));
