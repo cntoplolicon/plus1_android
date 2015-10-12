@@ -27,12 +27,16 @@ import swj.swj.common.RestClient;
  * Created by syb on 2015/9/18.
  */
 public class AddTextActivity extends Activity {
-    public static Promise<JSONObject, VolleyError, Void> promise;
+    private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.et_text)
     EditText editText;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
+
+    public static Promise<JSONObject, VolleyError, Void> getPromise() {
+        return promise;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

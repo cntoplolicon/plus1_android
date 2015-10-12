@@ -38,7 +38,7 @@ import swj.swj.common.RestClient;
 public class PublishActivity extends Activity {
 
     private String imageFilePath;
-    public static Promise<JSONObject, VolleyError, Void> promise;
+    private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.iv_image)
     ImageView imageView;
@@ -49,6 +49,9 @@ public class PublishActivity extends Activity {
     @Bind(R.id.tv_publish)
     TextView tvPublish;
 
+    public static Promise<JSONObject, VolleyError, Void> getPromise() {
+        return promise;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
