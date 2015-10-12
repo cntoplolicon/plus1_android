@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -63,7 +64,7 @@ public class ChangePasswordActivity extends Activity {
                         CommonMethods.toastError(getApplicationContext(), errors, "old_password");
                         CommonMethods.toastError(getApplicationContext(), errors, "password");
                     }
-                })).always(new ResetViewClickable(view));
+                })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
     public void onCreate(Bundle savedInstanceState) {

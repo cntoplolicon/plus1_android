@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ public class ResetPwdStepThree extends Activity {
                             CommonMethods.toastError(getApplicationContext(), errors, "username");
                             CommonMethods.toastError(getApplicationContext(), errors, "password");
                         }
-                    })).always(new ResetViewClickable(view));
+                    })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
         }
     };
 

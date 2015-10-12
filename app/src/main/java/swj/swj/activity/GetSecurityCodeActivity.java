@@ -66,7 +66,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
             public void onResponse(JSONObject errors) {
                 CommonMethods.toastError(getApplicationContext(), errors, "username");
             }
-        })).always(new ResetViewClickable(view));
+        })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
     protected abstract Class<?> getNextActivity();

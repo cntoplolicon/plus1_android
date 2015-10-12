@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -72,7 +73,7 @@ public class RegisterStepThree extends Activity {
                             finish();
                         }
                     }).fail(new JsonErrorListener(getApplicationContext(), null))
-                    .always(new ResetViewClickable(view));
+                    .always(new ResetViewClickable<JSONObject, VolleyError>(view));
         }
     };
 

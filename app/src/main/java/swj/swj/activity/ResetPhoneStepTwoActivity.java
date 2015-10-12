@@ -83,7 +83,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
                     }
-                })).always(new ResetViewClickable(view)
+                })).always(new ResetViewClickable<JSONObject, VolleyError>(view)
         );
     }
 
