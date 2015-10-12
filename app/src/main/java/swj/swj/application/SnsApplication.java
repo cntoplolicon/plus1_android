@@ -7,16 +7,11 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import swj.swj.BuildConfig;
-import swj.swj.R;
-import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 
@@ -34,7 +29,7 @@ public class SnsApplication extends Application {
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
-        HomePageListItemViewsAdapter.initialize(getApplicationContext());
+        InfectionsAdapter.initialize(getApplicationContext());
     }
 
     private void initImageLoader(Context context) {

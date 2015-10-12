@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import swj.swj.R;
-import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.adapter.InfectionsAdapter;
 
 /**
  * Created by cntoplolicon on 9/21/15.
@@ -32,7 +32,7 @@ public class HomePageLayout extends ViewGroup {
     private int settleStart, settleEnd;
     private boolean settling;
 
-    private HomePageListItemViewsAdapter adapter;
+    private InfectionsAdapter adapter;
     private Callback callback;
 
     public HomePageLayout(Context context) {
@@ -82,7 +82,7 @@ public class HomePageLayout extends ViewGroup {
         }
     }
 
-    public void setAdapter(HomePageListItemViewsAdapter adapter) {
+    public void setAdapter(InfectionsAdapter adapter) {
         if (this.adapter != null) {
             throw new IllegalStateException("adapter already set");
         }

@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
-import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -42,17 +42,17 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.sliding_layout)
     HomePageLayout slidingView;
 
-    private HomePageListItemViewsAdapter adapter;
+    private InfectionsAdapter adapter;
 
     private void changeViewsByAdapterState(int state) {
         switch (state) {
-            case HomePageListItemViewsAdapter.STATE_CLEARED:
+            case InfectionsAdapter.STATE_CLEARED:
                 clearedView.bringToFront();
                 break;
-            case HomePageListItemViewsAdapter.STATE_LOADING:
+            case InfectionsAdapter.STATE_LOADING:
                 loadingView.bringToFront();
                 break;
-            case HomePageListItemViewsAdapter.STATE_NORMAL:
+            case InfectionsAdapter.STATE_NORMAL:
                 slidingView.bringToFront();
                 break;
             default:
@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment {
 
         slidingView.setCallback(new LayoutCallbacks());
 
-        adapter = HomePageListItemViewsAdapter.getInstance();
+        adapter = InfectionsAdapter.getInstance();
         adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
 
@@ -84,6 +85,12 @@ public class HomeFragment extends Fragment {
         ivSpread.setImageBitmap(bitmapSpread);
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter.setCallback(null);
     }
 
     private class LayoutCallbacks implements HomePageLayout.Callback {
@@ -120,11 +127,11 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private class AdapterCallbacks implements HomePageListItemViewsAdapter.Callback {
+    private class AdapterCallbacks implements InfectionsAdapter.Callback {
 
         @Override
         public void onStateChanged(int oldState, int newState) {
-            if (newState == HomePageListItemViewsAdapter.STATE_NORMAL) {
+            if (newState == InfectionsAdapter.STATE_NORMAL) {
                 slidingView.syncContentViews();
             }
             changeViewsByAdapterState(newState);

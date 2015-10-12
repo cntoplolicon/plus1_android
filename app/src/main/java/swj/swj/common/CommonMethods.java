@@ -2,9 +2,7 @@ package swj.swj.common;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -23,7 +21,7 @@ import java.util.regex.Pattern;
 
 import swj.swj.R;
 import swj.swj.activity.LoginActivity;
-import swj.swj.adapter.HomePageListItemViewsAdapter;
+import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.model.User;
 
 /**
@@ -104,7 +102,7 @@ public final class CommonMethods {
 
     public static void clientSideSignOut(Context context) {
         User.clearCurrentUser();
-        HomePageListItemViewsAdapter.getInstance().reset();
+        InfectionsAdapter.getInstance().reset();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

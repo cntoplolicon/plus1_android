@@ -1,15 +1,12 @@
 package swj.swj.adapter;
 
 import android.content.Context;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -18,7 +15,6 @@ import org.json.JSONArray;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,7 +32,7 @@ import swj.swj.model.Post;
 /**
  * Created by shw on 2015/9/15.
  */
-public class HomePageListItemViewsAdapter {
+public class InfectionsAdapter {
 
     public static final int STATE_CLEARED = 0;
     public static final int STATE_LOADING = 1;
@@ -44,7 +40,7 @@ public class HomePageListItemViewsAdapter {
 
     private static final int ID_CACHE_CAPACITY = 256;
 
-    private static HomePageListItemViewsAdapter instance;
+    private static InfectionsAdapter instance;
     private Context context;
 
     private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
@@ -53,15 +49,15 @@ public class HomePageListItemViewsAdapter {
     private boolean loading = false;
     private Callback callback;
 
-    public static HomePageListItemViewsAdapter getInstance() {
+    public static InfectionsAdapter getInstance() {
         return instance;
     }
 
     public static void initialize(Context context) {
-        instance = new HomePageListItemViewsAdapter(context);
+        instance = new InfectionsAdapter(context);
     }
 
-    private HomePageListItemViewsAdapter(Context context) {
+    private InfectionsAdapter(Context context) {
         this.context = context;
         loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
     }
