@@ -2,8 +2,10 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,11 +18,7 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +26,6 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.adapter.CardDetailsAdapter;
 import swj.swj.application.SnsApplication;
-import swj.swj.bean.CardDetailsItemBean;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -38,7 +35,6 @@ import swj.swj.model.Comment;
 import swj.swj.model.Post;
 
 public class CardDetailsActivity extends Activity {
-    private List<CardDetailsItemBean> mList;
 
     @Bind(R.id.iv_image)
     ImageView ivImage;
@@ -52,9 +48,11 @@ public class CardDetailsActivity extends Activity {
     TextView tvTime;
     @Bind(R.id.iv_bookmark)
     ImageView ivBookmark;
+    @Bind(R.id.et_new_comment)
+    EditText etNewComment;
 
     private Post post;
-    private Comment[] comments;
+    private CardDetailsAdapter cardDetailsAdapter;
 
 
     @Override
@@ -92,7 +90,6 @@ public class CardDetailsActivity extends Activity {
     }
 
     private void initData() {
-        mList = new ArrayList<>();
         String postJson = getIntent().getStringExtra("post_json");
         post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
 
@@ -100,7 +97,7 @@ public class CardDetailsActivity extends Activity {
         lvListView.setDividerHeight(0);
         View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         lvListView.addHeaderView(headerView, null, false);
-        CardDetailsAdapter cardDetailsAdapter = new CardDetailsAdapter(this, post, mList);
+        cardDetailsAdapter = new CardDetailsAdapter(this, post);
         lvListView.setAdapter(cardDetailsAdapter);
     }
 
@@ -139,6 +136,35 @@ public class CardDetailsActivity extends Activity {
                     });
         }
 
+    }
+
+    @OnClick(R.id.btn_send_comment)
+    public void onSendCommentClicked(View view) {
+        if (etNewComment.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.comment_text_required), Toast.LENGTH_LONG).show();
+            return;
+        }
+        view.setEnabled(false);
+        RestClient.getInstance().newComment(etNewComment.getText().toString(), -1, post.getId())
+                .done(new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject result) {
+                        etNewComment.setText("");
+                        Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
+                        Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
+                        cardDetailsAdapter.add(newComment);
+                        cardDetailsAdapter.notifyDataSetChanged();
+                    }
+                })
+                .fail(new JsonErrorListener(getApplicationContext(), null) {
+                    @Override
+                    public void onFail(VolleyError error) {
+                        super.onFail(error);
+                        Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
+                        Toast.makeText(getApplicationContext(), R.string.comment_failure, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
     private void syncBookmarkInfo() {
