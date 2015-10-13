@@ -43,6 +43,7 @@ public class UpdateNicknameActivity extends Activity {
                     @Override
                     public void onDone(JSONObject response) {
                         User.updateCurrentUser(response.toString());
+                        Toast.makeText(UpdateNicknameActivity.this, R.string.nickname_reset_succeed, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }).fail(

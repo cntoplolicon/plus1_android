@@ -38,6 +38,7 @@
         android:inputType="phone"
         android:paddingLeft="10dp"
         android:paddingTop="16dp"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textColorHint="@color/et_hint" />
 
     <Button

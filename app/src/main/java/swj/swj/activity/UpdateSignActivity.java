@@ -3,6 +3,7 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class UpdateSignActivity extends Activity {
                     @Override
                     public void onDone(JSONObject response) {
                         User.updateCurrentUser(response.toString());
+                        Toast.makeText(UpdateSignActivity.this, R.string.sign_reset_succeed, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }).fail(new JsonErrorListener(getApplicationContext(), null));

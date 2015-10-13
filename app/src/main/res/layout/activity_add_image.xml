@@ -69,6 +69,6 @@
             android:background="@null"
             android:gravity="top"
             android:hint="@string/publish_hint"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@drawable/color_cursor" />
     </RelativeLayout>
 </LinearLayout>

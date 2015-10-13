@@ -36,6 +36,8 @@
     <string name="register_finish_hint_nickname">您的注册昵称为</string>
     <string name="save_new_pwd">保存新密码</string>
     <string name="pwd_reset_succeed">密码修改成功</string>
+    <string name="nickname_reset_succeed">昵称修改成功</string>
+    <string name="sign_reset_succeed">个性签名修改成功</string>
     <string name="unknown_error">未知错误</string>
     <string name="spreads_count">%d人转发</string>
     <string name="post_created_at">%d天前</string>

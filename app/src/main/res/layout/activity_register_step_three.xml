@@ -46,6 +46,7 @@
         android:background="@color/et_background"
         android:hint="@string/nickname"
         android:paddingLeft="60dp"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textColorHint="@color/et_hint" />
 
     <EditText
@@ -64,6 +65,7 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="60dp"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textColorHint="@color/et_hint" />
 
     <TextView

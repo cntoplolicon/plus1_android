@@ -49,6 +49,7 @@
         android:inputType="phone"
         android:paddingLeft="60dp"
         android:textColorHint="@color/et_hint"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="16dp" />
 
     <EditText
@@ -67,6 +68,7 @@
         android:inputType="textPassword"
         android:paddingLeft="60dp"
         android:textColorHint="@color/et_hint"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="16dp" />
 
     <TextView
