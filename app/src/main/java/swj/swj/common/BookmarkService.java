@@ -40,11 +40,14 @@ public class BookmarkService {
     }
 
     public void updateBookmarkCache(Post[] posts) {
-        bookmarkedPosts.clear();
+        Map<Integer, Post> serverBookmarkedPosts = new HashMap<>();
         for (Post p : posts) {
-            bookmarkedPosts.put(p.getId(), p);
+            serverBookmarkedPosts.put(p.getId(), p);
         }
-        callback.onBookmarkChanged();
+        if (!serverBookmarkedPosts.keySet().equals(bookmarkedPosts.keySet())) {
+            bookmarkedPosts = serverBookmarkedPosts;
+            callback.onBookmarkChanged();
+        }
     }
 
     public Post[] getBookmarkedPosts() {
