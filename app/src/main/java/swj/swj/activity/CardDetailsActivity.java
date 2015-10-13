@@ -12,9 +12,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
+import swj.swj.model.Comment;
 import swj.swj.model.Post;
 
 public class CardDetailsActivity extends Activity {
@@ -51,6 +54,7 @@ public class CardDetailsActivity extends Activity {
     ImageView ivBookmark;
 
     private Post post;
+    private Comment[] comments;
 
 
     @Override
@@ -89,14 +93,14 @@ public class CardDetailsActivity extends Activity {
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i = 0; i < 99; i++) {
-            mList.add(new CardDetailsItemBean(R.drawable.default_useravatar, "用户" + i, "内容" + i));
-        }
+        String postJson = getIntent().getStringExtra("post_json");
+        post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
+
         ListView lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
         View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         lvListView.addHeaderView(headerView, null, false);
-        CardDetailsAdapter cardDetailsAdapter = new CardDetailsAdapter(this, mList);
+        CardDetailsAdapter cardDetailsAdapter = new CardDetailsAdapter(this, post, mList);
         lvListView.setAdapter(cardDetailsAdapter);
     }
 
@@ -112,7 +116,7 @@ public class CardDetailsActivity extends Activity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmard_added), Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().addBookmark(post);
                             }
                             syncBookmarkInfo();
@@ -127,7 +131,7 @@ public class CardDetailsActivity extends Activity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmard_removed), Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().removeBookmark(post);
                             }
                             syncBookmarkInfo();

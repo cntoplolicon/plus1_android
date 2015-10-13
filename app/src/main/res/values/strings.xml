@@ -113,6 +113,8 @@
 
     <string name="post_success">发送成功</string>
     <string name="post_failure">发送失败</string>
+    <string name="bookmard_added">收藏成功</string>
+    <string name="bookmard_removed">取消收藏</string>
 
 
     <string name="title_activity_card_details">CardDetailsActivity</string>

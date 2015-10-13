@@ -349,4 +349,57 @@ public class RestClient {
             deferredObject.resolve(error);
         }
     }
+
+    public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                encodeUrlParams("/posts/" + postId + "/comments", params), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONObject, VolleyError, Void> newComment(String text) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        List<Map.Entry<String, Object>> params = new LinkedList<>();
+        Map<String, Object> userParams = createUserParams();
+        params.addAll(userParams.entrySet());
+
+        String postId = userParams.get("post_id").toString();
+        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
+                getResourceUrl("/posts/" + postId + "/comments"), params, listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+//    public Promise<JSONObject, VolleyError, Void> newPost(String[] texts, AbstractContentBody[] images) {
+//        if (texts.length != images.length) {
+//            throw new IllegalArgumentException("texts & images lengths unequal");
+//        }
+//
+//        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+//        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+//
+//        List<Map.Entry<String, Object>> params = new LinkedList<>();
+//        Map<String, Object> userParams = createUserParams();
+//        params.addAll(userParams.entrySet());
+//
+//        for (int i = 0; i < texts.length; i++) {
+//            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][text]", texts[i]));
+//            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][image]", images[i]));
+//        }
+//
+//        String userId = userParams.get("user_id").toString();
+//        JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
+//                getResourceUrl("/users/" + userId + "/posts"), params, listener, listener);
+//        requestQueue.add(request);
+//
+//        return deferredObject.promise();
+//    }
 }

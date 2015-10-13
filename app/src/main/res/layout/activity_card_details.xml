@@ -52,7 +52,8 @@
         android:id="@+id/lv_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/action_bar"></ListView>
+        android:layout_below="@id/action_bar"
+        android:layout_marginBottom="48dp"></ListView>
 
     <FrameLayout
         android:id="@+id/fl_card_details"
