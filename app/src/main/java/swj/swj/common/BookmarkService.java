@@ -10,6 +10,8 @@ import swj.swj.model.Post;
  */
 public class BookmarkService {
 
+    private Callback callback;
+
     private static Map<Integer, Post> bookmarkedPosts = new HashMap<>();
 
     private static BookmarkService instance = new BookmarkService();
@@ -23,10 +25,12 @@ public class BookmarkService {
 
     public void addBookmark(Post post) {
         bookmarkedPosts.put(post.getId(), post);
+        callback.notifyChanged();
     }
 
     public void removeBookmark(Post post) {
         bookmarkedPosts.remove(post.getId());
+        callback.notifyChanged();
     }
 
     public boolean isBookmarked(Post post) {
@@ -42,5 +46,13 @@ public class BookmarkService {
 
     public Post[] getBookmarkedPosts() {
         return BookmarkService.bookmarkedPosts.values().toArray(new Post[]{});
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    public interface Callback {
+        void notifyChanged();
     }
 }

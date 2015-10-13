@@ -29,4 +29,9 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
                     }
                 }).fail(new JsonErrorListener(context, null));
     }
+
+    public void updateContent(Post[] posts) {
+        this.posts = posts;
+        this.notifyDataSetChanged();
+    }
 }
