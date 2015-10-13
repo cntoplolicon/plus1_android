@@ -63,6 +63,7 @@ public class MySelfFragment extends Fragment {
 
         postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
         bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
+        BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
         gridView.setAdapter(postsAdapater);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,7 +84,12 @@ public class MySelfFragment extends Fragment {
     public void onResume() {
         super.onResume();
         showCurrentUserInfo();
-        BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BookmarkService.getInstance().setCallback(null);
     }
 
     private void showCurrentUserInfo() {
@@ -114,7 +120,7 @@ public class MySelfFragment extends Fragment {
     private class BookmarkChangedCallback implements BookmarkService.Callback {
 
         @Override
-        public void notifyChanged() {
+        public void onBookmarkChanged() {
             bookmarksAdapater.updateContent(BookmarkService.getInstance().getBookmarkedPosts());
         }
     }

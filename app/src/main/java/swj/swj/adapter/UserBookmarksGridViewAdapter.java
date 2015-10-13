@@ -32,6 +32,6 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
 
     public void updateContent(Post[] posts) {
         this.posts = posts;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 }

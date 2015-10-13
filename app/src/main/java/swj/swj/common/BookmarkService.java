@@ -24,13 +24,15 @@ public class BookmarkService {
     }
 
     public void addBookmark(Post post) {
-        bookmarkedPosts.put(post.getId(), post);
-        callback.notifyChanged();
+        if (bookmarkedPosts.put(post.getId(), post) == null) {
+            callback.onBookmarkChanged();
+        }
     }
 
     public void removeBookmark(Post post) {
-        bookmarkedPosts.remove(post.getId());
-        callback.notifyChanged();
+        if (bookmarkedPosts.remove(post.getId()) != null) {
+            callback.onBookmarkChanged();
+        }
     }
 
     public boolean isBookmarked(Post post) {
@@ -42,6 +44,7 @@ public class BookmarkService {
         for (Post p : posts) {
             bookmarkedPosts.put(p.getId(), p);
         }
+        callback.onBookmarkChanged();
     }
 
     public Post[] getBookmarkedPosts() {
@@ -53,6 +56,6 @@ public class BookmarkService {
     }
 
     public interface Callback {
-        void notifyChanged();
+        void onBookmarkChanged();
     }
 }
