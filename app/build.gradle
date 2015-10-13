@@ -27,6 +27,7 @@ android {
 }
 repositories {
     mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
@@ -45,5 +46,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.jdeferred:jdeferred-android-aar:1.2.0'
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile files('../libs/yunba-sdk-release1.4.5.jar')
 }

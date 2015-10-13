@@ -8,11 +8,14 @@ import android.util.Log;
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
+import java.util.List;
+
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
+import swj.swj.model.Notification;
 import swj.swj.model.User;
 
 public class SplashActivity extends AppCompatActivity {
@@ -49,5 +52,8 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             goToActivity(LoginActivity.class);
         }
+
+        List<Notification> notifications = Notification.getAll();
+        Log.d(SplashActivity.class.getName(), notifications.size() + " notifications loaded");
     }
 }

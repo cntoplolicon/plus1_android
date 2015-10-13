@@ -3,6 +3,7 @@ package swj.swj.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,6 +37,7 @@ public class SnsApplication extends Application {
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
         InfectionsAdapter.initialize(getApplicationContext());
+        ActiveAndroid.initialize(getApplicationContext());
     }
 
     private void initImageLoader(Context context) {

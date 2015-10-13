@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import io.yunba.android.manager.YunBaManager;
+import swj.swj.common.PushNotificationService;
 
 /**
  * Created by cntoplolicon on 10/13/15.
@@ -18,7 +19,7 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
         }
 
         String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
-        String msg = intent.getStringExtra(YunBaManager.MQTT_MSG);
+        String message = intent.getStringExtra(YunBaManager.MQTT_MSG);
         StringBuilder showMsg = new StringBuilder();
         showMsg.append("Received message from server: ")
                 .append(YunBaManager.MQTT_TOPIC)
@@ -27,7 +28,9 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
                 .append(" ")
                 .append(YunBaManager.MQTT_MSG)
                 .append(" = ")
-                .append(msg);
+                .append(message);
         Toast.makeText(context, showMsg, Toast.LENGTH_LONG).show();
+
+        PushNotificationService.getInstance().handleNotification(topic, message);
     }
 }

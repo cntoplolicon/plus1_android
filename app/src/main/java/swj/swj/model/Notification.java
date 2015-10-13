@@ -1,14 +1,32 @@
 package swj.swj.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+import com.google.gson.annotations.Expose;
+
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 /**
  * Created by cntoplolicon on 10/13/15.
  */
-public class Notification {
-    public String type;
+
+@Table(name = "Notifications")
+public class Notification extends Model {
+    @Column
+    @Expose
+    private String type;
+    @Column
+    @Expose
     private DateTime publishTime;
+    @Column
+    @Expose
     private DateTime receiveTime;
+    @Column
+    @Expose
     private String content;
 
     public String getType() {
@@ -41,5 +59,9 @@ public class Notification {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public static List<Notification> getAll() {
+        return new Select().from(Notification.class).execute();
     }
 }

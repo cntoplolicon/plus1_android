@@ -4,13 +4,19 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
+import org.joda.time.DateTime;
 
 import io.yunba.android.manager.YunBaManager;
+import swj.swj.model.Notification;
 import swj.swj.model.User;
 
 /**
@@ -70,8 +76,19 @@ public class PushNotificationService {
         return new String[]{user.getUsername()};
     }
 
-    public PushNotificationService getInstance() {
+    public static PushNotificationService getInstance() {
         return instance;
+    }
+
+    public void handleNotification(String topic, String message) {
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(DateTime.class, new GsonJodaTimeHandler())
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        Notification notification = gson.fromJson(message, Notification.class);
+        notification.setReceiveTime(DateTime.now());
+        notification.save();
     }
 
     private static class NotifyPromiseListener implements IMqttActionListener {
