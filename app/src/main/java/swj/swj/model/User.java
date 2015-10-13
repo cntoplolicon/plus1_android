@@ -17,6 +17,7 @@ public class User {
     public static final String CURRENT_USER_KEY = "user";
 
     public static volatile User current;
+    private static UserChangedCallback userChangedCallback;
 
     private int id;
 
@@ -25,6 +26,7 @@ public class User {
     private int gender;
     private String password;
     private String biography;
+    private String avatar;
 
     private int canInfect;
     private int infectionIndex;
@@ -32,9 +34,9 @@ public class User {
     private DateTime createdAt;
     private DateTime updatedAt;
 
-    private String avatar;
-
     private String accessToken;
+
+    private boolean notificationsEnabled;
 
     public int getId() {
         return id;
@@ -132,17 +134,43 @@ public class User {
         this.accessToken = accessToken;
     }
 
-    public static User fromJson(String json) {
-        return CommonMethods.createDefaultGson().fromJson(json, User.class);
+    public boolean isNotificationsEnabled() {
+        return notificationsEnabled;
+    }
+
+    public void setNotificationsEnabled(boolean notificationsEnabled) {
+        this.notificationsEnabled = notificationsEnabled;
     }
 
     public static void updateCurrentUser(String json) {
-        current = User.fromJson(json);
+        User oldUser = current;
+        current = CommonMethods.createDefaultGson().fromJson(json, User.class);
         LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, json);
+        tryCallUserChangedCallback(oldUser, current);
     }
 
     public static void clearCurrentUser() {
+        User oldUser = current;
         current = null;
         LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, "");
+        tryCallUserChangedCallback(oldUser, current);
+    }
+
+    private static void tryCallUserChangedCallback(User oldUser, User newUser) {
+        if (oldUser == null && newUser == null || userChangedCallback == null) {
+            return;
+        }
+        if (oldUser != null && newUser == null || oldUser == null && newUser != null ||
+                oldUser.getId() != newUser.getId()) {
+            userChangedCallback.onUserChanged(oldUser, newUser);
+        }
+    }
+
+    public static void setUserChangedCallback(UserChangedCallback callback) {
+        userChangedCallback = callback;
+    }
+
+    public interface UserChangedCallback {
+        void onUserChanged(User oldUser, User newUser);
     }
 }

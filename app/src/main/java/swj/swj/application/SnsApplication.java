@@ -10,10 +10,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.BuildConfig;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.LocalUserInfo;
+import swj.swj.common.PushNotificationService;
 import swj.swj.common.RestClient;
 
 /**
@@ -27,11 +31,11 @@ public class SnsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
+        PushNotificationService.init(getApplicationContext());
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
         InfectionsAdapter.initialize(getApplicationContext());
-        YunBaManager.start(getApplicationContext());
     }
 
     private void initImageLoader(Context context) {
@@ -51,7 +55,6 @@ public class SnsApplication extends Application {
         }
         ImageLoader.getInstance().init(config.build());
     }
-
 
     public static String getImageServerUrl() {
         return imageHost.isEmpty() ? LocalUserInfo.getInstance().getUserInfo("image_host") : imageHost;
