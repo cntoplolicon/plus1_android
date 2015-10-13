@@ -29,6 +29,7 @@
         android:paddingLeft="@dimen/profile_edit_margin_top"
         android:paddingTop="@dimen/profile_edit_margin_top"
         android:singleLine="false"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="@dimen/settings_common_text" />
 
     <Button
