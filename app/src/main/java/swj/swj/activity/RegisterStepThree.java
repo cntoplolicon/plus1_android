@@ -3,14 +3,10 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -23,15 +19,11 @@ import com.android.volley.VolleyError;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
@@ -53,6 +45,7 @@ public class RegisterStepThree extends Activity {
     private EditText nicknameInput;
     private EditText passwordInput;
     private RadioGroup radioGroup4Gender;
+    private FileBody fileBody;
 
     private View.OnClickListener onSubmit = new View.OnClickListener() {
         @Override
@@ -66,7 +59,7 @@ public class RegisterStepThree extends Activity {
             String password = passwordInput.getText().toString();
 
             RestClient.getInstance().signUp(username, nickname,
-                    password, getSelectedGender(), getAvatar()).done(
+                    password, getSelectedGender(), fileBody).done(
                     new DoneCallback<JSONObject>() {
                         @Override
                         public void onDone(JSONObject response) {
@@ -100,21 +93,6 @@ public class RegisterStepThree extends Activity {
 
         Button submitButton = (Button) findViewById(R.id.btn_submit);
         submitButton.setOnClickListener(onSubmit);
-    }
-
-    private ByteArrayBody getAvatar() {
-        Drawable drawable = faceImage.getDrawable();
-        if (drawable == null) {
-            return null;
-        }
-        Bitmap avatarBitmap = ((BitmapDrawable) drawable).getBitmap();
-        try {
-            byte[] avatarData = CommonMethods.bitmap2ByteArray(avatarBitmap);
-            return new ByteArrayBody(avatarData, ContentType.create("image/png"), "avatar.png");
-        } catch (IOException e) {
-            Log.e(RegisterStepThree.class.getName(), "failed getting avatar data", e);
-            return null;
-        }
     }
 
     private int getSelectedGender() {
@@ -191,25 +169,16 @@ public class RegisterStepThree extends Activity {
                     }
                     break;
                 case Crop.REQUEST_CROP:
-                    if (data != null) {
+                    if (data == null) {
                         return;
                     }
                     if (resultCode == Crop.RESULT_ERROR) {
                         Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
-                    Map<String, Object> attributes = new HashMap<>();
                     File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data));
-                    attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.png"));
-                    RestClient.getInstance().updateUserAvatar(attributes).done(
-                            new DoneCallback<JSONObject>() {
-                                @Override
-                                public void onDone(JSONObject response) {
-                                    User.updateCurrentUser(response.toString());
-                                }
-                            }).fail(new JsonErrorListener(getApplicationContext(), null));
-                    faceImage.setImageURI(Crop.getOutput(data));
-                    break;
+                    fileBody = new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg");
+                    faceImage.setImageURI(Uri.fromFile(file));
             }
         }
     }
