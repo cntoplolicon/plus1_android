@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import swj.swj.R;
 import swj.swj.adapter.MessageAdapter;
@@ -17,7 +18,7 @@ public class MessageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         MessageAdapter messageAdapter = new MessageAdapter(this.getActivity());
-        ListView lvListView = (ListView) view.findViewById(R.id.lv_listview);
+        ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         return view;
     }

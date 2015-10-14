@@ -4,9 +4,14 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/lv_listview"
+        android:id="@+id/lv_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
         />
+    <TextView
+        android:id="@+id/tv_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="哇，新版本出来了。更好玩，快来更新吧"/>
 </LinearLayout>

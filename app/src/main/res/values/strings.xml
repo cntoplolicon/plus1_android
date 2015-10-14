@@ -102,7 +102,7 @@
     <string name="set_gender">性别</string>
     <string name="set_gender_male">男</string>
     <string name="set_gender_female">女</string>
-    <string name="gender_can_not_change">性别设定后无法改变</string>
+    <string name="gender_can_not_change">性别不可更改哦</string>
 
     <!--avatar and pictures-->
     <string name="change_personal_avatar">修改头像</string>
