@@ -32,12 +32,14 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
                 @Override
                 public void onDone(JSONArray response) {
                     Comment[] comments = CommonMethods.createDefaultGson().fromJson(response.toString(), Comment[].class);
-                    CardDetailsAdapter.this.addAll(comments);
+                    addAll(comments);
+                    sortComments();
                     notifyDataSetChanged();
                 }
             }).fail(new JsonErrorListener(context, null));
         } else {
             addAll(post.getComments());
+            sortComments();
         }
     }
 
@@ -67,9 +69,63 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         return convertView;
     }
 
+    public void sortComments() {
+        Comment[] comments = new Comment[getCount()];
+        for (int i = 0; i < comments.length; i++) {
+            comments[i] = getItem(i);
+        }
+        //////
+        Comment tmpComment;
+        for (int j = 0; j < comments.length - 1; j++) {
+            for (int k = 1; k < comments.length - j; k++) {
+                if (findCommentAncestor(comments[k - 1], comments).equals(findCommentAncestor(comments[k], comments))) {
+                    if (comments[k - 1].getId() > comments[k].getId()) {
+                        tmpComment = comments[k];
+                        comments[k] = comments[k-1];
+                        comments[k-1] = tmpComment;
+                    }
+                } else if (findCommentAncestor(comments[k - 1], comments).getCreatedAt().equals(findCommentAncestor(comments[k], comments).getCreatedAt())) {
+                    if (findCommentAncestor(comments[k - 1], comments).getId() > findCommentAncestor(comments[k], comments).getId()) {
+                        tmpComment = comments[k];
+                        comments[k] = comments[k-1];
+                        comments[k-1] = tmpComment;
+                    }
+                } else {
+                    if (findCommentAncestor(comments[k - 1], comments).getId() > findCommentAncestor(comments[k], comments).getId()) {
+                        tmpComment = comments[k];
+                        comments[k] = comments[k-1];
+                        comments[k-1] = tmpComment;
+                    }
+                }
+            }
+        }
+        /////
+        clear();
+        addAll(comments);
+        notifyDataSetChanged();
+    }
+
+
     private static class ViewHolder {
         private ImageView imageView;
         private TextView userName;
         private TextView context;
     }
+
+    private Comment findCommentAncestor(Comment comment, Comment[] comments) {
+        if (comment.getReplyToId() != 0) {
+            return findCommentAncestor(findCommentParent(comment, comments), comments);
+        }
+        return comment;
+    }
+
+    private Comment findCommentParent(Comment comment, Comment[] comments) {
+        for (Comment tmpComment : comments) {
+            if (tmpComment.getId() == comment.getReplyToId()) {
+                comment = tmpComment;
+            }
+        }
+        return comment;
+    }
+
 }
