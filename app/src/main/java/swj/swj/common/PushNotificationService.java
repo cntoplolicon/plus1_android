@@ -96,7 +96,7 @@ public class PushNotificationService {
         notification.setReceiveTime(DateTime.now());
         notification.save();
 
-        Intent intent = new Intent(context, User.current == null ? SplashActivity.class : CardDetailsActivity.class);
+        Intent intent = new Intent(context, SplashActivity.class);
         intent.putExtra("notification", notification);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)

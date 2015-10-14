@@ -32,12 +32,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+        Notification notification = getIntent().getParcelableExtra("notification");
+        if (notification != null && User.current != null
+                && notification.getType() == PushNotificationService.TYPE_COMMENT) {
+            goToActivity(CardDetailsActivity.class);
+            return;
+        }
+
+        setContentView(R.layout.activity_splash);
         LocalUserInfo userInfo = LocalUserInfo.getInstance();
         String userJson = userInfo.getUserInfo(User.CURRENT_USER_KEY);
         Log.d("user_json", userJson);

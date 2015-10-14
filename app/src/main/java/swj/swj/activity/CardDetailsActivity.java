@@ -76,11 +76,9 @@ public class CardDetailsActivity extends Activity {
         }
 
         Notification notification = getIntent().getParcelableExtra("notification");
-        if (notification != null) {
-            if (notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
-                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-                loadPost(comment.getPostId());
-            }
+        if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
+            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            loadPost(comment.getPostId());
         }
     }
 
