@@ -51,17 +51,24 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="swj.swj.model.Notification" />
-        <meta-data android:name="AA_SERIALIZERS"
+        <meta-data
+            android:name="AA_SERIALIZERS"
             android:value="swj.swj.common.AAJodaDateTimeSerializer" />
 
         <activity
-            android:name=".activity.SplashActivity"
-            android:label="@string/title_activity_splash"
-            android:noHistory="true">
+            android:name=".activity.HomeActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CardDetailsActivity"
+            android:label="@string/title_activity_card_details">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeActivity" />
         </activity>
         <activity android:name=".activity.PersonalSettingsActivity" />
         <activity android:name=".activity.PersonalProfileActivity" />
@@ -70,9 +77,6 @@
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.PublishActivity" />
         <activity android:name=".activity.AddTextActivity" />
-        <activity
-            android:name=".activity.HomeActivity"
-            android:label="@string/app_name"></activity>
         <activity android:name=".activity.ResetPhoneActivity" />
         <activity android:name=".activity.ResetPhoneStepTwoActivity" />
         <activity android:name=".activity.LoginActivity" />
@@ -86,8 +90,5 @@
         <activity
             android:name=".activity.UserHomeActivity"
             android:label="@string/title_activity_user_home" />
-        <activity
-            android:name=".activity.CardDetailsActivity"
-            android:label="@string/title_activity_card_details" />
     </application>
 </manifest>

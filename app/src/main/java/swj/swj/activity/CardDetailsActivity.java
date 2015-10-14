@@ -12,9 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -31,7 +28,6 @@ import swj.swj.adapter.CardDetailsAdapter;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
-import swj.swj.common.GsonJodaTimeHandler;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.PushNotificationService;
 import swj.swj.common.ResetViewClickable;

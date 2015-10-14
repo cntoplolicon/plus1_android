@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
-import swj.swj.common.PushNotificationService;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
@@ -43,7 +42,6 @@ public class HomeActivity extends Activity {
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
-
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
         fragments.put(R.id.rb_friends, new HomeActivityFragment(FriendFragment.class, R.string.friends_tab));
@@ -60,7 +58,6 @@ public class HomeActivity extends Activity {
         switchTab(R.id.rb_home);
         if (getIntent().getParcelableExtra("notification") != null) {
             Intent intent = new Intent(this, CardDetailsActivity.class);
-            PushNotificationService.copyNotification(getIntent(), intent);
             startActivity(intent);
         }
         if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {

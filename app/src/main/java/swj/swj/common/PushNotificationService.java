@@ -6,12 +6,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -23,7 +22,6 @@ import org.joda.time.DateTime;
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
-import swj.swj.activity.SplashActivity;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
 
@@ -96,9 +94,12 @@ public class PushNotificationService {
         notification.setReceiveTime(DateTime.now());
         notification.save();
 
-        Intent intent = new Intent(context, SplashActivity.class);
+        Intent intent = new Intent(context, CardDetailsActivity.class);
         intent.putExtra("notification", notification);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(CardDetailsActivity.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notificaiton_small)
                 .setContentTitle("new comment")
@@ -106,13 +107,6 @@ public class PushNotificationService {
                 .setContentIntent(pendingIntent);
         NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
         notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
-    }
-
-    public static void copyNotification(Intent from, Intent to) {
-        Notification notification = from.getParcelableExtra("notification");
-        if (notification != null) {
-            to.putExtra("notification", notification);
-        }
     }
 
     private static class NotifyPromiseListener implements IMqttActionListener {
