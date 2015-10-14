@@ -1,8 +1,8 @@
 package swj.swj.common;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -14,8 +14,6 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,21 +89,10 @@ public final class CommonMethods {
         return builder;
     }
 
-    public static byte[] bitmap2ByteArray(Bitmap b) throws IOException {
-        ByteArrayOutputStream os = null;
-        try {
-            os = new ByteArrayOutputStream();
-            b.compress(Bitmap.CompressFormat.PNG, 0, os);
-            return os.toByteArray();
-        } finally {
-            if (os != null) {
-                os.close();
-            }
-        }
-    }
-
     public static void clientSideSignOut(Context context) {
         User.clearCurrentUser();
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
         InfectionsAdapter.getInstance().reset();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
