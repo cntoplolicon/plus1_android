@@ -20,6 +20,7 @@ import swj.swj.activity.CardDetailsActivity;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.application.SnsApplication;
+import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
 import swj.swj.view.HeaderGridView;
@@ -62,6 +63,7 @@ public class MySelfFragment extends Fragment {
 
         postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
         bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
+        BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
         gridView.setAdapter(postsAdapater);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +84,12 @@ public class MySelfFragment extends Fragment {
     public void onResume() {
         super.onResume();
         showCurrentUserInfo();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BookmarkService.getInstance().setCallback(null);
     }
 
     private void showCurrentUserInfo() {
@@ -106,6 +114,14 @@ public class MySelfFragment extends Fragment {
         if (view.getId() != currentTab) {
             currentTab = view.getId();
             gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
+        }
+    }
+
+    private class BookmarkChangedCallback implements BookmarkService.Callback {
+
+        @Override
+        public void onBookmarkChanged() {
+            bookmarksAdapater.updateContent(BookmarkService.getInstance().getBookmarkedPosts());
         }
     }
 }
