@@ -100,7 +100,7 @@ public class PushNotificationService {
         intent.putExtra("notification", notification);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.default_useravatar)
+                .setSmallIcon(R.drawable.notificaiton_small)
                 .setContentTitle("new comment")
                 .setContentText("new comment to you")
                 .setContentIntent(pendingIntent);
