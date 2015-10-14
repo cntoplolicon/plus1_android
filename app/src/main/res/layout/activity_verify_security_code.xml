@@ -38,18 +38,18 @@
             android:id="@+id/et_security_code"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_alignLeft="@+id/tv_action_bar_bottom_border"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tv_action_bar_bottom_border"
-            android:layout_marginLeft="56dp"
-            android:layout_marginStart="56dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginStart="52dp"
             android:background="@null"
             android:gravity="center"
             android:hint="@string/hint_security_code"
             android:textSize="13sp"
             android:inputType="phone"
             android:textColorHint="@color/et_hint"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/register_line"
+            android:layout_alignStart="@+id/register_line" />
 
         <TextView
             android:id="@+id/register_line"
@@ -68,7 +68,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:background="@color/white"
+            android:background="@drawable/btn_submit"
             android:text="@string/send_again"
             android:textSize="16sp"
             android:textColor="@color/register_button_text_color" />
