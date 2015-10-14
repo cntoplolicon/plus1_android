@@ -4,35 +4,37 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import org.jdeferred.DoneCallback;
+import org.json.JSONArray;
 
 import swj.swj.R;
-import swj.swj.bean.CardDetailsItemBean;
+import swj.swj.common.CommonMethods;
+import swj.swj.common.JsonErrorListener;
+import swj.swj.common.RestClient;
+import swj.swj.model.Comment;
+import swj.swj.model.Post;
 
 /**
  * Created by shw on 2015/9/14.
  */
-public class CardDetailsAdapter extends BaseAdapter {
-    private List<CardDetailsItemBean> mList;
+public class CardDetailsAdapter extends ArrayAdapter<Comment> {
     private LayoutInflater mInflater;
 
-    public CardDetailsAdapter(Context context, List<CardDetailsItemBean> list) {
-        mList = list;
+    public CardDetailsAdapter(Context context, Post post) {
+        super(context, 0);
+        RestClient.getInstance().getPostComments(post.getId()).done(new DoneCallback<JSONArray>() {
+            @Override
+            public void onDone(JSONArray response) {
+                Comment[] comments = CommonMethods.createDefaultGson().fromJson(response.toString(), Comment[].class);
+                CardDetailsAdapter.this.addAll(comments);
+                notifyDataSetChanged();
+            }
+        }).fail(new JsonErrorListener(context, null));
         mInflater = LayoutInflater.from(context);
-    }
-
-    @Override
-    public int getCount() {
-        return mList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mList.get(position);
     }
 
     @Override
@@ -53,10 +55,11 @@ public class CardDetailsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        CardDetailsItemBean bean = mList.get(position);
-        viewHolder.imageView.setImageResource(bean.getImageView());
-        viewHolder.userName.setText(bean.getUserName());
-        viewHolder.context.setText(bean.getContent());
+
+        Comment comment = getItem(position);
+        viewHolder.imageView.setImageResource(R.drawable.default_useravatar);
+        viewHolder.userName.setText(comment.getUser().getNickname());
+        viewHolder.context.setText(comment.getContent());
         return convertView;
     }
 

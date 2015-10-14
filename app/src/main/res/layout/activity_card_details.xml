@@ -52,7 +52,8 @@
         android:id="@+id/lv_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/action_bar"></ListView>
+        android:layout_below="@id/action_bar"
+        android:layout_marginBottom="48dp"></ListView>
 
     <FrameLayout
         android:id="@+id/fl_card_details"
@@ -79,7 +80,7 @@
                 app:border_width="2px" />
 
             <EditText
-                android:id="@+id/ed"
+                android:id="@+id/et_new_comment"
                 android:layout_width="224dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
@@ -96,11 +97,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/ed"
+                android:layout_toRightOf="@id/et_new_comment"
                 android:background="#FED724"
                 android:gravity="center"
                 android:text="发送"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:id="@+id/btn_send_comment"/>
         </RelativeLayout>
     </FrameLayout>
 

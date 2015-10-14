@@ -349,4 +349,32 @@ public class RestClient {
             deferredObject.resolve(error);
         }
     }
+
+    public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                encodeUrlParams("/posts/" + postId + "/comments", params), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONObject, VolleyError, Void> newComment(String content, int replyToId, int postId) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> userParams = createUserParams();
+        userParams.put("reply_to_id", replyToId);
+        userParams.put("content", content);
+
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/posts/" + postId + "/comments"), userParams, listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
 }

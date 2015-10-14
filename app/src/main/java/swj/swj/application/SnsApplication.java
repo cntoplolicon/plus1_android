@@ -11,10 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import io.yunba.android.manager.YunBaManager;
 import swj.swj.BuildConfig;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.LocalUserInfo;
