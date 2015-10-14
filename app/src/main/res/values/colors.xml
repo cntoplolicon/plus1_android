@@ -17,6 +17,7 @@
     <color name="profile_input_background">#efefef</color>
     <color name="profile_common_text">#303030</color>
     <color name="profile_hint_text">#929292</color>
+    <color name="register_button_text_color">#666666</color>
 
     <color name="home_title_color">#b3b3b3</color>
     <color name="register_hint_color">#bababa</color>

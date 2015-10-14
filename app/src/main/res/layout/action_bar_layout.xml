@@ -3,14 +3,15 @@
     android:layout_height="51dp"
     android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/tv_action_bar_bottom_border"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/home_title_color" />
+        android:padding="15dp"
+        android:src="@drawable/top_bar_back" />
 
     <TextView
         android:id="@+id/tv_page_title"
@@ -22,14 +23,15 @@
         android:layout_marginBottom="15dp"
         android:textSize="@dimen/home_title_text_size" />
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/tv_action_bar_bottom_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="15dp"
-        android:src="@drawable/top_bar_back" />
+        android:background="@color/home_title_color" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,8 +45,8 @@
             style="@style/GNowProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:visibility="gone" />
     </FrameLayout>
 
 </RelativeLayout>
