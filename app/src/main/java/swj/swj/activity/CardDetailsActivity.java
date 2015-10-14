@@ -51,6 +51,8 @@ public class CardDetailsActivity extends Activity {
     @Bind(R.id.et_new_comment)
     EditText etNewComment;
 
+    ListView lvListView;
+
     private Post post;
     private CardDetailsAdapter cardDetailsAdapter;
 
@@ -59,18 +61,24 @@ public class CardDetailsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
-        initData();
-
+        initListView();
         ButterKnife.bind(this);
 
-        updatePostInfo();
-        syncBookmarkInfo();
+        String postJson = getIntent().getStringExtra("post_json");
+        if (postJson != null) {
+            post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
+            updatePostInfo();
+        }
+    }
+
+    private void initListView() {
+        lvListView = (ListView) findViewById(R.id.lv_listview);
+        lvListView.setDividerHeight(0);
+        View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
+        lvListView.addHeaderView(headerView, null, false);
     }
 
     private void updatePostInfo() {
-        String postJson = getIntent().getStringExtra("post_json");
-        post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
-
         tvContent.setText(post.getPostPages()[0].getText());
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
@@ -87,16 +95,12 @@ public class CardDetailsActivity extends Activity {
             ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
         }
+
+        syncBookmarkInfo();
+        loadComments();
     }
 
-    private void initData() {
-        String postJson = getIntent().getStringExtra("post_json");
-        post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
-
-        ListView lvListView = (ListView) findViewById(R.id.lv_listview);
-        lvListView.setDividerHeight(0);
-        View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
-        lvListView.addHeaderView(headerView, null, false);
+    private void loadComments() {
         cardDetailsAdapter = new CardDetailsAdapter(this, post);
         lvListView.setAdapter(cardDetailsAdapter);
     }
