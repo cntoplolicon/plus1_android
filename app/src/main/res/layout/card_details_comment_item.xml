@@ -7,38 +7,37 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imc_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:padding="5dp"
         android:src="@drawable/default_useravatar"
-        app:border_color="#b3b3b3"
+        app:border_color="#fed724"
         app:border_width="2px" />
 
     <TextView
         android:id="@+id/tv_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/imc_image"
         android:text="阳光少年"
         android:textColor="#00aeef"
-        android:textSize="12dp" />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_user"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/imc_image"
-        android:lines="2"
         android:text="阳光少年"
-        android:textColor="#5c5c5c"
-        android:textSize="12dp" />
+        android:textColor="#999999"
+        android:textSize="13dp" />
 </RelativeLayout>

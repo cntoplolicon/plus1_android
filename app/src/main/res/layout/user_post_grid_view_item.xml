@@ -2,14 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="162dp"
         android:layout_height="162dp"
-        android:layout_marginRight="15dp"
         android:background="@drawable/personal_image_border"
         android:src="@drawable/default_useravatar"></ImageView>
 
@@ -19,7 +17,6 @@
         android:layout_height="28dp"
         android:layout_alignBottom="@+id/iv_image"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="15dp"
         android:background="@drawable/bg_personal_image">
 
         <TextView

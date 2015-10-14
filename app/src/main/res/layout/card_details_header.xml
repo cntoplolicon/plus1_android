@@ -1,19 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_useravatar"
+        app:border_color="#fed724"
+        app:border_width="2px" />
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/icon_woman"
+        android:text="用户昵称"
+        android:textColor="@color/personal_common_female_username"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_user"
+        android:layout_below="@+id/tv_user"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/icon_address"
+        android:drawablePadding="10dp"
+        android:maxLines="2"
+        android:minLines="1"
+        android:text="北京市朝阳区"
+        android:textColor="#999999"
+        android:textSize="@dimen/personal_profile_text" />
+
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/action_bar"
+        android:layout_below="@id/iv_avatar"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
-        android:maxHeight="@dimen/home_img_height"
-        android:maxWidth="500dp"
+        android:maxHeight="330dp"
+        android:maxWidth="330dp"
         android:scaleType="centerInside" />
 
     <TextView
@@ -21,31 +66,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_image"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:ellipsize="end"
-        android:lines="2"
-        android:text="  你最大的梦想是什么？你做了哪些努力？你都遇到了哪些问题？"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/tv_line"
-        android:layout_width="wrap_content"
-        android:layout_height="1px"
-        android:layout_below="@id/tv_content"
+        android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/icon_line" />
+        android:text="你最大的梦想是什么？你做了哪些努力？你都遇到了哪些问题？"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_line"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="35dp"
         android:drawableLeft="@drawable/icon_comment"
         android:drawablePadding="5dp"
         android:text="21"
@@ -55,11 +90,10 @@
         android:id="@+id/tv_views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_line"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/tv_comments"
+        android:layout_below="@id/tv_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="35dp"
+        android:layout_toLeftOf="@id/tv_comments"
         android:drawableLeft="@drawable/icon_views"
         android:drawablePadding="5dp"
         android:text="150"
@@ -69,51 +103,17 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_line"
-        android:layout_marginBottom="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_content"
+        android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/tv_views"
-        android:drawableLeft="@drawable/icon_tiem"
-        android:drawablePadding="5dp"
-        android:text="四天前"
+        android:text="今日2:20"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tv_line"
-        android:layout_marginLeft="61dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/tv_time"
-        android:drawableLeft="@drawable/icon_address"
-        android:drawablePadding="5dp"
-        android:text="北京，朝阳"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tv_lines"
-        android:layout_width="wrap_content"
-        android:layout_height="1px"
-        android:layout_below="@id/tv_location"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/icon_line" />
-
-    <TextView
-        android:id="@+id/tv_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_lines"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:text="评论"
-        android:textColor="#303030"
-        android:textSize="14sp" />
+        android:id="@+id/tv_line"
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:layout_below="@id/tv_views"
+        android:background="#fed724" />
 </RelativeLayout>

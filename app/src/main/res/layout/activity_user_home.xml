@@ -25,22 +25,17 @@
         </swj.swj.view.ActionBarLayout>
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="15dp"
-        android:layout_height="162dp"
-        android:layout_below="@id/fl_title"
-        android:background="#0000"
-        android:visibility="invisible" />
-
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_user_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fl_title"
-        android:layout_toRightOf="@id/tv"
-        android:numColumns="2"
-        android:verticalSpacing="15dp" >
-    </swj.swj.view.HeaderGridView>>
+        android:background="#fff"
+        android:horizontalSpacing="5dp"
+        android:numColumns="auto_fit"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:verticalSpacing="5dp"></swj.swj.view.HeaderGridView>>
 </RelativeLayout>
 
