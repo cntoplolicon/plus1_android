@@ -100,6 +100,7 @@ public class InfectionsAdapter {
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         String imagePath = post.getPostPages()[0].getImage();
         if (imagePath == null || imagePath.isEmpty()) {
+            itemViews.ivImage.setImageBitmap(null);
             itemViews.ivImage.setVisibility(View.VISIBLE);
         } else {
             itemViews.ivImage.setVisibility(View.VISIBLE);
