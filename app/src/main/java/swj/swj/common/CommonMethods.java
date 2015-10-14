@@ -81,10 +81,14 @@ public final class CommonMethods {
     }
 
     public static Gson createDefaultGson() {
+        return defaultGsonBuilder().create();
+    }
+
+    public static GsonBuilder defaultGsonBuilder() {
         GsonBuilder builder = new GsonBuilder();
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         builder.registerTypeAdapter(DateTime.class, new GsonJodaTimeHandler());
-        return builder.create();
+        return builder;
     }
 
     public static byte[] bitmap2ByteArray(Bitmap b) throws IOException {

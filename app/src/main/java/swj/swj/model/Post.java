@@ -12,6 +12,7 @@ public class Post {
     private int commentsCount;
     private User user;
     private PostPage[] postPages;
+    private Comment[] comments;
     private DateTime createdAt;
 
     public int getId() {
@@ -60,6 +61,14 @@ public class Post {
 
     public void setPostPages(PostPage[] postPages) {
         this.postPages = postPages;
+    }
+
+    public Comment[] getComments() {
+        return comments;
+    }
+
+    public void setComments(Comment[] comments) {
+        this.comments = comments;
     }
 
     public DateTime getCreatedAt() {

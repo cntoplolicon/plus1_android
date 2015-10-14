@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -28,10 +31,13 @@ import swj.swj.adapter.CardDetailsAdapter;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
+import swj.swj.common.GsonJodaTimeHandler;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.PushNotificationService;
 import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.Comment;
+import swj.swj.model.Notification;
 import swj.swj.model.Post;
 
 public class CardDetailsActivity extends Activity {
@@ -56,7 +62,6 @@ public class CardDetailsActivity extends Activity {
     private Post post;
     private CardDetailsAdapter cardDetailsAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +74,14 @@ public class CardDetailsActivity extends Activity {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
             updatePostInfo();
         }
+
+        Notification notification = getIntent().getParcelableExtra("notification");
+        if (notification != null) {
+            if (notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
+                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+                loadPost(comment.getPostId());
+            }
+        }
     }
 
     private void initListView() {
@@ -76,6 +89,16 @@ public class CardDetailsActivity extends Activity {
         lvListView.setDividerHeight(0);
         View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         lvListView.addHeaderView(headerView, null, false);
+    }
+
+    private void loadPost(int postId) {
+        RestClient.getInstance().getPost(postId).done(new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject result) {
+                post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
+                updatePostInfo();
+            }
+        }).fail(new JsonErrorListener(getApplicationContext(), null));
     }
 
     private void updatePostInfo() {

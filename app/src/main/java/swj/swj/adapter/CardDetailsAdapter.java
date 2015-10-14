@@ -26,15 +26,19 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
 
     public CardDetailsAdapter(Context context, Post post) {
         super(context, 0);
-        RestClient.getInstance().getPostComments(post.getId()).done(new DoneCallback<JSONArray>() {
-            @Override
-            public void onDone(JSONArray response) {
-                Comment[] comments = CommonMethods.createDefaultGson().fromJson(response.toString(), Comment[].class);
-                CardDetailsAdapter.this.addAll(comments);
-                notifyDataSetChanged();
-            }
-        }).fail(new JsonErrorListener(context, null));
         mInflater = LayoutInflater.from(context);
+        if (post.getComments() == null) {
+            RestClient.getInstance().getPostComments(post.getId()).done(new DoneCallback<JSONArray>() {
+                @Override
+                public void onDone(JSONArray response) {
+                    Comment[] comments = CommonMethods.createDefaultGson().fromJson(response.toString(), Comment[].class);
+                    CardDetailsAdapter.this.addAll(comments);
+                    notifyDataSetChanged();
+                }
+            }).fail(new JsonErrorListener(context, null));
+        } else {
+            addAll(post.getComments());
+        }
     }
 
     @Override

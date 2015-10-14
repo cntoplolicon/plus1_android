@@ -1,6 +1,11 @@
 package swj.swj.common;
 
+import android.app.Application;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +21,9 @@ import org.jdeferred.impl.DeferredObject;
 import org.joda.time.DateTime;
 
 import io.yunba.android.manager.YunBaManager;
+import swj.swj.R;
+import swj.swj.activity.CardDetailsActivity;
+import swj.swj.activity.SplashActivity;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
 
@@ -23,6 +31,8 @@ import swj.swj.model.User;
  * Created by cntoplolicon on 10/12/15.
  */
 public class PushNotificationService {
+
+    public static final String TYPE_COMMENT = "comment";
 
     private static PushNotificationService instance;
     private Context context;
@@ -73,7 +83,7 @@ public class PushNotificationService {
         if (user == null || !user.isNotificationsEnabled()) {
             return new String[]{};
         }
-        return new String[]{user.getUsername()};
+        return new String[]{"user_" + user.getId()};
     }
 
     public static PushNotificationService getInstance() {
@@ -81,14 +91,28 @@ public class PushNotificationService {
     }
 
     public void handleNotification(String topic, String message) {
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .registerTypeAdapter(DateTime.class, new GsonJodaTimeHandler())
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
+        Gson gson = CommonMethods.defaultGsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         Notification notification = gson.fromJson(message, Notification.class);
         notification.setReceiveTime(DateTime.now());
         notification.save();
+
+        Intent intent = new Intent(context, User.current == null ? SplashActivity.class : CardDetailsActivity.class);
+        intent.putExtra("notification", notification);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.default_useravatar)
+                .setContentTitle("new comment")
+                .setContentText("new comment to you")
+                .setContentIntent(pendingIntent);
+        NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
+        notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
+    }
+
+    public static void copyNotification(Intent from, Intent to) {
+        Notification notification = from.getParcelableExtra("notification");
+        if (notification != null) {
+            to.putExtra("notification", notification);
+        }
     }
 
     private static class NotifyPromiseListener implements IMqttActionListener {

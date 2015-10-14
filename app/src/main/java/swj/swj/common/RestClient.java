@@ -35,7 +35,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.148:9393";
     private static final String RELEASE_SERVER_URL = "http://liuxingapp:3000";
     private static final boolean POST_VIEWS_ENABLED = false;
 
@@ -64,6 +64,38 @@ public class RestClient {
     private String getResourceUrl(String path) {
         String serverUrl = BuildConfig.DEBUG ? DEBUG_SERVER_URL : RELEASE_SERVER_URL;
         return serverUrl + path;
+    }
+    private String encodeUrlParams(String path, Map<String, Object> params) {
+        Uri.Builder uri = Uri.parse(getResourceUrl(path)).buildUpon();
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            uri.appendQueryParameter(entry.getKey(), String.valueOf(entry.getValue()));
+        }
+        return uri.build().toString();
+    }
+
+    private Map<String, Object> createUserParams() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id", User.current.getId());
+        params.put("access_token", User.current.getAccessToken());
+        return params;
+    }
+
+    private static class PromiseListener<T> implements Listener<T>, ErrorListener {
+        private DeferredObject<T, VolleyError, ?> deferredObject;
+
+        private PromiseListener(DeferredObject<T, VolleyError, ?> deferredObject) {
+            this.deferredObject = deferredObject;
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            deferredObject.reject(error);
+        }
+
+        @Override
+        public void onResponse(T error) {
+            deferredObject.resolve(error);
+        }
     }
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Account(String username) {
@@ -317,38 +349,6 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    private String encodeUrlParams(String path, Map<String, Object> params) {
-        Uri.Builder uri = Uri.parse(getResourceUrl(path)).buildUpon();
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            uri.appendQueryParameter(entry.getKey(), String.valueOf(entry.getValue()));
-        }
-        return uri.build().toString();
-    }
-
-    private Map<String, Object> createUserParams() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id", User.current.getId());
-        params.put("access_token", User.current.getAccessToken());
-        return params;
-    }
-
-    private static class PromiseListener<T> implements Listener<T>, ErrorListener {
-        private DeferredObject<T, VolleyError, ?> deferredObject;
-
-        private PromiseListener(DeferredObject<T, VolleyError, ?> deferredObject) {
-            this.deferredObject = deferredObject;
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            deferredObject.reject(error);
-        }
-
-        @Override
-        public void onResponse(T error) {
-            deferredObject.resolve(error);
-        }
-    }
 
     public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
         DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
@@ -377,4 +377,15 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> getPost(int postId) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> userParams = createUserParams();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                encodeUrlParams("/posts/" + postId, userParams), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
 }

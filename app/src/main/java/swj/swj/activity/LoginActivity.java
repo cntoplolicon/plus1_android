@@ -19,6 +19,7 @@ import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.PushNotificationService;
 import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
@@ -51,7 +52,8 @@ public class LoginActivity extends Activity {
                             @Override
                             public void onDone(JSONObject response) {
                                 User.updateCurrentUser(response.toString());
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intent);
                                 finish();
                             }
                         }).fail(

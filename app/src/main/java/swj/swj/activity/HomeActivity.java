@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
+import swj.swj.common.PushNotificationService;
 import swj.swj.fragment.FriendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
@@ -57,6 +58,11 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         switchTab(R.id.rb_home);
+        if (getIntent().getParcelableExtra("notification") != null) {
+            Intent intent = new Intent(this, CardDetailsActivity.class);
+            PushNotificationService.copyNotification(getIntent(), intent);
+            startActivity(intent);
+        }
         if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
             loadProgressBar(PublishActivity.getPromise());
         }

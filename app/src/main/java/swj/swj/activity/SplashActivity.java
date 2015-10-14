@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.activeandroid.util.SQLiteUtils;
+
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
@@ -14,6 +16,7 @@ import swj.swj.R;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
+import swj.swj.common.PushNotificationService;
 import swj.swj.common.RestClient;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
@@ -22,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goToActivity(Class<?> activity) {
         Intent intent = new Intent(this, activity);
+        PushNotificationService.copyNotification(getIntent(), intent);
         startActivity(intent);
     }
 
@@ -44,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onDone(JSONArray response) {
                         SnsApplication.setImageServerUrl(response.optString(0));
                     }
+
                 }).fail(new JsonErrorListener(getApplicationContext(), null));
 
         if (!userJson.isEmpty()) {
@@ -52,8 +57,5 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             goToActivity(LoginActivity.class);
         }
-
-        List<Notification> notifications = Notification.getAll();
-        Log.d(SplashActivity.class.getName(), notifications.size() + " notifications loaded");
     }
 }
