@@ -29,6 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="71dp"
+        android:src="@drawable/default_useravatar"
         app:border_color="#b3b3b3"
         android:src="@drawable/default_useravatar"
         app:border_width="2px" />
