@@ -49,9 +49,9 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:tag="text"
-                android:text="好无聊:)"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                android:text="换一个~"
+                android:textColor="#fefefe"
+                android:textSize="16sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -71,9 +71,9 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:tag="text"
-                android:text="传播出去~"
-                android:textColor="@android:color/white"
-                android:textSize="25sp" />
+                android:text="传播出去喽~"
+                android:textColor="#fefefe"
+                android:textSize="16sp" />
         </FrameLayout>
     </swj.swj.view.HomePageLayout>
 </FrameLayout>

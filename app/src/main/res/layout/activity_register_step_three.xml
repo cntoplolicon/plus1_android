@@ -29,8 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="71dp"
-        app:border_color="#b3b3b3"
         android:src="@drawable/default_useravatar"
+        app:border_color="#b3b3b3"
         app:border_width="2px" />
 
 
@@ -47,8 +47,8 @@
         android:background="@color/et_background"
         android:hint="@string/nickname"
         android:paddingLeft="60dp"
-        android:textCursorDrawable="@drawable/color_cursor"
-        android:textColorHint="@color/et_hint" />
+        android:textColorHint="@color/et_hint"
+        android:textCursorDrawable="@drawable/color_cursor" />
 
     <EditText
         android:id="@+id/et_password"
@@ -66,8 +66,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="60dp"
-        android:textCursorDrawable="@drawable/color_cursor"
-        android:textColorHint="@color/et_hint" />
+        android:textColorHint="@color/et_hint"
+        android:textCursorDrawable="@drawable/color_cursor" />
 
     <TextView
         android:id="@+id/iv_gender"

@@ -1,11 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
@@ -53,36 +54,5 @@
             android:text="我相信"
             android:textColor="#999999"
             android:textSize="13dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_biography"
-            android:layout_marginTop="@dimen/personal_grid_title_margin"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_myself_publish"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/personal_grid_title_height"
-                android:layout_weight="0.50"
-                android:background="@drawable/personal_tv_border_left_pressed"
-                android:gravity="center"
-                android:text="我发布的"
-                android:textColor="@color/personal_gridview_title_pressed"
-                android:textSize="@dimen/personal_grid_title_text" />
-
-            <TextView
-                android:id="@+id/tv_myself_collect"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/personal_grid_title_height"
-                android:layout_weight="0.50"
-                android:background="@drawable/personal_tv_border_right_unpressed"
-                android:gravity="center"
-                android:text="我的收藏"
-                android:textColor="@color/personal_gridview_title_unpressed"
-                android:textSize="@dimen/personal_grid_title_text" />
-        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

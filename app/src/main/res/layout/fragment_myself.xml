@@ -1,23 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="15dp"
-        android:layout_height="162dp"
-        android:background="#0000"
-        android:visibility="invisible" />
+    android:layout_height="match_parent">
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/tv"
-        android:horizontalSpacing="4dp"
-        android:numColumns="2"
-        android:verticalSpacing="4dp">
-    </swj.swj.view.HeaderGridView>
+        android:horizontalSpacing="5dp"
+        android:numColumns="auto_fit"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:verticalSpacing="5dp"></swj.swj.view.HeaderGridView>
 
 </RelativeLayout>
