@@ -22,6 +22,7 @@ import org.joda.time.DateTime;
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
+import swj.swj.model.Comment;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
 
@@ -34,6 +35,7 @@ public class PushNotificationService {
 
     private static PushNotificationService instance;
     private Context context;
+    private String notificationBarBody = "";
 
     public static void init(final Context context) {
         YunBaManager.start(context);
@@ -82,7 +84,7 @@ public class PushNotificationService {
     }
 
     private String[] getUserTopics(int userId) {
-        return new String[] {"user_" + userId};
+        return new String[]{"user_" + userId};
     }
 
     public static PushNotificationService getInstance() {
@@ -106,10 +108,14 @@ public class PushNotificationService {
         stackBuilder.addParentStack(CardDetailsActivity.class);
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
+            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            notificationBarBody = comment.getUser().getNickname() + (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
+        }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notificaiton_small)
-                .setContentTitle("new comment")
-                .setContentText("new comment to you")
+                .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
+                .setContentText(notificationBarBody)
                 .setContentIntent(pendingIntent);
         NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
         notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());

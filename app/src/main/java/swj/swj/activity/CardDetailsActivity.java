@@ -157,7 +157,7 @@ public class CardDetailsActivity extends Activity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmard_added), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmark_added), Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().addBookmark(post);
                             }
                             syncBookmarkInfo();
@@ -172,7 +172,7 @@ public class CardDetailsActivity extends Activity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmard_removed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmark_removed), Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().removeBookmark(post);
                             }
                             syncBookmarkInfo();
