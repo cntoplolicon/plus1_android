@@ -15,8 +15,8 @@
 
         <Button
             android:id="@+id/btn_image"
-            android:layout_width="@dimen/publish_button"
-            android:layout_height="@dimen/publish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="26dp"
             android:background="@drawable/btn_add_image"
@@ -25,8 +25,8 @@
 
         <Button
             android:id="@+id/btn_text"
-            android:layout_width="@dimen/publish_button"
-            android:layout_height="@dimen/publish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="26dp"
             android:background="@drawable/btn_add_text"

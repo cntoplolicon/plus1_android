@@ -35,7 +35,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
 
     private boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
-            CommonDialog.showDialog(this, getResources().getString(R.string.username_invalid_format));
+            CommonDialog.showDialog(this, R.string.username_invalid_format);
             return false;
         }
         return true;

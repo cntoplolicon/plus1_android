@@ -11,13 +11,18 @@ import swj.swj.R;
  * Created by Administrator on 2015/10/15.
  */
 public class CommonDialog {
+
     public static void showDialog(Context context, String dialogMsg) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.custom_dialog);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_reminder);
-        tvCancel.setText(dialogMsg);
+        TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
+        tvReminder.setText(dialogMsg);
+    }
+
+    public static void showDialog(Context context, int resourceId) {
+        showDialog(context, context.getResources().getString(resourceId));
     }
 }

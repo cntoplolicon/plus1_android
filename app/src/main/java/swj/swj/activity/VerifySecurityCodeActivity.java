@@ -53,7 +53,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
 
     protected boolean inputValidation() {
         if (!CommonMethods.isValidSCode(securityCodeInput.getText().toString().trim())) {
-            CommonDialog.showDialog(this, getResources().getString(R.string.security_code_invalid_format));
+            CommonDialog.showDialog(this, R.string.security_code_invalid_format);
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonDialog.showDialog(VerifySecurityCodeActivity.this, getResources().getString(R.string.security_code_incorrect));
+                        CommonDialog.showDialog(VerifySecurityCodeActivity.this, R.string.security_code_incorrect);
                     }
                 })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }

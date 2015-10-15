@@ -75,10 +75,10 @@ public class LoginActivity extends Activity {
 
     private boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
-            CommonDialog.showDialog(this, getResources().getString(R.string.username_invalid_format));
+            CommonDialog.showDialog(this, R.string.username_invalid_format);
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString().trim())) {
-            CommonDialog.showDialog(this, getResources().getString(R.string.password_invalid_format));
+            CommonDialog.showDialog(this, R.string.password_invalid_format);
             return false;
         }
         return true;

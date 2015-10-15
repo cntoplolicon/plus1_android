@@ -17,7 +17,6 @@
     <color name="profile_input_background">#efefef</color>
     <color name="profile_common_text">#303030</color>
     <color name="profile_hint_text">#929292</color>
-    <color name="register_button_text_color">#666666</color>
 
     <color name="home_title_color">#b3b3b3</color>
     <color name="register_hint_color">#bababa</color>
@@ -29,8 +28,7 @@
     <item name="black" type="color">#000000</item>
     <item name="test_yellow" type="color">#fed724</item>
     <item name="action_bar_border" type="color">#b3b3b3</item>
-    <item name="login_page_link" type="color">#00aeef</item>
-    <item name="et_hint" type="color">#bababa</item>
+    <!--<item name="et_hint" type="color">#bababa</item>-->
     <item name="et_background" type="color">#f5f5f5</item>
 
     <color name="edit_text_cursor_color">#31C37C</color>
@@ -51,4 +49,14 @@
     <color name="gplus_color_5">#fed724</color>
     <color name="gplus_color_6">#7ee2ff</color>
 
+
+
+
+
+    <color name="common_hint_color">#b4b4b4</color>
+    <color name="common_button_text_color">#666666</color>
+    <color name="register_substantive">#999999</color>
+    <color name="register_security_code">#00AAEF</color>
+    <color name="register_three_gender">#666666</color>
+    <color name="register_dialog_reminder">#939393</color>
 </resources>

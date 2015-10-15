@@ -19,12 +19,12 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="@dimen/register_head_image_width_height"
+        android:layout_height="@dimen/register_head_image_width_height"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="44dp"
         android:src="@drawable/default_useravatar"
         app:border_color="#b3b3b3"
         app:border_width="2px" />
@@ -36,12 +36,12 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/register_image_camera_width_height"
+            android:layout_height="@dimen/register_image_camera_width_height"
             android:layout_alignLeft="@+id/et_nickname"
             android:layout_alignStart="@+id/et_nickname"
             android:layout_alignTop="@+id/et_nickname"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
             android:layout_marginTop="10dp"
             android:src="@drawable/username" />
 
@@ -49,17 +49,15 @@
             android:id="@+id/et_nickname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/register_three_spacing_username"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:background="@null"
             android:hint="@string/nickname"
             android:paddingLeft="60dp"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/common_hint_text_size" />
 
         <TextView
             android:id="@+id/register_line"
@@ -79,34 +77,34 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/register_image_camera_width_height"
+            android:layout_height="@dimen/register_image_camera_width_height"
             android:layout_alignLeft="@+id/et_password"
             android:layout_alignStart="@+id/et_password"
             android:layout_alignTop="@+id/et_password"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
             android:layout_marginTop="10dp"
             android:src="@drawable/password" />
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/register_three_spacing_username"
             android:layout_marginTop="10dp"
             android:background="@null"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:paddingLeft="60dp"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/common_hint_text_size" />
 
         <TextView
             android:id="@+id/register_line2"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/register_margin_line_height"
             android:layout_alignBottom="@+id/et_password"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
@@ -118,15 +116,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <RadioGroup
             android:id="@+id/rg_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="53dp"
+            android:layout_toRightOf="@+id/iv_gender"
             android:orientation="horizontal">
 
             <RadioButton
@@ -134,31 +131,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="40dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginLeft="60dp"
                 android:text="@string/set_gender_male"
-                android:textColor="@color/register_button_text_color" />
+                android:textColor="@color/register_three_gender" />
 
             <RadioButton
                 android:id="@+id/rb_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="36dp"
-                android:layout_marginStart="36dp"
+                android:layout_marginLeft="40dp"
                 android:text="@string/set_gender_female"
-                android:textColor="@color/register_button_text_color" />
+                android:textColor="@color/register_three_gender" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/iv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/register_three_margin_garden"
             android:text="@string/set_gender"
-            android:textColor="@color/register_button_text_color"
-            android:textSize="16sp" />
+            android:textColor="@color/register_three_gender"
+            android:textSize="@dimen/register_security_code" />
 
     </RelativeLayout>
 
@@ -168,20 +162,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/common_margin_left_right"
         android:text="@string/gender_can_not_change"
-        android:textColor="@color/register_button_text_color"
-        android:textSize="13sp" />
+        android:textColor="@color/register_three_gender"
+        android:textSize="@dimen/register_three_reminder" />
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="@dimen/register_margin_top_button_finish"
         android:background="@color/test_yellow"
-        android:text="@string/submit" />
+        android:text="@string/submit"
+        android:textColor="@color/common_button_text_color"
+        android:textSize="@dimen/register_button_text_size" />
 
 
 </LinearLayout>
