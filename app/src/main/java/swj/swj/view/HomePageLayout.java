@@ -73,11 +73,11 @@ public class HomePageLayout extends ViewGroup {
         if (contentView == null || contentView.getParent() != null) {
             return;
         }
-        ImageView imageView = (ImageView)contentView.findViewById(R.id.iv_image);
+        ImageView imageView = (ImageView) contentView.findViewById(R.id.iv_image);
         Drawable drawable = imageView.getDrawable();
         if (drawable instanceof BitmapDrawable) {
             imageView.setImageBitmap(null);
-            BitmapDrawable bitmapDrawable = (BitmapDrawable)drawable;
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             bitmapDrawable.getBitmap().recycle();
         }
     }

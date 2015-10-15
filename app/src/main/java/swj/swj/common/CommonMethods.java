@@ -91,7 +91,7 @@ public final class CommonMethods {
 
     public static void clientSideSignOut(Context context) {
         User.clearCurrentUser();
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         InfectionsAdapter.getInstance().reset();
         Intent intent = new Intent(context, LoginActivity.class);

@@ -11,6 +11,9 @@ import android.widget.TextView;
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -70,46 +73,23 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
     }
 
     public void sortComments() {
-        Comment[] comments = new Comment[getCount()];
+        final Comment[] comments = new Comment[getCount()];
         for (int i = 0; i < comments.length; i++) {
             comments[i] = getItem(i);
         }
-        //////
-        Comment tmpComment;
-        for (int j = 0; j < comments.length - 1; j++) {
-            for (int k = 1; k < comments.length - j; k++) {
-                if (findCommentAncestor(comments[k - 1], comments).equals(findCommentAncestor(comments[k], comments))) {
-                    if (comments[k - 1].getId() > comments[k].getId()) {
-                        tmpComment = comments[k];
-                        comments[k] = comments[k-1];
-                        comments[k-1] = tmpComment;
-                    }
-                } else if (findCommentAncestor(comments[k - 1], comments).getCreatedAt().equals(findCommentAncestor(comments[k], comments).getCreatedAt())) {
-                    if (findCommentAncestor(comments[k - 1], comments).getId() > findCommentAncestor(comments[k], comments).getId()) {
-                        tmpComment = comments[k];
-                        comments[k] = comments[k-1];
-                        comments[k-1] = tmpComment;
-                    }
+        Arrays.sort(comments, new Comparator<Comment>() {
+            @Override
+            public int compare(Comment comment1, Comment comment2) {
+                if (findCommentAncestor(comment1, comments).equals(findCommentAncestor(comment2, comments))) {
+                    return comment1.getId() - comment2.getId();
                 } else {
-                    if (findCommentAncestor(comments[k - 1], comments).getId() > findCommentAncestor(comments[k], comments).getId()) {
-                        tmpComment = comments[k];
-                        comments[k] = comments[k-1];
-                        comments[k-1] = tmpComment;
-                    }
+                    return findCommentAncestor(comment1, comments).getId() - findCommentAncestor(comment2, comments).getId();
                 }
             }
-        }
-        /////
+        });
         clear();
         addAll(comments);
         notifyDataSetChanged();
-    }
-
-
-    private static class ViewHolder {
-        private ImageView imageView;
-        private TextView userName;
-        private TextView context;
     }
 
     private Comment findCommentAncestor(Comment comment, Comment[] comments) {
@@ -126,6 +106,13 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
             }
         }
         return comment;
+    }
+
+
+    private static class ViewHolder {
+        private ImageView imageView;
+        private TextView userName;
+        private TextView context;
     }
 
 }
