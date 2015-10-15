@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,6 +16,7 @@ import org.json.JSONObject;
 
 import swj.swj.R;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -75,13 +75,12 @@ public class LoginActivity extends Activity {
 
     private boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(LoginActivity.this, getResources().getString(R.string.username_invalid_format));
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(LoginActivity.this, getResources().getString(R.string.password_invalid_format));
             return false;
         }
         return true;
     }
-
 }

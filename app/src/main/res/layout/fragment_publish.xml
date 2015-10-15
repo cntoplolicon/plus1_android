@@ -17,21 +17,20 @@
             android:id="@+id/btn_image"
             android:layout_width="@dimen/publish_button"
             android:layout_height="@dimen/publish_button"
-            android:layout_marginRight="@dimen/publish_button_spacing"
-            android:background="@drawable/button_border"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="26dp"
+            android:background="@drawable/btn_add_image"
             android:onClick="addImage"
-            android:text="@string/publish_add_image"
             android:textColor="@color/new_card_button" />
 
         <Button
             android:id="@+id/btn_text"
             android:layout_width="@dimen/publish_button"
             android:layout_height="@dimen/publish_button"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="@dimen/publish_button_spacing"
-            android:background="@drawable/button_border"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="26dp"
+            android:background="@drawable/btn_add_text"
             android:onClick="addText"
-            android:text="@string/publish_add_text"
             android:textColor="@color/new_card_button" />
 
     </LinearLayout>
