@@ -1,6 +1,5 @@
 package swj.swj.common;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +25,7 @@ import swj.swj.model.User;
 /**
  * Created by silentgod on 15-9-5.
  */
-public final class CommonMethods extends Activity {
+public final class CommonMethods {
     // input pattern for validation checked on front_end
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[0-9]{11}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[ -~]{6,20}$");

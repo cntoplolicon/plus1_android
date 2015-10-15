@@ -53,7 +53,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
 
     protected boolean inputValidation() {
         if (!CommonMethods.isValidSCode(securityCodeInput.getText().toString().trim())) {
-            CommonDialog.showDialog(VerifySecurityCodeActivity.this, getResources().getString(R.string.security_code_invalid_format));
+            CommonDialog.showDialog(this, getResources().getString(R.string.security_code_invalid_format));
             return false;
         }
         return true;

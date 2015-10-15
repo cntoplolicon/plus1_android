@@ -16,7 +16,7 @@ public class CommonDialog {
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(R.layout.customdialog);
+        window.setContentView(R.layout.custom_dialog);
         TextView tvCancel = (TextView) window.findViewById(R.id.tv_reminder);
         tvCancel.setText(dialogMsg);
     }
