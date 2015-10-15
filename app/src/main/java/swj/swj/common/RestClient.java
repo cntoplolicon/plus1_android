@@ -65,6 +65,7 @@ public class RestClient {
         String serverUrl = BuildConfig.DEBUG ? DEBUG_SERVER_URL : RELEASE_SERVER_URL;
         return serverUrl + path;
     }
+
     private String encodeUrlParams(String path, Map<String, Object> params) {
         Uri.Builder uri = Uri.parse(getResourceUrl(path)).buildUpon();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
