@@ -20,10 +20,9 @@
             android:layout_marginTop="15dp"
             android:background="#FED724"
             android:gravity="center"
+            android:text="@string/get_image_from_camera"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp"
-            android:text="@string/get_image_from_camera"/>
-
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_gallery"
@@ -35,10 +34,9 @@
             android:background="#FED724"
             android:gravity="center"
             android:onClick="camera"
+            android:text="@string/get_image_from_gallery"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp"
-            android:text="@string/get_image_from_gallery"/>
-
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -50,10 +48,9 @@
             android:layout_marginTop="10dp"
             android:background="#FED724"
             android:gravity="center"
+            android:text="@string/cancel"
             android:textColor="@color/personal_sign"
-            android:textSize="16dp"
-            android:text="@string/cancel"/>
-
+            android:textSize="16dp" />
     </LinearLayout>
 
 </RelativeLayout>

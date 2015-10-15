@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -34,7 +35,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
 
     private boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.username_invalid_format), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.username_invalid_format);
             return false;
         }
         return true;

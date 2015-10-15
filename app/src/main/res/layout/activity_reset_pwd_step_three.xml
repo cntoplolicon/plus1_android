@@ -30,7 +30,7 @@
             android:layout_marginTop="10dp"
             android:background="@null"
             android:hint="@string/hint_input_new_pwd"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="13sp" />
 
@@ -61,7 +61,7 @@
             android:ems="10"
             android:hint="@string/hint_new_pwd_confirm"
             android:inputType="textPassword"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="13sp" />
 

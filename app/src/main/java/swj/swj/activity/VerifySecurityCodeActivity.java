@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -52,7 +53,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
 
     protected boolean inputValidation() {
         if (!CommonMethods.isValidSCode(securityCodeInput.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.security_code_invalid_format), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.security_code_invalid_format);
             return false;
         }
         return true;
@@ -97,7 +98,7 @@ public abstract class VerifySecurityCodeActivity extends Activity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(getApplicationContext(), errors, "security_code");
+                        CommonDialog.showDialog(VerifySecurityCodeActivity.this, R.string.security_code_incorrect);
                     }
                 })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }

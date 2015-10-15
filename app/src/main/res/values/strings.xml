@@ -71,7 +71,7 @@
 
     <!--validation-->
     <string name="username_invalid_format">请输入正确的手机号</string>
-    <string name="password_invalid_format">密码为六至二十位字符</string>
+    <string name="password_invalid_format">密码为6-20位字符哦</string>
     <string name="security_code_invalid_format">验证码为六位数字</string>
     <string name="password_confirmation_incorrect">两次输入密码不一致</string>
     <string name="password_incorrect">密码错误</string>

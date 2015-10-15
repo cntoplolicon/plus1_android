@@ -45,7 +45,7 @@
             android:background="@null"
             android:hint="@string/hint_input_phone"
             android:paddingLeft="60dp"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="13sp" />
 
@@ -87,7 +87,7 @@
             android:hint="@string/hint_input_pwd"
             android:inputType="textPassword"
             android:paddingLeft="60dp"
-            android:textColorHint="@color/et_hint"
+            android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="13sp" />
 
@@ -111,6 +111,7 @@
         android:layout_marginTop="57dp"
         android:background="@color/test_yellow"
         android:text="@string/log_in"
+        android:textColor="@color/common_button_text_color"
         android:textSize="16sp" />
 
     <RelativeLayout
@@ -124,7 +125,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:text="@string/to_reset_pwd"
-            android:textColor="@color/login_page_link"
+            android:textColor="@color/register_security_code"
             android:textSize="14sp" />
 
 
@@ -136,7 +137,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:text="@string/to_register"
-            android:textColor="@color/login_page_link"
+            android:textColor="@color/register_security_code"
             android:textSize="14sp" />
     </RelativeLayout>
 

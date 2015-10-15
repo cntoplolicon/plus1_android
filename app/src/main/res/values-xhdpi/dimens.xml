@@ -58,4 +58,29 @@
     <dimen name="publish_delete_margin_top">10dp</dimen>
 
 
+
+
+
+    <dimen name="common_margin_left_right">15dp</dimen>
+    <dimen name="common_hint_text_size">15sp</dimen>
+
+    <dimen name="register_margin_left_phone_image">25dp</dimen>
+    <dimen name="register_margin_right_phone_image">25dp</dimen>
+    <dimen name="register_margin_bottom_line">4dp</dimen>
+    <dimen name="register_image_camera_width_height">30dp</dimen>
+    <dimen name="register_margin_button">56dp</dimen>
+    <dimen name="register_margin_top_phone">180dp</dimen>
+    <dimen name="register_margin_top_security_code">160dp</dimen>
+    <dimen name="register_margin_line_height">2dp</dimen>
+    <dimen name="register_margin_top_button_next">57dp</dimen>
+    <dimen name="register_margin_top_button_finish">102dp</dimen>
+    <dimen name="register_head_image_width_height">75dp</dimen>
+    <dimen name="register_three_spacing_username">15dp</dimen>
+    <dimen name="register_three_margin_garden">35dp</dimen>
+
+
+    <dimen name="register_button_text_size">18sp</dimen>
+    <dimen name="register_three_reminder">14sp</dimen>
+    <dimen name="register_security_code">18sp</dimen>
+    <dimen name="register_three_dialog_tittle">17sp</dimen>
 </resources>
