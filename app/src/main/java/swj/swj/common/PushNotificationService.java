@@ -58,7 +58,7 @@ public class PushNotificationService {
                 if (oldTopics.length > 0) {
                     unsubscribe(oldTopics).fail(failCallback);
                 }
-                if (newTopics.length > 0) {
+                if (newTopics.length > 0 && newUser != null && newUser.isNotificationsEnabled()) {
                     subscribe(newTopics).fail(failCallback);
                 }
             }
@@ -78,10 +78,11 @@ public class PushNotificationService {
     }
 
     private String[] getUserTopics(User user) {
-        if (user == null || !user.isNotificationsEnabled()) {
-            return new String[]{};
-        }
-        return new String[]{"user_" + user.getId()};
+        return user == null ? new String[]{} : getUserTopics(user.getId());
+    }
+
+    private String[] getUserTopics(int userId) {
+        return new String[] {"user_" + userId};
     }
 
     public static PushNotificationService getInstance() {
@@ -91,6 +92,11 @@ public class PushNotificationService {
     public void handleNotification(String topic, String message) {
         Gson gson = CommonMethods.defaultGsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         Notification notification = gson.fromJson(message, Notification.class);
+        if (User.current != null && notification.getUserId() > 0
+                && notification.getUserId() != User.current.getId()) {
+            unsubscribe(getUserTopics(notification.getUserId()));
+            return;
+        }
         notification.setReceiveTime(DateTime.now());
         notification.save();
 

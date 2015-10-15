@@ -3,6 +3,7 @@ package swj.swj.application;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;

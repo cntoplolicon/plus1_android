@@ -3,7 +3,7 @@ package swj.swj.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+import android.util.Log;
 
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.common.PushNotificationService;
@@ -20,8 +20,8 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
 
         String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
         String message = intent.getStringExtra(YunBaManager.MQTT_MSG);
-        StringBuilder showMsg = new StringBuilder();
-        showMsg.append("Received message from server: ")
+        StringBuilder logMessage = new StringBuilder()
+                .append("Received message from server: ")
                 .append(YunBaManager.MQTT_TOPIC)
                 .append(" = ")
                 .append(topic)
@@ -29,7 +29,7 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
                 .append(YunBaManager.MQTT_MSG)
                 .append(" = ")
                 .append(message);
-        Toast.makeText(context, showMsg, Toast.LENGTH_LONG).show();
+        Log.d(PushNotificationService.class.getName(), logMessage.toString());
 
         PushNotificationService.getInstance().handleNotification(topic, message);
     }
