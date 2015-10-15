@@ -24,9 +24,14 @@ public class PersonalSettingsActivity extends Activity {
     @Bind(R.id.tv_personal_settings_nickname)
     TextView tvNickName;
 
-    @OnClick(R.id.tv_personal_settings_profile)
+    @OnClick(R.id.tv_personal_settings_nickname)
     public void submit() {
         startActivity(new Intent(PersonalSettingsActivity.this, PersonalProfileActivity.class));
+    }
+
+    @OnClick(R.id.tv_idea)
+    public void idea() {
+        startActivity(new Intent(PersonalSettingsActivity.this, IdeaActivity.class));
     }
 
     @OnClick(R.id.btn_logout)
