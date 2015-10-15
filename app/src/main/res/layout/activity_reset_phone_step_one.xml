@@ -21,10 +21,9 @@
 
     <include
         layout="@layout/activity_get_security_code"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="200dp"
         android:layout_below="@+id/action_bar" />
 
 

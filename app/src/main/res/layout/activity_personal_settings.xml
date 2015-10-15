@@ -7,61 +7,65 @@
 
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        custom:page_title="@string/personal_information" />
+        custom:page_title="设置" />
 
     <TextView
         android:id="@+id/tv_personal_settings_nickname"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_username_size"
+        android:layout_height="50dp"
         android:layout_below="@+id/action_bar"
-        android:layout_marginTop="@dimen/settings_logout_margin_top"
+        android:layout_marginBottom="21dp"
+        android:layout_marginTop="15dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
         android:text="昵称"
         android:textColor="@color/personal_common_female_username"
-        android:textSize="@dimen/settings_common_text" />
+        android:textSize="18sp" />
 
+    <ImageView
+        android:id="@+id/iv_forward_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_personal_settings_nickname"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:src="@drawable/arrow_right_open" />
 
     <TextView
-        android:id="@+id/tv_personal_settings_profile"
+        android:id="@+id/tv_idea"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_common_title_size"
-        android:layout_below="@+id/tv_personal_settings_nickname"
-        android:layout_marginTop="1dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_clear_cache"
+        android:layout_marginTop="2dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
-        android:text="@string/personal_information"
+        android:text="意见反馈"
         android:textColor="@color/settings_common_title"
         android:textSize="@dimen/settings_common_text" />
 
-
-    <TextView
-        android:id="@+id/tv_settings_preference_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_common_title_size"
-        android:layout_below="@+id/tv_personal_settings_profile"
-        android:layout_marginTop="@dimen/settings_preference_margin_top"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/settings_common_margin_left"
-        android:text="@string/preferences"
-        android:textColor="@color/settings_title_color"
-        android:textSize="@dimen/settings_common_text" />
+    <ImageView
+        android:id="@+id/iv_forward_idea"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_idea"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:src="@drawable/arrow_right_open" />
 
     <TextView
         android:id="@+id/tv_notification_switch"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_common_title_size"
-        android:layout_below="@+id/tv_settings_preference_title"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_personal_settings_nickname"
         android:layout_marginTop="1dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
@@ -73,22 +77,22 @@
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tv_notification_switch"
         android:layout_marginRight="@dimen/settings_common_margin_left"
-        android:layout_marginTop="@dimen/settings_switch_margin"
         android:gravity="center_vertical"
         android:showText="true"
+        android:switchMinWidth="30dp"
         android:textOff="@string/off"
         android:textOn="@string/on" />
 
     <TextView
         android:id="@+id/tv_clear_cache"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_common_title_size"
+        android:layout_height="50dp"
         android:layout_below="@+id/tv_notification_switch"
-        android:layout_marginTop="@dimen/settings_preference_margin_top"
+        android:layout_marginTop="2dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/settings_common_margin_left"
@@ -96,15 +100,25 @@
         android:textColor="@color/settings_common_title"
         android:textSize="@dimen/settings_common_text" />
 
+    <TextView
+        android:id="@+id/tv_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_clear_cache"
+        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:gravity="center_vertical"
+        android:text="12M"
+        android:textColor="@color/settings_common_title" />
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_common_title_size"
-        android:layout_below="@+id/tv_clear_cache"
-        android:layout_marginLeft="@dimen/settings_logout_margin_horizontal"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_idea"
+        android:layout_marginLeft="25dp"
         android:layout_marginRight="@dimen/settings_logout_margin_horizontal"
-        android:layout_marginTop="@dimen/settings_logout_margin_top"
+        android:layout_marginTop="60dp"
         android:background="@color/common_yellow"
         android:text="@string/log_out"
         android:textSize="@dimen/settings_common_text" />

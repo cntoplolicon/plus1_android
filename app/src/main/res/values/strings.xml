@@ -90,8 +90,8 @@
     <string name="hint_press_to_get_SCode">点击获得验证码</string>
     <string name="hint_input_pwd">请输入密码</string>
     <string name="hint_input_old_pwd">请输入旧密码</string>
-    <string name="hint_input_new_pwd">输入新密码</string>
-    <string name="hint_new_pwd_confirm">再次输入新密码</string>
+    <string name="hint_input_new_pwd">请输入新密码</string>
+    <string name="hint_new_pwd_confirm">请再次输入新密码</string>
 
     <string name="hint_personal_introduction">签名</string>
     <string name="hint_input_new_nickname">输入新昵称</string>
