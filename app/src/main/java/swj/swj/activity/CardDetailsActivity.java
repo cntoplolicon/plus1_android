@@ -174,6 +174,7 @@ public class CardDetailsActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
                         cardDetailsAdapter.add(newComment);
+                        cardDetailsAdapter.sortComments();
                         cardDetailsAdapter.notifyDataSetChanged();
                     }
                 })

@@ -54,11 +54,11 @@ public class Comment {
         this.user = user;
     }
 
-    public DateTime getCreatedAt(){
+    public DateTime getCreatedAt() {
         return createdAt;
     }
 
-    public DateTime getUpdatedAt(){
+    public DateTime getUpdatedAt() {
         return updatedAt;
     }
 }

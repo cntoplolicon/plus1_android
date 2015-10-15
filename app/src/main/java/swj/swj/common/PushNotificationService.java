@@ -82,7 +82,7 @@ public class PushNotificationService {
     }
 
     private String[] getUserTopics(int userId) {
-        return new String[] {"user_" + userId};
+        return new String[]{"user_" + userId};
     }
 
     public static PushNotificationService getInstance() {
