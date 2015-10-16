@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -57,44 +59,56 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.card_details_comment_item, null);
-            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imc_image);
-            viewHolder.userName = (TextView) convertView.findViewById(R.id.tv_user);
-            viewHolder.context = (TextView) convertView.findViewById(R.id.tv_content);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
         Comment comment = getItem(position);
-        viewHolder.imageView.setImageResource(R.drawable.default_useravatar);
-        viewHolder.userName.setText(comment.getUser().getNickname());
-        viewHolder.context.setText(comment.getContent());
-        return convertView;
+        View view = convertView;
+        if (view == null) {
+            view = mInflater.inflate(R.layout.card_details_comment_item, null);
+        }
+        ViewHolder viewHolder = new ViewHolder();
+        ButterKnife.bind(viewHolder, view);
+        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        viewHolder.tvNickname.setText(comment.getUser().getNickname());
+        if (comment.getReplyToId() == 0) {
+            viewHolder.tvContent.setText(comment.getContent());
+        } else {
+            Comment repliedComment = getCommentById(comment.getReplyToId());
+            viewHolder.tvContent.setText(String.format(view.getResources().getString(R.string.reply_to_user_format), repliedComment.getUser().getNickname(), comment.getContent()));
+        }
+        view.setTag(comment);
+
+        return view;
+    }
+
+    private Comment getCommentById(int id) {
+        for (int i = 0; i < getCount(); i++) {
+            Comment comment = getItem(i);
+            if (comment.getId() == id) {
+                return comment;
+            }
+        }
+        return null;
     }
 
     public void sortComments() {
         Comment[] comments = new Comment[getCount()];
-        for (int i = 0; i < comments.length; i++) {
+        for (int i = 0; i < getCount(); i++) {
             comments[i] = getItem(i);
         }
+
         Arrays.sort(comments, new CommentComparator());
 
         Map<Integer, List<Comment>> nodeToChildrenMap = new HashMap<>();
-        for (Comment comment: comments) {
+        for (Comment comment : comments) {
             nodeToChildrenMap.put(comment.getId(), new ArrayList<Comment>());
         }
 
-        for (Comment comment: comments) {
-            if (comment.getReplyToId() != 0 ) {
+        for (Comment comment : comments) {
+            if (comment.getReplyToId() != 0) {
                 nodeToChildrenMap.get(comment.getReplyToId()).add(comment);
             }
         }
         clear();
-        for (Comment comment: comments) {
+        for (Comment comment : comments) {
             if (comment.getReplyToId() == 0) {
                 depthFirstSearch(nodeToChildrenMap, comment);
             }
@@ -103,7 +117,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
 
     private void depthFirstSearch(Map<Integer, List<Comment>> nodeToChildrenMap, Comment comment) {
         add(comment);
-        for (Comment reply: nodeToChildrenMap.get(comment.getId())) {
+        for (Comment reply : nodeToChildrenMap.get(comment.getId())) {
             depthFirstSearch(nodeToChildrenMap, reply);
         }
     }
@@ -119,10 +133,13 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         }
     }
 
-    private static class ViewHolder {
-        private ImageView imageView;
-        private TextView userName;
-        private TextView context;
+    public static class ViewHolder {
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
+        @Bind(R.id.tv_nickname)
+        TextView tvNickname;
+        @Bind(R.id.tv_content)
+        TextView tvContent;
     }
 
 }

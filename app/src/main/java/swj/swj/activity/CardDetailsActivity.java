@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,6 +58,7 @@ public class CardDetailsActivity extends Activity {
 
     private Post post;
     private CardDetailsAdapter cardDetailsAdapter;
+    private Comment replyTarget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +78,28 @@ public class CardDetailsActivity extends Activity {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
             loadPost(comment.getPostId());
         }
+
+        lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                replyTarget = (Comment) view.getTag();
+                etNewComment.setHint(getResources().getString(R.string.reply) + replyTarget.getUser().getNickname() + ":");
+            }
+        });
+
     }
 
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
         View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replyTarget = null;
+                etNewComment.setHint(getResources().getString(R.string.publish_comment));
+            }
+        });
         lvListView.addHeaderView(headerView, null, false);
     }
 
@@ -166,7 +184,11 @@ public class CardDetailsActivity extends Activity {
             return;
         }
         view.setEnabled(false);
-        RestClient.getInstance().newComment(etNewComment.getText().toString(), -1, post.getId())
+        int replyTargetId = -1;
+        if (replyTarget != null) {
+            replyTargetId = replyTarget.getId();
+        }
+        RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())
                 .done(new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject result) {
@@ -196,4 +218,5 @@ public class CardDetailsActivity extends Activity {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
         }
     }
+
 }

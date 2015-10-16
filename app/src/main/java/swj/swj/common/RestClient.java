@@ -369,7 +369,9 @@ public class RestClient {
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> userParams = createUserParams();
-        userParams.put("reply_to_id", replyToId);
+        if (replyToId > 0) {
+            userParams.put("reply_to", replyToId);
+        }
         userParams.put("content", content);
 
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,

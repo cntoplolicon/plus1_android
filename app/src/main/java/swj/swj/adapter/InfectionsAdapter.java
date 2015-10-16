@@ -176,7 +176,7 @@ public class InfectionsAdapter {
     }
 
     static class HomePageItemViews {
-        @Bind(R.id.tv_user)
+        @Bind(R.id.tv_nickname)
         TextView tvUser;
 
         @Bind(R.id.tv_content)
