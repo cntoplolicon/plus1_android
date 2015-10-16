@@ -75,7 +75,7 @@
         android:textSize="@dimen/settings_common_text" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_notification"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"

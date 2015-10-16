@@ -145,14 +145,14 @@ public class User {
     public static void updateCurrentUser(String json) {
         User oldUser = current;
         current = CommonMethods.createDefaultGson().fromJson(json, User.class);
-        LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, json);
+        LocalUserInfo.getPreferences().edit().putString(CURRENT_USER_KEY, json).commit();
         tryCallUserChangedCallback(oldUser, current);
     }
 
     public static void clearCurrentUser() {
         User oldUser = current;
         current = null;
-        LocalUserInfo.getInstance().setUserInfo(CURRENT_USER_KEY, "");
+        LocalUserInfo.getPreferences().edit().remove(CURRENT_USER_KEY).commit();
         tryCallUserChangedCallback(oldUser, current);
     }
 

@@ -70,10 +70,9 @@ public class SnsApplication extends Application {
     }
 
     private void loadCurrentUser() {
-        LocalUserInfo userInfo = LocalUserInfo.getInstance();
-        String userJson = userInfo.getUserInfo(User.CURRENT_USER_KEY);
+        String userJson = LocalUserInfo.getPreferences().getString(User.CURRENT_USER_KEY, "");
         Log.d("user_json", userJson);
-        if (userJson != null) {
+        if (!userJson.isEmpty()) {
             User.updateCurrentUser(userJson);
         }
     }
@@ -81,8 +80,8 @@ public class SnsApplication extends Application {
     private void loadAppInfo() {
         appInfo = new AppInfo();
         appInfo.setApiVersion(BuildConfig.VERSION_NAME);
-        String imageHost = LocalUserInfo.getInstance().getUserInfo("image_host");
-        if (imageHost == null || imageHost.isEmpty()) {
+        String imageHost = LocalUserInfo.getPreferences().getString("image_host", "");
+        if (imageHost.isEmpty()) {
             imageHost = DEFAULT_IMAGE_HOST;
         }
         appInfo.setImageHosts(new String[]{imageHost});
@@ -91,7 +90,7 @@ public class SnsApplication extends Application {
                     @Override
                     public void onDone(JSONObject response) {
                         appInfo = CommonMethods.createDefaultGson().fromJson(response.toString(), AppInfo.class);
-                        LocalUserInfo.getInstance().setUserInfo("image_host", getImageServerUrl());
+                        LocalUserInfo.getPreferences().edit().putString("image_host", getImageServerUrl()).commit();
                     }
                 }
         ).fail(new JsonErrorListener(getApplicationContext(), null));

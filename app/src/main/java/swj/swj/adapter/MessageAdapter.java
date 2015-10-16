@@ -4,59 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
+import swj.swj.common.CommonMethods;
+import swj.swj.model.Comment;
+import swj.swj.model.Notification;
 
 /**
  * Created by shw on 2015/9/14.
  */
-public class MessageAdapter extends BaseAdapter {
+public class MessageAdapter extends ArrayAdapter<Notification> {
 
-    private int[] image = new int[]{R.drawable.open};
-    private String[] userName = new String[]{"王王", "二楞", "嘿嘿"};
     private LayoutInflater mInflater;
 
-    public MessageAdapter(Context context) {
+    public MessageAdapter(Context context, List<Notification> notifications) {
+        super(context, 0, notifications);
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public int getCount() {
-        return userName.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            viewHolder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.message_list_item, null);
-            viewHolder.userName = (TextView) convertView.findViewById(R.id.tv_nickname);
-            viewHolder.open = (ImageView) convertView.findViewById(R.id.iv_open);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+        View view = convertView;
+        if (view == null) {
+            view = mInflater.inflate(R.layout.message_list_item, null);
         }
-        viewHolder.userName.setText(userName[position]);
-        viewHolder.open.setImageResource(image[0]);
-        return convertView;
+        ViewHolder viewHolder = new ViewHolder();
+        ButterKnife.bind(viewHolder, view);
+        Notification notification = getItem(position);
+        view.setTag(notification);
+
+        Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+        viewHolder.tvNickname.setText(comment.getUser().getNickname());
+        viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
+        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
+        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + comment.getUser().getAvatar(), viewHolder.ivAvatar);
+        return view;
     }
 
-    private static class ViewHolder {
-        private TextView userName;
-        private ImageView open;
+    static class ViewHolder {
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
+        @Bind(R.id.tv_nickname)
+        TextView tvNickname;
+        @Bind(R.id.tv_message)
+        TextView tvMessage;
     }
 }

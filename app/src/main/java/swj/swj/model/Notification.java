@@ -90,6 +90,10 @@ public class Notification extends Model implements Parcelable {
         return new Select().from(Notification.class).execute();
     }
 
+    public static List<Notification> getMyNotifications(int userId) {
+        return new Select().from(Notification.class).where("userId = ?", userId).orderBy("receiveTime DESC").execute();
+    }
+
     @Override
     public int describeContents() {
         return 0;
