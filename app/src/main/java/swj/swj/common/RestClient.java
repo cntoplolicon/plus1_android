@@ -14,7 +14,6 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.Promise;
@@ -387,6 +386,22 @@ public class RestClient {
         Map<String, Object> userParams = createUserParams();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                 encodeUrlParams("/posts/" + postId, userParams), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONObject, VolleyError, Void> newFeedback(String contact, String content) {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> userParmas = createUserParams();
+        userParmas.put("content", content);
+        if (contact != null && !contact.isEmpty()) {
+            userParmas.put("contact", contact);
+        }
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/feedbacks"), userParmas, listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();

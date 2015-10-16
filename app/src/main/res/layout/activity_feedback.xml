@@ -17,7 +17,7 @@
         custom:page_title="意见反馈" />
 
     <EditText
-        android:id="@+id/et_qq_phone"
+        android:id="@+id/et_contact"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
@@ -31,10 +31,10 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/et_biography"
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="121dp"
-        android:layout_above="@id/et_qq_phone"
+        android:layout_above="@id/et_contact"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="33dp"
@@ -51,7 +51,7 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@id/et_qq_phone"
+        android:layout_below="@id/et_contact"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="50dp"

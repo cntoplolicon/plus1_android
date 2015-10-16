@@ -84,6 +84,7 @@
     <string name="username_unknown">用户名不存在</string>
     <string name="post_text_required">内容不能为空</string>
     <string name="comment_text_required">评论内容不能为空</string>
+    <string name="feedback_content_required">请输入反馈内容</string>
 
     <!--edit text hint-->
     <string name="hint_input_phone">请输入手机号</string>
@@ -118,7 +119,7 @@
     <string name="bookmard_removed">取消收藏</string>
     <string name="comment_success">评论成功</string>
     <string name="comment_failure">评论失败</string>
-
+    <string name="feedback_success">反馈发送成功</string>
 
     <string name="title_activity_card_details">CardDetailsActivity</string>
 </resources>

@@ -31,7 +31,7 @@ public class PersonalSettingsActivity extends Activity {
 
     @OnClick(R.id.tv_idea)
     public void idea() {
-        startActivity(new Intent(PersonalSettingsActivity.this, IdeaActivity.class));
+        startActivity(new Intent(PersonalSettingsActivity.this, FeedbackActivity.class));
     }
 
     @OnClick(R.id.btn_logout)

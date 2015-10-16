@@ -24,7 +24,7 @@ import swj.swj.model.User;
  */
 public class UpdateSignActivity extends Activity {
 
-    @Bind(R.id.et_biography)
+    @Bind(R.id.et_content)
     EditText biographyInput;
 
     @OnClick(R.id.btn_submit)

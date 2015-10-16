@@ -17,7 +17,7 @@
         custom:page_title="@string/change_personal_signature" />
 
     <EditText
-        android:id="@+id/et_biography"
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="121dp"
         android:layout_centerVertical="true"
@@ -36,7 +36,7 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@id/et_biography"
+        android:layout_below="@id/et_content"
         android:layout_marginLeft="@dimen/profile_text_margin_horizontal"
         android:layout_marginRight="@dimen/profile_text_margin_horizontal"
         android:layout_marginTop="50dp"

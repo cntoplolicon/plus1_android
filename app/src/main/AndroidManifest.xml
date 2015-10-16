@@ -88,7 +88,7 @@
         <activity android:name=".activity.ResetPwdStepOne" />
         <activity android:name=".activity.ResetPwdStepTwo" />
         <activity android:name=".activity.ResetPwdStepThree" />
-        <activity android:name=".activity.IdeaActivity" />
+        <activity android:name=".activity.FeedbackActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity
             android:name=".activity.UserHomeActivity"
