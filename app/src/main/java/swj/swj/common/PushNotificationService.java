@@ -35,7 +35,6 @@ public class PushNotificationService {
 
     private static PushNotificationService instance;
     private Context context;
-    private String notificationBarBody = "";
 
     public static void init(final Context context) {
         YunBaManager.start(context);
@@ -108,9 +107,11 @@ public class PushNotificationService {
         stackBuilder.addParentStack(CardDetailsActivity.class);
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        String notificationBarBody = "";
         if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            notificationBarBody = comment.getUser().getNickname() + (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
+            String CommentFormat = (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
+            notificationBarBody = String.format(CommentFormat, comment.getUser().getNickname());
         }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notificaiton_small)

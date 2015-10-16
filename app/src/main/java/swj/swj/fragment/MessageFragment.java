@@ -3,6 +3,7 @@ package swj.swj.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,11 @@ import swj.swj.model.User;
 
 public class MessageFragment extends Fragment {
 
-    private List<Notification> notifications;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
-        notifications = Notification.getMyNotifications(User.current.getId());
-        final MessageAdapter messageAdapter = new MessageAdapter(this.getActivity(), notifications);
+        List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
+        final MessageAdapter messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
