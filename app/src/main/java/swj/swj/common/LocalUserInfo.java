@@ -3,6 +3,8 @@ package swj.swj.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import swj.swj.activity.PersonalSettingsActivity;
+
 /**
  * Created by jiewei on 9/4/15.
  */
@@ -39,4 +41,14 @@ public class LocalUserInfo {
     public String getUserInfo(String strName) {
         return preferences.getString(strName, "");
     }
+
+    public void setPreference(String strName, int value) {
+        editor.putInt(strName, value);
+        editor.commit();
+    }
+
+    public int getPreference(String strName) {
+        return preferences.getInt(strName, PersonalSettingsActivity.NOTIFICATION_ENABLED);
+    }
+
 }

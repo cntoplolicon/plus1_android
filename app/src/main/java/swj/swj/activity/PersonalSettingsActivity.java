@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -13,6 +15,7 @@ import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
+import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
@@ -20,6 +23,12 @@ import swj.swj.model.User;
  * Created by jiewei on 9/3/15.
  */
 public class PersonalSettingsActivity extends Activity {
+
+    public static final int NOTIFICATION_ENABLED = 1;
+    public static final int NOTIFICATION_DISABLED = 0;
+
+    @Bind(R.id.switch_notification)
+    Switch switchNotification;
 
     @Bind(R.id.tv_personal_settings_nickname)
     TextView tvNickName;
@@ -59,10 +68,17 @@ public class PersonalSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
+        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                LocalUserInfo.getInstance().setPreference("notification_switch", (isChecked ? NOTIFICATION_ENABLED : NOTIFICATION_DISABLED));
+            }
+        });
     }
 
     public void onResume() {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
+        switchNotification.setChecked(LocalUserInfo.getInstance().getPreference("notification_switch") == NOTIFICATION_ENABLED);
     }
 }
