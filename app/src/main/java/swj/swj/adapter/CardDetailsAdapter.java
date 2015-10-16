@@ -144,7 +144,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         }
     }
 
-    public static class ViewHolder {
+    static class ViewHolder {
         @Bind(R.id.iv_avatar)
         ImageView ivAvatar;
         @Bind(R.id.tv_nickname)

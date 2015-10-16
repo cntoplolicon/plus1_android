@@ -28,6 +28,7 @@ import swj.swj.common.LRUCacheMap;
 import swj.swj.common.RestClient;
 import swj.swj.model.Infection;
 import swj.swj.model.Post;
+import swj.swj.model.User;
 
 /**
  * Created by shw on 2015/9/15.
@@ -95,6 +96,8 @@ public class InfectionsAdapter {
 
         Post post = infection.getPost();
         itemViews.tvUser.setText(post.getUser().getNickname());
+        int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        itemViews.tvUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         itemViews.tvContent.setText(post.getPostPages()[0].getText());
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));

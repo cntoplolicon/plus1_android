@@ -67,7 +67,8 @@
     <string name="publish_text">发文字</string>
     <string name="publish_use_text">使用文字</string>
     <string name="publish_input_text">在这里输入文字</string>
-    <string name="reply_to_user_format">"回复%1$s: %2$s"</string>
+    <string name="reply_to_user_format">回复%1$s: %2$s</string>
+    <string name="reply_to_comment_format">回复%1$s: </string>
     <string name="reply">回复</string>
 
 

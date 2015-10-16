@@ -36,6 +36,7 @@ import swj.swj.common.RestClient;
 import swj.swj.model.Comment;
 import swj.swj.model.Notification;
 import swj.swj.model.Post;
+import swj.swj.model.User;
 
 public class CardDetailsActivity extends Activity {
 
@@ -85,7 +86,7 @@ public class CardDetailsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 replyTarget = (Comment) view.getTag();
-                etNewComment.setHint(getResources().getString(R.string.reply) + replyTarget.getUser().getNickname() + ":");
+                etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
             }
         });
 
@@ -118,6 +119,8 @@ public class CardDetailsActivity extends Activity {
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setText(post.getUser().getNickname());
+        int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         String createdAtFormat = getResources().getString(R.string.post_created_at);
@@ -186,10 +189,7 @@ public class CardDetailsActivity extends Activity {
             return;
         }
         view.setEnabled(false);
-        int replyTargetId = -1;
-        if (replyTarget != null) {
-            replyTargetId = replyTarget.getId();
-        }
+        int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())
                 .done(new DoneCallback<JSONObject>() {
                     @Override
