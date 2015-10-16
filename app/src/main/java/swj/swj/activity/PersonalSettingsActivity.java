@@ -24,9 +24,6 @@ import swj.swj.model.User;
  */
 public class PersonalSettingsActivity extends Activity {
 
-    public static final int NOTIFICATION_ENABLED = 1;
-    public static final int NOTIFICATION_DISABLED = 0;
-
     @Bind(R.id.switch_notification)
     Switch switchNotification;
 
@@ -71,7 +68,7 @@ public class PersonalSettingsActivity extends Activity {
         switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                LocalUserInfo.getInstance().setPreference("notification_switch", (isChecked ? NOTIFICATION_ENABLED : NOTIFICATION_DISABLED));
+                LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", isChecked).commit();
             }
         });
     }
@@ -79,6 +76,6 @@ public class PersonalSettingsActivity extends Activity {
     public void onResume() {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
-        switchNotification.setChecked(LocalUserInfo.getInstance().getPreference("notification_switch") == NOTIFICATION_ENABLED);
+        switchNotification.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
     }
 }

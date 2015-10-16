@@ -32,7 +32,7 @@ public class MessageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                intent.putExtra("notification", messageAdapter.getItem(position));
+                intent.putExtra("notification", (Notification)view.getTag());
                 startActivity(intent);
             }
         });

@@ -22,7 +22,6 @@ import org.joda.time.DateTime;
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
-import swj.swj.activity.PersonalSettingsActivity;
 import swj.swj.model.Comment;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
@@ -102,27 +101,29 @@ public class PushNotificationService {
         notification.setReceiveTime(DateTime.now());
         notification.save();
 
-        if (LocalUserInfo.getInstance().getPreference("notification_switch") == PersonalSettingsActivity.NOTIFICATION_ENABLED) {
-            Intent intent = new Intent(context, CardDetailsActivity.class);
-            intent.putExtra("notification", notification);
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-            stackBuilder.addParentStack(CardDetailsActivity.class);
-            stackBuilder.addNextIntent(intent);
-            PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
-            String notificationBarBody = "";
-            if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
-                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-                String CommentFormat = (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
-                notificationBarBody = String.format(CommentFormat, comment.getUser().getNickname());
-            }
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.notificaiton_small)
-                    .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
-                    .setContentText(notificationBarBody)
-                    .setContentIntent(pendingIntent);
-            NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
-            notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
+        if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
+            return;
         }
+
+        Intent intent = new Intent(context, CardDetailsActivity.class);
+        intent.putExtra("notification", notification);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(CardDetailsActivity.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        String notificationBarBody = "";
+        if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
+            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            String CommentFormat = (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
+            notificationBarBody = String.format(CommentFormat, comment.getUser().getNickname());
+        }
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notificaiton_small)
+                .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
+                .setContentText(notificationBarBody)
+                .setContentIntent(pendingIntent);
+        NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
+        notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
     }
 
     private static class NotifyPromiseListener implements IMqttActionListener {

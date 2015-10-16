@@ -29,31 +29,27 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
     private LayoutInflater mInflater;
 
     public MessageAdapter(Context context, List<Notification> notifications) {
-        super(context, 0);
+        super(context, 0, notifications);
         mInflater = LayoutInflater.from(context);
-        for (Notification notification : notifications) {
-            if (notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
-                add(notification);
-            }
-        }
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.message_list_item, null);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+        View view = convertView;
+        if (view == null) {
+            view = mInflater.inflate(R.layout.message_list_item, null);
         }
-        Comment comment = CommonMethods.createDefaultGson().fromJson(getItem(position).getContent(),Comment.class);
+        ViewHolder viewHolder = new ViewHolder();
+        ButterKnife.bind(viewHolder, view);
+        Notification notification = getItem(position);
+        view.setTag(notification);
+
+        Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(),Comment.class);
         viewHolder.tvUsername.setText(comment.getUser().getNickname());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivUserAvatar);
         ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + comment.getUser().getAvatar(), viewHolder.ivUserAvatar);
-        return convertView;
+        return view;
     }
 
     static class ViewHolder {
@@ -63,9 +59,5 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         TextView tvUsername;
         @Bind(R.id.tv_message)
         TextView tvMessage;
-
-        public ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
     }
 }

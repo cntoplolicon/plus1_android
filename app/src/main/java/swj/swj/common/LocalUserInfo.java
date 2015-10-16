@@ -3,8 +3,6 @@ package swj.swj.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import swj.swj.activity.PersonalSettingsActivity;
-
 /**
  * Created by jiewei on 9/4/15.
  */
@@ -14,41 +12,18 @@ public class LocalUserInfo {
 
     private static LocalUserInfo instance;
 
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences preferences;
 
     public synchronized static void initialize(Context context) {
-        if (instance != null) {
-            return;
+        if (preferences == null) {
+            preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         }
-        instance = new LocalUserInfo(context);
     }
 
-    private LocalUserInfo(Context context) {
-        preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        editor = preferences.edit();
+    private LocalUserInfo() {
     }
 
-    public static LocalUserInfo getInstance() {
-        return instance;
+    public static SharedPreferences getPreferences() {
+        return preferences;
     }
-
-    public void setUserInfo(String strName, String strValue) {
-        editor.putString(strName, strValue);
-        editor.commit();
-    }
-
-    public String getUserInfo(String strName) {
-        return preferences.getString(strName, "");
-    }
-
-    public void setPreference(String strName, int value) {
-        editor.putInt(strName, value);
-        editor.commit();
-    }
-
-    public int getPreference(String strName) {
-        return preferences.getInt(strName, PersonalSettingsActivity.NOTIFICATION_ENABLED);
-    }
-
 }
