@@ -14,6 +14,7 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.Promise;
@@ -270,12 +271,12 @@ public class RestClient {
 
     public Promise<JSONObject, VolleyError, Void> newPostView(int infectionId, int result) {
         DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
-        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         if (!POST_VIEWS_ENABLED) {
             return deferredObject.promise();
         }
 
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
         Map<String, Object> params = createUserParams();
         params.put("result", result);
         String userId = params.remove("user_id").toString();
@@ -340,11 +341,12 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONArray, VolleyError, Void> loadImageServerUrl() {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
-        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+    public Promise<JSONObject, VolleyError, Void> getAppInfo() {
+        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getResourceUrl("/image_hosts"), listener, listener);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                getResourceUrl("/app_info"), listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();

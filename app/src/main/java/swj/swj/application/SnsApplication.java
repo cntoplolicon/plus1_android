@@ -3,7 +3,6 @@ package swj.swj.application;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -14,14 +13,16 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.jdeferred.DoneCallback;
-import org.json.JSONArray;
+import org.json.JSONObject;
 
 import swj.swj.BuildConfig;
 import swj.swj.adapter.InfectionsAdapter;
+import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.PushNotificationService;
 import swj.swj.common.RestClient;
+import swj.swj.model.AppInfo;
 import swj.swj.model.User;
 
 /**
@@ -30,7 +31,7 @@ import swj.swj.model.User;
 public class SnsApplication extends Application {
 
     private static String DEFAULT_IMAGE_HOST = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
-    private static String imageHost;
+    private static AppInfo appInfo;
 
     @Override
     public void onCreate() {
@@ -43,7 +44,7 @@ public class SnsApplication extends Application {
         InfectionsAdapter.initialize(getApplicationContext());
         ActiveAndroid.initialize(getApplicationContext());
         loadCurrentUser();
-        loadImageHosts();
+        loadAppInfo();
     }
 
     private void initImageLoader(Context context) {
@@ -65,19 +66,7 @@ public class SnsApplication extends Application {
     }
 
     public static String getImageServerUrl() {
-        if (imageHost != null && !imageHost.isEmpty()) {
-            return imageHost;
-        }
-        imageHost = LocalUserInfo.getInstance().getUserInfo("image_host");
-        if (imageHost != null && !imageHost.isEmpty()) {
-            return imageHost;
-        }
-        return DEFAULT_IMAGE_HOST;
-    }
-
-    private static void setImageServerUrl(String imageServerUrl) {
-        imageHost = imageServerUrl;
-        LocalUserInfo.getInstance().setUserInfo("image_host", imageHost);
+        return appInfo.getImageHosts()[0];
     }
 
     private void loadCurrentUser() {
@@ -89,15 +78,22 @@ public class SnsApplication extends Application {
         }
     }
 
-    private void loadImageHosts() {
-        RestClient.getInstance().loadImageServerUrl().done(
-                new DoneCallback<JSONArray>() {
+    private void loadAppInfo() {
+        appInfo = new AppInfo();
+        appInfo.setApiVersion(BuildConfig.VERSION_NAME);
+        String imageHost = LocalUserInfo.getInstance().getUserInfo("image_host");
+        if (imageHost == null || imageHost.isEmpty()) {
+            imageHost = DEFAULT_IMAGE_HOST;
+        }
+        appInfo.setImageHosts(new String[]{imageHost});
+        RestClient.getInstance().getAppInfo().done(
+                new DoneCallback<JSONObject>() {
                     @Override
-                    public void onDone(JSONArray response) {
-                        SnsApplication.setImageServerUrl(response.optString(0));
+                    public void onDone(JSONObject response) {
+                        appInfo = CommonMethods.createDefaultGson().fromJson(response.toString(), AppInfo.class);
+                        LocalUserInfo.getInstance().setUserInfo("image_host", getImageServerUrl());
                     }
-
-                }).fail(new JsonErrorListener(getApplicationContext(), null));
+                }
+        ).fail(new JsonErrorListener(getApplicationContext(), null));
     }
-
 }
