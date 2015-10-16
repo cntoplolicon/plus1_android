@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
-import swj.swj.common.PushNotificationService;
 import swj.swj.model.Comment;
 import swj.swj.model.Notification;
 
@@ -44,19 +43,20 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         Notification notification = getItem(position);
         view.setTag(notification);
 
-        Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(),Comment.class);
-        viewHolder.tvUsername.setText(comment.getUser().getNickname());
+        Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+        viewHolder.tvNickname.setText(comment.getUser().getNickname());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
-        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivUserAvatar);
-        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + comment.getUser().getAvatar(), viewHolder.ivUserAvatar);
+        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
+        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + comment.getUser().getAvatar(), viewHolder.ivAvatar);
         return view;
     }
 
     static class ViewHolder {
-        @Bind(R.id.imc_image)
-        ImageView ivUserAvatar;
-        @Bind(R.id.tv_user)
-        TextView tvUsername;
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
+        @Bind(R.id.tv_nickname)
+        TextView tvNickname;
         @Bind(R.id.tv_message)
         TextView tvMessage;
     }

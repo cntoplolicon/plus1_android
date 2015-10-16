@@ -72,7 +72,7 @@ public class SnsApplication extends Application {
     private void loadCurrentUser() {
         String userJson = LocalUserInfo.getPreferences().getString(User.CURRENT_USER_KEY, "");
         Log.d("user_json", userJson);
-        if (userJson != null) {
+        if (!userJson.isEmpty()) {
             User.updateCurrentUser(userJson);
         }
     }
@@ -81,7 +81,7 @@ public class SnsApplication extends Application {
         appInfo = new AppInfo();
         appInfo.setApiVersion(BuildConfig.VERSION_NAME);
         String imageHost = LocalUserInfo.getPreferences().getString("image_host", "");
-        if (imageHost == null || imageHost.isEmpty()) {
+        if (imageHost.isEmpty()) {
             imageHost = DEFAULT_IMAGE_HOST;
         }
         appInfo.setImageHosts(new String[]{imageHost});

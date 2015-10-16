@@ -25,7 +25,7 @@ public class MessageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
-        final MessageAdapter messageAdapter = new MessageAdapter(getActivity(), notifications);
+        MessageAdapter messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
