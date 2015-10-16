@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,9 +36,12 @@ import swj.swj.common.RestClient;
 import swj.swj.model.Comment;
 import swj.swj.model.Notification;
 import swj.swj.model.Post;
+import swj.swj.model.User;
 
 public class CardDetailsActivity extends Activity {
 
+    @Bind(R.id.tv_nickname)
+    TextView tvNickname;
     @Bind(R.id.iv_image)
     ImageView ivImage;
     @Bind(R.id.tv_content)
@@ -57,6 +61,7 @@ public class CardDetailsActivity extends Activity {
 
     private Post post;
     private CardDetailsAdapter cardDetailsAdapter;
+    private Comment replyTarget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +81,28 @@ public class CardDetailsActivity extends Activity {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
             loadPost(comment.getPostId());
         }
+
+        lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                replyTarget = (Comment) view.getTag();
+                etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
+            }
+        });
+
     }
 
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
         View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replyTarget = null;
+                etNewComment.setHint(getResources().getString(R.string.publish_comment));
+            }
+        });
         lvListView.addHeaderView(headerView, null, false);
     }
 
@@ -97,9 +118,11 @@ public class CardDetailsActivity extends Activity {
 
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
+        tvNickname.setText(post.getUser().getNickname());
+        int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
-
         String createdAtFormat = getResources().getString(R.string.post_created_at);
         int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
                 DateTime.now().toLocalDate()).getDays();
@@ -166,7 +189,8 @@ public class CardDetailsActivity extends Activity {
             return;
         }
         view.setEnabled(false);
-        RestClient.getInstance().newComment(etNewComment.getText().toString(), -1, post.getId())
+        int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
+        RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())
                 .done(new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject result) {
@@ -196,4 +220,5 @@ public class CardDetailsActivity extends Activity {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
         }
     }
+
 }

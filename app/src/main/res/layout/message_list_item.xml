@@ -7,7 +7,7 @@
     android:gravity="center_vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imc_image"
+        android:id="@+id/iv_avatar"
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_alignParentLeft="true"
@@ -20,11 +20,11 @@
         app:border_width="2px" />
 
     <TextView
-        android:id="@+id/tv_user"
+        android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_avatar"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/imc_image"
         android:text="asda"
         android:textSize="15sp" />
 
@@ -32,9 +32,9 @@
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imc_image"
+        android:layout_alignBottom="@id/iv_avatar"
+        android:layout_toRightOf="@id/tv_nickname"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/tv_user"
         android:text="回复了你的评论"
         android:textColor="#000"
         android:textSize="15sp" />

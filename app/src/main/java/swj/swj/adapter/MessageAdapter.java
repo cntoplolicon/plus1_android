@@ -44,7 +44,7 @@ public class MessageAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.message_list_item, null);
-            viewHolder.userName = (TextView) convertView.findViewById(R.id.tv_user);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.tv_nickname);
             viewHolder.open = (ImageView) convertView.findViewById(R.id.iv_open);
             convertView.setTag(viewHolder);
         } else {

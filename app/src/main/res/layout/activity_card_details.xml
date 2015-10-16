@@ -74,7 +74,7 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/icon_edittext_background"
-                android:hint="   发布评论"
+                android:hint="@string/publish_comment"
                 android:textSize="14sp" />
 
             <Button
@@ -88,7 +88,7 @@
                 android:layout_toRightOf="@id/et_new_comment"
                 android:background="#FED724"
                 android:gravity="center"
-                android:text="发送"
+                android:text="@string/send"
                 android:textColor="#333"
                 android:textSize="14sp" />
         </RelativeLayout>

@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            TextView tvUser = (TextView) view.findViewById(R.id.tv_user);
+            TextView tvUser = (TextView) view.findViewById(R.id.tv_nickname);
             tvUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
