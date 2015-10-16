@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
@@ -21,6 +23,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -66,7 +69,15 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         }
         ViewHolder viewHolder = new ViewHolder();
         ButterKnife.bind(viewHolder, view);
-        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        String avatarPath = comment.getUser().getAvatar();
+        if (avatarPath == null || avatarPath.isEmpty()) {
+            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        }else {
+            viewHolder.ivAvatar.setImageResource(R.drawable.loading);
+            ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarPath,
+                    viewHolder.ivAvatar);
+        }
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
         if (comment.getReplyToId() == 0) {
             viewHolder.tvContent.setText(comment.getContent());

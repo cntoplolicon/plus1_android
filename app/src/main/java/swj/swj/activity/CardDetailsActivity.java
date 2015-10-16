@@ -39,6 +39,8 @@ import swj.swj.model.Post;
 
 public class CardDetailsActivity extends Activity {
 
+    @Bind(R.id.tv_nickname)
+    TextView tvNickname;
     @Bind(R.id.iv_image)
     ImageView ivImage;
     @Bind(R.id.tv_content)
@@ -115,9 +117,9 @@ public class CardDetailsActivity extends Activity {
 
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
+        tvNickname.setText(post.getUser().getNickname());
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
-
         String createdAtFormat = getResources().getString(R.string.post_created_at);
         int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
                 DateTime.now().toLocalDate()).getDays();
