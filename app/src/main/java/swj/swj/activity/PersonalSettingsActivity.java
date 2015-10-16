@@ -2,9 +2,10 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
+
 
 /**
  * Created by jiewei on 9/3/15.
@@ -41,24 +43,27 @@ public class PersonalSettingsActivity extends Activity {
     }
 
     @OnClick(R.id.btn_logout)
-    public void logout() {
-        new AlertDialog.Builder(PersonalSettingsActivity.this)
-                .setMessage(getResources().getString(R.string.log_out_confirm))
-                .setPositiveButton(getResources().getString(R.string.submit),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
-                                CommonMethods.clientSideSignOut(PersonalSettingsActivity.this);
-                            }
-                        })
-                .setNegativeButton(getResources().getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
-                .create().show();
+    public void logout(View view) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        Window window = alertDialog.getWindow();
+        alertDialog.show();
+        window.setContentView(R.layout.log_out_dialog);
+        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
+                CommonMethods.clientSideSignOut(PersonalSettingsActivity.this);
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
     }
 
     public void onCreate(Bundle savedInstanceState) {

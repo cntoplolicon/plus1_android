@@ -3,6 +3,7 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +72,15 @@ public class LoginActivity extends Activity {
 
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_ENTER:
+                return true;
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     private boolean inputValidation() {

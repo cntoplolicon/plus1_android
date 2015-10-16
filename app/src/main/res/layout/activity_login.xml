@@ -8,14 +8,14 @@
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/action_bar_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         custom:hide_back_arrow="true"
-        custom:page_title="@string/log_in"></swj.swj.view.ActionBarLayout>
+        custom:page_title="@string/log_in" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -24,38 +24,33 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/et_username"
-            android:layout_alignStart="@+id/et_username"
+            android:layout_width="@dimen/register_image_phone_width_height"
+            android:layout_height="@dimen/register_image_phone_width_height"
             android:layout_alignTop="@+id/et_username"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
             android:src="@drawable/username" />
 
         <EditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/register_image_phone_width_height"
+            android:layout_marginBottom="7dp"
+            android:layout_toRightOf="@id/imageView5"
             android:background="@null"
+            android:gravity="bottom"
+            android:paddingLeft="10dp"
             android:hint="@string/hint_input_phone"
-            android:paddingLeft="60dp"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/register_security_code" />
 
         <TextView
-            android:id="@+id/register_line"
+            android:id="@+id/register_line1"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignBottom="@+id/et_username"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_height="@dimen/register_margin_line_height"
+            android:layout_below="@id/et_username"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:layout_marginRight="@dimen/common_margin_left_right"
             android:layout_toLeftOf="@+id/btn_resend_security_code"
             android:background="@color/home_title_color" />
 
@@ -63,41 +58,41 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@+id/et_password"
-            android:layout_alignStart="@+id/et_password"
+            android:layout_width="@dimen/register_image_phone_width_height"
+            android:layout_height="@dimen/register_image_phone_width_height"
             android:layout_alignTop="@+id/et_password"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
             android:src="@drawable/password" />
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_image_phone_width_height"
+            android:layout_marginBottom="7dp"
+            android:paddingLeft="10dp"
+            android:layout_toRightOf="@id/imageView6"
             android:background="@null"
+            android:gravity="bottom"
             android:ems="10"
             android:hint="@string/hint_input_pwd"
             android:inputType="textPassword"
-            android:paddingLeft="60dp"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/register_security_code" />
+
 
         <TextView
             android:id="@+id/register_line2"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignBottom="@+id/et_password"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_height="@dimen/register_margin_line_height"
+            android:layout_below="@id/et_password"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:layout_marginRight="@dimen/common_margin_left_right"
             android:layout_toLeftOf="@+id/btn_resend_security_code"
             android:background="@color/home_title_color" />
     </RelativeLayout>
@@ -106,13 +101,13 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="@dimen/register_margin_top_button_next"
         android:background="@color/test_yellow"
-        android:text="@string/log_in"
+        android:text="@string/log"
         android:textColor="@color/common_button_text_color"
-        android:textSize="16sp" />
+        android:textSize="@dimen/register_button_text_size" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -122,23 +117,22 @@
             android:id="@+id/tv_to_reset_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:layout_marginTop="@dimen/common_margin_left_right"
             android:text="@string/to_reset_pwd"
             android:textColor="@color/register_security_code"
-            android:textSize="14sp" />
-
+            android:textSize="@dimen/register_three_reminder" />
 
         <TextView
             android:id="@+id/tv_to_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:layout_marginTop="@dimen/common_margin_left_right"
             android:text="@string/to_register"
             android:textColor="@color/register_security_code"
-            android:textSize="14sp" />
+            android:textSize="@dimen/register_three_reminder" />
     </RelativeLayout>
 
 </LinearLayout>

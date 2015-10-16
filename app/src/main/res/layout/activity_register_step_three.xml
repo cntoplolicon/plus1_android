@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="@dimen/register_image_camera_width_height"
-            android:layout_height="@dimen/register_image_camera_width_height"
+            android:layout_width="@dimen/register_image_phone_width_height"
+            android:layout_height="@dimen/register_image_phone_width_height"
             android:layout_alignLeft="@+id/et_nickname"
             android:layout_alignStart="@+id/et_nickname"
             android:layout_alignTop="@+id/et_nickname"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="@dimen/register_three_spacing_username"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="@dimen/register_three_spacing_username"
             android:layout_marginTop="10dp"
             android:background="@null"
             android:hint="@string/nickname"
@@ -62,10 +62,10 @@
         <TextView
             android:id="@+id/register_line"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/register_margin_line_height"
             android:layout_alignBottom="@+id/et_nickname"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
+            android:layout_marginRight="@dimen/register_margin_left_phone_image"
             android:layout_toLeftOf="@+id/btn_resend_security_code"
             android:background="@color/home_title_color" />
 
@@ -77,8 +77,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="@dimen/register_image_camera_width_height"
-            android:layout_height="@dimen/register_image_camera_width_height"
+            android:layout_width="@dimen/register_image_phone_width_height"
+            android:layout_height="@dimen/register_image_phone_width_height"
             android:layout_alignLeft="@+id/et_password"
             android:layout_alignStart="@+id/et_password"
             android:layout_alignTop="@+id/et_password"
@@ -106,8 +106,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_margin_line_height"
             android:layout_alignBottom="@+id/et_password"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
+            android:layout_marginRight="@dimen/register_margin_left_phone_image"
             android:layout_toLeftOf="@+id/btn_resend_security_code"
             android:background="@color/home_title_color" />
     </RelativeLayout>
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="@dimen/register_three_spacing_man"
                 android:text="@string/set_gender_male"
                 android:textColor="@color/register_three_gender" />
 
@@ -139,7 +139,7 @@
                 android:id="@+id/rb_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="@dimen/register_three_spacing_woman"
                 android:text="@string/set_gender_female"
                 android:textColor="@color/register_three_gender" />
         </RadioGroup>

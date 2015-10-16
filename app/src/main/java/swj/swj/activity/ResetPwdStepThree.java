@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,6 +14,7 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.R;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -41,7 +41,7 @@ public class ResetPwdStepThree extends Activity {
                         public void onDone(JSONObject response) {
                             Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
+                            CommonDialog.showDialog(ResetPwdStepThree.this, R.string.pwd_reset_succeed);
                             startActivity(intent);
                             finish();
                         }
@@ -71,13 +71,13 @@ public class ResetPwdStepThree extends Activity {
     private boolean inputValidation() {
         String password = passwordInput.getText().toString();
         if (!CommonMethods.isValidPwd(password)) {
-            Toast.makeText(this, R.string.password_invalid_format, Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.password_invalid_format);
             return false;
         }
 
         String passwordConfirmation = passwordConfirmationInput.getText().toString();
         if (!passwordConfirmation.equals(password)) {
-            Toast.makeText(this, R.string.password_confirmation_incorrect, Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.password_confirmation_incorrect);
             return false;
         }
 

@@ -59,4 +59,8 @@
     <color name="register_security_code">#00AAEF</color>
     <color name="register_three_gender">#666666</color>
     <color name="register_dialog_reminder">#939393</color>
+
+    <color name="message_background">#efefef</color>
+
+    <color name="publish_mes">#666666</color>
 </resources>

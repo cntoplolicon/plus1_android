@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
@@ -21,6 +20,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/action_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/register_margin_top_security_code"/>
+        android:layout_marginTop="@dimen/register_margin_top_security_code" />
 
 </RelativeLayout>

@@ -7,4 +7,47 @@
     <dimen name="home_img_mgt">10dp</dimen>
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_radio_height">51dp</dimen>
+
+
+
+
+
+
+
+    <dimen name="common_margin_left_right">15dp</dimen>
+    <dimen name="common_hint_text_size">15sp</dimen>
+
+    <dimen name="register_margin_left_phone_image">25dp</dimen>
+    <dimen name="register_margin_right_phone_image">25dp</dimen>
+    <dimen name="register_margin_bottom_line">4dp</dimen>
+    <dimen name="register_image_phone_width_height">30dp</dimen>
+    <dimen name="register_margin_button">56dp</dimen>
+    <dimen name="register_margin_top_phone">180dp</dimen>
+    <dimen name="register_margin_top_security_code">160dp</dimen>
+    <dimen name="register_margin_line_height">2dp</dimen>
+    <dimen name="register_margin_top_button_next">57dp</dimen>
+    <dimen name="register_margin_top_button_finish">102dp</dimen>
+    <dimen name="register_head_image_width_height">75dp</dimen>
+    <dimen name="register_three_spacing_username">15dp</dimen>
+    <dimen name="register_three_spacing_man">60dp</dimen>
+    <dimen name="register_three_spacing_woman">35dp</dimen>
+    <dimen name="register_three_margin_garden">35dp</dimen>
+    <dimen name="register_margin_bottom_dialog_tittle_">12dp</dimen>
+    <dimen name="register_reset_pwd_margin_top">130dp</dimen>
+
+    <dimen name="publish_margin_left_text_button">52dp</dimen>
+    <dimen name="publish_margin_right_image_button">51dp</dimen>
+    <dimen name="publish_edit_text_size">13dp</dimen>
+    <dimen name="publish_add_image_height">330dp</dimen>
+
+    <dimen name="message_head_image_width_height">38dp</dimen>
+    <dimen name="message__margin_top_bottom_image">7dp</dimen>
+    <dimen name="message__margin_left_right_image">15dp</dimen>
+    <dimen name="message_text_size">15sp</dimen>
+
+    <dimen name="register_button_text_size">18sp</dimen>
+    <dimen name="register_three_reminder">14sp</dimen>
+    <dimen name="register_security_code">18sp</dimen>
+    <dimen name="register_three_dialog_tittle">17sp</dimen>
+
 </resources>

@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import swj.swj.R;
 import swj.swj.activity.LoginActivity;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.model.User;
@@ -71,9 +70,6 @@ public final class CommonMethods {
         if (!errorDetail.isEmpty()) {
             errorDetail = errorDetail.replace(" ", "_");
             int resourceId = context.getResources().getIdentifier(field + "_" + errorDetail, "string", context.getPackageName());
-            if (resourceId == 0) {
-                resourceId = R.string.unknown_error;
-            }
             Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
         }
     }

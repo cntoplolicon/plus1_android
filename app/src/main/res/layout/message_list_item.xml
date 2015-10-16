@@ -3,18 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:gravity="center_vertical">
+    android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_avatar"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
+        android:id="@+id/imc_image"
+        android:layout_width="@dimen/message_head_image_width_height"
+        android:layout_height="@dimen/message_head_image_width_height"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginBottom="@dimen/message__margin_top_bottom_image"
+        android:layout_marginLeft="@dimen/message__margin_left_right_image"
+        android:layout_marginRight="@dimen/message__margin_left_right_image"
+        android:layout_marginTop="@dimen/message__margin_top_bottom_image"
         android:src="@drawable/default_useravatar"
         app:border_color="#b3b3b3"
         app:border_width="2px" />
@@ -23,21 +22,20 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_avatar"
         android:layout_centerVertical="true"
-        android:text="asda"
-        android:textSize="15sp" />
+        android:layout_toRightOf="@id/imc_image"
+        android:textSize="@dimen/message_text_size" />
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/iv_avatar"
-        android:layout_toRightOf="@id/tv_nickname"
         android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tv_nickname"
         android:text="回复了你的评论"
-        android:textColor="#000"
-        android:textSize="15sp" />
+        android:textColor="@color/publish_mes"
+        android:textSize="@dimen/message_text_size" />
 
     <ImageView
         android:id="@+id/iv_open"

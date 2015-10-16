@@ -1,37 +1,38 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/new_card_background"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/publish_button_margin_top"
-        android:layout_weight="0.9"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/publish_margin_left_text_button"
+        android:background="@drawable/btn_border"
+        android:drawableTop="@drawable/btn_jia"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:text="@string/publish_text"
+        android:textColor="@color/new_card_button"
+        android:textSize="@dimen/register_button_text_size" />
 
-        <Button
-            android:id="@+id/btn_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="26dp"
-            android:background="@drawable/btn_add_image"
-            android:onClick="addImage"
-            android:textColor="@color/new_card_button" />
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/publish_margin_right_image_button"
+        android:background="@drawable/btn_border"
+        android:drawableTop="@drawable/btn_jia"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:text="@string/publish_image"
+        android:textColor="@color/new_card_button"
+        android:textSize="@dimen/register_button_text_size" />
 
-        <Button
-            android:id="@+id/btn_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="26dp"
-            android:background="@drawable/btn_add_text"
-            android:onClick="addText"
-            android:textColor="@color/new_card_button" />
 
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
