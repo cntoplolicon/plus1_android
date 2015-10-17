@@ -34,7 +34,9 @@ import swj.swj.model.Post;
  * Created by shw on 2015/9/14.
  */
 public class CardDetailsAdapter extends ArrayAdapter<Comment> {
+
     private LayoutInflater mInflater;
+    private ViewClickedListener viewClickedListener;
 
     public CardDetailsAdapter(Context context, Post post) {
         super(context, 0);
@@ -61,7 +63,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Comment comment = getItem(position);
         View view = convertView;
         if (view == null) {
@@ -72,7 +74,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         String avatarPath = comment.getUser().getAvatar();
         if (avatarPath == null || avatarPath.isEmpty()) {
             viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        }else {
+        } else {
             viewHolder.ivAvatar.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarPath,
@@ -85,8 +87,15 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
             Comment repliedComment = getCommentById(comment.getReplyToId());
             viewHolder.tvContent.setText(String.format(view.getResources().getString(R.string.reply_to_user_format), repliedComment.getUser().getNickname(), comment.getContent()));
         }
+        View.OnClickListener customViewClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewClickedListener.onViewClick(view, position);
+            }
+        };
+        viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
+        viewHolder.tvNickname.setOnClickListener(customViewClickListener);
         view.setTag(comment);
-
         return view;
     }
 
@@ -142,6 +151,14 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
             }
             return comment1.getCreatedAt().compareTo(comment2.getCreatedAt());
         }
+    }
+
+    public void setOnViewClickedListener(ViewClickedListener listener) {
+        this.viewClickedListener = listener;
+    }
+
+    public interface ViewClickedListener {
+        void onViewClick(View view, int position);
     }
 
     static class ViewHolder {
