@@ -52,11 +52,6 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         return view;
     }
 
-    public void updateContent(Notification notification) {
-        insert(notification, 0);
-        notifyDataSetChanged();
-    }
-
     static class ViewHolder {
         @Bind(R.id.iv_avatar)
         ImageView ivAvatar;

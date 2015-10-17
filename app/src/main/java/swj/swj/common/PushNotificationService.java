@@ -101,7 +101,7 @@ public class PushNotificationService {
         }
         notification.setReceiveTime(DateTime.now());
         notification.save();
-        callback.onNotificationChanged(notification);
+        callback.onNotificationReceived(notification);
 
         if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
             return;
@@ -147,7 +147,7 @@ public class PushNotificationService {
     }
 
     public interface Callback {
-        void onNotificationChanged(Notification notification);
+        void onNotificationReceived(Notification notification);
     }
 
     public void setCallback(Callback callback) {

@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imc_image"
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/message_head_image_width_height"
         android:layout_height="@dimen/message_head_image_width_height"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/imc_image"
+        android:layout_toRightOf="@id/iv_avatar"
         android:textSize="@dimen/message_text_size" />
 
     <TextView
