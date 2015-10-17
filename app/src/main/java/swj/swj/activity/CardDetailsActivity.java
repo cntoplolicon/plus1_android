@@ -43,6 +43,8 @@ public class CardDetailsActivity extends Activity {
 
     @Bind(R.id.tv_nickname)
     TextView tvNickname;
+    @Bind(R.id.iv_avatar)
+    ImageView ivAvatar;
     @Bind(R.id.iv_image)
     ImageView ivImage;
     @Bind(R.id.tv_content)
@@ -121,6 +123,7 @@ public class CardDetailsActivity extends Activity {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setText(post.getUser().getNickname());
         int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + post.getUser().getAvatar(), ivAvatar);
         tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
