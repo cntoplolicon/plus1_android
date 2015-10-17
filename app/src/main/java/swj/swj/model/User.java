@@ -36,8 +36,6 @@ public class User {
 
     private String accessToken;
 
-    private boolean notificationsEnabled;
-
     public int getId() {
         return id;
     }
@@ -132,14 +130,6 @@ public class User {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
-    }
-
-    public boolean isNotificationsEnabled() {
-        return notificationsEnabled;
-    }
-
-    public void setNotificationsEnabled(boolean notificationsEnabled) {
-        this.notificationsEnabled = notificationsEnabled;
     }
 
     public static void updateCurrentUser(String json) {

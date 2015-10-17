@@ -35,6 +35,7 @@ public class PushNotificationService {
 
     private static PushNotificationService instance;
     private Context context;
+    private Callback callback;
 
     public static void init(final Context context) {
         YunBaManager.start(context);
@@ -59,7 +60,7 @@ public class PushNotificationService {
                 if (oldTopics.length > 0) {
                     unsubscribe(oldTopics).fail(failCallback);
                 }
-                if (newTopics.length > 0 && newUser != null && newUser.isNotificationsEnabled()) {
+                if (newTopics.length > 0 && newUser != null) {
                     subscribe(newTopics).fail(failCallback);
                 }
             }
@@ -100,6 +101,7 @@ public class PushNotificationService {
         }
         notification.setReceiveTime(DateTime.now());
         notification.save();
+        callback.onNotificationReceived(notification);
 
         if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
             return;
@@ -142,5 +144,13 @@ public class PushNotificationService {
         public void onFailure(IMqttToken iMqttToken, Throwable throwable) {
             deferredObject.reject(throwable);
         }
+    }
+
+    public interface Callback {
+        void onNotificationReceived(Notification notification);
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 }
