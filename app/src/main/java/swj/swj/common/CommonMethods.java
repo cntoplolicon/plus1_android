@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -66,7 +65,7 @@ public final class CommonMethods {
         return "";
     }
 
-    public static void toastError(Context context, JSONObject errors, String field) {
+    public static void showError(Context context, JSONObject errors, String field) {
         String errorDetail = getFirstError(errors, field);
         if (!errorDetail.isEmpty()) {
             errorDetail = errorDetail.replace(" ", "_");
@@ -74,7 +73,7 @@ public final class CommonMethods {
             if (resourceId == 0) {
                 resourceId = R.string.unknown_error;
             }
-            Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(context, resourceId);
         }
     }
 

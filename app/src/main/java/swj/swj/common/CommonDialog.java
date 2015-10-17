@@ -21,7 +21,6 @@ public class CommonDialog {
         TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
         tvReminder.setText(dialogMsg);
     }
-
     public static void showDialog(Context context, int resourceId) {
         showDialog(context, context.getResources().getString(resourceId));
     }

@@ -21,6 +21,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/action_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/register_margin_top_security_code"/>
+        android:layout_marginTop="@dimen/register_margin_top_security_code" />
 
 </RelativeLayout>

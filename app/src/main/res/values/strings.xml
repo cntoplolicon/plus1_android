@@ -18,11 +18,12 @@
     <string name="personal_information">个人资料</string>
     <string name="password">密码</string>
     <string name="log_in">登录</string>
+    <string name="log">确认登录</string>
     <string name="next_activity">下一步</string>
     <string name="to_reset_pwd">忘记密码？</string>
     <string name="to_register">立即注册</string>
     <string name="send_again">重新发送</string>
-    <string name="log_out_confirm">确认退出吗？</string>
+    <string name="log_out_confirm">确认退出登录？</string>
     <string name="unable_to_find_sd_card">没有SD卡!</string>
     <string name="save_changes">保存修改</string>
     <string name="telephone">电话</string>
@@ -58,14 +59,15 @@
 
     <!--card-->
     <string name="publish_title">新卡片</string>
-    <string name="publish_add_image">加图片</string>
-    <string name="publish_add_text">加文字</string>
+    <string name="publish_add_image">发图片</string>
+    <string name="publish_add_text">发文字</string>
+    <string name="publish_text">文字</string>
+    <string name="publish_image">图片</string>
+
     <string name="publish_confirm">确定</string>
     <string name="publish_publish">发布</string>
     <string name="publish_hint">为图片配上文字吧</string>
     <string name="publish_delete_image">删除当前照片</string>
-    <string name="publish_text">发文字</string>
-    <string name="publish_use_text">使用文字</string>
     <string name="publish_input_text">在这里输入文字</string>
     <string name="reply_to_user_format">回复%1$s: %2$s</string>
     <string name="reply_to_comment_format">回复%1$s: </string>
@@ -73,7 +75,7 @@
 
 
     <!--validation-->
-    <string name="username_invalid_format">请输入正确的手机号</string>
+    <string name="username_invalid_format">手机号格式不对哦</string>
     <string name="password_invalid_format">密码为6-20位字符哦</string>
     <string name="security_code_invalid_format">验证码为六位数字</string>
     <string name="password_confirmation_incorrect">两次输入密码不一致</string>

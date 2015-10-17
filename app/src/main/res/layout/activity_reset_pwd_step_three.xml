@@ -18,7 +18,9 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/register_reset_pwd_margin_top"
+        >
 
         <EditText
             android:id="@+id/et_password"
@@ -26,13 +28,12 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
             android:background="@null"
             android:hint="@string/hint_input_new_pwd"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/common_hint_text_size" />
 
         <TextView
             android:id="@+id/register_line"
@@ -63,7 +64,7 @@
             android:inputType="textPassword"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="13sp" />
+            android:textSize="@dimen/common_hint_text_size" />
 
         <TextView
             android:id="@+id/register_line2"
@@ -80,10 +81,12 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="@dimen/register_margin_top_button_next"
         android:background="@color/test_yellow"
-        android:text="@string/save_new_pwd" />
+        android:text="@string/save_new_pwd"
+        android:textColor="@color/common_button_text_color"
+        android:textSize="@dimen/register_button_text_size" />
 
 </LinearLayout>

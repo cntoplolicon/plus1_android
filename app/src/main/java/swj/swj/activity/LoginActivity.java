@@ -59,8 +59,8 @@ public class LoginActivity extends Activity {
                         new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject errors) {
-                                CommonMethods.toastError(LoginActivity.this, errors, "username");
-                                CommonMethods.toastError(LoginActivity.this, errors, "password");
+                                CommonMethods.showError(LoginActivity.this, errors, "username");
+                                CommonMethods.showError(LoginActivity.this, errors, "password");
                             }
                         })).always(new ResetViewClickable<JSONObject, VolleyError>(v));
             }

@@ -2,31 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="#EEEEEE">
+    android:layout_gravity="center">
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EEEEEE"
-        android:orientation="vertical"
-        android:scrollbars="vertical">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/register_margin_bottom_dialog_tittle_"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:text="Hi"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="12dp"
             android:textColor="@color/common_button_text_color"
             android:textSize="@dimen/common_hint_text_size" />
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_margin_line_height"
             android:background="#fed724" />
 
         <TextView
@@ -35,7 +32,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:textColor="#939393"
+            android:textColor="@color/register_dialog_reminder"
             android:textSize="@dimen/register_three_dialog_tittle" />
     </LinearLayout>
 

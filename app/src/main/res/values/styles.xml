@@ -40,12 +40,4 @@
         <item name="spb_mirror_mode">true</item>
         <item name="spb_interpolator">@integer/spb_default_interpolator</item>
     </style>
-
-    <style name="customDialog" parent="android:Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
 </resources>

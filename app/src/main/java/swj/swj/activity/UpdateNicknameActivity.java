@@ -50,7 +50,7 @@ public class UpdateNicknameActivity extends Activity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(UpdateNicknameActivity.this, errors, "nickname");
+                        CommonMethods.showError(UpdateNicknameActivity.this, errors, "nickname");
                     }
                 }));
     }
