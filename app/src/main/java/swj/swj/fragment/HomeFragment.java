@@ -19,6 +19,7 @@ import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.InfectionsAdapter;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -116,6 +117,9 @@ public class HomeFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+
+            ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + infection.getPost().getUser().getAvatar(), ivAvatar);
         }
 
         @Override
