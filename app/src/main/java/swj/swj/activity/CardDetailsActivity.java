@@ -1,6 +1,7 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,7 +128,6 @@ public class CardDetailsActivity extends Activity {
         int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
                 DateTime.now().toLocalDate()).getDays();
         tvTime.setText(String.format(createdAtFormat, daysAgo));
-
         String imageUrl = post.getPostPages()[0].getImage();
         if (imageUrl == null) {
             ivImage.setVisibility(View.GONE);
@@ -142,6 +142,7 @@ public class CardDetailsActivity extends Activity {
 
     private void loadComments() {
         cardDetailsAdapter = new CardDetailsAdapter(this, post);
+        cardDetailsAdapter.setOnViewClickedListener(new OnViewClickedListener());
         lvListView.setAdapter(cardDetailsAdapter);
     }
 
@@ -221,4 +222,15 @@ public class CardDetailsActivity extends Activity {
         }
     }
 
+    private class OnViewClickedListener implements CardDetailsAdapter.ViewClickedListener {
+
+        @Override
+        public void onViewClick(View view, int position) {
+            if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
+                Intent intent = new Intent(getBaseContext(), UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
+                startActivity(intent);
+            }
+        }
+    }
 }
