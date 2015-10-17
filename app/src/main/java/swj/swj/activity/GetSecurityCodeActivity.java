@@ -65,7 +65,7 @@ public abstract class GetSecurityCodeActivity extends Activity {
         }).fail(new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject errors) {
-                CommonMethods.toastError(getApplicationContext(), errors, "username");
+                CommonMethods.showError(getApplicationContext(), errors, "username");
             }
         })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }

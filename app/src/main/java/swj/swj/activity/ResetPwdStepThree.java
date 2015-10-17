@@ -49,8 +49,8 @@ public class ResetPwdStepThree extends Activity {
                     new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject errors) {
-                            CommonMethods.toastError(getApplicationContext(), errors, "username");
-                            CommonMethods.toastError(getApplicationContext(), errors, "password");
+                            CommonMethods.showError(getApplicationContext(), errors, "username");
+                            CommonMethods.showError(getApplicationContext(), errors, "password");
                         }
                     })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
         }

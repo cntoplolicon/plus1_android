@@ -40,6 +40,7 @@
             android:gravity="bottom"
             android:paddingLeft="10dp"
             android:hint="@string/hint_input_phone"
+            android:inputType="phone"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/register_security_code" />

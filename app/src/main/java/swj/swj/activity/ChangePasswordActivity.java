@@ -61,8 +61,8 @@ public class ChangePasswordActivity extends Activity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(getApplicationContext(), errors, "old_password");
-                        CommonMethods.toastError(getApplicationContext(), errors, "password");
+                        CommonMethods.showError(getApplicationContext(), errors, "old_password");
+                        CommonMethods.showError(getApplicationContext(), errors, "password");
                     }
                 })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }

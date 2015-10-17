@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -17,6 +16,7 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import swj.swj.R;
 import swj.swj.activity.LoginActivity;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.model.User;
@@ -65,12 +65,15 @@ public final class CommonMethods {
         return "";
     }
 
-    public static void toastError(Context context, JSONObject errors, String field) {
+    public static void showError(Context context, JSONObject errors, String field) {
         String errorDetail = getFirstError(errors, field);
         if (!errorDetail.isEmpty()) {
             errorDetail = errorDetail.replace(" ", "_");
             int resourceId = context.getResources().getIdentifier(field + "_" + errorDetail, "string", context.getPackageName());
-            Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
+            if (resourceId == 0) {
+                resourceId = R.string.unknown_error;
+            }
+            CommonDialog.showDialog(context, resourceId);
         }
     }
 

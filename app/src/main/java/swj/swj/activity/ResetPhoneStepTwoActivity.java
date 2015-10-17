@@ -57,7 +57,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "security_code");
+                        CommonMethods.showError(ResetPhoneStepTwoActivity.this, errors, "security_code");
                     }
                 })).then(
                 new DonePipe<JSONObject, JSONObject, VolleyError, Void>() {
@@ -81,7 +81,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonMethods.toastError(ResetPhoneStepTwoActivity.this, errors, "username");
+                        CommonMethods.showError(ResetPhoneStepTwoActivity.this, errors, "username");
                     }
                 })).always(new ResetViewClickable<JSONObject, VolleyError>(view)
         );
