@@ -38,9 +38,9 @@
             android:layout_toRightOf="@id/imageView5"
             android:background="@null"
             android:gravity="bottom"
-            android:paddingLeft="10dp"
             android:hint="@string/hint_input_phone"
             android:inputType="phone"
+            android:paddingLeft="10dp"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/register_security_code" />
@@ -75,13 +75,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_image_phone_width_height"
             android:layout_marginBottom="7dp"
-            android:paddingLeft="10dp"
             android:layout_toRightOf="@id/imageView6"
             android:background="@null"
-            android:gravity="bottom"
             android:ems="10"
+            android:gravity="bottom"
             android:hint="@string/hint_input_pwd"
             android:inputType="textPassword"
+            android:paddingLeft="10dp"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/register_security_code" />
@@ -104,11 +104,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="@dimen/register_margin_top_button_next"
+        android:layout_marginTop="57dp"
         android:background="@color/test_yellow"
         android:text="@string/log"
         android:textColor="@color/common_button_text_color"
-        android:textSize="@dimen/register_button_text_size" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
             android:layout_marginTop="@dimen/common_margin_left_right"
             android:text="@string/to_reset_pwd"
             android:textColor="@color/register_security_code"
-            android:textSize="@dimen/register_three_reminder" />
+            android:textSize="@dimen/register_reminder" />
 
         <TextView
             android:id="@+id/tv_to_register"
@@ -133,7 +133,7 @@
             android:layout_marginTop="@dimen/common_margin_left_right"
             android:text="@string/to_register"
             android:textColor="@color/register_security_code"
-            android:textSize="@dimen/register_three_reminder" />
+            android:textSize="@dimen/register_reminder" />
     </RelativeLayout>
 
 </LinearLayout>

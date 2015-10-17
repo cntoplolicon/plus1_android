@@ -9,7 +9,7 @@
         android:id="@+id/btn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/publish_margin_left_text_button"
+        android:layout_marginLeft="@dimen/publish_margin_left_right_text_button"
         android:background="@drawable/btn_border"
         android:drawableTop="@drawable/btn_jia"
         android:gravity="bottom|center_horizontal"
@@ -17,14 +17,14 @@
         android:paddingTop="20dp"
         android:text="@string/publish_text"
         android:textColor="@color/new_card_button"
-        android:textSize="@dimen/register_button_text_size" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
     <Button
         android:id="@+id/btn_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/publish_margin_right_image_button"
+        android:layout_marginRight="@dimen/publish_margin_left_right_text_button"
         android:background="@drawable/btn_border"
         android:drawableTop="@drawable/btn_jia"
         android:gravity="bottom|center_horizontal"
@@ -32,7 +32,7 @@
         android:paddingTop="20dp"
         android:text="@string/publish_image"
         android:textColor="@color/new_card_button"
-        android:textSize="@dimen/register_button_text_size" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
 
 </RelativeLayout>
