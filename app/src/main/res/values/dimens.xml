@@ -63,8 +63,8 @@
     <dimen name="register_three_dialog_tittle">17sp</dimen>
 
 
-    <dimen name="myself_grid_view_horizontalSpacing">5dp</dimen>
-    <dimen name="myself_grid_view_verticalSpacing">5dp</dimen>
+    <dimen name="myself_grid_view_horizontal_spacing">5dp</dimen>
+    <dimen name="myself_grid_view_vertical_spacing">5dp</dimen>
     <dimen name="myself_grid_view_margin_left">15dp</dimen>
     <dimen name="myself_grid_view_margin_right">15dp</dimen>
     <dimen name="home_big_image_length">330dp</dimen>
@@ -75,7 +75,6 @@
     <dimen name="home_nick_name_text_size">18sp</dimen>
     <dimen name="home_location_text_margin_top">10dp</dimen>
     <dimen name="home_location_text_margin_bottom">15dp</dimen>
-
 
 
 </resources>

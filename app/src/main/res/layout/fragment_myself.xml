@@ -6,11 +6,11 @@
         android:id="@+id/grid_view_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="@dimen/myself_grid_view_horizontalSpacing"
+        android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_right"
         android:scrollbarStyle="outsideOverlay"
-        android:verticalSpacing="@dimen/myself_grid_view_verticalSpacing"></swj.swj.view.HeaderGridView>
+        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing"></swj.swj.view.HeaderGridView>
 
 </RelativeLayout>
