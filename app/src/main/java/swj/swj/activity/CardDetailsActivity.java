@@ -2,6 +2,7 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -145,6 +146,12 @@ public class CardDetailsActivity extends Activity {
 
     private void loadComments() {
         cardDetailsAdapter = new CardDetailsAdapter(this, post);
+        cardDetailsAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                tvComments.setText(String.valueOf(cardDetailsAdapter.getCount()));
+            }
+        });
         cardDetailsAdapter.setOnViewClickedListener(new OnViewClickedListener());
         lvListView.setAdapter(cardDetailsAdapter);
     }
