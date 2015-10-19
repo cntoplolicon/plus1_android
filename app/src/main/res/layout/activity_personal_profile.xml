@@ -34,19 +34,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_avatar"
-        android:layout_marginRight="@dimen/profile_arrow_margin"
-        android:layout_marginTop="@dimen/profile_avatar_arrow_top"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="19dp"
         android:src="@drawable/arrow_right_open" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="@dimen/profile_avatar_size"
-        android:layout_height="@dimen/profile_avatar_size"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/re_avatar"
         android:layout_marginBottom="9dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="9dp"
         app:border_color="#b3b3b3"
         app:border_width="2px" />
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_nickname"
-        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/iv_forward_nick"
-        android:layout_marginLeft="@dimen/profile_arrow_margin"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="海绵宝宝"
@@ -90,7 +90,7 @@
         android:layout_marginTop="15dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/profile_text_padding"
+        android:paddingLeft="@dimen/common_margin_left_right"
         android:text="@string/pwd_reset"
         android:textColor="#666666"
         android:textSize="@dimen/settings_common_text" />
@@ -104,7 +104,7 @@
         android:layout_marginTop="2dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/profile_text_padding"
+        android:paddingLeft="@dimen/common_margin_left_right"
         android:text="@string/change_biography"
         android:textColor="#666666"
         android:textSize="@dimen/settings_common_text" />
@@ -115,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/re_sign"
-        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
@@ -137,7 +137,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/re_phone"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/profile_arrow_margin"
+        android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
@@ -149,6 +149,6 @@
         android:gravity="center_vertical"
         android:text="15151515"
         android:textColor="#666666"
-        android:textSize="16sp" />
+        android:textSize="@dimen/settings_common_text" />
 
 </RelativeLayout>

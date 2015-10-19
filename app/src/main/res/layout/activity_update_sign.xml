@@ -9,11 +9,6 @@
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/action_bar_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         custom:page_title="@string/change_personal_signature" />
 
     <EditText
@@ -21,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="121dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/profile_text_margin_horizontal"
-        android:layout_marginRight="@dimen/profile_text_margin_horizontal"
+        android:layout_marginLeft="@dimen/common_margin_change_password"
+        android:layout_marginRight="@dimen/common_margin_change_password"
         android:background="@color/profile_input_background"
         android:gravity="top"
         android:hint="请输入新的个性签名"
@@ -37,8 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
         android:layout_below="@id/et_content"
-        android:layout_marginLeft="@dimen/profile_text_margin_horizontal"
-        android:layout_marginRight="@dimen/profile_text_margin_horizontal"
+        android:layout_marginLeft="@dimen/common_margin_change_password"
+        android:layout_marginRight="@dimen/common_margin_change_password"
         android:layout_marginTop="50dp"
         android:background="@color/common_yellow"
         android:text="@string/save_changes"

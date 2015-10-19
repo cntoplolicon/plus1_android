@@ -15,7 +15,7 @@
             android:layout_marginLeft="23dp"
             android:text="@string/security_code_sent"
             android:textColor="@color/register_substantive"
-            android:textSize="@dimen/register_button_text_size" />
+            android:textSize="@dimen/common_yellow_button_text_size" />
 
         <TextView
             android:id="@+id/tv_chosen_username"
@@ -54,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_margin_line_height"
             android:layout_alignBottom="@+id/btn_resend_security_code"
-            android:layout_marginLeft="@dimen/register_margin_right_phone_image"
-            android:layout_marginRight="@dimen/register_margin_right_phone_image"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:layout_toLeftOf="@+id/btn_resend_security_code"
             android:background="@color/home_title_color" />
 
@@ -69,7 +69,7 @@
             android:background="@drawable/btn_submit"
             android:text="@string/send_again"
             android:textColor="@color/common_button_text_color"
-            android:textSize="@dimen/register_button_text_size" />
+            android:textSize="@dimen/common_yellow_button_text_size" />
     </RelativeLayout>
 
     <Button
@@ -78,10 +78,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="@dimen/register_margin_top_button_next"
+        android:layout_marginTop="@dimen/register_margin_top_button_send_verification_code"
         android:background="@color/test_yellow"
         android:text="@string/next_activity"
         android:textColor="@color/common_button_text_color"
-        android:textSize="@dimen/register_button_text_size" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
 </LinearLayout>

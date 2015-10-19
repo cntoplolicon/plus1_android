@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/common_white_bg"
     android:layout_gravity="center">
 
     <LinearLayout
@@ -14,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/register_margin_bottom_dialog_tittle_"
+            android:layout_marginBottom="12dp"
             android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:text="Hi"
@@ -33,7 +34,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:textColor="@color/register_dialog_reminder"
-            android:textSize="@dimen/register_three_dialog_tittle" />
+            android:textSize="17dp" />
     </LinearLayout>
 
 </RelativeLayout>

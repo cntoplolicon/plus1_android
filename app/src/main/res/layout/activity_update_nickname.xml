@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/profile_text_margin_horizontal"
-        android:layout_marginRight="@dimen/profile_text_margin_horizontal"
+        android:layout_marginLeft="@dimen/common_margin_change_password"
+        android:layout_marginRight="@dimen/common_margin_change_password"
         android:background="@color/profile_input_background"
         android:hint="修改新昵称"
         android:paddingLeft="15dp"
@@ -35,13 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
         android:layout_below="@id/et_nick"
-        android:layout_marginLeft="@dimen/profile_text_margin_horizontal"
-        android:layout_marginRight="@dimen/profile_text_margin_horizontal"
+        android:layout_marginLeft="@dimen/common_margin_change_password"
+        android:layout_marginRight="@dimen/common_margin_change_password"
         android:layout_marginTop="50dp"
         android:background="@color/common_yellow"
         android:gravity="center"
         android:text="@string/save_changes"
         android:textColor="@color/profile_common_text"
-        android:textSize="@dimen/settings_common_text" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
 </RelativeLayout>

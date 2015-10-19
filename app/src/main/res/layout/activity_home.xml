@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:padding="16dp"
             android:gravity="center"
+            android:padding="16dp"
             android:src="@drawable/settings" />
     </swj.swj.view.ActionBarLayout>
 
@@ -32,7 +32,7 @@
         android:id="@+id/fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></FrameLayout>
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
     <RadioGroup
         android:id="@+id/rg_group"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_rbg"
+        android:layout_height="@dimen/home_radio_group_height"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
