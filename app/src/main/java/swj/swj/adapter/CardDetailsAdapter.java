@@ -74,8 +74,10 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
 
         if (comment.getReplyToId() > 0) {
             float scale = getContext().getResources().getDisplayMetrics().density;
-            int PaddingDpAsPx = (int) (20 *scale + 0.5f);
+            int PaddingDpAsPx = (int) (20 * scale + 0.5f);
             view.setPadding(PaddingDpAsPx, 0, 0, 0);
+        } else {
+            view.setPadding(0, 0, 0, 0);
         }
         String avatarPath = comment.getUser().getAvatar();
         if (avatarPath == null || avatarPath.isEmpty()) {
