@@ -57,7 +57,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
-        android:maxHeight="300dp"
+        android:maxHeight="@dimen/home_big_image_length"
         android:maxWidth="@dimen/home_big_image_length"
         android:scaleType="centerInside" />
 
