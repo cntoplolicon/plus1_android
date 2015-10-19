@@ -74,6 +74,7 @@ public class UserHomeActivity extends Activity {
                     R.drawable.icon_woman : R.drawable.icon_man;
             headerViewHolder.ivGender.setImageResource(resource);
         }
+        CommonMethods.chooseNicknameColorViaGender(headerViewHolder.tvNickname, user, getBaseContext());
     }
 
     static class HeaderViewHolder {

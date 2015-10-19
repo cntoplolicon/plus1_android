@@ -124,6 +124,7 @@ public class CardDetailsActivity extends Activity {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setText(post.getUser().getNickname());
         int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
         ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + post.getUser().getAvatar(), ivAvatar);
         tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));

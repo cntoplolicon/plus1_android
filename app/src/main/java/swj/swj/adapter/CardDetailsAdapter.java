@@ -89,6 +89,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
                     viewHolder.ivAvatar);
         }
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
+        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         View.OnClickListener customViewClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +104,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
             Comment repliedComment = getCommentById(comment.getReplyToId());
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setText(repliedComment.getUser().getNickname());
+            CommonMethods.chooseNicknameColorViaGender(viewHolder.tvReplyTarget, repliedComment.getUser(), getContext());
             viewHolder.tvReplyTarget.setOnClickListener(customViewClickListener);
         }
         viewHolder.ivAvatar.setOnClickListener(customViewClickListener);

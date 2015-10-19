@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.widget.TextView;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -96,5 +97,15 @@ public final class CommonMethods {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public static void chooseNicknameColorViaGender(TextView textView, User user, Context context) {
+        if (user.getGender() == User.GENDER_MALE) {
+            textView.setTextColor(context.getResources().getColor(R.color.personal_common_male_username));
+        } else if (user.getGender() == User.GENDER_FEMALE) {
+            textView.setTextColor(context.getResources().getColor(R.color.personal_common_female_username));
+        } else {
+            textView.setTextColor(context.getResources().getColor(R.color.unknown_gender));
+        }
     }
 }
