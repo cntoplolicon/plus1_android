@@ -54,17 +54,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="#fff">
+        android:background="@color/home_title_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:layout_alignParentTop="true"
-                android:textColor="#000" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:background="#fff">
 
             <EditText
                 android:id="@+id/et_new_comment"
