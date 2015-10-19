@@ -94,6 +94,7 @@ public class MySelfFragment extends Fragment {
 
     private void showCurrentUserInfo() {
         tvNickname.setText(User.current.getNickname());
+        CommonMethods.chooseNicknameColorViaGender(tvNickname, User.current, getActivity().getBaseContext());
         tvBiography.setText(User.current.getBiography());
         if (User.current.getGender() == User.GENDER_UNKNOWN) {
             ivGender.setVisibility(View.INVISIBLE);

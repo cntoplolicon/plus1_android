@@ -123,7 +123,18 @@ public class CardDetailsActivity extends Activity {
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setText(post.getUser().getNickname());
-        int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        int genderIcon;
+        switch (post.getUser().getGender()) {
+            case User.GENDER_FEMALE:
+                genderIcon = R.drawable.icon_woman;
+                break;
+            case User.GENDER_MALE:
+                genderIcon = R.drawable.icon_man;
+                break;
+            default:
+                genderIcon = 0;
+                break;
+        }
         CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
         ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + post.getUser().getAvatar(), ivAvatar);
         tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
@@ -238,12 +249,13 @@ public class CardDetailsActivity extends Activity {
         @Override
         public void onViewClick(View view, int position) {
             if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
-                Intent intent = new Intent(getBaseContext(), UserHomeActivity.class);
+                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
                 startActivity(intent);
             } else if (view.getId() == R.id.tv_reply_target) {
-                Intent intent = new Intent(getBaseContext(), UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(cardDetailsAdapter.getItem(position).getReplyToId()).getUser()));
+                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
+                int replyTargetId = cardDetailsAdapter.getItem(position).getReplyToId();
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(replyTargetId).getUser()));
                 startActivity(intent);
             }
         }

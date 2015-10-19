@@ -59,6 +59,17 @@ public class UserHomeActivity extends Activity {
         headerViewHolder.tvBiography.setText(user.getBiography());
         headerViewHolder.tvNickname.setText(user.getNickname());
         actionBar.setPageTitle(user.getNickname());
+        switch (user.getGender()) {
+            case User.GENDER_MALE:
+                actionBar.setPageTitleColor(R.color.personal_common_male_username);
+                break;
+            case User.GENDER_FEMALE:
+                actionBar.setPageTitleColor(R.color.personal_common_female_username);
+                break;
+            default:
+                actionBar.setPageTitleColor(R.color.unknown_gender);
+                break;
+        }
         String imageUrl = user.getAvatar();
         if (imageUrl == null) {
             headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);

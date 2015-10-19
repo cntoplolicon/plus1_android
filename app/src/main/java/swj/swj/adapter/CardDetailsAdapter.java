@@ -101,6 +101,8 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
             viewHolder.tvReply.setVisibility(view.GONE);
             viewHolder.tvReplyTarget.setVisibility(view.GONE);
         } else {
+            viewHolder.tvReply.setVisibility(view.VISIBLE);
+            viewHolder.tvReplyTarget.setVisibility(view.VISIBLE);
             Comment repliedComment = getCommentById(comment.getReplyToId());
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setText(repliedComment.getUser().getNickname());

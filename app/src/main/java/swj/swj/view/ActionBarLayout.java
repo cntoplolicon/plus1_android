@@ -66,6 +66,10 @@ public class ActionBarLayout extends RelativeLayout {
         tvPageTitle.setText(pageTitle);
     }
 
+    public void setPageTitleColor(Integer color) {
+        tvPageTitle.setTextColor(getResources().getColor(color));
+    }
+
     public boolean isHideBackArrow() {
         return hideBackArrow;
     }
