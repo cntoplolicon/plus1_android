@@ -73,8 +73,10 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/icon_edittext_background"
+                android:background="#eeeeee"
                 android:hint="@string/publish_comment"
+                android:paddingLeft="15dp"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp" />
 
             <Button

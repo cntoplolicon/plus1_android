@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp">
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
@@ -16,7 +15,7 @@
             android:layout_marginTop="25dp"
             android:src="@drawable/default_useravatar"
             app:border_color="#fed724"
-            app:border_width="2px" />
+            app:border_width="1dp" />
 
         <LinearLayout
             android:id="@+id/ll_nick"
@@ -50,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_nick"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
             android:layout_marginTop="15dp"
             android:text="我相信"
             android:textColor="#999999"

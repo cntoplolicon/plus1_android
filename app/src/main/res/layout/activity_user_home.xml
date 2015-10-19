@@ -31,11 +31,11 @@
         android:layout_height="match_parent"
         android:layout_below="@id/fl_title"
         android:background="#fff"
-        android:horizontalSpacing="5dp"
+        android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
         android:numColumns="auto_fit"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingLeft="@dimen/myself_grid_view_margin_left"
+        android:paddingRight="@dimen/myself_grid_view_margin_right"
         android:scrollbarStyle="outsideOverlay"
-        android:verticalSpacing="5dp"></swj.swj.view.HeaderGridView>>
+        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing"></swj.swj.view.HeaderGridView>
 </RelativeLayout>
 
