@@ -90,7 +90,7 @@
         android:layout_marginTop="2dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/settings_common_margin_left"
+        android:paddingLeft="@dimen/common_margin_left_right"
         android:text="清除缓存"
         android:textColor="@color/settings_common_title"
         android:textSize="@dimen/settings_common_text" />

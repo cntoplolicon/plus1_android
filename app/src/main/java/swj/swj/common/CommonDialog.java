@@ -1,6 +1,5 @@
 package swj.swj.common;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.Display;
@@ -13,7 +12,7 @@ import swj.swj.R;
 /**
  * Created by Administrator on 2015/10/15.
  */
-public class CommonDialog extends Activity {
+public class CommonDialog {
 
     public static void showDialog(Context context, String dialogMsg) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();

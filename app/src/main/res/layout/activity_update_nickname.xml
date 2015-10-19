@@ -42,6 +42,6 @@
         android:gravity="center"
         android:text="@string/save_changes"
         android:textColor="@color/profile_common_text"
-        android:textSize="@dimen/settings_common_text" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
 </RelativeLayout>
