@@ -16,6 +16,7 @@ public class RegisterStepTwo extends VerifySecurityCodeActivity {
         setupChosenUsername();
         startResendCountDown();
     }
+
     @Override
     protected Class<?> getNextActivity() {
         return RegisterStepThree.class;

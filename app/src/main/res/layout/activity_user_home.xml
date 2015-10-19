@@ -2,34 +2,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fl_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-
-        <swj.swj.view.ActionBarLayout
+    <swj.swj.view.ActionBarLayout
             android:id="@+id/action_bar"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/action_bar_height">
-
-            <TextView
-                android:id="@+id/tv_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="用户001"
-                android:textColor="#000"
-                android:textSize="20sp" />
         </swj.swj.view.ActionBarLayout>
-    </FrameLayout>
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_user_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fl_title"
+        android:layout_below="@id/action_bar"
         android:background="#fff"
         android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
         android:numColumns="auto_fit"

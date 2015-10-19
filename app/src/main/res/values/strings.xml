@@ -127,6 +127,7 @@
     <string name="comment_success">评论成功</string>
     <string name="comment_failure">评论失败</string>
     <string name="feedback_success">反馈发送成功</string>
+    <string name="reply_to_target">回复</string>
     
     <string name="notification_comment_title">新的评论</string>
     <string name="notification_card">%s评论了你发布的帖子</string>

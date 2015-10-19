@@ -9,24 +9,24 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.adapter.UserPostsGridViewAdapter;
+import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
+import swj.swj.view.ActionBarLayout;
 import swj.swj.view.HeaderGridView;
 
 public class UserHomeActivity extends Activity {
 
-    @Bind(R.id.tv_biography)
-    TextView tvBiography;
+    private HeaderViewHolder headerViewHolder = new HeaderViewHolder();
 
-    @Bind(R.id.tv_nickname)
-    TextView tvNickname;
-
-    @Bind(R.id.iv_gender)
-    ImageView ivGender;
+    @Bind(R.id.action_bar)
+    ActionBarLayout actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,8 @@ public class UserHomeActivity extends Activity {
         View headerView = LayoutInflater.from(this).inflate(R.layout.user_home_gridview_header, null);
         gridView.addHeaderView(headerView, null, false);
 
-        ButterKnife.bind(this, headerView);
+        ButterKnife.bind(headerViewHolder, headerView);
+        ButterKnife.bind(this);
         updateUserInfo(user);
 
         gridView.setAdapter(new UserPostsGridViewAdapter(this, user.getId()));
@@ -55,15 +56,49 @@ public class UserHomeActivity extends Activity {
     }
 
     private void updateUserInfo(User user) {
-        tvBiography.setText(user.getBiography());
-        tvNickname.setText(user.getNickname());
-        if (user.getGender() == User.GENDER_UNKNOWN) {
-            ivGender.setVisibility(View.INVISIBLE);
+        headerViewHolder.tvBiography.setText(user.getBiography());
+        headerViewHolder.tvNickname.setText(user.getNickname());
+        actionBar.setPageTitle(user.getNickname());
+        switch (user.getGender()) {
+            case User.GENDER_MALE:
+                actionBar.setPageTitleColor(R.color.personal_common_male_username);
+                break;
+            case User.GENDER_FEMALE:
+                actionBar.setPageTitleColor(R.color.personal_common_female_username);
+                break;
+            default:
+                actionBar.setPageTitleColor(R.color.unknown_gender);
+                break;
+        }
+        String imageUrl = user.getAvatar();
+        if (imageUrl == null) {
+            headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
         } else {
-            ivGender.setVisibility(View.VISIBLE);
+            headerViewHolder.ivAvatar.setImageResource(R.drawable.loading);
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, headerViewHolder.ivAvatar);
+        }
+        if (user.getGender() == User.GENDER_UNKNOWN) {
+            headerViewHolder.ivGender.setVisibility(View.INVISIBLE);
+        } else {
+            headerViewHolder.ivGender.setVisibility(View.VISIBLE);
             int resource = user.getGender() == User.GENDER_FEMALE ?
                     R.drawable.icon_woman : R.drawable.icon_man;
-            ivGender.setImageResource(resource);
+            headerViewHolder.ivGender.setImageResource(resource);
         }
+        CommonMethods.chooseNicknameColorViaGender(headerViewHolder.tvNickname, user, getBaseContext());
+    }
+
+    static class HeaderViewHolder {
+        @Bind(R.id.tv_biography)
+        TextView tvBiography;
+
+        @Bind(R.id.tv_nickname)
+        TextView tvNickname;
+
+        @Bind(R.id.iv_gender)
+        ImageView ivGender;
+
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
     }
 }
