@@ -26,6 +26,7 @@
         android:layout_toRightOf="@+id/iv_avatar"
         android:drawablePadding="@dimen/home_text_image_spacing"
         android:drawableRight="@drawable/icon_woman"
+        android:singleLine="true"
         android:text="用户昵称"
         android:textColor="@color/personal_common_female_username"
         android:textSize="@dimen/home_nick_name_text_size" />
@@ -50,14 +51,13 @@
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_location"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
-        android:layout_below="@id/tv_location"
-        android:maxHeight="@dimen/home_big_image_length"
+        android:maxHeight="300dp"
         android:maxWidth="@dimen/home_big_image_length"
         android:scaleType="centerInside" />
 

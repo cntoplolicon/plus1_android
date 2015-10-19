@@ -109,13 +109,7 @@ public class MySelfFragment extends Fragment {
 
     @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})
     public void onTabClicked(TextView view) {
-        view.setBackgroundResource(R.drawable.personal_tv_border_left_pressed);
-        TextView theOtherTab = view.getId() == R.id.tv_myself_collect ? tvMyPublish : tvMyCollection;
-        theOtherTab.setBackgroundResource(R.drawable.personal_tv_border_left_unpressed);
-        if (view.getId() != currentTab) {
-            currentTab = view.getId();
-            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
-        }
+        gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {
