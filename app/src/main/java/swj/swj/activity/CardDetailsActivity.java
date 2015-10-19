@@ -240,6 +240,10 @@ public class CardDetailsActivity extends Activity {
                 Intent intent = new Intent(getBaseContext(), UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
                 startActivity(intent);
+            } else if (view.getId() == R.id.tv_reply_target) {
+                Intent intent = new Intent(getBaseContext(), UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(cardDetailsAdapter.getItem(position).getReplyToId()).getUser()));
+                startActivity(intent);
             }
         }
     }

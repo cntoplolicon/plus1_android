@@ -89,25 +89,29 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
                     viewHolder.ivAvatar);
         }
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
-        if (comment.getReplyToId() == 0) {
-            viewHolder.tvContent.setText(comment.getContent());
-        } else {
-            Comment repliedComment = getCommentById(comment.getReplyToId());
-            viewHolder.tvContent.setText(String.format(view.getResources().getString(R.string.reply_to_user_format), repliedComment.getUser().getNickname(), comment.getContent()));
-        }
         View.OnClickListener customViewClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewClickedListener.onViewClick(view, position);
             }
         };
+        if (comment.getReplyToId() == 0) {
+            viewHolder.tvContent.setText(comment.getContent());
+            viewHolder.tvReply.setVisibility(view.GONE);
+            viewHolder.tvReplyTarget.setVisibility(view.GONE);
+        } else {
+            Comment repliedComment = getCommentById(comment.getReplyToId());
+            viewHolder.tvContent.setText(comment.getContent());
+            viewHolder.tvReplyTarget.setText(repliedComment.getUser().getNickname());
+            viewHolder.tvReplyTarget.setOnClickListener(customViewClickListener);
+        }
         viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
         viewHolder.tvNickname.setOnClickListener(customViewClickListener);
         view.setTag(comment);
         return view;
     }
 
-    private Comment getCommentById(int id) {
+    public Comment getCommentById(int id) {
         for (int i = 0; i < getCount(); i++) {
             Comment comment = getItem(i);
             if (comment.getId() == id) {
@@ -176,6 +180,10 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         TextView tvNickname;
         @Bind(R.id.tv_content)
         TextView tvContent;
+        @Bind(R.id.tv_reply)
+        TextView tvReply;
+        @Bind(R.id.tv_reply_target)
+        TextView tvReplyTarget;
     }
 
 }

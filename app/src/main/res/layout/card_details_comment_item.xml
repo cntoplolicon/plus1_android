@@ -29,16 +29,38 @@
         android:textSize="15dp" />
 
     <TextView
+        android:id="@+id/tv_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reply_to_target"
+        android:textColor="#999999"
+        android:textSize="13dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/tv_nickname"
+        android:layout_toRightOf="@+id/tv_nickname"
+        android:layout_toEndOf="@+id/tv_nickname" />
+
+    <TextView
+        android:id="@+id/tv_reply_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cntoplolicon"
+        android:layout_marginLeft="5dp"
+        android:textColor="#00aeef"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/tv_nickname"
+        android:layout_toRightOf="@+id/tv_reply"
+        android:layout_toEndOf="@+id/tv_reply" />
+
+    <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_nickname"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/iv_avatar"
         android:text="阳光少年"
         android:textColor="#999999"
-        android:textSize="13dp" />
+        android:textSize="13dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_alignLeft="@+id/tv_nickname"
+        android:layout_alignStart="@+id/tv_nickname" />
 </RelativeLayout>
