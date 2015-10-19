@@ -48,7 +48,7 @@
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="56dp"
-        android:background="@color/test_yellow"
+        android:background="@color/common_yellow"
         android:text="@string/hint_press_to_get_SCode"
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />

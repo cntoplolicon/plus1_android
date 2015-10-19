@@ -41,7 +41,7 @@
         android:background="@color/common_yellow"
         android:gravity="center"
         android:text="@string/save_changes"
-        android:textColor="@color/profile_common_text"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
 
 </RelativeLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="settings_title_color">#88888888</color>
-    <color name="settings_top_bar_blue">#0066FF</color>
-    <color name="common_yellow">#FED724</color>
+
+    <color name="common_yellow">#fed724</color>
     <color name="common_white_bg">#ffffff</color>
+    <color name="common_hint_color">#b4b4b4</color>
+    <color name="common_button_text_color">#666666</color>
     <color name="personal_common_female_username">#ffb2b8</color>
     <color name="personal_common_male_username">#7ee2ff</color>
     <color name="personal_show_value">#ff7800</color>
@@ -14,25 +15,13 @@
     <color name="personal_gridview_title_unpressed">#929292</color>
     <color name="settings_common_title">#303030</color>
     <color name="profile_show_user_info">#929292</color>
+
+    <color name="home_title_color">#b3b3b3</color>
     <color name="profile_background">#efefef</color>
     <color name="profile_input_background">#efefef</color>
     <color name="profile_common_text">#303030</color>
-    <color name="profile_hint_text">#929292</color>
+    <color name="profile_hint_text">#999999</color>
 
-    <color name="home_title_color">#b3b3b3</color>
-    <color name="register_hint_color">#bababa</color>
-    <color name="new_card_text_color">#303030</color>
-    <color name="new_card_button">#bababa</color>
-    <color name="new_card_background">#FFFFFF</color>
-
-    <item name="white" type="color">#ffffff</item>
-    <item name="black" type="color">#000000</item>
-    <item name="test_yellow" type="color">#fed724</item>
-    <item name="action_bar_border" type="color">#b3b3b3</item>
-    <!--<item name="et_hint" type="color">#bababa</item>-->
-    <item name="et_background" type="color">#f5f5f5</item>
-
-    <color name="edit_text_cursor_color">#31C37C</color>
     <integer-array name="gplus_colors">
         <item>@color/gplus_color_1</item>
         <item>@color/gplus_color_2</item>
@@ -41,14 +30,7 @@
     <color name="gplus_color_1">#fed724</color>
     <color name="gplus_color_2">#7ee2ff</color>
 
-    <color name="common_hint_color">#b4b4b4</color>
-    <color name="common_button_text_color">#666666</color>
-    <color name="register_substantive">#999999</color>
-    <color name="register_security_code">#00AAEF</color>
+    <color name="register_security_code">#2958a6</color>
     <color name="register_three_gender">#666666</color>
-    <color name="register_dialog_reminder">#939393</color>
 
-    <color name="message_background">#efefef</color>
-
-    <color name="publish_mes">#666666</color>
 </resources>

@@ -33,7 +33,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:textColor="@color/register_dialog_reminder"
+            android:textColor="#939393"
             android:textSize="17dp" />
     </LinearLayout>
 

@@ -3,7 +3,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/message_background">
+    android:background="@color/profile_background">
 
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
@@ -22,7 +22,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="昵称"
-        android:textColor="@color/personal_common_female_username"
+        android:textColor="@color/common_button_text_color"
         android:textSize="18sp" />
 
     <ImageView
@@ -44,7 +44,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="意见反馈"
-        android:textColor="@color/settings_common_title"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
@@ -66,7 +66,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="@string/notifications_from_app"
-        android:textColor="@color/settings_common_title"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <Switch
@@ -92,7 +92,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="清除缓存"
-        android:textColor="@color/settings_common_title"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <TextView
@@ -104,7 +104,7 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:gravity="center_vertical"
         android:text="12M"
-        android:textColor="@color/settings_common_title" />
+        android:textColor="@color/common_button_text_color" />
 
     <Button
         android:id="@+id/btn_logout"
@@ -116,6 +116,7 @@
         android:layout_marginTop="60dp"
         android:background="@color/common_yellow"
         android:text="@string/log_out"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
 
 </RelativeLayout>
