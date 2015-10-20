@@ -38,16 +38,16 @@
             android:id="@+id/et_security_code"
             android:layout_width="180dp"
             android:layout_height="50dp"
+            android:layout_alignBottom="@+id/register_line"
+            android:layout_alignLeft="@+id/register_line"
+            android:layout_alignStart="@+id/register_line"
             android:background="@null"
             android:gravity="center"
             android:hint="@string/hint_security_code"
             android:inputType="phone"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="@dimen/register_security_code"
-            android:layout_above="@+id/register_line"
-            android:layout_alignLeft="@+id/register_line"
-            android:layout_alignStart="@+id/register_line" />
+            android:textSize="@dimen/register_security_code" />
 
         <TextView
             android:id="@+id/register_line"
