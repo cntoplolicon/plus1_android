@@ -12,15 +12,25 @@
         custom:page_title="设置" />
 
     <TextView
-        android:id="@+id/tv_personal_settings_nickname"
+        android:id="@+id/tv_personal_profiles"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_text_height"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginTop="15dp"
+        android:background="@color/common_white_bg" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_below="@+id/action_bar"
         android:layout_marginBottom="21dp"
         android:layout_marginTop="15dp"
-        android:background="@color/common_white_bg"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxWidth="300dp"
         android:paddingLeft="@dimen/common_margin_left_right"
+        android:singleLine="true"
         android:text="昵称"
         android:textColor="@color/common_button_text_color"
         android:textSize="18sp" />
@@ -30,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_personal_settings_nickname"
+        android:layout_alignTop="@+id/tv_nickname"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
 
@@ -60,7 +70,7 @@
         android:id="@+id/tv_notification_switch"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/tv_personal_settings_nickname"
+        android:layout_below="@+id/tv_nickname"
         android:layout_marginTop="1dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"

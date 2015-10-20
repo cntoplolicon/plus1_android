@@ -35,7 +35,7 @@ public class UpdateNicknameActivity extends Activity {
         if (!inputValidation()) {
             return;
         }
-        String nickname = nicknameInput.getText().toString();
+        String nickname = nicknameInput.getText().toString().trim();
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("nickname", nickname);
         RestClient.getInstance().updateUserAttributes(attributes).done(
@@ -64,7 +64,7 @@ public class UpdateNicknameActivity extends Activity {
     }
 
     private boolean inputValidation() {
-        if (nicknameInput.getText().toString().isEmpty()) {
+        if (nicknameInput.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, R.string.nickname_required, Toast.LENGTH_LONG).show();
             return false;
         }

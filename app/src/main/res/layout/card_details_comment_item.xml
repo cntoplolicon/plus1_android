@@ -24,6 +24,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/iv_avatar"
+        android:ellipsize="end"
+        android:maxWidth="100dp"
+        android:singleLine="true"
         android:text="阳光少年"
         android:textColor="@color/personal_common_male_username"
         android:textSize="15dp" />
@@ -32,35 +35,38 @@
         android:id="@+id/tv_reply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_nickname"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/tv_nickname"
+        android:layout_toRightOf="@+id/tv_nickname"
         android:text="@string/reply_to_target"
         android:textColor="#999999"
-        android:textSize="13dp"
-        android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/tv_nickname"
-        android:layout_toRightOf="@+id/tv_nickname"
-        android:layout_toEndOf="@+id/tv_nickname" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_reply_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cntoplolicon"
-        android:layout_marginLeft="5dp"
-        android:textColor="@color/personal_common_male_username"
-        android:textSize="15dp"
         android:layout_alignTop="@+id/tv_nickname"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/tv_reply"
         android:layout_toRightOf="@+id/tv_reply"
-        android:layout_toEndOf="@+id/tv_reply" />
+        android:ellipsize="end"
+        android:maxWidth="100dp"
+        android:singleLine="true"
+        android:text="cntoplolicon"
+        android:textColor="@color/personal_common_male_username"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_nickname"
+        android:layout_alignStart="@+id/tv_nickname"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_marginTop="5dp"
         android:text="阳光少年"
         android:textColor="#999999"
-        android:textSize="13dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/tv_nickname"
-        android:layout_alignLeft="@+id/tv_nickname"
-        android:layout_alignStart="@+id/tv_nickname" />
+        android:textSize="13dp" />
 </RelativeLayout>

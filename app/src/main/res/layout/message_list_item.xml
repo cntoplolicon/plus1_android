@@ -24,6 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/iv_avatar"
+        android:maxWidth="100dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textSize="@dimen/message_text_size" />
 
     <TextView
