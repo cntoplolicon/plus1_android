@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff">
+    android:background="@color/common_white_bg">
 
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
@@ -15,31 +15,31 @@
         <ImageView
             android:id="@+id/iv_more"
             android:layout_width="30dp"
-            android:padding="5dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
+            android:padding="5dp"
             android:src="@drawable/icon_more" />
 
         <ImageView
             android:id="@+id/iv_share"
             android:layout_width="30dp"
-            android:padding="5dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toLeftOf="@+id/iv_more"
+            android:padding="5dp"
             android:src="@drawable/icon_share" />
 
         <ImageView
             android:id="@+id/iv_bookmark"
             android:layout_width="30dp"
-            android:padding="5dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_share"
+            android:padding="5dp"
             android:src="@drawable/icon_bookmark" />
 
     </swj.swj.view.ActionBarLayout>

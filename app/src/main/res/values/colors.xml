@@ -9,12 +9,10 @@
     <color name="personal_common_female_username">#ffb2b8</color>
     <color name="personal_common_male_username">#7ee2ff</color>
     <color name="personal_show_value">#ff7800</color>
-    <color name="personal_sign">#000000</color>
-    <color name="personal_level_title">#5c5c5c</color>
-    <color name="personal_gridview_title_pressed">#303030</color>
-    <color name="personal_gridview_title_unpressed">#929292</color>
-    <color name="settings_common_title">#303030</color>
-    <color name="profile_show_user_info">#929292</color>
+
+
+    <color name="register_security_code">#2958a6</color>
+    <color name="register_three_gender">#666666</color>
 
     <color name="home_title_color">#b3b3b3</color>
     <color name="profile_background">#efefef</color>
@@ -29,8 +27,5 @@
     <color name="unknown_gender">#cccccc</color>
     <color name="gplus_color_1">#fed724</color>
     <color name="gplus_color_2">#7ee2ff</color>
-
-    <color name="register_security_code">#2958a6</color>
-    <color name="register_three_gender">#666666</color>
 
 </resources>
