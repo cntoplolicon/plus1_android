@@ -1,5 +1,4 @@
 <resources>
-
     <dimen name="action_bar_height">48dp</dimen>
     <dimen name="home_title_text_size">19sp</dimen>
     <dimen name="home_txt_button">11sp</dimen>
