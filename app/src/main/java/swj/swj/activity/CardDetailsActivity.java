@@ -1,12 +1,14 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -172,7 +174,7 @@ public class CardDetailsActivity extends Activity {
     public void onBookmarkClicked(View view) {
         view.setEnabled(false);
         if (!BookmarkService.getInstance().isBookmarked(post)) {
-            ivBookmark.setImageResource(R.drawable.settings);
+            ivBookmark.setImageResource(R.drawable.icon_bookmark_checked);
             RestClient.getInstance().createBookmark(post.getId())
                     .fail(new JsonErrorListener(getApplicationContext(), null))
                     .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
@@ -211,6 +213,8 @@ public class CardDetailsActivity extends Activity {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.comment_text_required), Toast.LENGTH_LONG).show();
             return;
         }
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         view.setEnabled(false);
         int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/common_white_bg"
     android:gravity="center">
 
 
@@ -21,8 +21,8 @@
             android:background="#FED724"
             android:gravity="center"
             android:text="@string/get_image_from_camera"
-            android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textColor="@color/common_button_text_color"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tv_gallery"
@@ -35,8 +35,8 @@
             android:gravity="center"
             android:onClick="camera"
             android:text="@string/get_image_from_gallery"
-            android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textColor="@color/common_button_text_color"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -49,8 +49,8 @@
             android:background="#FED724"
             android:gravity="center"
             android:text="@string/cancel"
-            android:textColor="@color/personal_sign"
-            android:textSize="16dp" />
+            android:textColor="@color/common_button_text_color"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/common_white_bg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
@@ -34,7 +34,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/tv_nickname"
         android:text="回复了你的评论"
-        android:textColor="@color/publish_mes"
+        android:textColor="#666666"
         android:textSize="@dimen/message_text_size" />
 
     <ImageView

@@ -1,7 +1,12 @@
 <resources>
+    <dimen name="common_margin_left_right">15dp</dimen>
+    <dimen name="common_hint_text_size">16sp</dimen>
+    <dimen name="common_yellow_button_text_size">18sp</dimen>
+    <dimen name="common_margin_change_password">25dp</dimen>
+
     <dimen name="action_bar_height">48dp</dimen>
     <dimen name="home_title_text_size">19sp</dimen>
-    <dimen name="home_txt_button">11sp</dimen>
+    <dimen name="home_radio_group_text_size">11sp</dimen>
     <dimen name="home_radio_group_height">48dp</dimen>
 
     <dimen name="profile_text_height">45dp</dimen>
@@ -12,10 +17,6 @@
     <dimen name="personal_grid_title_text">13sp</dimen>
     <dimen name="personal_grid_title_height">27dp</dimen>
 
-    <dimen name="common_margin_left_right">15dp</dimen>
-    <dimen name="common_hint_text_size">15sp</dimen>
-    <dimen name="common_yellow_button_text_size">18sp</dimen>
-    <dimen name="common_margin_change_password">25dp</dimen>
 
     <dimen name="settings_common_text">15sp</dimen>
     <dimen name="message_text_size">15sp</dimen>
