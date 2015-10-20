@@ -52,7 +52,7 @@ public class AddTextActivity extends Activity {
             Toast.makeText(getApplicationContext(), R.string.post_text_required, Toast.LENGTH_LONG).show();
             return;
         }
-        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null}).done(
+        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{null}, new Integer[]{null}, new Integer[]{null}).done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
