@@ -37,6 +37,10 @@
         <item>@color/gplus_color_1</item>
         <item>@color/gplus_color_2</item>
     </integer-array>
+    <color name="unknown_gender">#cccccc</color>
+
+
+
 
     <color name="gplus_color_1">#fed724</color>
     <color name="gplus_color_2">#7ee2ff</color>
