@@ -34,7 +34,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:textColor="#939393"
-            android:textSize="17dp" />
+            android:textSize="18dp" />
     </LinearLayout>
 
 </RelativeLayout>
