@@ -74,6 +74,7 @@
         android:layout_height="50dp"
         android:layout_alignTop="@+id/iv_forward_nick"
         android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:maxWidth="300dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="海绵宝宝"

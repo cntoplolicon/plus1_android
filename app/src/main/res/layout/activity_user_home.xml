@@ -3,10 +3,9 @@
     android:layout_height="match_parent">
 
     <swj.swj.view.ActionBarLayout
-            android:id="@+id/action_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/action_bar_height">
-        </swj.swj.view.ActionBarLayout>
+        android:id="@+id/action_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/action_bar_height"></swj.swj.view.ActionBarLayout>
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_user_authored_posts"

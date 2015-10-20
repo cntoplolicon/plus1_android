@@ -29,10 +29,10 @@ public class PersonalSettingsActivity extends Activity {
     @Bind(R.id.switch_notification)
     Switch switchNotification;
 
-    @Bind(R.id.tv_personal_settings_nickname)
+    @Bind(R.id.tv_nickname)
     TextView tvNickName;
 
-    @OnClick(R.id.tv_personal_settings_nickname)
+    @OnClick(R.id.tv_personal_profiles)
     public void submit() {
         startActivity(new Intent(PersonalSettingsActivity.this, PersonalProfileActivity.class));
     }

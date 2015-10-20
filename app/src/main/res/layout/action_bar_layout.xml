@@ -21,6 +21,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="15dp"
+        android:maxWidth="200dp"
+        android:singleLine="true"
         android:textColor="#333"
         android:textSize="@dimen/home_title_text_size" />
 
