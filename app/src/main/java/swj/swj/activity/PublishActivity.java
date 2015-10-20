@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.apache.http.entity.mime.content.FileBody;
@@ -38,6 +39,7 @@ import swj.swj.common.RestClient;
 public class PublishActivity extends Activity {
 
     private String imageFilePath;
+    private ImageSize imageSize;
     private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.iv_image)
@@ -60,7 +62,9 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         Uri uri = getIntent().getParcelableExtra("imagePath");
-        File compressedImageFile = BitmapUtil.prepareBitmapForUploading(uri);
+        BitmapUtil.ImageFileInfo imageFileInfo = BitmapUtil.prepareBitmapForUploading(uri);
+        File compressedImageFile = imageFileInfo.getFile();
+        imageSize = imageFileInfo.getImageSize();
         imageFilePath = compressedImageFile.getAbsolutePath();
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false).build();
         ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView, options);
@@ -75,7 +79,7 @@ public class PublishActivity extends Activity {
     public void submit() {
         String text = editText.getText().toString();
         FileBody imageBody = new FileBody(new File(imageFilePath));
-        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}).done(
+        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}, new Integer[]{imageSize.getWidth()}, new Integer[]{imageSize.getHeight()}).done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {

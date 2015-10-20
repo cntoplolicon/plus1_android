@@ -140,7 +140,7 @@ public class PersonalProfileActivity extends Activity {
                     return;
                 }
                 Map<String, Object> attributes = new HashMap<>();
-                File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data));
+                File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data)).getFile();
                 attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg"));
                 RestClient.getInstance().updateUserAvatar(attributes).done(
                         new DoneCallback<JSONObject>() {

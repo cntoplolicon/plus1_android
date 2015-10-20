@@ -24,12 +24,13 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_HEIGHT = 960;
     private static int MAX_IMAGE_BYTES = 150 * 1024;
 
-    public static File prepareBitmapForUploading(Uri uri) {
+    public static ImageFileInfo prepareBitmapForUploading(Uri uri) {
         Bitmap bitmap = loadScaledBitmap(uri);
         ByteArrayOutputStream byteArrayOutputStream = reduceQualityToMatchCapacity(bitmap, MAX_IMAGE_BYTES);
         File result = saveCompressedBitmap(byteArrayOutputStream);
+        ImageFileInfo imageFileInfo = new ImageFileInfo(result, new ImageSize(bitmap.getWidth(), bitmap.getHeight()));
         bitmap.recycle();
-        return result;
+        return imageFileInfo;
     }
 
     private static Bitmap loadScaledBitmap(Uri uri) {
@@ -75,6 +76,24 @@ public final class BitmapUtil {
             }
         }
         return file;
+    }
+
+    public static class ImageFileInfo {
+        private File file;
+        private ImageSize imageSize;
+
+        public ImageFileInfo(File file, ImageSize imageSize) {
+            this.file = file;
+            this.imageSize = imageSize;
+        }
+
+        public File getFile() {
+            return file;
+        }
+
+        public ImageSize getImageSize() {
+            return imageSize;
+        }
     }
 }
 

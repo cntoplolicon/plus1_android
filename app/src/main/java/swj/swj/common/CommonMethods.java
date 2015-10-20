@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.FieldNamingPolicy;
@@ -107,5 +108,11 @@ public final class CommonMethods {
         } else {
             textView.setTextColor(context.getResources().getColor(R.color.unknown_gender));
         }
+    }
+
+    public static void setImageViewSize(ImageView imageView, Integer width, Integer height) {
+        imageView.requestLayout();
+        imageView.getLayoutParams().height = height;
+        imageView.getLayoutParams().width = width;
     }
 }

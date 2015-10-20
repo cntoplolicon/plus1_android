@@ -230,7 +230,7 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONObject, VolleyError, Void> newPost(String[] texts, AbstractContentBody[] images) {
+    public Promise<JSONObject, VolleyError, Void> newPost(String[] texts, AbstractContentBody[] images, Integer[] imageWidths, Integer[] imageHeights) {
         if (texts.length != images.length) {
             throw new IllegalArgumentException("texts & images lengths unequal");
         }
@@ -245,6 +245,8 @@ public class RestClient {
         for (int i = 0; i < texts.length; i++) {
             params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][text]", texts[i]));
             params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][image]", images[i]));
+            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][image_width]", imageWidths[i]));
+            params.add(new AbstractMap.SimpleEntry<String, Object>("post_pages[][image_height]", imageHeights[i]));
         }
 
         String userId = userParams.get("user_id").toString();
