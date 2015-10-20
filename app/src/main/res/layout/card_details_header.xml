@@ -26,6 +26,9 @@
         android:layout_toRightOf="@+id/iv_avatar"
         android:drawablePadding="@dimen/home_text_image_spacing"
         android:drawableRight="@drawable/icon_woman"
+        android:ellipsize="middle"
+        android:maxWidth="200dp"
+        android:singleLine="true"
         android:text="用户昵称"
         android:textColor="@color/personal_common_female_username"
         android:textSize="@dimen/home_nick_name_text_size" />

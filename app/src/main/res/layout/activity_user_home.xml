@@ -5,7 +5,8 @@
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/action_bar_height"></swj.swj.view.ActionBarLayout>
+        android:layout_height="@dimen/action_bar_height">
+    </swj.swj.view.ActionBarLayout>
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_user_authored_posts"
@@ -18,6 +19,7 @@
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_right"
         android:scrollbarStyle="outsideOverlay"
-        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing"></swj.swj.view.HeaderGridView>
+        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing">
+    </swj.swj.view.HeaderGridView>
 </RelativeLayout>
 

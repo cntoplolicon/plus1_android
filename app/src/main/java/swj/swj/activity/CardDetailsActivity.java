@@ -242,7 +242,7 @@ public class CardDetailsActivity extends Activity {
 
     private void syncBookmarkInfo() {
         if (BookmarkService.getInstance().isBookmarked(post)) {
-            ivBookmark.setImageResource(R.drawable.settings);
+            ivBookmark.setImageResource(R.drawable.icon_bookmark_checked);
         } else {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
         }

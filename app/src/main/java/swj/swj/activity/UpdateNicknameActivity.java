@@ -35,7 +35,7 @@ public class UpdateNicknameActivity extends Activity {
         if (!inputValidation()) {
             return;
         }
-        String nickname = nicknameInput.getText().toString();
+        String nickname = nicknameInput.getText().toString().trim();
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("nickname", nickname);
         RestClient.getInstance().updateUserAttributes(attributes).done(
