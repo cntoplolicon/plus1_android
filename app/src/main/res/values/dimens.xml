@@ -1,5 +1,4 @@
 <resources>
-
     <dimen name="action_bar_height">48dp</dimen>
     <dimen name="home_title_text_size">19sp</dimen>
     <dimen name="home_txt_button">11sp</dimen>
@@ -39,7 +38,7 @@
     <dimen name="myself_grid_view_margin_left">15dp</dimen>
     <dimen name="myself_grid_view_margin_right">15dp</dimen>
 
-    <dimen name="home_big_image_length">330dp</dimen>
+    <dimen name="home_big_image_length">230dp</dimen>
     <dimen name="home_round_image_length">50dp</dimen>
     <dimen name="home_nick_name_margin_top">14dp</dimen>
     <dimen name="home_nick_name_margin_left">15dp</dimen>

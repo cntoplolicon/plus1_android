@@ -36,24 +36,10 @@
     <integer-array name="gplus_colors">
         <item>@color/gplus_color_1</item>
         <item>@color/gplus_color_2</item>
-        <item>@color/gplus_color_3</item>
-        <item>@color/gplus_color_4</item>
     </integer-array>
-    <integer-array name="gplus_colorsq">
-        <item>@color/gplus_color_5</item>
-        <item>@color/gplus_color_6</item>
-    </integer-array>
-    <color name="gplus_color_1">#3e802f</color>
-    <color name="gplus_color_2">#f4b400</color>
-    <color name="gplus_color_3">#427fed</color>
-    <color name="gplus_color_4">#b23424</color>
-    <color name="gplus_color_5">#fed724</color>
-    <color name="gplus_color_6">#7ee2ff</color>
     <color name="unknown_gender">#cccccc</color>
-
-
-
-
+    <color name="gplus_color_1">#fed724</color>
+    <color name="gplus_color_2">#7ee2ff</color>
 
     <color name="common_hint_color">#b4b4b4</color>
     <color name="common_button_text_color">#666666</color>

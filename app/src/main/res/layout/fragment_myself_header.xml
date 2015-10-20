@@ -5,33 +5,36 @@
 
     <include layout="@layout/user_home_gridview_header" />
 
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_biography"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
-        <TextView
+        <RadioButton
             android:id="@+id/tv_myself_publish"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/personal_grid_title_height"
             android:layout_weight="0.50"
-            android:background="@drawable/personal_tv_border_left_pressed"
+            android:background="@drawable/btn_public_selector"
+            android:button="@null"
+            android:checked="true"
             android:gravity="center"
             android:text="我发布的"
             android:textColor="@color/personal_gridview_title_pressed"
             android:textSize="@dimen/personal_grid_title_text" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/tv_myself_collect"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/personal_grid_title_height"
             android:layout_weight="0.50"
-            android:background="@drawable/personal_tv_border_right_unpressed"
+            android:background="@drawable/btn_collect_selector"
+            android:button="@null"
             android:gravity="center"
             android:text="我的收藏"
             android:textColor="@color/personal_gridview_title_unpressed"
             android:textSize="@dimen/personal_grid_title_text" />
-    </LinearLayout>
+    </RadioGroup>
 </LinearLayout>
