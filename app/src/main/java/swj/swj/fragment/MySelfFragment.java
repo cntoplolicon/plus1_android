@@ -3,11 +3,13 @@ package swj.swj.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -108,8 +110,11 @@ public class MySelfFragment extends Fragment {
     }
 
     @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})
-    public void onTabClicked(TextView view) {
-        gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
+    public void onTabClicked(RadioButton view) {
+        if (view.getId() != currentTab) {
+            currentTab = view.getId();
+            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
+        }
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {
