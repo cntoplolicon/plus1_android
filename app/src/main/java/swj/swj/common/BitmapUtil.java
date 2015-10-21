@@ -1,5 +1,6 @@
 package swj.swj.common;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -12,8 +13,10 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,13 +27,62 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_HEIGHT = 960;
     private static int MAX_IMAGE_BYTES = 150 * 1024;
 
-    public static ImageFileInfo prepareBitmapForUploading(Uri uri) {
+    public static ImageFileInfo prepareBitmapForUploading(Context context, Uri uri) {
+        File outputFile = getOutputFile();
+        if (uri.getScheme().equals("content")) {
+            uri = saveUriToFile(context, uri, outputFile);
+        }
         Bitmap bitmap = loadScaledBitmap(uri);
         ByteArrayOutputStream byteArrayOutputStream = reduceQualityToMatchCapacity(bitmap, MAX_IMAGE_BYTES);
-        File result = saveCompressedBitmap(byteArrayOutputStream);
+        File result = saveCompressedBitmap(byteArrayOutputStream, outputFile);
         ImageFileInfo imageFileInfo = new ImageFileInfo(result, new ImageSize(bitmap.getWidth(), bitmap.getHeight()));
         bitmap.recycle();
         return imageFileInfo;
+    }
+
+    private static File getOutputFile() {
+        File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImages");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        String filename = new SimpleDateFormat("yyyy-MM-dd_hhmmss").format(new Date()) + ".jpg";
+        return new File(dir, filename);
+    }
+
+    private static Uri saveUriToFile(Context context, Uri uri, File file) {
+        InputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        try {
+            inputStream = context.getContentResolver().openInputStream(uri);
+            outputStream = new FileOutputStream(file);
+            byte[] buffer = new byte[1024 * 1024];
+            int count;
+            while ((count = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, count);
+            }
+            return Uri.fromFile(file);
+        } catch (FileNotFoundException e) {
+            Log.e(BitmapUtil.class.getName(), "failed opening file", e);
+            return uri;
+        } catch (IOException e) {
+            Log.e(BitmapUtil.class.getName(), "failed writing to file", e);
+            return uri;
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    Log.e(BitmapUtil.class.getName(), "failed closing input stream", e);
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    Log.e(BitmapUtil.class.getName(), "failed closing input stream", e);
+                }
+            }
+        }
     }
 
     private static Bitmap loadScaledBitmap(Uri uri) {
@@ -53,13 +105,7 @@ public final class BitmapUtil {
         return byteArrayOutputStream;
     }
 
-    private static File saveCompressedBitmap(ByteArrayOutputStream byteArrayOutputStream) {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImages");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        String filename = new SimpleDateFormat("yyyy-MM-dd_hhmmss").format(new Date()) + ".jpg";
-        File file = new File(dir, filename);
+    private static File saveCompressedBitmap(ByteArrayOutputStream byteArrayOutputStream, File file) {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);

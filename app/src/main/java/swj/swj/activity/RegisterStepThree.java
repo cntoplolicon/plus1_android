@@ -176,7 +176,7 @@ public class RegisterStepThree extends Activity {
                         Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
-                    File file = BitmapUtil.prepareBitmapForUploading(Crop.getOutput(data)).getFile();
+                    File file = BitmapUtil.prepareBitmapForUploading(this, Crop.getOutput(data)).getFile();
                     fileBody = new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg");
                     faceImage.setImageURI(Uri.fromFile(file));
             }

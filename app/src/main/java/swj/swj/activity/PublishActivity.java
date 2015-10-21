@@ -62,7 +62,7 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         Uri uri = getIntent().getParcelableExtra("imagePath");
-        BitmapUtil.ImageFileInfo imageFileInfo = BitmapUtil.prepareBitmapForUploading(uri);
+        BitmapUtil.ImageFileInfo imageFileInfo = BitmapUtil.prepareBitmapForUploading(this, uri);
         File compressedImageFile = imageFileInfo.getFile();
         imageSize = imageFileInfo.getImageSize();
         imageFilePath = compressedImageFile.getAbsolutePath();
