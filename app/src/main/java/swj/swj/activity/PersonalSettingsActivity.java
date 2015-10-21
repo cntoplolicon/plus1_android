@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import com.kyleduo.switchbutton.SwitchButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,16 +20,15 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
-import swj.swj.view.SlideSwitch;
 
 
 /**
  * Created by jiewei on 9/3/15.
  */
-public class PersonalSettingsActivity extends Activity implements SlideSwitch.SlideListener {
+public class PersonalSettingsActivity extends Activity {
 
-    private SlideSwitch switch_btn;
-
+    @Bind(R.id.sb_notification)
+    SwitchButton switchButton;
     @Bind(R.id.tv_nickname)
     TextView tvNickName;
 
@@ -68,24 +70,18 @@ public class PersonalSettingsActivity extends Activity implements SlideSwitch.Sl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
-        switch_btn = (SlideSwitch) findViewById(R.id.switch_btn);
-        switch_btn.setSlideListener(this);
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", isChecked).commit();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
-        switch_btn.setState(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
-    }
-
-    @Override
-    public void open() {
-        LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", true).commit();
-    }
-
-    @Override
-    public void close() {
-        LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", false).commit();
+        switchButton.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
     }
 }
