@@ -7,7 +7,8 @@
     <string name="unset">未设置</string>
     <string name="confirm">确定</string>
     <string name="log_in_required">未登录</string>
-    <string name="friends_tab">发现</string>
+    <string name="discovery_tab">发现</string>
+    <string name="recommend_tab">精选</string>
     <string name="myself_tab">个人</string>
     <string name="camera_tab">相机</string>
     <string name="home_tab">首页</string>
