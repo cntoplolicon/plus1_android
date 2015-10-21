@@ -33,9 +33,8 @@ public final class BitmapUtil {
             uri = saveUriToFile(context, uri, outputFile);
         }
         Bitmap bitmap = loadScaledBitmap(uri);
-        ByteArrayOutputStream byteArrayOutputStream = reduceQualityToMatchCapacity(bitmap, MAX_IMAGE_BYTES);
-        File result = saveCompressedBitmap(byteArrayOutputStream, outputFile);
-        ImageFileInfo imageFileInfo = new ImageFileInfo(result, new ImageSize(bitmap.getWidth(), bitmap.getHeight()));
+        compressBitmap(bitmap, outputFile);
+        ImageFileInfo imageFileInfo = new ImageFileInfo(outputFile, new ImageSize(bitmap.getWidth(), bitmap.getHeight()));
         bitmap.recycle();
         return imageFileInfo;
     }
@@ -68,20 +67,18 @@ public final class BitmapUtil {
             Log.e(BitmapUtil.class.getName(), "failed writing to file", e);
             return uri;
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    Log.e(BitmapUtil.class.getName(), "failed closing input stream", e);
-                }
-            }
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    Log.e(BitmapUtil.class.getName(), "failed closing input stream", e);
-                }
-            }
+            IOUtil.closeSilently(inputStream);
+            IOUtil.closeSilently(outputStream);
+        }
+    }
+
+    private static void compressBitmap(Bitmap bitmap, File file) {
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
+        } catch (FileNotFoundException e) {
+            IOUtil.closeSilently(outputStream);
         }
     }
 
