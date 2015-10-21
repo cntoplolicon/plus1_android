@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import com.kyleduo.switchbutton.SwitchButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,9 +27,8 @@ import swj.swj.model.User;
  */
 public class PersonalSettingsActivity extends Activity {
 
-    @Bind(R.id.switch_notification)
-    Switch switchNotification;
-
+    @Bind(R.id.sb_notification)
+    SwitchButton switchButton;
     @Bind(R.id.tv_nickname)
     TextView tvNickName;
 
@@ -70,7 +70,7 @@ public class PersonalSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
-        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", isChecked).commit();
@@ -78,9 +78,10 @@ public class PersonalSettingsActivity extends Activity {
         });
     }
 
-    public void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
-        switchNotification.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
+        switchButton.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
     }
 }
