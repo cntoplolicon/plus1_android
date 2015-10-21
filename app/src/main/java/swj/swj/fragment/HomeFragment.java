@@ -29,13 +29,6 @@ import swj.swj.view.HomePageLayout;
 
 public class HomeFragment extends Fragment {
 
-    private static Bitmap bitmapSkip;
-    private static Bitmap bitmapSpread;
-
-    @Bind(R.id.iv_skip)
-    ImageView ivSkip;
-    @Bind(R.id.iv_spread)
-    ImageView ivSpread;
     @Bind(R.id.loading_layout)
     View loadingView;
     @Bind(R.id.cleared_layout)
@@ -74,17 +67,6 @@ public class HomeFragment extends Fragment {
         slidingView.setAdapter(adapter);
 
         changeViewsByAdapterState(adapter.getState());
-
-        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
-        if (bitmapSkip == null) {
-            bitmapSkip = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.skip, displayOptions);
-        }
-        ivSkip.setImageBitmap(bitmapSkip);
-        if (bitmapSpread == null) {
-            bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, displayOptions);
-        }
-        ivSpread.setImageBitmap(bitmapSpread);
-
         return view;
     }
 

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="common_margin_left_right">15dp</dimen>
     <dimen name="common_hint_text_size">16sp</dimen>
@@ -39,14 +40,19 @@
     <dimen name="myself_grid_view_margin_left">15dp</dimen>
     <dimen name="myself_grid_view_margin_right">15dp</dimen>
 
-    <dimen name="home_big_image_length">230dp</dimen>
-    <dimen name="home_round_image_length">50dp</dimen>
-    <dimen name="home_nick_name_margin_top">14dp</dimen>
+    <dimen name="home_big_image_length_width">330dp</dimen>
+    <dimen name="home_big_image_length_height">330dp</dimen>
+    <dimen name="home_round_image_length">40dp</dimen>
+    <dimen name="home_nick_name_margin_top">10dp</dimen>
     <dimen name="home_nick_name_margin_left">15dp</dimen>
-    <dimen name="home_text_image_spacing">10dp</dimen>
     <dimen name="home_nick_name_text_size">18sp</dimen>
+    <dimen name="home_text_location_image_spacing">10dp</dimen>
+    <dimen name="home_location_name_text_size">12sp</dimen>
     <dimen name="home_location_text_margin_top">10dp</dimen>
     <dimen name="home_location_text_margin_bottom">15dp</dimen>
+    <dimen name="home_text_views_image_spacing">5dp</dimen>
+    <dimen name="home_text_views_margin_bottom">25dp</dimen>
+    <dimen name="home_text_views_size">12sp</dimen>
 
 
 </resources>

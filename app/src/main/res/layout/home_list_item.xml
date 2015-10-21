@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/home_nick_name_margin_left"
         android:layout_marginTop="@dimen/home_nick_name_margin_top"
         android:layout_toRightOf="@+id/iv_avatar"
-        android:drawablePadding="@dimen/home_text_image_spacing"
+        android:drawablePadding="@dimen/home_text_location_image_spacing"
         android:drawableRight="@drawable/icon_woman"
         android:singleLine="true"
         android:text="用户昵称"
@@ -40,25 +40,25 @@
         android:layout_marginBottom="@dimen/home_location_text_margin_bottom"
         android:layout_marginTop="@dimen/home_location_text_margin_top"
         android:drawableLeft="@drawable/icon_address"
-        android:drawablePadding="@dimen/home_text_image_spacing"
+        android:drawablePadding="@dimen/home_text_location_image_spacing"
         android:maxLines="2"
         android:minLines="1"
         android:text="北京市朝阳区"
         android:textColor="#999999"
-        android:textSize="@dimen/personal_profile_text" />
+        android:textSize="@dimen/home_location_name_text_size" />
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_location"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:adjustViewBounds="true"
-        android:maxHeight="@dimen/home_big_image_length"
-        android:maxWidth="@dimen/home_big_image_length"
+        android:maxHeight="@dimen/home_big_image_length_height"
+        android:maxWidth="@dimen/home_big_image_length_width"
         android:scaleType="centerInside" />
 
     <TextView
@@ -66,10 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_image"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:ellipsize="end"
-        android:lines="3"
+        android:lines="2"
         android:text="喔噢"
         android:textColor="#999999"
         android:textSize="15sp" />
@@ -80,14 +81,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/tv_line"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="@dimen/home_text_views_margin_bottom"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/tv_comments"
         android:drawableLeft="@drawable/icon_views"
-        android:drawablePadding="5dp"
+        android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="150"
-        android:textSize="12sp" />
+        android:textSize="@dimen/home_text_views_size" />
 
     <TextView
         android:id="@+id/tv_comments"
@@ -96,13 +96,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/tv_line"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="@dimen/home_text_views_margin_bottom"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/icon_comment"
-        android:drawablePadding="5dp"
+        android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="21"
-        android:textSize="12sp" />
+        android:textSize="@dimen/home_text_views_size" />
 
 </RelativeLayout>
