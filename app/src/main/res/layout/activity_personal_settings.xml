@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:slideswitch="http://schemas.android.com/apk/res/swj.swj"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/profile_background">
@@ -79,18 +80,21 @@
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/settings_common_text" />
 
-    <Switch
-        android:id="@+id/switch_notification"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="75dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_notification_switch"
-        android:layout_marginRight="30dp"
-        android:gravity="center_vertical"
-        android:showText="true"
-        android:switchMinWidth="30dp"
-        android:textOff="@string/off"
-        android:textOn="@string/on" />
+        android:layout_alignTop="@id/tv_notification_switch"
+        android:padding="12dp">
+
+        <swj.swj.view.SlideSwitch
+            android:id="@+id/switch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            slideswitch:isOpen="true"
+            slideswitch:shape="circle"
+            slideswitch:themeColor="#fed724" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_clear_cache"

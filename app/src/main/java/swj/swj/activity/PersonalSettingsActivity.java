@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -19,15 +17,15 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
+import swj.swj.view.SlideSwitch;
 
 
 /**
  * Created by jiewei on 9/3/15.
  */
-public class PersonalSettingsActivity extends Activity {
+public class PersonalSettingsActivity extends Activity implements SlideSwitch.SlideListener {
 
-    @Bind(R.id.switch_notification)
-    Switch switchNotification;
+    private SlideSwitch switch_btn;
 
     @Bind(R.id.tv_nickname)
     TextView tvNickName;
@@ -70,17 +68,24 @@ public class PersonalSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
-        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", isChecked).commit();
-            }
-        });
+        switch_btn = (SlideSwitch) findViewById(R.id.switch_btn);
+        switch_btn.setSlideListener(this);
     }
 
-    public void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
-        switchNotification.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
+        switch_btn.setState(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
+    }
+
+    @Override
+    public void open() {
+        LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", true).commit();
+    }
+
+    @Override
+    public void close() {
+        LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", false).commit();
     }
 }
