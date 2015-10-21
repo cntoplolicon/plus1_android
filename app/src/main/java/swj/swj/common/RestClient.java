@@ -410,5 +410,16 @@ public class RestClient {
 
         return deferredObject.promise();
     }
-    
+
+    public Promise<JSONArray, VolleyError, Void> getRecommendPosts() {
+        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+        Map<String, Object> params = createUserParams();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                encodeUrlParams("/recommendations", params), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
 }
