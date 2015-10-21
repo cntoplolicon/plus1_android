@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="home_big_image_length_width">300dp</dimen>
+    <dimen name="home_big_image_length_height">300dp</dimen>
+</resources>
