@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_white_bg">
+
+    <GridView
+        android:id="@+id/grid_view_concentration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="5dp"
+        android:numColumns="auto_fit"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:verticalSpacing="5dp"></GridView>
+
+</LinearLayout>

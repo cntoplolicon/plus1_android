@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
-import swj.swj.fragment.FriendFragment;
+import swj.swj.fragment.RecommendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
@@ -45,7 +45,7 @@ public class HomeActivity extends Activity {
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
-        fragments.put(R.id.rb_friends, new HomeActivityFragment(FriendFragment.class, R.string.friends_tab));
+        fragments.put(R.id.rb_friends, new HomeActivityFragment(RecommendFragment.class, R.string.recommend_tab));
         fragments.put(R.id.rb_publish, new HomeActivityFragment(PublishFragment.class, R.string.publish_title));
         fragments.put(R.id.rb_message, new HomeActivityFragment(MessageFragment.class, R.string.message_tab));
         fragments.put(R.id.rb_myself, new HomeActivityFragment(MySelfFragment.class, R.string.myself_tab));
