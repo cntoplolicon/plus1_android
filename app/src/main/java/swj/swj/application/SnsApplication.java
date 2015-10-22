@@ -39,6 +39,7 @@ public class SnsApplication extends Application {
             .cacheInMemory(true)
             .cacheOnDisk(true)
             .considerExifParams(true)
+            .resetViewBeforeLoading(true)
             .build();
 
     @Override
