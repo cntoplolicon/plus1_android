@@ -79,15 +79,13 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
+
         String avatarPath = comment.getUser().getAvatar();
-        if (avatarPath == null || avatarPath.isEmpty()) {
-            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        } else {
-            viewHolder.ivAvatar.setImageResource(R.drawable.loading);
-            ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarPath,
-                    viewHolder.ivAvatar);
-        }
+        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarPath,
+                viewHolder.ivAvatar);
+
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         View.OnClickListener customViewClickListener = new View.OnClickListener() {

@@ -53,7 +53,7 @@ public class RegisterStepThree extends Activity {
     private View.OnClickListener onSubmit = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (!inputValidation() || imageBody == null) {
+            if (!inputValidation()) {
                 return;
             }
             view.setEnabled(false);

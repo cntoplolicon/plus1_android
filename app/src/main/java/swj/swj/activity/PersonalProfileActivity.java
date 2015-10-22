@@ -72,6 +72,7 @@ public class PersonalProfileActivity extends Activity {
     }
 
     private void initView() {
+        ivAvatar.setImageResource(R.drawable.default_useravatar);
         ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
