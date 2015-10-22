@@ -35,12 +35,6 @@ public class MySelfFragment extends Fragment {
     private UserBookmarksGridViewAdapter bookmarksAdapater;
     private int currentTab = R.id.tv_myself_publish;
 
-    @Bind(R.id.tv_myself_publish)
-    TextView tvMyPublish;
-
-    @Bind(R.id.tv_myself_collect)
-    TextView tvMyCollection;
-
     @Bind(R.id.tv_biography)
     TextView tvBiography;
 

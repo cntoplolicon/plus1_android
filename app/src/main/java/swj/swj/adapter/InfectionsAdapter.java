@@ -105,7 +105,9 @@ public class InfectionsAdapter {
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setImageBitmap(null);
             itemViews.ivImage.setVisibility(View.VISIBLE);
+            itemViews.tvContent.setTextSize(25);
         } else {
+            itemViews.tvContent.setTextSize(15);
             itemViews.ivImage.setVisibility(View.VISIBLE);
             itemViews.ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);

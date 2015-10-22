@@ -79,14 +79,14 @@
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/settings_common_text" />
 
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/sb_notification"
-            style="@style/SwitchButtonStyle"
-            android:layout_alignBottom="@+id/tv_notification_switch"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            custom:kswOnColor="@color/common_yellow" />
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_notification"
+        style="@style/SwitchButtonStyle"
+        android:layout_alignBottom="@+id/tv_notification_switch"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        custom:kswOnColor="@color/common_yellow" />
 
     <TextView
         android:id="@+id/tv_clear_cache"

@@ -52,7 +52,8 @@ public class PostsGridViewAdapter extends BaseAdapter {
         }
 
         Post post = posts[position];
-
+        TextView tvText = (TextView) gridView.findViewById(R.id.tv_text);
+        tvText.setText(post.getPostPages()[0].getText());
         TextView tvSpreadsCount = (TextView) gridView.findViewById(R.id.tv_spreads_count);
         String spreadsCountFormat = context.getResources().getString(R.string.spreads_count);
         tvSpreadsCount.setText(String.format(spreadsCountFormat, post.getSpreadsCount()));
@@ -62,8 +63,9 @@ public class PostsGridViewAdapter extends BaseAdapter {
         ImageLoader.getInstance().cancelDisplayTask(imageView);
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageView.setImageDrawable(null);
-            imageView.setBackgroundResource(R.color.common_yellow);
+            tvText.setVisibility(View.VISIBLE);
         } else {
+            tvText.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
                     imageView);
         }

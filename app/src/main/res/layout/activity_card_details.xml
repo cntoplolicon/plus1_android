@@ -21,7 +21,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:padding="5dp"
-            android:src="@drawable/icon_more" />
+            android:src="@drawable/icon_more"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_share"
@@ -31,7 +32,8 @@
             android:layout_marginLeft="5dp"
             android:layout_toLeftOf="@+id/iv_more"
             android:padding="5dp"
-            android:src="@drawable/icon_share" />
+            android:src="@drawable/icon_share"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_bookmark"
@@ -39,6 +41,8 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_share"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
             android:padding="5dp"
             android:src="@drawable/icon_bookmark" />
 
@@ -49,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/action_bar"
-        android:layout_marginBottom="48dp"></ListView>
+        android:layout_marginBottom="50dp"></ListView>
 
     <FrameLayout
         android:id="@+id/fl_card_details"
@@ -88,9 +92,8 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/btn_send_comment"
-                android:background="#eeeeee"
+                android:background="#efeff0"
                 android:hint="@string/publish_comment"
-                android:paddingLeft="15dp"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp" />
         </RelativeLayout>
