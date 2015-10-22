@@ -17,7 +17,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.Promise;
-import org.jdeferred.impl.DeferredObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -82,9 +81,9 @@ public class RestClient {
     }
 
     private static class PromiseListener<T> implements Listener<T>, ErrorListener {
-        private DeferredObject<T, VolleyError, ?> deferredObject;
+        private ThrowableDeferredObject<T, VolleyError, ?> deferredObject;
 
-        private PromiseListener(DeferredObject<T, VolleyError, ?> deferredObject) {
+        private PromiseListener(ThrowableDeferredObject<T, VolleyError, ?> deferredObject) {
             this.deferredObject = deferredObject;
         }
 
@@ -100,7 +99,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Account(String username) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -113,7 +112,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Password(String username) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -126,7 +125,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> verifySecurityCode(String username, String securityCode) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -142,7 +141,7 @@ public class RestClient {
     public Promise<JSONObject, VolleyError, Void> signUp(String username, String nickname,
                                                          String password, int gender,
                                                          AbstractContentBody avatar) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -160,7 +159,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> signIn(String username, String password) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -175,7 +174,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> signOut() {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -188,7 +187,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> updateUserAttributes(Map<String, Object> attributes) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -202,7 +201,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> updateUserAvatar(Map<String, Object> attributes) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -217,7 +216,7 @@ public class RestClient {
 
 
     public Promise<JSONObject, VolleyError, Void> resetPassword(String username, String password) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = new HashMap<>();
@@ -235,7 +234,7 @@ public class RestClient {
             throw new IllegalArgumentException("texts & images lengths unequal");
         }
 
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         List<Map.Entry<String, Object>> params = new LinkedList<>();
@@ -258,7 +257,7 @@ public class RestClient {
     }
 
     public Promise<JSONArray, VolleyError, Void> getActiveInfections() {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -271,7 +270,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> newPostView(int infectionId, int result) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
 
         if (!POST_VIEWS_ENABLED) {
             return deferredObject.promise();
@@ -291,7 +290,7 @@ public class RestClient {
     }
 
     public Promise<JSONArray, VolleyError, Void> getUserPosts(int authorId) {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -303,7 +302,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> createBookmark(int postId) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -317,7 +316,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> removeBookmark(int postId) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -330,7 +329,7 @@ public class RestClient {
     }
 
     public Promise<JSONArray, VolleyError, Void> getUserBookmarks() {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -355,7 +354,7 @@ public class RestClient {
 
 
     public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> params = createUserParams();
@@ -367,7 +366,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> newComment(String content, int replyToId, int postId) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> userParams = createUserParams();
@@ -384,7 +383,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> getPost(int postId) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> userParams = createUserParams();
@@ -396,7 +395,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> newFeedback(String contact, String content) {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         Map<String, Object> userParmas = createUserParams();
@@ -412,7 +411,7 @@ public class RestClient {
     }
 
     public Promise<JSONArray, VolleyError, Void> getRecommendPosts() {
-        DeferredObject<JSONArray, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,

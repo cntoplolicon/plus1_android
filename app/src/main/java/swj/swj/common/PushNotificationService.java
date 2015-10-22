@@ -16,7 +16,6 @@ import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
-import org.jdeferred.impl.DeferredObject;
 import org.joda.time.DateTime;
 
 import io.yunba.android.manager.YunBaManager;
@@ -68,13 +67,13 @@ public class PushNotificationService {
     }
 
     private Promise<IMqttToken, Throwable, Void> unsubscribe(String topics[]) {
-        final DeferredObject<IMqttToken, Throwable, Void> deferred = new DeferredObject<>();
+        final ThrowableDeferredObject<IMqttToken, Throwable, Void> deferred = new ThrowableDeferredObject<>();
         YunBaManager.unsubscribe(context, topics, new NotifyPromiseListener(deferred));
         return deferred.promise();
     }
 
     private Promise<IMqttToken, Throwable, Void> subscribe(String topics[]) {
-        final DeferredObject<IMqttToken, Throwable, Void> deferred = new DeferredObject<>();
+        final ThrowableDeferredObject<IMqttToken, Throwable, Void> deferred = new ThrowableDeferredObject<>();
         YunBaManager.subscribe(context, topics, new NotifyPromiseListener(deferred));
         return deferred.promise();
     }
@@ -129,9 +128,9 @@ public class PushNotificationService {
     }
 
     private static class NotifyPromiseListener implements IMqttActionListener {
-        private DeferredObject<IMqttToken, Throwable, Void> deferredObject;
+        private ThrowableDeferredObject<IMqttToken, Throwable, Void> deferredObject;
 
-        private NotifyPromiseListener(DeferredObject<IMqttToken, Throwable, Void> deferredObject) {
+        private NotifyPromiseListener(ThrowableDeferredObject<IMqttToken, Throwable, Void> deferredObject) {
             this.deferredObject = deferredObject;
         }
 

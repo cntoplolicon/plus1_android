@@ -23,11 +23,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
-import swj.swj.fragment.RecommendFragment;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
+import swj.swj.fragment.RecommendFragment;
 import swj.swj.model.User;
 
 
