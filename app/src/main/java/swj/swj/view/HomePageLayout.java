@@ -20,6 +20,9 @@ import swj.swj.adapter.InfectionsAdapter;
  */
 public class HomePageLayout extends ViewGroup {
 
+    // affect the touch slop and  the minimum drag slot and settling duration
+    private static int DRAG_RANGE_REDUCE_FACTOR = 10;
+
     private final ViewDragHelper dragHelper;
 
     private View topView;
@@ -142,7 +145,7 @@ public class HomePageLayout extends ViewGroup {
 
         @Override
         public int getViewVerticalDragRange(View child) {
-            return dragRange;
+            return dragRange / DRAG_RANGE_REDUCE_FACTOR;
         }
 
         @Override
