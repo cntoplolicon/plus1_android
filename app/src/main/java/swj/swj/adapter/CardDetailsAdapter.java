@@ -93,7 +93,9 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         View.OnClickListener customViewClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewClickedListener.onViewClick(view, position);
+                if (viewClickedListener != null) {
+                    viewClickedListener.onViewClick(view, position);
+                }
             }
         };
         if (comment.getReplyToId() == 0) {
