@@ -343,7 +343,7 @@ public class RestClient {
     }
 
     public Promise<JSONObject, VolleyError, Void> getAppInfo() {
-        DeferredObject<JSONObject, VolleyError, Void> deferredObject = new DeferredObject<>();
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
