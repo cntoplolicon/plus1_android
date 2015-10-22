@@ -37,7 +37,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#b3b3b3" />
+        android:background="@color/home_title_color" />
 
     <RadioGroup
         android:id="@+id/rg_group"

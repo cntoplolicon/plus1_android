@@ -42,10 +42,10 @@
 
     <dimen name="home_big_image_length_width">330dp</dimen>
     <dimen name="home_big_image_length_height">330dp</dimen>
-    <dimen name="home_round_image_length">40dp</dimen>
-    <dimen name="home_nick_name_margin_top">10dp</dimen>
-    <dimen name="home_nick_name_margin_left">15dp</dimen>
-    <dimen name="home_nick_name_text_size">18sp</dimen>
+    <dimen name="home_round_image_length">50dp</dimen>
+    <dimen name="home_nickname_margin_top">25dp</dimen>
+    <dimen name="home_nickname_margin_left">15dp</dimen>
+    <dimen name="home_nickname_text_size">20sp</dimen>
     <dimen name="home_text_location_image_spacing">10dp</dimen>
     <dimen name="home_location_name_text_size">12sp</dimen>
     <dimen name="home_location_text_margin_top">10dp</dimen>
@@ -53,6 +53,10 @@
     <dimen name="home_text_views_image_spacing">5dp</dimen>
     <dimen name="home_text_views_margin_bottom">25dp</dimen>
     <dimen name="home_text_views_size">12sp</dimen>
+
+    <dimen name="no_image_text_size_card_details">18px</dimen>
+    <dimen name="no_image_text_size_home">25px</dimen>
+    <dimen name="have_image_text_size">15px</dimen>
 
 
 </resources>

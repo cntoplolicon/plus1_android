@@ -155,6 +155,7 @@ public class CardDetailsActivity extends Activity {
         String imageUrl = post.getPostPages()[0].getImage();
         if (imageUrl == null) {
             ivImage.setVisibility(View.GONE);
+            tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
         } else {
             ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
