@@ -45,7 +45,7 @@
         android:src="@drawable/arrow_right_open" />
 
     <TextView
-        android:id="@+id/tv_idea"
+        android:id="@+id/tv_feedbacks"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/tv_clear_cache"
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_idea"
+        android:layout_alignTop="@+id/tv_feedbacks"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
 
@@ -102,7 +102,7 @@
         android:textSize="@dimen/settings_common_text" />
 
     <TextView
-        android:id="@+id/tv_cache"
+        android:id="@+id/tv_cache_size"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
@@ -116,7 +116,7 @@
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/tv_idea"
+        android:layout_below="@+id/tv_feedbacks"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="60dp"

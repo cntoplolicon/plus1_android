@@ -2,7 +2,6 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,10 +10,13 @@ import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
+import java.io.File;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
+import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
@@ -31,16 +33,12 @@ public class PersonalSettingsActivity extends Activity {
     SwitchButton switchButton;
     @Bind(R.id.tv_nickname)
     TextView tvNickName;
-
-    @OnClick(R.id.tv_personal_profiles)
-    public void submit() {
-        startActivity(new Intent(PersonalSettingsActivity.this, PersonalProfileActivity.class));
-    }
-
-    @OnClick(R.id.tv_idea)
-    public void idea() {
-        startActivity(new Intent(PersonalSettingsActivity.this, FeedbackActivity.class));
-    }
+    @Bind(R.id.tv_personal_profiles)
+    TextView tvPersonalProfile;
+    @Bind(R.id.tv_feedbacks)
+    TextView tvFeedbacks;
+    @Bind(R.id.tv_cache_size)
+    TextView tvCacheSize;
 
     @OnClick(R.id.btn_logout)
     public void logout(View view) {
@@ -70,12 +68,22 @@ public class PersonalSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
         ButterKnife.bind(this);
+        tvPersonalProfile.setOnClickListener(new ActivityHyperlinkClickListener(this, PersonalProfileActivity.class));
+        tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 LocalUserInfo.getPreferences().edit().putBoolean("notification_enabled", isChecked).commit();
             }
         });
+
+        long size = 0;
+        File[] cachedFiles = getCacheDir().listFiles();
+        for (File file : cachedFiles) {
+            size += file.length();
+        }
+        size = size / 1024 / 1024;
+        tvCacheSize.setText(size + "M");
     }
 
     @Override
