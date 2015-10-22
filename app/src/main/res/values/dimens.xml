@@ -22,7 +22,7 @@
     <dimen name="settings_common_text">15sp</dimen>
     <dimen name="message_text_size">15sp</dimen>
     <dimen name="settings_common_margin_left">15dp</dimen>
-    <dimen name="publish_margin_left_right_text_button">52dp</dimen>
+    <dimen name="publish_margin_left_right_text_button">30dp</dimen>
 
     <dimen name="register_reminder">14sp</dimen>
     <dimen name="register_security_code">18sp</dimen>

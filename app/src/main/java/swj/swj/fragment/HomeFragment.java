@@ -57,7 +57,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-
         slidingView.setCallback(new LayoutCallbacks());
 
         adapter = InfectionsAdapter.getInstance();

@@ -76,7 +76,6 @@ public class CardDetailsActivity extends Activity {
         setContentView(R.layout.activity_card_details);
         initListView();
         ButterKnife.bind(this);
-
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);

@@ -51,7 +51,6 @@ public class MySelfFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myself, container, false);
-
         gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
