@@ -2,6 +2,9 @@ package swj.swj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,17 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
-import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONObject;
-
-import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,8 +37,6 @@ import swj.swj.common.RestClient;
  */
 public class PublishActivity extends Activity {
 
-    private String imageFilePath;
-    private ImageSize imageSize;
     private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.iv_image)
@@ -62,12 +59,13 @@ public class PublishActivity extends Activity {
         ButterKnife.bind(this);
 
         Uri uri = getIntent().getParcelableExtra("imagePath");
-        BitmapUtil.ImageFileInfo imageFileInfo = BitmapUtil.prepareBitmapForUploading(this, uri);
-        File compressedImageFile = imageFileInfo.getFile();
-        imageSize = imageFileInfo.getImageSize();
-        imageFilePath = compressedImageFile.getAbsolutePath();
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false).build();
-        ImageLoader.getInstance().displayImage(Uri.fromFile(compressedImageFile).toString(), imageView, options);
+        BitmapUtil.prepareImageForUploading(this, uri)
+                .done(new DoneCallback<Bitmap>() {
+                    @Override
+                    public void onDone(Bitmap bitmap) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }).fail(new BitmapUtil.ImageProcessingFailureCallback(this));
     }
 
     @OnClick(R.id.tv_delete)
@@ -77,9 +75,16 @@ public class PublishActivity extends Activity {
 
     @OnClick(R.id.tv_publish)
     public void submit() {
+        Drawable drawable = imageView.getDrawable();
+        if (!(drawable instanceof BitmapDrawable)) {
+            return;
+        }
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        byte[] imageData = BitmapUtil.compressBitmap(bitmap, BitmapUtil.DEFAULT_QUALITY);
         String text = editText.getText().toString();
-        FileBody imageBody = new FileBody(new File(imageFilePath));
-        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody}, new Integer[]{imageSize.getWidth()}, new Integer[]{imageSize.getHeight()}).done(
+        ByteArrayBody imageBody = new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "image.jpg");
+        promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
+                new Integer[]{bitmap.getWidth()}, new Integer[]{bitmap.getHeight()}).done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
@@ -100,6 +105,4 @@ public class PublishActivity extends Activity {
         startActivity(intent);
         finish();
     }
-
-
 }

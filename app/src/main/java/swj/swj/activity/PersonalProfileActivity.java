@@ -3,6 +3,7 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,12 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.DonePipe;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -139,19 +143,43 @@ public class PersonalProfileActivity extends Activity {
                     Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                Map<String, Object> attributes = new HashMap<>();
-                File file = BitmapUtil.prepareBitmapForUploading(this, Crop.getOutput(data)).getFile();
-                attributes.put("avatar", new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg"));
-                RestClient.getInstance().updateUserAvatar(attributes).done(
-                        new DoneCallback<JSONObject>() {
-                            @Override
-                            public void onDone(JSONObject response) {
-                                User.updateCurrentUser(response.toString());
-                            }
-                        }).fail(new JsonErrorListener(getApplicationContext(), null));
-                ivAvatar.setImageURI(Uri.fromFile(file));
+                processCroppedImage(Crop.getOutput(data));
+
                 break;
         }
+    }
+
+    private void processCroppedImage(Uri uri) {
+        BitmapUtil.prepareImageForUploading(this, uri)
+                .done(new DoneCallback<Bitmap>() {
+                    @Override
+                    public void onDone(Bitmap bitmap) {
+                        ivAvatar.setImageBitmap(bitmap);
+                    }
+                })
+                .fail(new BitmapUtil.ImageProcessingFailureCallback(this))
+                .then(new DonePipe<Bitmap, JSONObject, VolleyError, Void>() {
+                    @Override
+                    public Promise<JSONObject, VolleyError, Void> pipeDone(Bitmap bitmap) {
+                        byte[] imageData = BitmapUtil.compressBitmap(bitmap, BitmapUtil.DEFAULT_QUALITY);
+                        Map<String, Object> attributes = new HashMap<>();
+                        attributes.put("avatar", new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "avatar.jpg"));
+                        return RestClient.getInstance().updateUserAvatar(attributes);
+                    }
+                })
+                .done(new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject response) {
+                        User.updateCurrentUser(response.toString());
+                    }
+                })
+                .fail(new JsonErrorListener(getApplicationContext(), null) {
+                    @Override
+                    public void onFail(VolleyError e) {
+                        super.onFail(e);
+                        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
+                    }
+                });
     }
 
     public void onResume() {

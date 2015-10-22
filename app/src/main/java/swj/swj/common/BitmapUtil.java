@@ -1,23 +1,34 @@
 package swj.swj.common;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.ViewScaleType;
+import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.jdeferred.FailCallback;
+import org.jdeferred.Promise;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import swj.swj.R;
 
 
 public final class BitmapUtil {
@@ -25,28 +36,55 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_WIDTH = 960;
     private static int MAX_IMAGE_HEIGHT = 960;
 
-    public static ImageFileInfo prepareBitmapForUploading(Context context, Uri uri) {
-        File outputFile = getOutputFile();
-        if (uri.getScheme().equals("content")) {
-            uri = saveUriToFile(context, uri, outputFile);
-        }
-        Bitmap bitmap = loadScaledBitmap(uri);
-        compressBitmap(bitmap, outputFile);
-        ImageFileInfo imageFileInfo = new ImageFileInfo(outputFile, new ImageSize(bitmap.getWidth(), bitmap.getHeight()));
-        bitmap.recycle();
-        return imageFileInfo;
+    private static final String SCHEME_FILE = "file";
+    private static final String SCHEME_CONTENT = "content";
+
+    public static int DEFAULT_QUALITY = 75;
+
+    private BitmapUtil() {
     }
 
-    private static File getOutputFile() {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImages");
-        if (!dir.exists()) {
-            dir.mkdirs();
+    public static Promise<Bitmap, Object, Void> prepareImageForUploading(Context context, Uri uri) {
+        final ThrowableDeferredObject<Bitmap, Object, Void> deferredObject = new ThrowableDeferredObject<>();
+        try {
+            File tempFile = getTempFile(context);
+            File inputFile = getFileFromMediaUri(context, uri);
+            if (inputFile == null) {
+                inputFile = saveUriToFile(context, uri, tempFile);
+            }
+            if (inputFile != null) {
+                uri = Uri.fromFile(inputFile);
+            }
+
+            ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false)
+                    .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
+            NonViewAware nonViewAware = new NonViewAware(imageSize, ViewScaleType.FIT_INSIDE);
+            ImageLoader.getInstance().displayImage(uri.toString(), nonViewAware, options, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    deferredObject.reject(failReason);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    deferredObject.resolve(loadedImage);
+                }
+            });
+        } catch (IOException e) {
+            Log.e(BitmapUtil.class.getName(), "failed preparing image for uploading", e);
+            deferredObject.reject(e);
         }
-        String filename = new SimpleDateFormat("yyyy-MM-dd_hhmmss").format(new Date()) + ".jpg";
-        return new File(dir, filename);
+
+        return deferredObject.promise();
     }
 
-    private static Uri saveUriToFile(Context context, Uri uri, File file) {
+    private static File getTempFile(Context context) throws IOException {
+        File outputDir = context.getCacheDir();
+        return File.createTempFile("image", "tmp", outputDir);
+    }
+
+    public static File saveUriToFile(Context context, Uri uri, File file) throws IOException {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
         try {
@@ -57,53 +95,66 @@ public final class BitmapUtil {
             while ((count = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, count);
             }
-            return Uri.fromFile(file);
-        } catch (FileNotFoundException e) {
-            Log.e(BitmapUtil.class.getName(), "failed opening file", e);
-            return uri;
-        } catch (IOException e) {
-            Log.e(BitmapUtil.class.getName(), "failed writing to file", e);
-            return uri;
+            return file;
         } finally {
             IOUtil.closeSilently(inputStream);
             IOUtil.closeSilently(outputStream);
         }
     }
 
-    private static void compressBitmap(Bitmap bitmap, File file) {
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
-        } catch (FileNotFoundException e) {
-            IOUtil.closeSilently(outputStream);
+    public static File getFileFromMediaUri(Context context, Uri uri) {
+        if (uri == null) {
+            return null;
         }
+
+        ContentResolver resolver = context.getContentResolver();
+        if (SCHEME_FILE.equals(uri.getScheme())) {
+            return new File(uri.getPath());
+        }
+        if (SCHEME_CONTENT.equals(uri.getScheme())) {
+            final String[] filePathColumn = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME};
+            Cursor cursor = null;
+            try {
+                cursor = resolver.query(uri, filePathColumn, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    final int columnIndex = (uri.toString().startsWith("content://com.google.android.gallery3d")) ?
+                            cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME) :
+                            cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
+                    if (columnIndex != -1) {
+                        String filePath = cursor.getString(columnIndex);
+                        if (filePath != null && !filePath.isEmpty()) {
+                            return new File(filePath);
+                        }
+                    }
+                }
+            } catch (SecurityException e) {
+                Log.w(BitmapUtil.class.getName(), "failed converting uri to file", e);
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        return null;
     }
 
-    private static Bitmap loadScaledBitmap(Uri uri) {
-        ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-                .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
-        return ImageLoader.getInstance().loadImageSync(uri.toString(),
-                imageSize, displayOptions);
+    public static byte[] compressBitmap(Bitmap bitmap, int quality) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+        return outputStream.toByteArray();
     }
 
-    public static class ImageFileInfo {
-        private File file;
-        private ImageSize imageSize;
+    public static class ImageProcessingFailureCallback implements FailCallback<Object> {
 
-        public ImageFileInfo(File file, ImageSize imageSize) {
-            this.file = file;
-            this.imageSize = imageSize;
+        private Context context;
+
+        public ImageProcessingFailureCallback(Context context) {
+            this.context = context;
         }
 
-        public File getFile() {
-            return file;
-        }
-
-        public ImageSize getImageSize() {
-            return imageSize;
+        @Override
+        public void onFail(Object result) {
+            Toast.makeText(context, R.string.image_processing_failure, Toast.LENGTH_LONG).show();
         }
     }
 }
-

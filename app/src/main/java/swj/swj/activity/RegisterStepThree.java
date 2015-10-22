@@ -3,6 +3,7 @@ package swj.swj.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,8 +20,10 @@ import com.android.volley.VolleyError;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.AbstractContentBody;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -45,12 +48,12 @@ public class RegisterStepThree extends Activity {
     private EditText nicknameInput;
     private EditText passwordInput;
     private RadioGroup radioGroup4Gender;
-    private FileBody fileBody;
+    private AbstractContentBody imageBody;
 
     private View.OnClickListener onSubmit = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (!inputValidation()) {
+            if (!inputValidation() || imageBody == null) {
                 return;
             }
             view.setEnabled(false);
@@ -59,7 +62,7 @@ public class RegisterStepThree extends Activity {
             String password = passwordInput.getText().toString();
 
             RestClient.getInstance().signUp(username, nickname,
-                    password, getSelectedGender(), fileBody).done(
+                    password, getSelectedGender(), imageBody).done(
                     new DoneCallback<JSONObject>() {
                         @Override
                         public void onDone(JSONObject response) {
@@ -176,9 +179,15 @@ public class RegisterStepThree extends Activity {
                         Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
-                    File file = BitmapUtil.prepareBitmapForUploading(this, Crop.getOutput(data)).getFile();
-                    fileBody = new FileBody(file, ContentType.create("image/jpg"), "avatar.jpg");
-                    faceImage.setImageURI(Uri.fromFile(file));
+                    Promise<Bitmap, Object, Void> promise = BitmapUtil.prepareImageForUploading(this, Crop.getOutput(data));
+                    promise.done(new DoneCallback<Bitmap>() {
+                        @Override
+                        public void onDone(Bitmap bitmap) {
+                            byte[] imageData = BitmapUtil.compressBitmap(bitmap, BitmapUtil.DEFAULT_QUALITY);
+                            imageBody = new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "avatar.jpg");
+                            faceImage.setImageBitmap(bitmap);
+                        }
+                    }).fail(new BitmapUtil.ImageProcessingFailureCallback(RegisterStepThree.this));
             }
         }
     }
