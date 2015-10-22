@@ -109,7 +109,6 @@ public class InfectionsAdapter {
         } else {
             itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.have_image_text_size));
             itemViews.ivImage.setVisibility(View.VISIBLE);
-            itemViews.ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
                     itemViews.ivImage);

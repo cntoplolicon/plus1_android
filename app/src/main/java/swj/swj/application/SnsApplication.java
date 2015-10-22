@@ -16,6 +16,7 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.BuildConfig;
+import swj.swj.R;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -49,6 +50,8 @@ public class SnsApplication extends Application {
 
     private void initImageLoader(Context context) {
         DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.image_loading)
+                .showImageOnFail(R.drawable.image_load_fail)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

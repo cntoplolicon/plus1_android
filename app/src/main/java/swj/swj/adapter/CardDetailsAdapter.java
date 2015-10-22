@@ -83,7 +83,6 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         if (avatarPath == null || avatarPath.isEmpty()) {
             viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
         } else {
-            viewHolder.ivAvatar.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarPath,
                     viewHolder.ivAvatar);
