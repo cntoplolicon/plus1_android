@@ -76,7 +76,6 @@ public class CardDetailsActivity extends Activity {
         setContentView(R.layout.activity_card_details);
         initListView();
         ButterKnife.bind(this);
-
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
@@ -96,6 +95,8 @@ public class CardDetailsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 replyTarget = (Comment) view.getTag();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
             }
         });
@@ -105,11 +106,12 @@ public class CardDetailsActivity extends Activity {
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
-        View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
+        final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 replyTarget = null;
+                hideInput(headerView);
                 etNewComment.setHint(getResources().getString(R.string.publish_comment));
             }
         });
@@ -267,13 +269,20 @@ public class CardDetailsActivity extends Activity {
             if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
+                hideInput(view);
                 startActivity(intent);
             } else if (view.getId() == R.id.tv_reply_target) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 int replyTargetId = cardDetailsAdapter.getItem(position).getReplyToId();
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(replyTargetId).getUser()));
+                hideInput(view);
                 startActivity(intent);
             }
         }
+    }
+
+    private void hideInput(View view) {
+        InputMethodManager inputManage = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManage.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

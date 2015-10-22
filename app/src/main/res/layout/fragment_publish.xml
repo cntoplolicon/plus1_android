@@ -1,38 +1,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_white_bg"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:background="@color/common_white_bg">
 
-    <Button
-        android:id="@+id/btn_text"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/publish_margin_left_right_text_button"
-        android:background="@drawable/btn_border"
-        android:drawableTop="@drawable/btn_jia"
-        android:gravity="bottom|center_horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="20dp"
-        android:text="@string/publish_text"
-        android:textColor="@color/common_button_text_color"
-        android:textSize="@dimen/common_yellow_button_text_size" />
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/left_logo" />
 
-    <Button
-        android:id="@+id/btn_image"
+        <Button
+            android:id="@+id/btn_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="45dp"
+            android:layout_toRightOf="@+id/textView"
+            android:background="@drawable/right_round" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/publish_margin_left_right_text_button"
-        android:background="@drawable/btn_border"
-        android:drawableTop="@drawable/btn_jia"
-        android:gravity="bottom|center_horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="20dp"
-        android:text="@string/publish_image"
-        android:textColor="@color/common_button_text_color"
-        android:textSize="@dimen/common_yellow_button_text_size" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/right_log" />
+
+        <Button
+            android:id="@+id/btn_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/text"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"
+            android:layout_toLeftOf="@+id/text"
+            android:background="@drawable/left_round" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

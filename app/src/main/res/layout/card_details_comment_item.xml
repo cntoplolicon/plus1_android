@@ -29,7 +29,7 @@
         android:singleLine="true"
         android:text="阳光少年"
         android:textColor="@color/personal_common_male_username"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_reply"
@@ -41,7 +41,7 @@
         android:layout_toRightOf="@+id/tv_nickname"
         android:text="@string/reply_to_target"
         android:textColor="#999999"
-        android:textSize="13dp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_reply_target"
@@ -56,7 +56,7 @@
         android:singleLine="true"
         android:text="cntoplolicon"
         android:textColor="@color/personal_common_male_username"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -69,5 +69,5 @@
         android:layout_marginTop="5dp"
         android:text="阳光少年"
         android:textColor="#999999"
-        android:textSize="13dp" />
+        android:textSize="13sp" />
 </RelativeLayout>
