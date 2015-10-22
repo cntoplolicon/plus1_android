@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import swj.swj.R;
@@ -66,8 +67,12 @@ public class PostsGridViewAdapter extends BaseAdapter {
             tvText.setVisibility(View.VISIBLE);
         } else {
             tvText.setVisibility(View.GONE);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
-                    imageView);
+                    imageView, options);
         }
 
         return gridView;

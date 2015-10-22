@@ -50,8 +50,6 @@ public class SnsApplication extends Application {
 
     private void initImageLoader(Context context) {
         DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.image_loading)
-                .showImageOnFail(R.drawable.image_load_fail)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

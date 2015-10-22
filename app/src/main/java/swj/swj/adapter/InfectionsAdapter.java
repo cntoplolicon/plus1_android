@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -110,8 +111,12 @@ public class InfectionsAdapter {
             itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.have_image_text_size));
             itemViews.ivImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
-                    itemViews.ivImage);
+                    itemViews.ivImage, options);
         }
         view.setTag(infection);
 
