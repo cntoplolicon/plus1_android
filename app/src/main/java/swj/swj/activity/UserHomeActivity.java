@@ -71,12 +71,10 @@ public class UserHomeActivity extends Activity {
                 break;
         }
         String imageUrl = user.getAvatar();
-        if (imageUrl == null) {
-            headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        } else {
-            headerViewHolder.ivAvatar.setImageResource(R.drawable.loading);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, headerViewHolder.ivAvatar);
-        }
+
+        headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, headerViewHolder.ivAvatar);
+
         if (user.getGender() == User.GENDER_UNKNOWN) {
             headerViewHolder.ivGender.setVisibility(View.INVISIBLE);
         } else {
