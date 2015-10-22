@@ -16,7 +16,6 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.BuildConfig;
-import swj.swj.R;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -34,6 +33,12 @@ public class SnsApplication extends Application {
     private static String DEFAULT_IMAGE_HOST = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
     private static AppInfo appInfo;
 
+    public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .considerExifParams(true)
+            .build();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,17 +54,12 @@ public class SnsApplication extends Application {
     }
 
     private void initImageLoader(Context context) {
-        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .build();
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .diskCacheSize(50 * 1024 * 1024)
                 .memoryCacheSizePercentage(20)
-                .defaultDisplayImageOptions(displayOptions);
+                .defaultDisplayImageOptions(DEFAULT_DISPLAY_OPTION);
         if (BuildConfig.DEBUG) {
             config.writeDebugLogs();
         }

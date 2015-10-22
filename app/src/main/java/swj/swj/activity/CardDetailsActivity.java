@@ -159,6 +159,7 @@ public class CardDetailsActivity extends Activity {
             tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
         } else {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.drawable.image_loading)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();

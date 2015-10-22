@@ -112,6 +112,7 @@ public class InfectionsAdapter {
             itemViews.ivImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
             DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.drawable.image_loading)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();

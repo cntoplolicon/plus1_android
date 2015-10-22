@@ -68,6 +68,7 @@ public class PostsGridViewAdapter extends BaseAdapter {
         } else {
             tvText.setVisibility(View.GONE);
             DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.drawable.image_loading)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
