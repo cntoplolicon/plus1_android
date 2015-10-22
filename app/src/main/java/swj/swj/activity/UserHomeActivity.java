@@ -74,6 +74,7 @@ public class UserHomeActivity extends Activity {
         if (imageUrl == null) {
             headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
         } else {
+            headerViewHolder.ivAvatar.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, headerViewHolder.ivAvatar);
         }
         if (user.getGender() == User.GENDER_UNKNOWN) {

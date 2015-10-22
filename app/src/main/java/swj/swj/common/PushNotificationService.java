@@ -100,7 +100,9 @@ public class PushNotificationService {
         }
         notification.setReceiveTime(DateTime.now());
         notification.save();
-        callback.onNotificationReceived(notification);
+        if (callback != null) {
+            callback.onNotificationReceived(notification);
+        }
 
         if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
             return;
