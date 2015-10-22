@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jdeferred.DoneCallback;
@@ -157,8 +158,12 @@ public class CardDetailsActivity extends Activity {
             ivImage.setVisibility(View.GONE);
             tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
         } else {
-            ivImage.setImageResource(R.drawable.loading);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
         }
 
         syncBookmarkInfo();
