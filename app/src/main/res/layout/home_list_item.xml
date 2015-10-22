@@ -87,6 +87,7 @@
         android:drawableLeft="@drawable/icon_views"
         android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="150"
+        android:textColor="#999999"
         android:textSize="@dimen/home_text_views_size" />
 
     <TextView
@@ -103,6 +104,7 @@
         android:drawableLeft="@drawable/icon_comment"
         android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="21"
+        android:textColor="#999999"
         android:textSize="@dimen/home_text_views_size" />
 
 </RelativeLayout>
