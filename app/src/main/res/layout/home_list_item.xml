@@ -20,15 +20,15 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/home_nick_name_margin_left"
-        android:layout_marginTop="@dimen/home_nick_name_margin_top"
+        android:layout_marginLeft="@dimen/home_nickname_margin_left"
+        android:layout_marginTop="@dimen/home_nickname_margin_top"
         android:layout_toRightOf="@+id/iv_avatar"
         android:drawablePadding="@dimen/home_text_location_image_spacing"
         android:drawableRight="@drawable/icon_woman"
         android:singleLine="true"
         android:text="用户昵称"
         android:textColor="@color/personal_common_female_username"
-        android:textSize="@dimen/home_nick_name_text_size" />
+        android:textSize="@dimen/home_nickname_text_size" />
 
     <TextView
         android:id="@+id/tv_location"

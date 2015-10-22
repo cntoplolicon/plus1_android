@@ -105,9 +105,9 @@ public class InfectionsAdapter {
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setImageBitmap(null);
             itemViews.ivImage.setVisibility(View.VISIBLE);
-            itemViews.tvContent.setTextSize(25);
+            itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.no_image_text_size_home));
         } else {
-            itemViews.tvContent.setTextSize(15);
+            itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.have_image_text_size));
             itemViews.ivImage.setVisibility(View.VISIBLE);
             itemViews.ivImage.setImageResource(R.drawable.loading);
             ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
