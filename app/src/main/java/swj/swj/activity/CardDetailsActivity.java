@@ -137,10 +137,8 @@ public class CardDetailsActivity extends Activity {
         tvNickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
+                startNewActivityViaTarget(post.getUser());
                 hideInput(v);
-                startActivity(intent);
             }
         });
         int genderIcon;
@@ -274,27 +272,37 @@ public class CardDetailsActivity extends Activity {
         }
     }
 
+    private void hideInput(View view) {
+        InputMethodManager inputManage = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManage.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void startNewActivityViaTarget(User clickedUser) {
+        if (User.current.getId() == clickedUser.getId()) {
+            Intent intent = new Intent(CardDetailsActivity.this, HomeActivity.class);
+            intent.putExtra("card_detail", "card_detail");
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
+            intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(clickedUser));
+            startActivity(intent);
+        }
+    }
+
     private class OnViewClickedListener implements CardDetailsAdapter.ViewClickedListener {
 
         @Override
         public void onViewClick(View view, int position) {
             if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
+                User clickedUser = cardDetailsAdapter.getItem(position).getUser();
+                startNewActivityViaTarget(clickedUser);
                 hideInput(view);
-                startActivity(intent);
             } else if (view.getId() == R.id.tv_reply_target) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                int replyTargetId = cardDetailsAdapter.getItem(position).getReplyToId();
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(replyTargetId).getUser()));
+                User clickedUser = cardDetailsAdapter.getCommentById(cardDetailsAdapter.getItem(position).getReplyToId()).getUser();
+                startNewActivityViaTarget(clickedUser);
                 hideInput(view);
-                startActivity(intent);
             }
         }
     }
 
-    private void hideInput(View view) {
-        InputMethodManager inputManage = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManage.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 }

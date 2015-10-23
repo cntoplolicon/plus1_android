@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -29,6 +30,7 @@ import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
 import swj.swj.model.User;
+import swj.swj.view.ActionBarLayout;
 
 
 public class HomeActivity extends Activity {
@@ -38,6 +40,12 @@ public class HomeActivity extends Activity {
     ImageView ivSettings;
     @Bind(R.id.spb)
     SmoothProgressBar spb;
+    @Bind(R.id.action_bar)
+    ActionBarLayout actionBar;
+    @Bind(R.id.rg_group)
+    RadioGroup radioGroup;
+    @Bind(R.id.iv_back)
+    ImageView ivBack;
 
     public Promise promise;
 
@@ -64,6 +72,17 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         switchTab(R.id.rb_home);
+        if (getIntent().getStringExtra("card_detail") != null) {
+            switchTab(R.id.rb_myself);
+            actionBar.setHideBackArrow(false);
+            radioGroup.setVisibility(View.GONE);
+            ivBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
         if (getIntent().getParcelableExtra("notification") != null) {
             Intent intent = new Intent(this, CardDetailsActivity.class);
             startActivity(intent);
