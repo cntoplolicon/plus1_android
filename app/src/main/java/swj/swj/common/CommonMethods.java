@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -102,11 +103,11 @@ public final class CommonMethods {
 
     public static void chooseNicknameColorViaGender(TextView textView, User user, Context context) {
         if (user.getGender() == User.GENDER_MALE) {
-            textView.setTextColor(context.getResources().getColor(R.color.personal_common_male_username));
+            textView.setTextColor(ContextCompat.getColor(context, R.color.personal_common_male_username));
         } else if (user.getGender() == User.GENDER_FEMALE) {
-            textView.setTextColor(context.getResources().getColor(R.color.personal_common_female_username));
+            textView.setTextColor(ContextCompat.getColor(context, R.color.personal_common_female_username));
         } else {
-            textView.setTextColor(context.getResources().getColor(R.color.unknown_gender));
+            textView.setTextColor(ContextCompat.getColor(context, R.color.unknown_gender));
         }
     }
 

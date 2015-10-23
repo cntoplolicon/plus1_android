@@ -2,7 +2,6 @@ package swj.swj.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.media.Image;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
