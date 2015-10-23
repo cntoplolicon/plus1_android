@@ -21,11 +21,12 @@
         android:background="@color/profile_input_background"
         android:gravity="top"
         android:hint="请输入新的个性签名"
+        android:textColorHint="#999999"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:selectAllOnFocus="true"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_submit"
@@ -38,6 +39,6 @@
         android:background="@color/common_yellow"
         android:text="@string/save_changes"
         android:textColor="@color/profile_common_text"
-        android:textSize="@dimen/settings_common_text" />
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
 </RelativeLayout>

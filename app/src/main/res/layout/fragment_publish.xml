@@ -18,8 +18,8 @@
             android:id="@+id/btn_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="170dp"
             android:layout_marginLeft="45dp"
             android:layout_toRightOf="@+id/textView"
             android:background="@drawable/right_round" />
@@ -43,8 +43,8 @@
             android:id="@+id/btn_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/text"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="170dp"
             android:layout_marginRight="45dp"
             android:layout_toLeftOf="@+id/text"
             android:background="@drawable/left_round" />

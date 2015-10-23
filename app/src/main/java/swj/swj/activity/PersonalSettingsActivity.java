@@ -1,6 +1,8 @@
 package swj.swj.activity;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -43,8 +45,9 @@ public class PersonalSettingsActivity extends BaseActivity {
     public void logout(View view) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setCanceledOnTouchOutside(false);
-        Window window = alertDialog.getWindow();
         alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.setContentView(R.layout.log_out_dialog);
         TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
         TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);

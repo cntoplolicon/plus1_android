@@ -6,7 +6,9 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,6 +26,9 @@ import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -75,6 +80,7 @@ public class CardDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_card_details);
         initListView();
         ButterKnife.bind(this);
+        etNewComment.requestFocus();
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
@@ -240,6 +246,7 @@ public class CardDetailsActivity extends BaseActivity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
         view.setEnabled(false);
         int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())

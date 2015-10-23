@@ -75,7 +75,7 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         if (comment.getReplyToId() > 0) {
             float scale = getContext().getResources().getDisplayMetrics().density;
             int paddingDpAsPx = (int) (20 * scale + 0.5f);
-            view.setPadding(paddingDpAsPx, 0, 0, 0);
+            view.setPadding(paddingDpAsPx, -0, 0, -0);
         } else {
             view.setPadding(0, 0, 0, 0);
         }

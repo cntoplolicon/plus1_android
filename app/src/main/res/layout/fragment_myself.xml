@@ -6,10 +6,10 @@
         android:id="@+id/grid_view_authored_posts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadingEdgeLength="100dp"
         android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_right"
         android:scrollbarStyle="outsideOverlay"></swj.swj.view.HeaderGridView>
-
 </RelativeLayout>
