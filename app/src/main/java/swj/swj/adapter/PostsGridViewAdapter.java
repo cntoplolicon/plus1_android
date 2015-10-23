@@ -65,9 +65,10 @@ public class PostsGridViewAdapter extends BaseAdapter {
         Post post = posts[position];
         TextView tvText = (TextView) gridView.findViewById(R.id.tv_text);
         tvText.setText(post.getPostPages()[0].getText());
-        TextView tvSpreadsCount = (TextView) gridView.findViewById(R.id.tv_spreads_count);
-        String spreadsCountFormat = context.getResources().getString(R.string.spreads_count);
-        tvSpreadsCount.setText(String.format(spreadsCountFormat, post.getSpreadsCount()));
+        TextView tvComments = (TextView) gridView.findViewById(R.id.tv_comments);
+        tvComments.setText(String.valueOf(post.getCommentsCount()));
+        TextView tvViews = (TextView) gridView.findViewById(R.id.tv_views);
+        tvViews.setText(String.valueOf(post.getViewsCount()));
 
         ImageView imageView = (ImageView) gridView.findViewById(R.id.iv_image);
         ImageLoader.getInstance().cancelDisplayTask(imageView);
