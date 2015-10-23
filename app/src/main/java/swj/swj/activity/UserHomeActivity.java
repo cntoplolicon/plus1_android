@@ -75,10 +75,12 @@ public class UserHomeActivity extends Activity {
                 actionBar.setPageTitleColor(R.color.unknown_gender);
                 break;
         }
-        String imageUrl = user.getAvatar();
 
         headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, headerViewHolder.ivAvatar);
+        String avatarUrl = user.getAvatar();
+        if (avatarUrl != null) {
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, headerViewHolder.ivAvatar);
+        }
 
         if (user.getGender() == User.GENDER_UNKNOWN) {
             headerViewHolder.ivGender.setVisibility(View.INVISIBLE);

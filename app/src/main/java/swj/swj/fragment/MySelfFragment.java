@@ -100,7 +100,11 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
+        ivAvatar.setImageResource(R.drawable.default_useravatar);
+        String avatarUrl = User.current.getAvatar();
+        if (avatarUrl != null) {
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
+        }
     }
 
     @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})

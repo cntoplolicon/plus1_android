@@ -98,7 +98,11 @@ public class HomeFragment extends Fragment {
             });
 
             ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + infection.getPost().getUser().getAvatar(), ivAvatar);
+            ivAvatar.setImageResource(R.drawable.default_useravatar);
+            String avatarUrl = infection.getPost().getUser().getAvatar();
+            if (avatarUrl != null) {
+                ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
+            }
         }
 
         @Override
