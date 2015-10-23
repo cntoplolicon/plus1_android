@@ -6,6 +6,7 @@
     <include layout="@layout/user_home_gridview_header" />
 
     <RadioGroup
+        android:id="@+id/rg_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_biography"

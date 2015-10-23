@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,7 +37,6 @@ public class MySelfFragment extends Fragment {
     private HeaderGridView gridView;
     private UserPostsGridViewAdapter postsAdapter;
     private UserBookmarksGridViewAdapter bookmarksAdapter;
-    private int currentTab = R.id.tv_myself_publish;
 
     @Bind(R.id.tv_biography)
     TextView tvBiography;
@@ -49,6 +49,9 @@ public class MySelfFragment extends Fragment {
 
     @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
+
+    @Bind(R.id.rg_group)
+    RadioGroup radioGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +77,12 @@ public class MySelfFragment extends Fragment {
 
         ButterKnife.bind(this, headerView);
         gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                gridView.setAdapter(checkedId == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter);
+            }
+        });
 
         return view;
     }
@@ -107,14 +116,6 @@ public class MySelfFragment extends Fragment {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
         }
         ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
-    }
-
-    @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})
-    public void onTabClicked(RadioButton view) {
-        if (view.getId() != currentTab) {
-            currentTab = view.getId();
-            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter);
-        }
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {
