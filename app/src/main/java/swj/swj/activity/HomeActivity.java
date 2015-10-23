@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -28,7 +29,6 @@ import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
-import swj.swj.model.User;
 
 
 public class HomeActivity extends Activity {
@@ -38,14 +38,14 @@ public class HomeActivity extends Activity {
     ImageView ivSettings;
     @Bind(R.id.spb)
     SmoothProgressBar spb;
-
-    public Promise promise;
+    @Bind(R.id.rg_group)
+    RadioGroup radioGroup;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
-        fragments.put(R.id.rb_friends, new HomeActivityFragment(RecommendFragment.class, R.string.recommend_tab));
+        fragments.put(R.id.rb_recommendation, new HomeActivityFragment(RecommendFragment.class, R.string.recommend_tab));
         fragments.put(R.id.rb_publish, new HomeActivityFragment(PublishFragment.class, R.string.publish_title));
         fragments.put(R.id.rb_message, new HomeActivityFragment(MessageFragment.class, R.string.message_tab));
         fragments.put(R.id.rb_myself, new HomeActivityFragment(MySelfFragment.class, R.string.myself_tab));
@@ -54,26 +54,23 @@ public class HomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (User.current == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+
         switchTab(R.id.rb_home);
-        if (getIntent().getParcelableExtra("notification") != null) {
-            Intent intent = new Intent(this, CardDetailsActivity.class);
-            startActivity(intent);
-        }
         if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
             loadProgressBar(PublishActivity.getPromise());
         }
         if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
             loadProgressBar(AddTextActivity.getPromise());
         }
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switchTab(checkedId);
+            }
+        });
     }
 
     public void switchTab(int radioButtonId) {
@@ -87,11 +84,6 @@ public class HomeActivity extends Activity {
         } catch (InstantiationException e) {
             Log.e(HomeActivity.class.getName(), "failed initializing fragment", e);
         }
-    }
-
-    @OnClick({R.id.rb_home, R.id.rb_friends, R.id.rb_message, R.id.rb_publish, R.id.rb_myself})
-    public void onRadioTabClicked(View view) {
-        switchTab(view.getId());
     }
 
     @OnClick(R.id.iv_settings)

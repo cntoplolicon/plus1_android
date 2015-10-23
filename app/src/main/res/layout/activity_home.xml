@@ -54,7 +54,7 @@
             android:text="@string/home_tab" />
 
         <RadioButton
-            android:id="@+id/rb_friends"
+            android:id="@+id/rb_recommendation"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_found_selector"
             android:text="@string/discovery_tab" />
