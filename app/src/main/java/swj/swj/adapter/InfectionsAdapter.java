@@ -42,6 +42,12 @@ public class InfectionsAdapter {
 
     private static final int ID_CACHE_CAPACITY = 256;
 
+    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
+            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
+
     private static InfectionsAdapter instance;
     private Context context;
 
@@ -103,6 +109,7 @@ public class InfectionsAdapter {
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         String imagePath = post.getPostPages()[0].getImage();
+        ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setImageBitmap(null);
             itemViews.ivImage.setVisibility(View.VISIBLE);
@@ -110,14 +117,8 @@ public class InfectionsAdapter {
         } else {
             itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.have_image_text_size));
             itemViews.ivImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.drawable.image_loading)
-                    .showImageOnFail(R.drawable.image_load_fail)
-                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
-                    itemViews.ivImage, options);
+                    itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
         }
         view.setTag(infection);
 

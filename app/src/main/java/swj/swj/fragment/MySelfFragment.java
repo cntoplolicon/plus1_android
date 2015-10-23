@@ -32,8 +32,8 @@ public class MySelfFragment extends Fragment {
 
     private View headerView;
     private HeaderGridView gridView;
-    private UserPostsGridViewAdapter postsAdapater;
-    private UserBookmarksGridViewAdapter bookmarksAdapater;
+    private UserPostsGridViewAdapter postsAdapter;
+    private UserBookmarksGridViewAdapter bookmarksAdapter;
     private int currentTab = R.id.tv_myself_publish;
 
     @Bind(R.id.tv_biography)
@@ -56,10 +56,10 @@ public class MySelfFragment extends Fragment {
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
 
-        postsAdapater = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
-        bookmarksAdapater = new UserBookmarksGridViewAdapter(getActivity());
+        postsAdapter = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
+        bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
         BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
-        gridView.setAdapter(postsAdapater);
+        gridView.setAdapter(postsAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,7 +107,7 @@ public class MySelfFragment extends Fragment {
     public void onTabClicked(RadioButton view) {
         if (view.getId() != currentTab) {
             currentTab = view.getId();
-            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapater : bookmarksAdapater);
+            gridView.setAdapter(view.getId() == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter);
         }
     }
 
@@ -115,7 +115,7 @@ public class MySelfFragment extends Fragment {
 
         @Override
         public void onBookmarkChanged() {
-            bookmarksAdapater.updateContent(BookmarkService.getInstance().getBookmarkedPosts());
+            bookmarksAdapter.updateContent(BookmarkService.getInstance().getBookmarkedPosts());
         }
     }
 }

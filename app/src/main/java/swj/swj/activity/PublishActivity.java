@@ -68,9 +68,19 @@ public class PublishActivity extends Activity {
                 }).fail(new BitmapUtil.ImageProcessingFailureCallback(this));
     }
 
+    private void exitActivity() {
+        Drawable drawable = imageView.getDrawable();
+        if (drawable instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            imageView.setImageDrawable(null);
+            bitmap.recycle();
+        }
+        finish();
+    }
+
     @OnClick(R.id.tv_delete)
     public void delete() {
-        finish();
+        exitActivity();
     }
 
     @OnClick(R.id.tv_publish)
@@ -83,6 +93,7 @@ public class PublishActivity extends Activity {
         byte[] imageData = BitmapUtil.compressBitmap(bitmap, BitmapUtil.DEFAULT_QUALITY);
         String text = editText.getText().toString();
         ByteArrayBody imageBody = new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "image.jpg");
+
         promise = RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
                 new Integer[]{bitmap.getWidth()}, new Integer[]{bitmap.getHeight()}).done(
                 new DoneCallback<JSONObject>() {
@@ -99,10 +110,11 @@ public class PublishActivity extends Activity {
                         Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
                     }
                 }).always(new ResetViewClickable<JSONObject, VolleyError>(tvPublish));
+
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("publish_class", PublishActivity.class);
         startActivity(intent);
-        finish();
+        exitActivity();
     }
 }
