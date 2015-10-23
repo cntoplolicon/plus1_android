@@ -10,6 +10,7 @@
         android:layout_width="162dp"
         android:layout_height="162dp"
         android:layout_margin="1dp"
+        android:scaleType="centerCrop"
         android:background="#fff"></ImageView>
 
     <TextView
