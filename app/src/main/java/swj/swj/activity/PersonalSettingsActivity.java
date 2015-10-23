@@ -64,6 +64,36 @@ public class PersonalSettingsActivity extends Activity {
         });
     }
 
+    @OnClick(R.id.tv_clear_cache)
+    public void clearCache(View view) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        Window window = alertDialog.getWindow();
+        alertDialog.show();
+        window.setContentView(R.layout.cache_clear_dialog);
+        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long size = 0;
+                File[] cachedFiles = getCacheDir().listFiles();
+                for (File file : cachedFiles) {
+                    size += (file.delete() ? 0 : file.length());
+                }
+                size = size / 1024 / 1024;
+                tvCacheSize.setText(size + "M");
+                alertDialog.cancel();
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_settings);
