@@ -102,7 +102,6 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        ivAvatar.setImageResource(R.drawable.default_useravatar);
         String avatarUrl = User.current.getAvatar();
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);

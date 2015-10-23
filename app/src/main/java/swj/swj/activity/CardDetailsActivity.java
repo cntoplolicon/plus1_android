@@ -156,7 +156,6 @@ public class CardDetailsActivity extends Activity {
                 break;
         }
         CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
-        ivAvatar.setImageResource(R.drawable.default_useravatar);
         String avatarUrl = post.getUser().getAvatar();
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);

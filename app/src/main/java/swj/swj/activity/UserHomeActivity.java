@@ -76,7 +76,6 @@ public class UserHomeActivity extends Activity {
                 break;
         }
 
-        headerViewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
         String avatarUrl = user.getAvatar();
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, headerViewHolder.ivAvatar);

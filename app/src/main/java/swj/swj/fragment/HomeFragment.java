@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,7 +14,6 @@ import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.InfectionsAdapter;
-import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -96,13 +92,6 @@ public class HomeFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-
-            ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
-            ivAvatar.setImageResource(R.drawable.default_useravatar);
-            String avatarUrl = infection.getPost().getUser().getAvatar();
-            if (avatarUrl != null) {
-                ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
-            }
         }
 
         @Override

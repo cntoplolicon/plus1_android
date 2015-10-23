@@ -72,7 +72,6 @@ public class PersonalProfileActivity extends Activity {
     }
 
     private void initView() {
-        ivAvatar.setImageResource(R.drawable.default_useravatar);
         String avatarUrl = User.current.getAvatar();
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
