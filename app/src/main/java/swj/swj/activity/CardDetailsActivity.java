@@ -134,6 +134,15 @@ public class CardDetailsActivity extends Activity {
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setText(post.getUser().getNickname());
+        tvNickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
+                hideInput(v);
+                startActivity(intent);
+            }
+        });
         int genderIcon;
         switch (post.getUser().getGender()) {
             case User.GENDER_FEMALE:
