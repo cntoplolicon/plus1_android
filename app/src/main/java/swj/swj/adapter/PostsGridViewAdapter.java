@@ -4,6 +4,7 @@
 package swj.swj.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
@@ -27,6 +29,8 @@ public class PostsGridViewAdapter extends BaseAdapter {
             new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.drawable.image_loading)
                     .showImageOnFail(R.drawable.image_load_fail)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .imageScaleType(ImageScaleType.EXACTLY)
                     .build();
 
     protected Context context;
