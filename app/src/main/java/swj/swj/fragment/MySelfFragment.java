@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,6 +71,7 @@ public class MySelfFragment extends Fragment {
         });
 
         ButterKnife.bind(this, headerView);
+        gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
 
         return view;
     }

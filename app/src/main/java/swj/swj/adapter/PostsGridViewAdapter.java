@@ -23,6 +23,12 @@ import swj.swj.model.Post;
  */
 public class PostsGridViewAdapter extends BaseAdapter {
 
+    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
+            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
+
     protected Context context;
     protected Post[] posts = new Post[]{};
 
@@ -60,20 +66,15 @@ public class PostsGridViewAdapter extends BaseAdapter {
         tvSpreadsCount.setText(String.format(spreadsCountFormat, post.getSpreadsCount()));
 
         ImageView imageView = (ImageView) gridView.findViewById(R.id.iv_image);
-        String imageUrl = post.getPostPages()[0].getImage();
         ImageLoader.getInstance().cancelDisplayTask(imageView);
+        String imageUrl = post.getPostPages()[0].getImage();
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageView.setImageDrawable(null);
             tvText.setVisibility(View.VISIBLE);
         } else {
             tvText.setVisibility(View.GONE);
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.drawable.image_loading)
-                    .showImageOnFail(R.drawable.image_load_fail)
-                    .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
-                    imageView, options);
+                    imageView, DISPLAY_IMAGE_OPTIONS);
         }
 
         return gridView;

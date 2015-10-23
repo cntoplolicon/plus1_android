@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
@@ -39,6 +42,7 @@ public class RecommendFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
 
         return view;
     }
