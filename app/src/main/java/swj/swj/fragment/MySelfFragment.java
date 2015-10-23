@@ -19,9 +19,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
+import swj.swj.activity.PersonalProfileActivity;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.application.SnsApplication;
+import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
@@ -100,7 +102,11 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
+        String avatarUrl = User.current.getAvatar();
+        if (avatarUrl != null) {
+            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
+        }
+        ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
     }
 
     @OnClick({R.id.tv_myself_publish, R.id.tv_myself_collect})

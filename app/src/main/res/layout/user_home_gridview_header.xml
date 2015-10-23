@@ -9,8 +9,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:src="@drawable/default_useravatar"
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_avatar"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -52,8 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_nick"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:text="我相信"
             android:textColor="#999999"
             android:textSize="13dp" />
