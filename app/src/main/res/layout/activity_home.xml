@@ -71,6 +71,13 @@
             android:text="@string/message_tab" />
 
         <RadioButton
+            android:id="@+id/rb_messages"
+            style="@style/ButtonTabStyle"
+            android:drawableTop="@drawable/message_red"
+            android:text="@string/message_tab"
+            android:visibility="gone" />
+
+        <RadioButton
             android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_myself_selector"

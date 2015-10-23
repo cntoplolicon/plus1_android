@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -24,11 +25,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
+import swj.swj.common.PushNotificationService;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
+import swj.swj.model.Notification;
 
 
 public class HomeActivity extends Activity {
@@ -40,6 +43,12 @@ public class HomeActivity extends Activity {
     SmoothProgressBar spb;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
+    @Bind(R.id.rb_messages)
+    RadioButton rbMessages;
+    @Bind(R.id.rb_message)
+    RadioButton rbMessage;
+
+    public Promise promise;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
@@ -64,13 +73,13 @@ public class HomeActivity extends Activity {
         if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
             loadProgressBar(AddTextActivity.getPromise());
         }
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switchTab(checkedId);
             }
         });
+        PushNotificationService.getInstance().setCallback(new NotificationChanged());
     }
 
     public void switchTab(int radioButtonId) {
@@ -111,5 +120,22 @@ public class HomeActivity extends Activity {
                 }
             });
         }
+    }
+
+    private class NotificationChanged implements PushNotificationService.Callback {
+
+        @Override
+        public void onNotificationReceived(Notification notification) {
+            rbMessages.setVisibility(View.VISIBLE);
+            rbMessage.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.rb_messages)
+    public void onRadioMessagesClicked(View view) {
+        rbMessages.setVisibility(View.GONE);
+        rbMessage.setVisibility(View.VISIBLE);
+        rbMessage.setChecked(true);
+        switchTab(R.id.rb_message);
     }
 }

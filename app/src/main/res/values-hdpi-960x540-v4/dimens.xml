@@ -1,4 +1,4 @@
 <resources>
-    <dimen name="home_big_image_length_width">300dp</dimen>
-    <dimen name="home_big_image_length_height">300dp</dimen>
+    <dimen name="home_big_image_length">330dp</dimen>
+    <dimen name="myself_grid_view_big_image_length">162dp</dimen>
 </resources>
