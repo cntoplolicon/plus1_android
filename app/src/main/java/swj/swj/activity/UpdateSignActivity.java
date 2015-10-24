@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import swj.swj.model.User;
 /**
  * Created by jiewei on 9/4/15.
  */
-public class UpdateSignActivity extends Activity {
+public class UpdateSignActivity extends BaseActivity {
 
     @Bind(R.id.et_content)
     EditText biographyInput;

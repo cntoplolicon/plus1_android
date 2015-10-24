@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,7 +34,7 @@ import swj.swj.common.RestClient;
 /**
  * Created by syb on 2015/9/12.
  */
-public class PublishActivity extends Activity {
+public class PublishActivity extends BaseActivity {
 
     private static Promise<JSONObject, VolleyError, Void> promise;
 

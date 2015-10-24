@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +26,7 @@ import swj.swj.model.User;
 /**
  * Created by jiewei on 9/3/15.
  */
-public class PersonalSettingsActivity extends Activity {
+public class PersonalSettingsActivity extends BaseActivity {
 
     @Bind(R.id.sb_notification)
     SwitchButton switchButton;

@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,7 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
-public class ResetPwdStepThree extends Activity {
+public class ResetPwdStepThree extends BaseActivity {
 
     private EditText passwordInput;
     private EditText passwordConfirmationInput;

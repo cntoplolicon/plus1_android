@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -44,7 +43,7 @@ import swj.swj.model.User;
 /**
  * Created by jiewei on 9/3/15.
  */
-public class PersonalProfileActivity extends Activity {
+public class PersonalProfileActivity extends BaseActivity {
 
     private static final String IMAGE_FILE_NAME = "personalImage.jpg";
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo

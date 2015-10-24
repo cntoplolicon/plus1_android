@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ import swj.swj.model.User;
 import swj.swj.view.ActionBarLayout;
 import swj.swj.view.HeaderGridView;
 
-public class UserHomeActivity extends Activity {
+public class UserHomeActivity extends BaseActivity {
 
     private HeaderViewHolder headerViewHolder = new HeaderViewHolder();
 

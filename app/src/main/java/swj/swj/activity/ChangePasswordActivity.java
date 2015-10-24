@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +26,7 @@ import swj.swj.common.RestClient;
 /**
  * Created by jiewei on 9/4/15.
  */
-public class ChangePasswordActivity extends Activity {
+public class ChangePasswordActivity extends BaseActivity {
 
     @Bind(R.id.et_old_password)
     EditText etOldPwd;

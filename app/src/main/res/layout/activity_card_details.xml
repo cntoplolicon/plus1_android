@@ -96,7 +96,7 @@
                 android:hint="@string/publish_comment"
                 android:paddingLeft="15dp"
                 android:textCursorDrawable="@drawable/color_cursor"
-                android:textSize="14sp" />
+                android:textSize="14sp"></EditText>
         </RelativeLayout>
     </FrameLayout>
 
