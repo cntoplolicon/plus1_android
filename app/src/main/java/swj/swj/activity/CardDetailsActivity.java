@@ -107,7 +107,6 @@ public class CardDetailsActivity extends BaseActivity {
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
-
         final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override

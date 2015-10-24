@@ -51,7 +51,7 @@
     </style>
 
 
-    <style name="Translucent_NoTitle" parent="android:style/Theme.Dialog">
+    <style name="TranslucentNoTitle" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
