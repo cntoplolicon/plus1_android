@@ -19,11 +19,9 @@ import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
@@ -40,7 +38,7 @@ public class PushNotificationService {
 
     private static PushNotificationService instance;
     private Context context;
-    private static Set<Callback> callbacks = Collections.newSetFromMap(new WeakHashMap<Callback, Boolean>());
+    private Set<Callback> callbacks = Collections.newSetFromMap(new WeakHashMap<Callback, Boolean>());
 
     public static void init(final Context context) {
         YunBaManager.start(context);
@@ -160,6 +158,9 @@ public class PushNotificationService {
     }
 
     public void registerCallback(Callback callback) {
-        PushNotificationService.callbacks.add(callback);
+        callbacks.add(callback);
+    }
+    public void unsubscribeCallback(Callback callback) {
+        callbacks.remove(callback);
     }
 }

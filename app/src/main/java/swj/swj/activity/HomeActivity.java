@@ -34,11 +34,7 @@ import swj.swj.fragment.RecommendFragment;
 import swj.swj.model.Notification;
 import swj.swj.model.User;
 
-
 public class HomeActivity extends BaseActivity {
-
-    private PushNotificationService.Callback callback = new NotificationChangedCallback();
-
     @Bind(R.id.tv_page_title)
     TextView tvTitle;
     @Bind(R.id.iv_settings)
@@ -91,7 +87,7 @@ public class HomeActivity extends BaseActivity {
                 switchTab(checkedId);
             }
         });
-        PushNotificationService.getInstance().registerCallback(callback);
+        PushNotificationService.getInstance().registerCallback(new NotificationChangedCallback());
     }
 
     public void switchTab(int radioButtonId) {
