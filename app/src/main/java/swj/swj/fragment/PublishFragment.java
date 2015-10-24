@@ -27,7 +27,6 @@ import swj.swj.common.ActivityHyperlinkClickListener;
 
 public class PublishFragment extends Fragment {
 
-
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
@@ -128,4 +127,5 @@ public class PublishFragment extends Fragment {
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
     }
+
 }

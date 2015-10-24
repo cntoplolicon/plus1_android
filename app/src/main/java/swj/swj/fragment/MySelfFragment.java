@@ -90,9 +90,8 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        postsAdapter.notifyDataSetChanged();
-        bookmarksAdapter.notifyDataSetChanged();
         showCurrentUserInfo();
+        gridView.invalidateViews();
     }
 
     @Override

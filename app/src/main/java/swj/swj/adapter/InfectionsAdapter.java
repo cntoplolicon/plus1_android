@@ -120,11 +120,12 @@ public class InfectionsAdapter {
             itemViews.ivImage.setImageBitmap(null);
             itemViews.ivImage.setVisibility(View.GONE);
             itemViews.tvContent.setVisibility(View.GONE);
-            itemViews.tvContents.setVisibility(View.VISIBLE);
-            itemViews.tvContents.setText(post.getPostPages()[0].getText());
+            itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
+            itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
         } else {
+            itemViews.tvContent.setVisibility(View.VISIBLE);
             itemViews.tvContent.setText(post.getPostPages()[0].getText());
-            itemViews.tvContents.setVisibility(View.GONE);
+            itemViews.tvNoImageContent.setVisibility(View.GONE);
             itemViews.ivImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
                     itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
@@ -202,8 +203,8 @@ public class InfectionsAdapter {
         @Bind(R.id.tv_content)
         TextView tvContent;
 
-        @Bind(R.id.tv_contents)
-        TextView tvContents;
+        @Bind(R.id.tv_no_image_content)
+        TextView tvNoImageContent;
 
         @Bind(R.id.tv_comments)
         TextView tvComments;
