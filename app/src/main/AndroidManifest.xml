@@ -75,8 +75,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
-        <meta-data android:value="YOUR_APP_KEY" android:name="5625ebc8e0f55a40fa000034"></meta-data>
-        <meta-data android:value="Channel ID" android:name="wandoujia"/>
+        <meta-data android:value="5625ebc8e0f55a40fa000034" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="Wandoujia" android:name="UMENG_CHANNEL"/>
         <activity android:name=".activity.PersonalSettingsActivity" />
         <activity android:name=".activity.PersonalProfileActivity" />
         <activity android:name=".activity.UpdateNicknameActivity" />

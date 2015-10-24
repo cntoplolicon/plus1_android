@@ -9,7 +9,7 @@
         android:id="@+id/rl_actionbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        
+
         <swj.swj.view.ActionBarLayout
             android:id="@+id/action_bar"
             android:layout_width="wrap_content"
