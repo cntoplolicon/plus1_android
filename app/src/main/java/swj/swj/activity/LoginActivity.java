@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,7 @@ import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     private EditText usernameInput;
     private EditText passwordInput;

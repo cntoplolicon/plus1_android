@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +25,7 @@ import swj.swj.common.RestClient;
 /**
  * Created by syb on 2015/9/18.
  */
-public class AddTextActivity extends Activity {
+public class AddTextActivity extends BaseActivity {
     private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.et_text)

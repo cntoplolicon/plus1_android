@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,7 +36,7 @@ import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 import swj.swj.model.User;
 
-public class RegisterStepThree extends Activity {
+public class RegisterStepThree extends BaseActivity {
 
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;

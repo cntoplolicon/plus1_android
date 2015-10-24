@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +15,7 @@ import swj.swj.common.CommonDialog;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
 
-public class FeedbackActivity extends Activity {
+public class FeedbackActivity extends BaseActivity {
 
     @Bind(R.id.et_contact)
     EditText etContact;

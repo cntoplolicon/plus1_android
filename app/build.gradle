@@ -49,4 +49,6 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.kyleduo.switchbutton:library:1.2.10'
     compile 'org.slf4j:slf4j-android:1.7.12'
+    compile files('../libs/yunba-sdk-release1.4.5.jar')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

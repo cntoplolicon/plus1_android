@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
 
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends BaseActivity {
     @Bind(R.id.tv_page_title)
     TextView tvTitle;
     @Bind(R.id.iv_settings)

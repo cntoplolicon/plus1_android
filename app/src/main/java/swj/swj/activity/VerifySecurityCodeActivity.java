@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
-public abstract class VerifySecurityCodeActivity extends Activity {
+public abstract class VerifySecurityCodeActivity extends BaseActivity {
 
     private static final String USERNAME = "username";
     private static final Integer ONE_MINUTE = 60000;

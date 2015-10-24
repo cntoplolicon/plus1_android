@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -43,7 +42,7 @@ import swj.swj.model.Notification;
 import swj.swj.model.Post;
 import swj.swj.model.User;
 
-public class CardDetailsActivity extends Activity {
+public class CardDetailsActivity extends BaseActivity {
 
     @Bind(R.id.tv_nickname)
     TextView tvNickname;
@@ -92,6 +91,7 @@ public class CardDetailsActivity extends Activity {
         }
 
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 replyTarget = (Comment) view.getTag();
@@ -139,7 +139,6 @@ public class CardDetailsActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
-                hideInput(v);
                 startActivity(intent);
             }
         });
@@ -291,10 +290,11 @@ public class CardDetailsActivity extends Activity {
                 startActivity(intent);
             }
         }
+
     }
 
     private void hideInput(View view) {
-        InputMethodManager inputManage = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManage.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

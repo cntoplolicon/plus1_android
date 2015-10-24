@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +22,7 @@ import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
 
-public abstract class GetSecurityCodeActivity extends Activity {
+public abstract class GetSecurityCodeActivity extends BaseActivity {
 
     @Bind(R.id.et_username)
     EditText usernameInput;

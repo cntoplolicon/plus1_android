@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,7 +24,7 @@ import swj.swj.model.User;
 /**
  * Created by jiewei on 9/3/15.
  */
-public class UpdateNicknameActivity extends Activity {
+public class UpdateNicknameActivity extends BaseActivity {
 
     @Bind(R.id.et_nick)
     EditText nicknameInput;
