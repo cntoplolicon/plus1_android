@@ -105,7 +105,7 @@ public class PushNotificationService {
         notification.setReceiveTime(DateTime.now());
         notification.save();
         for (Callback callback : callbacks) {
-                callback.onNotificationReceived(notification);
+            callback.onNotificationReceived(notification);
         }
 
         if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
@@ -158,6 +158,7 @@ public class PushNotificationService {
     public void registerCallback(Callback callback) {
         callbacks.add(callback);
     }
+
     public void unregisterCallback(Callback callback) {
         callbacks.remove(callback);
     }
