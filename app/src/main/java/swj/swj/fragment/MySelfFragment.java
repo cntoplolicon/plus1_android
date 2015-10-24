@@ -91,6 +91,7 @@ public class MySelfFragment extends Fragment {
     public void onResume() {
         super.onResume();
         showCurrentUserInfo();
+        gridView.invalidateViews();
     }
 
     @Override

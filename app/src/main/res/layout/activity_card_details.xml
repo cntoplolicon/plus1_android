@@ -39,10 +39,10 @@
             android:id="@+id/iv_bookmark"
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/iv_share"
-            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/iv_share"
             android:padding="5dp"
             android:src="@drawable/icon_bookmark" />
 
@@ -92,8 +92,9 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/btn_send_comment"
-                android:background="#efeff0"
+                android:background="@drawable/edit_background"
                 android:hint="@string/publish_comment"
+                android:paddingLeft="15dp"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp" />
         </RelativeLayout>

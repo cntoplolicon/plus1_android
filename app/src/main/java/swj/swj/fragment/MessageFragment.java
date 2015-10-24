@@ -43,12 +43,10 @@ public class MessageFragment extends Fragment {
     }
 
     private class NotificationChangedCallback implements PushNotificationService.Callback {
-
         @Override
         public void onNotificationReceived(Notification notification) {
             messageAdapter.insert(notification, 0);
             messageAdapter.notifyDataSetChanged();
         }
     }
-
 }

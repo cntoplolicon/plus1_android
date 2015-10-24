@@ -64,7 +64,6 @@ public class HomeActivity extends Activity {
         if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
             loadProgressBar(AddTextActivity.getPromise());
         }
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

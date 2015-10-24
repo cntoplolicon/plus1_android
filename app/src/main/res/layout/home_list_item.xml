@@ -49,17 +49,14 @@
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/home_big_image_length"
+        android:layout_height="@dimen/home_big_image_length"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:adjustViewBounds="true"
-        android:maxHeight="@dimen/home_big_image_length_height"
-        android:maxWidth="@dimen/home_big_image_length_width"
-        android:scaleType="centerInside" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -74,6 +71,22 @@
         android:text="喔噢"
         android:textColor="#999999"
         android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_no_image_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="2"
+        android:text="喔噢"
+        android:visibility="gone"
+        android:textColor="#999999"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tv_views"

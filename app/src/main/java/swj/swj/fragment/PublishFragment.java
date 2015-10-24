@@ -127,5 +127,4 @@ public class PublishFragment extends Fragment {
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
     }
-
 }

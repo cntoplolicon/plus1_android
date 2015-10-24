@@ -106,7 +106,6 @@ public class InfectionsAdapter {
         CommonMethods.chooseNicknameColorViaGender(itemViews.tvUser, post.getUser(), context);
         int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
         itemViews.tvUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
-        itemViews.tvContent.setText(post.getPostPages()[0].getText());
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivAvatar);
@@ -119,10 +118,14 @@ public class InfectionsAdapter {
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
         if (imagePath == null || imagePath.isEmpty()) {
             itemViews.ivImage.setImageBitmap(null);
-            itemViews.ivImage.setVisibility(View.VISIBLE);
-            itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.no_image_text_size_home));
+            itemViews.ivImage.setVisibility(View.GONE);
+            itemViews.tvContent.setVisibility(View.GONE);
+            itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
+            itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
         } else {
-            itemViews.tvContent.setTextSize(context.getResources().getDimension(R.dimen.have_image_text_size));
+            itemViews.tvContent.setVisibility(View.VISIBLE);
+            itemViews.tvContent.setText(post.getPostPages()[0].getText());
+            itemViews.tvNoImageContent.setVisibility(View.GONE);
             itemViews.ivImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
                     itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
@@ -199,6 +202,9 @@ public class InfectionsAdapter {
 
         @Bind(R.id.tv_content)
         TextView tvContent;
+
+        @Bind(R.id.tv_no_image_content)
+        TextView tvNoImageContent;
 
         @Bind(R.id.tv_comments)
         TextView tvComments;
