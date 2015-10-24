@@ -91,11 +91,11 @@ public class CardDetailsActivity extends BaseActivity {
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            loadPost(comment.getPostId());
             if (!BuildConfig.DEBUG) {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
             }
-            loadPost(comment.getPostId());
         }
 
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

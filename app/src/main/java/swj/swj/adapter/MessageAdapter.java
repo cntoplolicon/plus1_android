@@ -45,6 +45,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
 
         Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
+        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         String avatarUrl = comment.getUser().getAvatar();
