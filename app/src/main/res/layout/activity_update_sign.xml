@@ -3,7 +3,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="@color/common_white_bg">
 
     <swj.swj.view.ActionBarLayout
         android:id="@+id/action_bar"
@@ -14,30 +14,26 @@
     <EditText
         android:id="@+id/et_content"
         android:layout_width="match_parent"
-        android:layout_height="121dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/common_margin_change_password"
         android:layout_marginRight="@dimen/common_margin_change_password"
-        android:background="@color/profile_input_background"
+        android:background="@null"
         android:gravity="top"
         android:hint="请输入新的个性签名"
+        android:textColorHint="#999999"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
-        android:selectAllOnFocus="true"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btn_submit"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/register_line1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_text_height"
+        android:layout_height="@dimen/register_margin_line_height"
         android:layout_below="@id/et_content"
-        android:layout_marginLeft="@dimen/common_margin_change_password"
-        android:layout_marginRight="@dimen/common_margin_change_password"
-        android:layout_marginTop="50dp"
-        android:background="@color/common_yellow"
-        android:text="@string/save_changes"
-        android:textColor="@color/profile_common_text"
-        android:textSize="@dimen/settings_common_text" />
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:background="@color/home_title_color" />
 
 </RelativeLayout>

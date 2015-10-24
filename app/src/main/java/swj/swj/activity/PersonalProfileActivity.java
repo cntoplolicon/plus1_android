@@ -3,6 +3,8 @@ package swj.swj.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -87,6 +89,7 @@ public class PersonalProfileActivity extends BaseActivity {
         final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.setContentView(R.layout.activity_dialog);
         TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
         TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);

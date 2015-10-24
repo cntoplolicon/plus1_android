@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@color/common_white_bg"
+    style="@style/TranslucentNoTitle"
     android:gravity="center">
 
     <LinearLayout
@@ -12,12 +12,12 @@
 
         <TextView
             android:id="@+id/tv_confirms"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:background="#FED724"
+            android:background="@color/common_white_bg"
             android:gravity="center"
             android:text="@string/log_out_confirm"
             android:textColor="@color/common_button_text_color"
@@ -25,13 +25,13 @@
 
         <TextView
             android:id="@+id/tv_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="#FED724"
+            android:background="@color/common_white_bg"
             android:gravity="center"
             android:text="@string/cancel"
             android:textColor="@color/common_button_text_color"

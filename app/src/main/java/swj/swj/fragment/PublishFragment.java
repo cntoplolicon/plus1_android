@@ -3,6 +3,8 @@ package swj.swj.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,6 +47,7 @@ public class PublishFragment extends Fragment {
             public void onClick(View v) {
                 alertDialog.show();
                 Window window = alertDialog.getWindow();
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 window.setContentView(R.layout.activity_dialog);
                 TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
                 TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);

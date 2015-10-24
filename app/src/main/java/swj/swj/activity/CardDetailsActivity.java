@@ -75,6 +75,7 @@ public class CardDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_card_details);
         initListView();
         ButterKnife.bind(this);
+        etNewComment.requestFocus();
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
@@ -240,6 +241,7 @@ public class CardDetailsActivity extends BaseActivity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
         view.setEnabled(false);
         int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())

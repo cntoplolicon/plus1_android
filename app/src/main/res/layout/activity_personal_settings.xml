@@ -32,7 +32,7 @@
         android:paddingLeft="@dimen/common_margin_left_right"
         android:singleLine="true"
         android:text="昵称"
-        android:textColor="@color/common_button_text_color"
+        android:textColor="@color/setting_text_color"
         android:textSize="18sp" />
 
     <ImageView
@@ -54,7 +54,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="意见反馈"
-        android:textColor="@color/common_button_text_color"
+        android:textColor="@color/setting_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
@@ -76,7 +76,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="@string/notifications_from_app"
-        android:textColor="@color/common_button_text_color"
+        android:textColor="@color/setting_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <com.kyleduo.switchbutton.SwitchButton
@@ -98,7 +98,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
         android:text="清除缓存"
-        android:textColor="@color/common_button_text_color"
+        android:textColor="@color/setting_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <TextView
@@ -110,7 +110,7 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:gravity="center_vertical"
         android:text="12M"
-        android:textColor="@color/common_button_text_color" />
+        android:textColor="@color/setting_text_color" />
 
     <Button
         android:id="@+id/btn_logout"
