@@ -17,6 +17,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -129,5 +131,14 @@ public class PublishFragment extends Fragment {
         Date date = new Date();
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("PublishScreen");
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("PublishScreen");
     }
 }

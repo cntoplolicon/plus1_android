@@ -71,4 +71,10 @@ public class MessageFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        PushNotificationService.getInstance().unregisterCallback(callback);
+    }
+
 }

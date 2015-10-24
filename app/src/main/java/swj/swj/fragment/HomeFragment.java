@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
@@ -55,11 +57,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         slidingView.setCallback(new LayoutCallbacks());
-
         adapter = InfectionsAdapter.getInstance();
         adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
-
         changeViewsByAdapterState(adapter.getState());
         return view;
     }
@@ -123,5 +123,14 @@ public class HomeFragment extends Fragment {
             }
             changeViewsByAdapterState(newState);
         }
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("HomeScreen");
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("HomeScreen");
     }
 }

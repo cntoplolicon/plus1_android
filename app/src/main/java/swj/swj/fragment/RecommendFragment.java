@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,5 +47,13 @@ public class RecommendFragment extends Fragment {
 
         return view;
     }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("RecommendScreen");
+    }
 
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("RecommendScreen");
+    }
 }
