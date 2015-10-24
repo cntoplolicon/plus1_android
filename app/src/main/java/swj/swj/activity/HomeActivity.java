@@ -89,16 +89,6 @@ public class HomeActivity extends BaseActivity {
         startActivity(new Intent(this, PersonalSettingsActivity.class));
     }
 
-    private static class HomeActivityFragment {
-        private Class<?> fragment;
-        private int titleTextResource;
-
-        public HomeActivityFragment(Class<?> fragment, int titleTextResource) {
-            this.fragment = fragment;
-            this.titleTextResource = titleTextResource;
-        }
-    }
-
     public void loadProgressBar(Promise<JSONObject, VolleyError, Void> promise) {
         if (promise != null) {
             spb.setVisibility(View.VISIBLE);
@@ -110,4 +100,15 @@ public class HomeActivity extends BaseActivity {
             });
         }
     }
+
+    private static class HomeActivityFragment {
+        private Class<?> fragment;
+        private int titleTextResource;
+
+        public HomeActivityFragment(Class<?> fragment, int titleTextResource) {
+            this.fragment = fragment;
+            this.titleTextResource = titleTextResource;
+        }
+    }
+
 }
