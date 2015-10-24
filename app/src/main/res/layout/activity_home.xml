@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +9,6 @@
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/action_bar_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         custom:hide_back_arrow="true"
         custom:page_title="@string/home_tab">
@@ -28,21 +24,11 @@
             android:src="@drawable/settings" />
     </swj.swj.view.ActionBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fl"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/home_title_color" />
-
     <RadioGroup
         android:id="@+id/rg_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_radio_group_height"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -71,13 +57,6 @@
             android:text="@string/message_tab" />
 
         <RadioButton
-            android:id="@+id/rb_messages"
-            style="@style/ButtonTabStyle"
-            android:drawableTop="@drawable/message_red"
-            android:text="@string/message_tab"
-            android:visibility="gone" />
-
-        <RadioButton
             android:id="@+id/rb_myself"
             style="@style/ButtonTabStyle"
             android:drawableTop="@drawable/btn_myself_selector"
@@ -85,4 +64,29 @@
 
     </RadioGroup>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/rg_group"
+        android:background="@color/home_title_color" />
+
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/tv_line"
+        android:layout_below="@id/action_bar" />
+
+    <FrameLayout
+        android:id="@+id/fl_red_point"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="@dimen/message_red_point_margin_right"
+        android:background="@drawable/icon_red_point"
+        android:visibility="gone" />
+
+</RelativeLayout>

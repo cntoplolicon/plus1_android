@@ -48,7 +48,7 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="9dp"
         android:src="@drawable/default_useravatar"
-        app:border_color="#b3b3b3"
+        app:border_color="@color/common_yellow"
         app:border_width="2px" />
 
     <TextView

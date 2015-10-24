@@ -58,5 +58,7 @@
     <dimen name="no_image_text_size_home">25px</dimen>
     <dimen name="have_image_text_size">15px</dimen>
 
+    <dimen name="message_red_point_margin_right">85dp</dimen>
+
 
 </resources>
