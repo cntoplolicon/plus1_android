@@ -45,8 +45,6 @@ public class HomeActivity extends BaseActivity {
     RadioGroup radioGroup;
     @Bind(R.id.fl_red_point)
     FrameLayout flRedPoint;
-    @Bind(R.id.rb_message)
-    RadioButton rbMessage;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
@@ -133,7 +131,7 @@ public class HomeActivity extends BaseActivity {
     private class NotificationChangedCallback implements PushNotificationService.Callback {
         @Override
         public void onNotificationReceived(Notification notification) {
-            if (!rbMessage.isChecked()) {
+            if (radioGroup.getCheckedRadioButtonId() != R.id.rb_message) {
                 flRedPoint.setVisibility(View.VISIBLE);
             }
         }
