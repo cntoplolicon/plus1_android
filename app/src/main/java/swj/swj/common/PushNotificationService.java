@@ -18,6 +18,10 @@ import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
+
 import io.yunba.android.manager.YunBaManager;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
@@ -34,7 +38,7 @@ public class PushNotificationService {
 
     private static PushNotificationService instance;
     private Context context;
-    private Callback callback;
+    private Set<Callback> callbacks = Collections.newSetFromMap(new WeakHashMap<Callback, Boolean>());
 
     public static void init(final Context context) {
         YunBaManager.start(context);
@@ -100,7 +104,7 @@ public class PushNotificationService {
         }
         notification.setReceiveTime(DateTime.now());
         notification.save();
-        if (callback != null) {
+        for (Callback callback : callbacks) {
             callback.onNotificationReceived(notification);
         }
 
@@ -151,7 +155,11 @@ public class PushNotificationService {
         void onNotificationReceived(Notification notification);
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+    public void registerCallback(Callback callback) {
+        callbacks.add(callback);
+    }
+
+    public void unregisterCallback(Callback callback) {
+        callbacks.remove(callback);
     }
 }

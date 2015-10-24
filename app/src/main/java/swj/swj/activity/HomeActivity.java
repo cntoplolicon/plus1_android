@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -23,13 +25,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
+import swj.swj.common.PushNotificationService;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
+import swj.swj.model.Notification;
 import swj.swj.model.User;
-
 
 public class HomeActivity extends BaseActivity {
     @Bind(R.id.tv_page_title)
@@ -40,6 +43,8 @@ public class HomeActivity extends BaseActivity {
     SmoothProgressBar spb;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
+    @Bind(R.id.fl_red_point)
+    FrameLayout flRedPoint;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
 
@@ -74,9 +79,13 @@ public class HomeActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (R.id.rb_message == checkedId) {
+                    flRedPoint.setVisibility(View.GONE);
+                }
                 switchTab(checkedId);
             }
         });
+        PushNotificationService.getInstance().registerCallback(new NotificationChangedCallback());
     }
 
     public void switchTab(int radioButtonId) {
@@ -116,6 +125,15 @@ public class HomeActivity extends BaseActivity {
         public HomeActivityFragment(Class<?> fragment, int titleTextResource) {
             this.fragment = fragment;
             this.titleTextResource = titleTextResource;
+        }
+    }
+
+    private class NotificationChangedCallback implements PushNotificationService.Callback {
+        @Override
+        public void onNotificationReceived(Notification notification) {
+            if (radioGroup.getCheckedRadioButtonId() != R.id.rb_message) {
+                flRedPoint.setVisibility(View.VISIBLE);
+            }
         }
     }
 

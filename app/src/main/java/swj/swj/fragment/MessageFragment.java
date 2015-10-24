@@ -20,7 +20,6 @@ import swj.swj.model.User;
 
 
 public class MessageFragment extends Fragment {
-
     private MessageAdapter messageAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +27,7 @@ public class MessageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
-        PushNotificationService.getInstance().setCallback(new NotificationChangedCallback());
+        PushNotificationService.getInstance().registerCallback(new NotificationChangedCallback());
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -18,10 +18,10 @@
 
     <style name="GNowProgressBar" parent="SmoothProgressBar">
         <item name="spb_stroke_separator_length">0dp</item>
-        <item name="spb_stroke_width">4dp</item>
+        <item name="spb_stroke_width">2dp</item>
         <item name="spb_sections_count">2</item>
         <item name="spb_speed">1.5</item>
-        <item name="spb_progressiveStart_speed">2.0</item>
+        <item name="spb_progressiveStart_speed">2</item>
         <item name="spb_progressiveStop_speed">3.4</item>
         <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
         <item name="spb_mirror_mode">false</item>
