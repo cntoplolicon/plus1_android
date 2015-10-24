@@ -13,19 +13,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.activity.AddTextActivity;
+import swj.swj.activity.HomeActivity;
 import swj.swj.activity.PublishActivity;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.PushNotificationService;
+import swj.swj.model.Notification;
 
 
 public class PublishFragment extends Fragment {
+
+
+
 
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
@@ -72,6 +81,7 @@ public class PublishFragment extends Fragment {
         });
 
         btnAddText.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), AddTextActivity.class));
+        PushNotificationService.getInstance().setCallback(new NotificationChanged());
         return view;
     }
 
@@ -126,6 +136,21 @@ public class PublishFragment extends Fragment {
         Date date = new Date();
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
+    }
+
+    private class NotificationChanged implements PushNotificationService.Callback {
+
+        @Override
+        public void onNotificationReceived(Notification notification) {
+            new HomeActivity().getRbMessages().setVisibility(View.VISIBLE);
+            new HomeActivity().getRbMessage().setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.rb_messages)
+    public void onRadioMessagesClicked(View view) {
+        new HomeActivity().getRbMessages().setVisibility(View.GONE);
+        new HomeActivity().getRbMessage().setVisibility(View.VISIBLE);
     }
 
 }

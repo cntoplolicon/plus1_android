@@ -61,7 +61,7 @@
         android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
         android:maxHeight="440dp"
-        android:maxWidth="@dimen/home_big_image_length_width"
+        android:maxWidth="@dimen/home_big_image_length"
         android:scaleType="centerInside" />
 
     <TextView

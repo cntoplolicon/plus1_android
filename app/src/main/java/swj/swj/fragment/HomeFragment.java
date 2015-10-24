@@ -30,6 +30,7 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.sliding_layout)
     HomePageLayout slidingView;
 
+
     private InfectionsAdapter adapter;
 
     private void changeViewsByAdapterState(int state) {
@@ -60,6 +61,7 @@ public class HomeFragment extends Fragment {
         slidingView.setAdapter(adapter);
 
         changeViewsByAdapterState(adapter.getState());
+
         return view;
     }
 
@@ -113,4 +115,6 @@ public class HomeFragment extends Fragment {
             changeViewsByAdapterState(newState);
         }
     }
+
+
 }

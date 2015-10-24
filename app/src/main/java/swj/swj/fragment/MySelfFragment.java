@@ -90,8 +90,8 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        postsAdapater.notifyDataSetChanged();
-        bookmarksAdapater.notifyDataSetChanged();
+        postsAdapter.notifyDataSetChanged();
+        bookmarksAdapter.notifyDataSetChanged();
         showCurrentUserInfo();
     }
 

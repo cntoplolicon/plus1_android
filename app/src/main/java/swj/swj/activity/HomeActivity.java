@@ -25,13 +25,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
-import swj.swj.common.PushNotificationService;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
-import swj.swj.model.Notification;
 
 
 public class HomeActivity extends Activity {
@@ -43,10 +41,19 @@ public class HomeActivity extends Activity {
     SmoothProgressBar spb;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
+
     @Bind(R.id.rb_messages)
     RadioButton rbMessages;
     @Bind(R.id.rb_message)
     RadioButton rbMessage;
+
+    public RadioButton getRbMessages() {
+        return rbMessages;
+    }
+
+    public RadioButton getRbMessage() {
+        return rbMessage;
+    }
 
     public Promise promise;
 
@@ -79,13 +86,17 @@ public class HomeActivity extends Activity {
                 switchTab(checkedId);
             }
         });
-        PushNotificationService.getInstance().setCallback(new NotificationChanged());
     }
 
     public void switchTab(int radioButtonId) {
+        Log.e("qwe", radioButtonId + "");
         try {
             HomeActivityFragment fragment = fragments.get(radioButtonId);
-            getFragmentManager().beginTransaction().replace(R.id.fl, (Fragment) fragment.fragment.newInstance()).commit();
+            if (fragment == null) {
+                Log.e("sgsdg", "sgsdgs");
+            }
+            Fragment currentFragment = (Fragment) fragment.fragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.fl, currentFragment).commit();
             tvTitle.setText(fragment.titleTextResource);
             ivSettings.setVisibility(radioButtonId == R.id.rb_myself ? View.VISIBLE : View.INVISIBLE);
         } catch (IllegalAccessException e) {
@@ -93,6 +104,11 @@ public class HomeActivity extends Activity {
         } catch (InstantiationException e) {
             Log.e(HomeActivity.class.getName(), "failed initializing fragment", e);
         }
+    }
+
+    @OnClick({R.id.rb_home, R.id.rb_friends, R.id.rb_message, R.id.rb_publish, R.id.rb_myself})
+    public void onRadioTabClicked(View view) {
+        switchTab(view.getId());
     }
 
     @OnClick(R.id.iv_settings)
@@ -120,22 +136,5 @@ public class HomeActivity extends Activity {
                 }
             });
         }
-    }
-
-    private class NotificationChanged implements PushNotificationService.Callback {
-
-        @Override
-        public void onNotificationReceived(Notification notification) {
-            rbMessages.setVisibility(View.VISIBLE);
-            rbMessage.setVisibility(View.GONE);
-        }
-    }
-
-    @OnClick(R.id.rb_messages)
-    public void onRadioMessagesClicked(View view) {
-        rbMessages.setVisibility(View.GONE);
-        rbMessage.setVisibility(View.VISIBLE);
-        rbMessage.setChecked(true);
-        switchTab(R.id.rb_message);
     }
 }
