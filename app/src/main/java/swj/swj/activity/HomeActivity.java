@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -35,6 +34,8 @@ import swj.swj.model.Notification;
 import swj.swj.model.User;
 
 public class HomeActivity extends BaseActivity {
+    private PushNotificationService.Callback callback = new NotificationChanged();
+
     @Bind(R.id.tv_page_title)
     TextView tvTitle;
     @Bind(R.id.iv_settings)
@@ -85,7 +86,13 @@ public class HomeActivity extends BaseActivity {
                 switchTab(checkedId);
             }
         });
-        PushNotificationService.getInstance().registerCallback(new NotificationChangedCallback());
+        PushNotificationService.getInstance().registerCallback(callback);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PushNotificationService.getInstance().unregisterCallback(callback);
     }
 
     public void switchTab(int radioButtonId) {
@@ -128,7 +135,7 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    private class NotificationChangedCallback implements PushNotificationService.Callback {
+    private class NotificationChanged implements PushNotificationService.Callback {
         @Override
         public void onNotificationReceived(Notification notification) {
             if (radioGroup.getCheckedRadioButtonId() != R.id.rb_message) {

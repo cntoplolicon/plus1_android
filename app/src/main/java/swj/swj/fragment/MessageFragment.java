@@ -20,6 +20,7 @@ import swj.swj.model.User;
 
 
 public class MessageFragment extends Fragment {
+    private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,7 +28,7 @@ public class MessageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
-        PushNotificationService.getInstance().registerCallback(new NotificationChangedCallback());
+        PushNotificationService.getInstance().registerCallback(callback);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,5 +48,11 @@ public class MessageFragment extends Fragment {
             messageAdapter.insert(notification, 0);
             messageAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        PushNotificationService.getInstance().unregisterCallback(callback);
     }
 }
