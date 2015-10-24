@@ -124,14 +124,6 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (rbMessage.isChecked()) {
-            flRedPoint.setVisibility(View.GONE);
-        }
-    }
-
     private static class HomeActivityFragment {
         private Class<?> fragment;
         private int titleTextResource;
