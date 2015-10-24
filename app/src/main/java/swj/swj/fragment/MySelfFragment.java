@@ -1,6 +1,5 @@
 package swj.swj.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +26,7 @@ import swj.swj.model.User;
 import swj.swj.view.HeaderGridView;
 
 
-public class MySelfFragment extends Fragment {
+public class MySelfFragment extends BaseFragment {
 
     private View headerView;
     private HeaderGridView gridView;
@@ -97,7 +95,6 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("MyselfScreen");
         showCurrentUserInfo();
         gridView.invalidateViews();
     }
@@ -132,10 +129,5 @@ public class MySelfFragment extends Fragment {
         public void onBookmarkChanged() {
             bookmarksAdapter.updateContent(BookmarkService.getInstance().getBookmarkedPosts());
         }
-    }
-
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("MyselfScreen");
     }
 }

@@ -1,6 +1,5 @@
 package swj.swj.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import swj.swj.model.Notification;
 import swj.swj.model.User;
 
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends BaseFragment {
     private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;
 
@@ -76,5 +75,4 @@ public class MessageFragment extends Fragment {
         super.onStop();
         PushNotificationService.getInstance().unregisterCallback(callback);
     }
-
 }

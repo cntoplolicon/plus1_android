@@ -1,6 +1,5 @@
 package swj.swj.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.GridView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,7 +19,7 @@ import swj.swj.adapter.RecommendGridViewAdapter;
 import swj.swj.common.CommonMethods;
 
 
-public class RecommendFragment extends Fragment {
+public class RecommendFragment extends BaseFragment {
 
     @Bind(R.id.grid_view_concentration)
     GridView gridView;
@@ -46,14 +44,5 @@ public class RecommendFragment extends Fragment {
         gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
 
         return view;
-    }
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("RecommendScreen");
-    }
-
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("RecommendScreen");
     }
 }

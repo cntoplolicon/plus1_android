@@ -1,7 +1,6 @@
 package swj.swj.fragment;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,8 +16,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.umeng.analytics.MobclickAgent;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +26,7 @@ import swj.swj.activity.PublishActivity;
 import swj.swj.common.ActivityHyperlinkClickListener;
 
 
-public class PublishFragment extends Fragment {
+public class PublishFragment extends BaseFragment {
 
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
@@ -131,14 +128,5 @@ public class PublishFragment extends Fragment {
         Date date = new Date();
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
         return dataFormat.format(date);
-    }
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("PublishScreen");
-    }
-
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("PublishScreen");
     }
 }

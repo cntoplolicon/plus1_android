@@ -1,6 +1,5 @@
 package swj.swj.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +23,7 @@ import swj.swj.model.Infection;
 import swj.swj.model.PostView;
 import swj.swj.view.HomePageLayout;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     @Bind(R.id.loading_layout)
     View loadingView;
@@ -123,14 +122,5 @@ public class HomeFragment extends Fragment {
             }
             changeViewsByAdapterState(newState);
         }
-    }
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("HomeScreen");
-    }
-
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("HomeScreen");
     }
 }
