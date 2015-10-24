@@ -46,9 +46,6 @@ public class UpdateSignActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_sign);
         ButterKnife.bind(this);
-
         biographyInput.setText(User.current.getBiography());
-
     }
-
 }
