@@ -1,5 +1,7 @@
 package swj.swj.activity;
 
+import android.app.Application;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -28,6 +30,7 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import swj.swj.BuildConfig;
 import swj.swj.R;
 import swj.swj.adapter.CardDetailsAdapter;
 import swj.swj.application.SnsApplication;
@@ -88,6 +91,10 @@ public class CardDetailsActivity extends BaseActivity {
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            if (!BuildConfig.DEBUG) {
+                NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
+                notifyManager.cancelAll();
+            }
             loadPost(comment.getPostId());
         }
 
