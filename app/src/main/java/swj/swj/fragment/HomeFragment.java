@@ -112,5 +112,8 @@ public class HomeFragment extends Fragment {
             }
             changeViewsByAdapterState(newState);
         }
+
     }
+
+
 }

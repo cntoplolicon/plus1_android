@@ -6,9 +6,7 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -26,9 +24,6 @@ import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -112,6 +107,7 @@ public class CardDetailsActivity extends BaseActivity {
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_listview);
         lvListView.setDividerHeight(0);
+
         final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
