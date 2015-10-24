@@ -28,6 +28,7 @@ import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
 import swj.swj.fragment.PublishFragment;
 import swj.swj.fragment.RecommendFragment;
+import swj.swj.model.User;
 
 
 public class HomeActivity extends BaseActivity {
@@ -53,6 +54,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (User.current == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
