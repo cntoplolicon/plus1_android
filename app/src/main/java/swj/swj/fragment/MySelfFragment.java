@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -17,14 +16,11 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
-import swj.swj.activity.PersonalProfileActivity;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.application.SnsApplication;
-import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
@@ -37,6 +33,7 @@ public class MySelfFragment extends Fragment {
     private HeaderGridView gridView;
     private UserPostsGridViewAdapter postsAdapter;
     private UserBookmarksGridViewAdapter bookmarksAdapter;
+    private User user;
 
     @Bind(R.id.tv_biography)
     TextView tvBiography;
@@ -60,10 +57,20 @@ public class MySelfFragment extends Fragment {
         gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
+        ButterKnife.bind(this, headerView);
 
-        postsAdapter = new UserPostsGridViewAdapter(getActivity(), User.current.getId());
-        bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
-        BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
+        user = User.current;
+        String userJson = getActivity().getIntent().getStringExtra("user_json");
+        if (userJson != null) {
+            user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
+        }
+        if (user.getId() == User.current.getId()) {
+            bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
+            BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
+        } else {
+            radioGroup.setVisibility(View.GONE);
+        }
+        postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,7 +82,6 @@ public class MySelfFragment extends Fragment {
             }
         });
 
-        ButterKnife.bind(this, headerView);
         gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -101,22 +107,21 @@ public class MySelfFragment extends Fragment {
     }
 
     private void showCurrentUserInfo() {
-        tvNickname.setText(User.current.getNickname());
-        CommonMethods.chooseNicknameColorViaGender(tvNickname, User.current, getActivity().getBaseContext());
-        tvBiography.setText(User.current.getBiography());
-        if (User.current.getGender() == User.GENDER_UNKNOWN) {
+        tvNickname.setText(user.getNickname());
+        CommonMethods.chooseNicknameColorViaGender(tvNickname, user, getActivity().getBaseContext());
+        tvBiography.setText(user.getBiography());
+        if (user.getGender() == User.GENDER_UNKNOWN) {
             ivGender.setVisibility(View.INVISIBLE);
         } else {
             ivGender.setVisibility(View.VISIBLE);
-            int resource = User.current.getGender() == User.GENDER_FEMALE ?
+            int resource = user.getGender() == User.GENDER_FEMALE ?
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        String avatarUrl = User.current.getAvatar();
+        String avatarUrl = user.getAvatar();
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
         }
-        ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {
