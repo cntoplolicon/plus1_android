@@ -69,5 +69,4 @@ public class UpdateNicknameActivity extends BaseActivity {
         }
         return true;
     }
-
 }

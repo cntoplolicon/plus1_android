@@ -5,35 +5,53 @@
     android:layout_height="match_parent"
     android:background="@color/common_white_bg">
 
-    <swj.swj.view.ActionBarLayout
-        android:id="@+id/action_bar"
+    <RelativeLayout
+        android:id="@+id/rl_actionbar"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/action_bar_height"
-        custom:page_title="@string/change_personal_signature" />
+        android:layout_height="wrap_content">
+
+        <swj.swj.view.ActionBarLayout
+            android:id="@+id/action_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/action_bar_height"
+            custom:page_title="@string/change_personal_signature" />
+
+        <TextView
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/common_margin_left_right"
+            android:text="@string/save_sign"
+            android:textColor="@color/common_button_text_color"
+            android:textSize="@dimen/common_hint_text_size" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/common_margin_change_password"
-        android:layout_marginRight="@dimen/common_margin_change_password"
+        android:layout_below="@id/rl_actionbar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:background="@null"
-        android:gravity="top"
         android:hint="请输入新的个性签名"
-        android:textColorHint="#999999"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
+        android:textColorHint="#999999"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="15sp" />
+
     <TextView
         android:id="@+id/register_line1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/register_margin_line_height"
         android:layout_below="@id/et_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="4dp"
         android:background="@color/home_title_color" />
 
 </RelativeLayout>

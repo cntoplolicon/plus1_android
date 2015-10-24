@@ -27,6 +27,7 @@
     <string name="log_out_confirm">确认退出登录？</string>
     <string name="unable_to_find_sd_card">没有SD卡!</string>
     <string name="save_changes">保存修改</string>
+    <string name="save_sign">保存</string>
     <string name="telephone">电话</string>
     <string name="preferences">偏好</string>
     <string name="log_out">退出登录</string>
