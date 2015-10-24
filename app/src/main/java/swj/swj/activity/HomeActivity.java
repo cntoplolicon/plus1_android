@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -41,19 +40,6 @@ public class HomeActivity extends Activity {
     SmoothProgressBar spb;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
-
-    @Bind(R.id.rb_messages)
-    RadioButton rbMessages;
-    @Bind(R.id.rb_message)
-    RadioButton rbMessage;
-
-    public RadioButton getRbMessages() {
-        return rbMessages;
-    }
-
-    public RadioButton getRbMessage() {
-        return rbMessage;
-    }
 
     public Promise promise;
 
@@ -89,14 +75,9 @@ public class HomeActivity extends Activity {
     }
 
     public void switchTab(int radioButtonId) {
-        Log.e("qwe", radioButtonId + "");
         try {
             HomeActivityFragment fragment = fragments.get(radioButtonId);
-            if (fragment == null) {
-                Log.e("sgsdg", "sgsdgs");
-            }
-            Fragment currentFragment = (Fragment) fragment.fragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.fl, currentFragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.fl, (Fragment) fragment.fragment.newInstance()).commit();
             tvTitle.setText(fragment.titleTextResource);
             ivSettings.setVisibility(radioButtonId == R.id.rb_myself ? View.VISIBLE : View.INVISIBLE);
         } catch (IllegalAccessException e) {
@@ -104,11 +85,6 @@ public class HomeActivity extends Activity {
         } catch (InstantiationException e) {
             Log.e(HomeActivity.class.getName(), "failed initializing fragment", e);
         }
-    }
-
-    @OnClick({R.id.rb_home, R.id.rb_friends, R.id.rb_message, R.id.rb_publish, R.id.rb_myself})
-    public void onRadioTabClicked(View view) {
-        switchTab(view.getId());
     }
 
     @OnClick(R.id.iv_settings)

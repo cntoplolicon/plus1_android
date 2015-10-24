@@ -23,10 +23,6 @@ public class MessageFragment extends Fragment {
 
     private MessageAdapter messageAdapter;
 
-    public MessageAdapter getMessageAdapter() {
-        return messageAdapter;
-    }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
