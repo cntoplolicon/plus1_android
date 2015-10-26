@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 
@@ -78,13 +79,8 @@ public class PersonalSettingsActivity extends BaseActivity {
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long size = 0;
-                File[] cachedFiles = getCacheDir().listFiles();
-                for (File file : cachedFiles) {
-                    size += (file.delete() ? 0 : file.length());
-                }
-                size = size / 1024 / 1024;
-                tvCacheSize.setText(size + "M");
+                ImageLoader.getInstance().getDiskCache().clear();
+                tvCacheSize.setText(calcImageCacheSize());
                 alertDialog.cancel();
             }
         });
@@ -109,13 +105,7 @@ public class PersonalSettingsActivity extends BaseActivity {
             }
         });
 
-        long size = 0;
-        File[] cachedFiles = getCacheDir().listFiles();
-        for (File file : cachedFiles) {
-            size += file.length();
-        }
-        size = size / 1024 / 1024;
-        tvCacheSize.setText(size + "M");
+        tvCacheSize.setText(calcImageCacheSize());
     }
 
     @Override
@@ -123,5 +113,14 @@ public class PersonalSettingsActivity extends BaseActivity {
         super.onResume();
         tvNickName.setText(User.current.getNickname());
         switchButton.setChecked(LocalUserInfo.getPreferences().getBoolean("notification_enabled", true));
+    }
+
+    private String calcImageCacheSize() {
+        File[] imageCacheFiles = ImageLoader.getInstance().getDiskCache().getDirectory().listFiles();
+        long size = 0;
+        for (File file : imageCacheFiles) {
+            size += file.length();
+        }
+        return size / 1024 / 1024 + "M";
     }
 }
