@@ -1,5 +1,6 @@
 package swj.swj.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ import swj.swj.model.User;
 import swj.swj.view.HeaderGridView;
 
 
-public class MySelfFragment extends BaseFragment {
+public class MySelfFragment extends Fragment {
 
     private View headerView;
     private HeaderGridView gridView;

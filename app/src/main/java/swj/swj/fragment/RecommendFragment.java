@@ -1,5 +1,6 @@
 package swj.swj.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import swj.swj.adapter.RecommendGridViewAdapter;
 import swj.swj.common.CommonMethods;
 
 
-public class RecommendFragment extends BaseFragment {
+public class RecommendFragment extends Fragment {
 
     @Bind(R.id.grid_view_concentration)
     GridView gridView;

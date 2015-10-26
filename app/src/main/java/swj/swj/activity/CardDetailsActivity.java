@@ -71,6 +71,7 @@ public class CardDetailsActivity extends BaseActivity {
     private Post post;
     private CardDetailsAdapter cardDetailsAdapter;
     private Comment replyTarget;
+    private Comment notifiedComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +88,14 @@ public class CardDetailsActivity extends BaseActivity {
 
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
-            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            loadPost(comment.getPostId());
+            notifiedComment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            loadPost(notifiedComment.getPostId());
             if (!BuildConfig.DEBUG) {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
             }
         }
-
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 replyTarget = (Comment) view.getTag();
@@ -105,7 +104,6 @@ public class CardDetailsActivity extends BaseActivity {
                 etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
             }
         });
-
     }
 
     private void initListView() {
@@ -180,7 +178,6 @@ public class CardDetailsActivity extends BaseActivity {
                     .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
         }
-
         syncBookmarkInfo();
         loadComments();
     }
@@ -195,6 +192,19 @@ public class CardDetailsActivity extends BaseActivity {
         });
         cardDetailsAdapter.setOnViewClickedListener(new OnViewClickedListener());
         lvListView.setAdapter(cardDetailsAdapter);
+        if (notifiedComment != null) {
+            lvListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
+                        if (cardDetailsAdapter.getItem(i).getId() == notifiedComment.getId()) {
+                            lvListView.smoothScrollToPosition(i);
+                            return;
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @OnClick(R.id.iv_bookmark)
@@ -231,7 +241,6 @@ public class CardDetailsActivity extends BaseActivity {
                         }
                     });
         }
-
     }
 
     @OnClick(R.id.btn_send_comment)
@@ -242,7 +251,6 @@ public class CardDetailsActivity extends BaseActivity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
         view.setEnabled(false);
         int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())
@@ -293,7 +301,6 @@ public class CardDetailsActivity extends BaseActivity {
                 startActivity(intent);
             }
         }
-
     }
 
     private void hideInput(View view) {

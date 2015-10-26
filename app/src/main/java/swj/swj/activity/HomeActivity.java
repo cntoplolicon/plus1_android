@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.umeng.analytics.MobclickAgent;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.Promise;
@@ -61,7 +60,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MobclickAgent.openActivityDurationTrack(false);
         if (User.current == null) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();

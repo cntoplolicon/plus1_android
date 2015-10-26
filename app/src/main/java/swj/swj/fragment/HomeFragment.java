@@ -1,5 +1,6 @@
 package swj.swj.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,7 +22,7 @@ import swj.swj.model.Infection;
 import swj.swj.model.PostView;
 import swj.swj.view.HomePageLayout;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends Fragment {
 
     @Bind(R.id.loading_layout)
     View loadingView;
