@@ -97,7 +97,7 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonDialog.showDialog(VerifySecurityCodeActivity.this, R.string.security_code_incorrect);
+                        CommonMethods.showError(VerifySecurityCodeActivity.this, errors, "security_code");
                     }
                 })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
