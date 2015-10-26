@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -87,6 +88,16 @@ public class HomeFragment extends Fragment {
             tvUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
+                    startActivity(intent);
+                }
+            });
+
+            ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
+            ivAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), UserHomeActivity.class);
                     intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
                     startActivity(intent);

@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -32,7 +31,8 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
     private static final String USERNAME = "username";
     private static final Integer ONE_MINUTE = 60000;
     private static final Integer ONE_SECOND = 1000;
-    private static boolean buttonAvailable;
+    private boolean resendButtonTicking;
+    private boolean verificationInProgress = false;
 
     @Bind(R.id.et_security_code)
     EditText securityCodeInput;
@@ -88,7 +88,8 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
             return;
         }
         view.setEnabled(false);
-        btnResend.setEnabled(false);
+        verificationInProgress = true;
+        updateResendButtonState();
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
         RestClient.getInstance().verifySecurityCode(username, securityCode).done(
                 new DoneCallback<JSONObject>() {
@@ -105,52 +106,55 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
                     public void onResponse(JSONObject errors) {
                         CommonMethods.showError(VerifySecurityCodeActivity.this, errors, "security_code");
                     }
-                })).always(new AlwaysCallback<JSONObject, VolleyError>() {
-            @Override
-            public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                view.setEnabled(true);
-                btnResend.setEnabled(buttonAvailable);
-            }
-        });
+                })).always(
+                new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        view.setEnabled(true);
+                        verificationInProgress = false;
+                        updateResendButtonState();
+                    }
+                });
     }
 
     protected abstract Class<?> getNextActivity();
 
     protected void startResendCountDown() {
-        buttonAvailable = false;
+        resendButtonTicking = true;
         long counterStart = getIntent().getLongExtra("counter_start", System.currentTimeMillis());
         long remainingTime = counterStart + ONE_MINUTE - System.currentTimeMillis();
         if (remainingTime > 0) {
             if (timer != null) {
                 timer.cancel();
             }
-            timer = new SecurityCodeCountDownTimer(this, btnResend, remainingTime);
+            timer = new SecurityCodeCountDownTimer(remainingTime);
             timer.start();
         }
     }
 
-    protected static class SecurityCodeCountDownTimer extends CountDownTimer {
-        private final Button button;
-        private final Context context;
+    protected void updateResendButtonState() {
+        btnResend.setEnabled(!resendButtonTicking && !verificationInProgress);
+    }
 
-        public SecurityCodeCountDownTimer(Context context, Button button,
-                                          long millisInFuture) {
+    protected class SecurityCodeCountDownTimer extends CountDownTimer {
+
+        public SecurityCodeCountDownTimer(long millisInFuture) {
             super(millisInFuture, (long) VerifySecurityCodeActivity.ONE_SECOND);
-            this.context = context;
-            this.button = button;
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            button.setEnabled(false);
-            button.setText(millisUntilFinished / ONE_SECOND + "秒");
+            resendButtonTicking = true;
+            updateResendButtonState();
+            btnResend.setText(millisUntilFinished / ONE_SECOND + "秒");
+
         }
 
         @Override
         public void onFinish() {
-            button.setText(context.getResources().getString(R.string.send_again));
-            button.setEnabled(true);
-            buttonAvailable = true;
+            btnResend.setText(R.string.send_again);
+            resendButtonTicking = false;
+            updateResendButtonState();
         }
     }
 }
