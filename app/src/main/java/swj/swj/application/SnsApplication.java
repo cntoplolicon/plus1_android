@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +58,6 @@ public class SnsApplication extends Application {
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .diskCache(new UnlimitedDiskCache(getCacheDir()))
                 .memoryCacheSizePercentage(20)
                 .defaultDisplayImageOptions(DEFAULT_DISPLAY_OPTION);
         if (BuildConfig.DEBUG) {
