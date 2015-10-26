@@ -3,13 +3,11 @@
     android:layout_height="48dp"
     android:background="@android:color/white">
 
-
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:padding="15dp"
         android:src="@drawable/top_bar_back" />
 
@@ -20,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="首页"
-        android:textColor="#333"
+        android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/home_title_text_size" />
 
     <TextView
@@ -37,9 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp">
 
-        <!-- style="@style/GNowProgressBar"-->
-        <!-- style="@style/SmoothProgressBar"-->
-        <!-- style="@style/OneProgressBar"-->
         <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
             android:id="@+id/spb"
             style="@style/GNowProgressBar"

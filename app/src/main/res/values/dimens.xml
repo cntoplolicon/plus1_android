@@ -45,6 +45,7 @@
     <dimen name="home_round_image_length">50dp</dimen>
     <dimen name="home_nickname_margin_top">25dp</dimen>
     <dimen name="home_nickname_margin_left">15dp</dimen>
+    <dimen name="home_nickname_margin_right">15dp</dimen>
     <dimen name="home_nickname_text_size">20sp</dimen>
     <dimen name="home_text_location_image_spacing">10dp</dimen>
     <dimen name="home_location_name_text_size">12sp</dimen>
@@ -59,6 +60,12 @@
     <dimen name="have_image_text_size">15px</dimen>
 
     <dimen name="message_red_point_margin_right">85dp</dimen>
+
+    <dimen name="publish_margin_left">56dp</dimen>
+    <dimen name="publish_margin_right">67dp</dimen>
+    <dimen name="publish_margin_bottom">75dp</dimen>
+    <dimen name="publish_image_margin_bottom">320dp</dimen>
+    <dimen name="publish_text_margin_bottom">310dp</dimen>
 
 
 </resources>

@@ -86,6 +86,11 @@ public class HomeActivity extends BaseActivity {
                 switchTab(checkedId);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         PushNotificationService.getInstance().registerCallback(callback);
     }
 

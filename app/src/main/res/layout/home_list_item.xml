@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/common_margin_left_right"
+    android:paddingRight="@dimen/common_margin_left_right"
     android:background="#fff">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -10,7 +12,6 @@
         android:layout_width="@dimen/home_round_image_length"
         android:layout_height="@dimen/home_round_image_length"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/default_useravatar"
         app:border_color="#fed724"
@@ -54,8 +55,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -64,8 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:ellipsize="end"
         android:lines="2"
         android:text="喔噢"
@@ -78,8 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:ellipsize="end"
         android:gravity="center"
         android:lines="2"
@@ -112,7 +111,7 @@
         android:layout_below="@id/tv_line"
         android:layout_marginBottom="@dimen/home_text_views_margin_bottom"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/icon_comment"
         android:drawablePadding="@dimen/home_text_views_image_spacing"
