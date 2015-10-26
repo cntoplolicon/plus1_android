@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -40,7 +41,7 @@ public class ResetPwdStepThree extends BaseActivity {
                         public void onDone(JSONObject response) {
                             Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            CommonDialog.showDialog(ResetPwdStepThree.this, R.string.pwd_reset_succeed);
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
                             startActivity(intent);
                             finish();
                         }
