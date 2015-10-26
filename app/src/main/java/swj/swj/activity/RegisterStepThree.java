@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.soundcloud.android.crop.Crop;
@@ -30,6 +29,7 @@ import java.io.File;
 import de.hdodenhof.circleimageview.CircleImageView;
 import swj.swj.R;
 import swj.swj.common.BitmapUtil;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.ResetViewClickable;
@@ -111,13 +111,13 @@ public class RegisterStepThree extends BaseActivity {
 
     private boolean inputValidation() {
         if (nicknameInput.getText().toString().trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.nickname_required), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.nickname_required);
             return false;
         } else if (!CommonMethods.isValidPwd(passwordInput.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.password_invalid_format), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.password_invalid_format);
             return false;
         } else if (radioGroup4Gender.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.gender_required), Toast.LENGTH_LONG).show();
+            CommonDialog.showDialog(this, R.string.gender_required);
             return false;
         }
         return true;
@@ -167,7 +167,7 @@ public class RegisterStepThree extends BaseActivity {
                         beginCrop(Uri.fromFile(avatar));
                     } else {
                         //toast error message when unable to find sdcard
-                        Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
+                        CommonDialog.showDialog(this, R.string.unable_to_find_sd_card);
                     }
                     break;
                 case Crop.REQUEST_CROP:
@@ -175,7 +175,7 @@ public class RegisterStepThree extends BaseActivity {
                         return;
                     }
                     if (resultCode == Crop.RESULT_ERROR) {
-                        Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
+                        CommonDialog.showDialog(this, Crop.getError(data).getMessage());
                         return;
                     }
                     Promise<Bitmap, Object, Void> promise = BitmapUtil.prepareImageForUploading(this, Crop.getOutput(data));

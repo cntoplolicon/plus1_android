@@ -68,7 +68,7 @@
     </RelativeLayout>
 
     <TextView
-        android:layout_width="@dimen/myself_grid_view_big_image_length"
+        android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@id/rl_image_info"
         android:background="#fff" />

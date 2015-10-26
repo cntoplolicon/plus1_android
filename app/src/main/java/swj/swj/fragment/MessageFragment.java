@@ -26,9 +26,9 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
-        PushNotificationService.getInstance().registerCallback(callback);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,7 +39,16 @@ public class MessageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        PushNotificationService.getInstance().registerCallback(callback);
+
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PushNotificationService.getInstance().unregisterCallback(callback);
     }
 
     private class NotificationChangedCallback implements PushNotificationService.Callback {
@@ -50,9 +59,4 @@ public class MessageFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        PushNotificationService.getInstance().unregisterCallback(callback);
-    }
 }

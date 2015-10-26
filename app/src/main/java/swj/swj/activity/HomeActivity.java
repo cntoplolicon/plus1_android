@@ -77,6 +77,7 @@ public class HomeActivity extends BaseActivity {
         if (getIntent().getSerializableExtra("publish_class") == AddTextActivity.class) {
             loadProgressBar(AddTextActivity.getPromise());
         }
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -86,12 +87,13 @@ public class HomeActivity extends BaseActivity {
                 switchTab(checkedId);
             }
         });
+
         PushNotificationService.getInstance().registerCallback(callback);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         PushNotificationService.getInstance().unregisterCallback(callback);
     }
 

@@ -3,52 +3,32 @@
     android:layout_height="match_parent"
     android:background="@color/common_white_bg">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/iv_phone"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/left_logo" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/publish_margin_bottom"
+        android:background="@drawable/icon_publish_phone" />
 
-        <Button
-            android:id="@+id/btn_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="170dp"
-            android:layout_marginLeft="45dp"
-            android:layout_toRightOf="@+id/textView"
-            android:background="@drawable/right_round" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <Button
+        android:id="@+id/btn_image"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/publish_margin_right"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/publish_image_margin_bottom"
+        android:background="@drawable/icon_publish_right" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/right_log" />
-
-        <Button
-            android:id="@+id/btn_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="170dp"
-            android:layout_marginRight="45dp"
-            android:layout_toLeftOf="@+id/text"
-            android:background="@drawable/left_round" />
-
-    </RelativeLayout>
-
+    <Button
+        android:id="@+id/btn_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/publish_margin_left"
+        android:layout_marginBottom="@dimen/publish_text_margin_bottom"
+        android:background="@drawable/icon_publish_left" />
 </RelativeLayout>
