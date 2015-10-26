@@ -67,7 +67,8 @@ public class RegisterStepThree extends BaseActivity {
                         public void onDone(JSONObject response) {
                             User.updateCurrentUser(response.toString());
                             Intent intent = new Intent(RegisterStepThree.this, HomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
                         }
