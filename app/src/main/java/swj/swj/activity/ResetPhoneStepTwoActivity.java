@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -75,6 +76,7 @@ public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         User.updateCurrentUser(response.toString());
+                        Toast.makeText(ResetPhoneStepTwoActivity.this, R.string.phone_reset_succeed, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }).fail(
