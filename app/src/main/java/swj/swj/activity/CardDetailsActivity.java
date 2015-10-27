@@ -82,9 +82,6 @@ public class CardDetailsActivity extends BaseActivity {
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
-            if (post.getPostPages()[0].getImageWidth() != null) {
-                CommonMethods.setImageViewSize(ivImage, post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
-            }
             updatePostInfo();
         }
 
@@ -131,9 +128,6 @@ public class CardDetailsActivity extends BaseActivity {
             @Override
             public void onDone(JSONObject result) {
                 post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
-                if (post.getPostPages()[0].getImageWidth() != null) {
-                    CommonMethods.setImageViewSize(ivImage, post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
-                }
                 updatePostInfo();
             }
         }).fail(new JsonErrorListener(getApplicationContext(), null));

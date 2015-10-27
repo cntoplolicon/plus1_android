@@ -110,10 +110,4 @@ public final class CommonMethods {
             textView.setTextColor(ContextCompat.getColor(context, R.color.unknown_gender));
         }
     }
-
-    public static void setImageViewSize(ImageView imageView, Integer width, Integer height) {
-        imageView.requestLayout();
-        imageView.getLayoutParams().height = height;
-        imageView.getLayoutParams().width = width;
-    }
 }
