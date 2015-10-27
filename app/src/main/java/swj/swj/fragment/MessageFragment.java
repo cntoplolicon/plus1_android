@@ -3,7 +3,6 @@ package swj.swj.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +33,15 @@ public class MessageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
 
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
-        if (lvListView.getCount() > 0){
+        if (lvListView.getCount() > 0) {
             tvNoMessage.setVisibility(View.GONE);
-        }else{
+        } else {
             tvNoMessage.setVisibility(View.VISIBLE);
         }
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
