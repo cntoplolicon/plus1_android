@@ -181,7 +181,7 @@ public class CardDetailsActivity extends BaseActivity {
         } else {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnLoading(R.color.home_title_color)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
