@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.adapter.MessageAdapter;
@@ -23,14 +26,24 @@ public class MessageFragment extends Fragment {
     private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;
 
+    @Bind(R.id.tv_no_message)
+    TextView tvNoMessage;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
+
+        ButterKnife.bind(this, view);
 
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
+        if (notifications.isEmpty()) {
+            tvNoMessage.setVisibility(View.VISIBLE);
+        } else {
+            tvNoMessage.setVisibility(View.GONE);
+        }
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -41,7 +54,6 @@ public class MessageFragment extends Fragment {
         });
 
         PushNotificationService.getInstance().registerCallback(callback);
-
         return view;
     }
 
