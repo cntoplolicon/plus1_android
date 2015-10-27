@@ -178,6 +178,14 @@ public class CardDetailsActivity extends BaseActivity {
                     .build();
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
         }
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
+                startActivity(intent);
+            }
+        });
         syncBookmarkInfo();
         loadComments();
     }

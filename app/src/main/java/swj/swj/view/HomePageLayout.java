@@ -107,7 +107,7 @@ public class HomePageLayout extends ViewGroup {
 
     public HomePageLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        dragHelper = ViewDragHelper.create(this, 1f, new DragHelperCallback());
+        dragHelper = ViewDragHelper.create(this, 0.1f, new DragHelperCallback());
     }
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
