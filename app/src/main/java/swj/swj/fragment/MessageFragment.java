@@ -70,5 +70,4 @@ public class MessageFragment extends Fragment {
             messageAdapter.notifyDataSetChanged();
         }
     }
-
 }

@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/common_white_bg">
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_authored_posts"

@@ -53,7 +53,6 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, viewHolder.ivAvatar);
         }
-
         return view;
     }
 

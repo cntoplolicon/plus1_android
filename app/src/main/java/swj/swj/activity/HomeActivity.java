@@ -60,7 +60,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (User.current == null) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -145,5 +144,4 @@ public class HomeActivity extends BaseActivity {
             }
         }
     }
-
 }

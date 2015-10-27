@@ -46,5 +46,4 @@ public class RecommendFragment extends Fragment {
 
         return view;
     }
-
 }
