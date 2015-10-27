@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -84,6 +85,7 @@ public class PublishActivity extends BaseActivity {
             return;
         }
         final Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        final ImageSize bitmapSize = new ImageSize(bitmap.getWidth(), bitmap.getHeight());
         ThrowableDeferredAsyncTask<Void, Void, byte[]> compressTask = new ThrowableDeferredAsyncTask<Void, Void, byte[]>() {
             @Override
             protected byte[] doInBackground(Void... params) {
@@ -91,13 +93,18 @@ public class PublishActivity extends BaseActivity {
             }
         };
 
-        promise = compressTask.promise().then(new DonePipe<byte[], JSONObject, VolleyError, Void>() {
+        promise = compressTask.promise().done(new DoneCallback<byte[]>() {
+            @Override
+            public void onDone(byte[] result) {
+                bitmap.recycle();
+            }
+        }).then(new DonePipe<byte[], JSONObject, VolleyError, Void>() {
             @Override
             public Promise<JSONObject, VolleyError, Void> pipeDone(byte[] imageData) {
                 ByteArrayBody imageBody = new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "image.jpg");
                 String text = editText.getText().toString();
                 return RestClient.getInstance().newPost(new String[]{text}, new AbstractContentBody[]{imageBody},
-                        new Integer[]{bitmap.getWidth()}, new Integer[]{bitmap.getHeight()});
+                        new Integer[]{bitmapSize.getWidth()}, new Integer[]{bitmapSize.getHeight()});
             }
         }).done(new DoneCallback<JSONObject>() {
             @Override
@@ -110,11 +117,6 @@ public class PublishActivity extends BaseActivity {
                 super.onFail(error);
                 Log.e(PublishActivity.class.getName(), "failed uploading posts", error);
                 Toast.makeText(getApplicationContext(), R.string.post_failure, Toast.LENGTH_LONG).show();
-            }
-        }).always(new AlwaysCallback<JSONObject, VolleyError>() {
-            @Override
-            public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                bitmap.recycle();
             }
         });
         compressTask.execute(new Void[]{});
