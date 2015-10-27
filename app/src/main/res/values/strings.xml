@@ -7,7 +7,7 @@
     <string name="unset">未设置</string>
     <string name="confirm">确定</string>
     <string name="log_in_required">未登录</string>
-    <string name="recommend_tab">精彩</string>
+    <string name="recommend_tab">热门</string>
     <string name="myself_tab">个人</string>
     <string name="camera_tab">相机</string>
     <string name="home_tab">话题</string>
@@ -57,9 +57,10 @@
     <string name="change_nickname">修改昵称</string>
     <string name="change_personal_signature">修改签名</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="feedback_title">一起吐槽+1</string>
+    <string name="publish_title">新话题</string>
 
     <!--card-->
-    <string name="publish_title">新话题</string>
     <string name="publish_add_image">发图片</string>
     <string name="publish_add_text">发文字</string>
     <string name="publish_text">文字</string>
@@ -119,15 +120,15 @@
     <string name="get_image_from_camera">拍照</string>
     <string name="title_activity_user_home">UserHomeActivity</string>
 
+    <!--card details -->
     <string name="post_success">发送成功</string>
-    <string name="send">+1</string>
+    <string name="send">发送</string>
     <string name="publish_comment">我也凑个热闹</string>
     <string name="post_failure">发送失败</string>
     <string name="bookmark_added">我就喜欢</string>
     <string name="bookmark_removed">不再喜欢</string>
     <string name="comment_success">参与+1</string>
     <string name="comment_failure">评论失败</string>
-    <string name="feedback_success">反馈发送成功</string>
     <string name="reply_to_target">回复</string>
     <string name="image_processing_failure">图像处理失败</string>
     
@@ -144,9 +145,13 @@
     <string name="myself_header_favorite">我的喜欢</string>
 
     <!--feedback text and hint-->
-    <string name="feedback_title">一起吐槽+1</string>
     <string name="feedback_text_hint">颜值低、没意思、太难用、总闪退，不吐槽+1都对不起自己！</string>
     <string name="feedback_contact_hint">我的手机号，等着充话费！</string>
     <string name="save_feedback">吐槽+1</string>
+    <string name="feedback_success">反馈发送成功</string>
+
+    <!--home text and hint-->
+    <string name="home_pass_post">滚粗吧，无聊君~</string>
+    <string name="home_spread_post">哎呦，不错哦！</string>
 
 </resources>
