@@ -41,6 +41,7 @@
     <string name="pwd_reset_succeed">密码修改成功</string>
     <string name="nickname_reset_succeed">昵称修改成功</string>
     <string name="sign_reset_succeed">个性签名修改成功</string>
+    <string name="phone_reset_succeed">手机号修改成功</string>
     <string name="unknown_error">未知错误</string>
     <string name="post_created_at">%d天前</string>
 

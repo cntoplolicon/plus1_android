@@ -18,9 +18,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
+import swj.swj.activity.PersonalProfileActivity;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
 import swj.swj.application.SnsApplication;
+import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.User;
@@ -65,6 +67,7 @@ public class MySelfFragment extends Fragment {
             user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
         }
         if (user.getId() == User.current.getId()) {
+            ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
             bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
             BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
         } else {
@@ -96,6 +99,9 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (user.getId() == User.current.getId()) {
+            user = User.current;
+        }
         showCurrentUserInfo();
         gridView.invalidateViews();
     }
