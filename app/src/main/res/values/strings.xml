@@ -139,4 +139,6 @@
 
 
     <string name="title_activity_card_details">CardDetailsActivity</string>
+    <string name="feedback_text_hint">请写下您对我们的意见，我们将不断改进，谢谢您的反馈和支持</string>
+    <string name="feedback_contact_hint">您的手机号或者QQ</string>
 </resources>
