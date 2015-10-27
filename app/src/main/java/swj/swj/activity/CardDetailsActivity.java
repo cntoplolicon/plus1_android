@@ -271,6 +271,7 @@ public class CardDetailsActivity extends BaseActivity {
                         cardDetailsAdapter.add(newComment);
                         cardDetailsAdapter.sortComments();
                         cardDetailsAdapter.notifyDataSetChanged();
+                        showComment();
                     }
                 })
                 .fail(new JsonErrorListener(getApplicationContext(), null) {
@@ -314,5 +315,17 @@ public class CardDetailsActivity extends BaseActivity {
     private void hideInput(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void showComment() {
+        if (replyTarget != null) {
+            for (int x = 0; x < cardDetailsAdapter.getCount(); x++) {
+                if (cardDetailsAdapter.getItem(x).getReplyToId() == replyTarget.getReplyToId()) {
+                    lvListView.setSelection(x);
+                }
+            }
+        } else {
+            lvListView.setSelection(lvListView.getBottom());
+        }
     }
 }
