@@ -99,6 +99,9 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (user.getId() == User.current.getId()) {
+            user = User.current;
+        }
         showCurrentUserInfo();
         gridView.invalidateViews();
     }
