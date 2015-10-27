@@ -198,7 +198,7 @@ public class CardDetailsActivity extends BaseActivity {
                 public void run() {
                     for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
                         if (cardDetailsAdapter.getItem(i).getId() == notifiedComment.getId()) {
-                            lvListView.smoothScrollToPositionFromTop(i,200);
+                            lvListView.setSelection(i);
                             return;
                         }
                     }

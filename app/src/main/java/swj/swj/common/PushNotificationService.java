@@ -127,8 +127,6 @@ public class PushNotificationService {
                 .setSmallIcon(R.drawable.notificaiton_small)
                 .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
                 .setContentText(notificationBarBody)
-                .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                .setDefaults(NotificationCompat.DEFAULT_SOUND)
                 .setContentIntent(pendingIntent);
         NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
         notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
