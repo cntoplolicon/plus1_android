@@ -19,8 +19,10 @@ import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import org.jdeferred.DonePipe;
 import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
+import org.jdeferred.android.DeferredAsyncTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,38 +46,54 @@ public final class BitmapUtil {
     private BitmapUtil() {
     }
 
-    public static Promise<Bitmap, Object, Void> prepareImageForUploading(Context context, Uri uri) {
-        final ThrowableDeferredObject<Bitmap, Object, Void> deferredObject = new ThrowableDeferredObject<>();
-        try {
-            File tempFile = getTempFile(context);
-            File inputFile = getFileFromMediaUri(context, uri);
-            if (inputFile == null) {
-                inputFile = saveUriToFile(context, uri, tempFile);
+    public static Promise<Bitmap, FailReason, Void> prepareImageForUploading(Context context, Uri uri) {
+        DeferredAsyncTask<Object, Void, Uri> normalizeUriTask = new DeferredAsyncTask<Object, Void, Uri>() {
+            @Override
+            protected Uri doInBackgroundSafe(Object[] params) throws Exception {
+                Context context = (Context) params[0];
+                Uri uri = (Uri) params[1];
+                File tempFile = getTempFile(context);
+                File inputFile = getFileFromMediaUri(context, uri);
+                if (inputFile == null) {
+                    inputFile = saveUriToFile(context, uri, tempFile);
+                }
+                if (inputFile != null) {
+                    uri = Uri.fromFile(inputFile);
+                }
+                return uri;
             }
-            if (inputFile != null) {
-                uri = Uri.fromFile(inputFile);
+        };
+        normalizeUriTask.execute(new Object[] {context, uri});
+
+        final ThrowableDeferredObject<Bitmap, FailReason, Void> deferredObject = new ThrowableDeferredObject<>();
+        normalizeUriTask.promise().fail(new ImageProcessingFailureCallback<Throwable>(context) {
+            @Override
+            public void onFail(Throwable t) {
+                super.onFail(t);
+                Log.e(BitmapUtil.class.getName(), "failed converting uri to file", t);
             }
+        }).then(new DonePipe<Uri, Bitmap, FailReason, Void>() {
+            @Override
+            public Promise<Bitmap, FailReason, Void> pipeDone(Uri result) {
+                ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
+                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false)
+                        .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
+                NonViewAware nonViewAware = new NonViewAware(imageSize, ViewScaleType.FIT_INSIDE);
+                ImageLoader.getInstance().displayImage(Uri.decode(result.toString()), nonViewAware, options,
+                        new SimpleImageLoadingListener() {
+                            @Override
+                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                deferredObject.reject(failReason);
+                            }
 
-            ImageSize imageSize = new ImageSize(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT);
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false)
-                    .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
-            NonViewAware nonViewAware = new NonViewAware(imageSize, ViewScaleType.FIT_INSIDE);
-            ImageLoader.getInstance().displayImage(Uri.decode(uri.toString()), nonViewAware, options,
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            deferredObject.reject(failReason);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            deferredObject.resolve(loadedImage);
-                        }
-                    });
-        } catch (IOException e) {
-            Log.e(BitmapUtil.class.getName(), "failed preparing image for uploading", e);
-            deferredObject.reject(e);
-        }
+                            @Override
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                deferredObject.resolve(loadedImage);
+                            }
+                        });
+                return deferredObject.promise();
+            }
+        }).fail(new ImageProcessingFailureCallback<FailReason>(context));
 
         return deferredObject.promise();
     }
@@ -145,7 +163,7 @@ public final class BitmapUtil {
         return outputStream.toByteArray();
     }
 
-    public static class ImageProcessingFailureCallback implements FailCallback<Object> {
+    private static class ImageProcessingFailureCallback<T> implements FailCallback<T> {
 
         private Context context;
 
@@ -154,7 +172,7 @@ public final class BitmapUtil {
         }
 
         @Override
-        public void onFail(Object result) {
+        public void onFail(T result) {
             Toast.makeText(context, R.string.image_processing_failure, Toast.LENGTH_LONG).show();
         }
     }

@@ -179,15 +179,14 @@ public class RegisterStepThree extends BaseActivity {
                         CommonDialog.showDialog(this, Crop.getError(data).getMessage());
                         return;
                     }
-                    Promise<Bitmap, Object, Void> promise = BitmapUtil.prepareImageForUploading(this, Crop.getOutput(data));
-                    promise.done(new DoneCallback<Bitmap>() {
+                    BitmapUtil.prepareImageForUploading(this, Crop.getOutput(data)).done(new DoneCallback<Bitmap>() {
                         @Override
                         public void onDone(Bitmap bitmap) {
                             byte[] imageData = BitmapUtil.compressBitmap(bitmap, BitmapUtil.DEFAULT_QUALITY);
                             imageBody = new ByteArrayBody(imageData, ContentType.create("image/jpeg"), "avatar.jpg");
                             faceImage.setImageBitmap(bitmap);
                         }
-                    }).fail(new BitmapUtil.ImageProcessingFailureCallback(RegisterStepThree.this));
+                    });
             }
         }
     }

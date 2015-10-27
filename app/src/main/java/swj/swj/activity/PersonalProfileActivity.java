@@ -162,7 +162,6 @@ public class PersonalProfileActivity extends BaseActivity {
                         ivAvatar.setImageBitmap(bitmap);
                     }
                 })
-                .fail(new BitmapUtil.ImageProcessingFailureCallback(this))
                 .then(new DonePipe<Bitmap, JSONObject, VolleyError, Void>() {
                     @Override
                     public Promise<JSONObject, VolleyError, Void> pipeDone(Bitmap bitmap) {

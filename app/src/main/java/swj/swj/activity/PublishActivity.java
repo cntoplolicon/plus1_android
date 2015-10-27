@@ -69,7 +69,7 @@ public class PublishActivity extends BaseActivity {
                         tvPublish.setEnabled(true);
                         imageView.setImageBitmap(bitmap);
                     }
-                }).fail(new BitmapUtil.ImageProcessingFailureCallback(this));
+                });
     }
 
     @OnClick(R.id.tv_delete)
