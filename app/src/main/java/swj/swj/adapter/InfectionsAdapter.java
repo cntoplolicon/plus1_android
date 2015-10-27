@@ -104,7 +104,10 @@ public class InfectionsAdapter {
         Post post = infection.getPost();
         itemViews.tvUser.setText(post.getUser().getNickname());
         CommonMethods.chooseNicknameColorViaGender(itemViews.tvUser, post.getUser(), context);
-        int genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        int genderIcon = 0;
+        if (post.getUser().getGender() != User.GENDER_UNKNOWN) {
+            genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
+        }
         itemViews.tvUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
