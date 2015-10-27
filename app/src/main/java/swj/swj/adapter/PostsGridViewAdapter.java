@@ -27,7 +27,7 @@ public class PostsGridViewAdapter extends BaseAdapter {
 
     private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
             new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.drawable.image_loading)
+                    .showImageOnLoading(R.color.home_title_color)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .bitmapConfig(Bitmap.Config.RGB_565)
                     .imageScaleType(ImageScaleType.EXACTLY)
