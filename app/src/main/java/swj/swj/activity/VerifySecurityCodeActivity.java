@@ -1,6 +1,5 @@
 package swj.swj.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,7 +13,9 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -23,7 +24,6 @@ import swj.swj.R;
 import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
-import swj.swj.common.ResetViewClickable;
 import swj.swj.common.RestClient;
 
 public abstract class VerifySecurityCodeActivity extends BaseActivity {
@@ -31,12 +31,17 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
     private static final String USERNAME = "username";
     private static final Integer ONE_MINUTE = 60000;
     private static final Integer ONE_SECOND = 1000;
+    private boolean resendButtonTicking;
+    private boolean verificationInProgress = false;
 
     @Bind(R.id.et_security_code)
     EditText securityCodeInput;
 
     @Bind(R.id.tv_chosen_username)
     TextView chosenUsername;
+
+    @Bind(R.id.btn_resend_security_code)
+    Button btnResend;
 
     private SecurityCodeCountDownTimer timer;
 
@@ -77,12 +82,14 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btn_submit)
-    protected void onSubmit(View view) {
+    protected void onSubmit(final View view) {
         final String username = getIntent().getStringExtra(USERNAME);
         if (!inputValidation()) {
             return;
         }
         view.setEnabled(false);
+        verificationInProgress = true;
+        updateResendButtonState();
         String securityCode = ((EditText) findViewById(R.id.et_security_code)).getText().toString();
         RestClient.getInstance().verifySecurityCode(username, securityCode).done(
                 new DoneCallback<JSONObject>() {
@@ -97,47 +104,57 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
                 new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject errors) {
-                        CommonDialog.showDialog(VerifySecurityCodeActivity.this, R.string.security_code_incorrect);
+                        CommonMethods.showError(VerifySecurityCodeActivity.this, errors, "security_code");
                     }
-                })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
+                })).always(
+                new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        view.setEnabled(true);
+                        verificationInProgress = false;
+                        updateResendButtonState();
+                    }
+                });
     }
 
     protected abstract Class<?> getNextActivity();
 
     protected void startResendCountDown() {
-        Button btnResendCode = (Button) findViewById(R.id.btn_resend_security_code);
+        resendButtonTicking = true;
         long counterStart = getIntent().getLongExtra("counter_start", System.currentTimeMillis());
         long remainingTime = counterStart + ONE_MINUTE - System.currentTimeMillis();
         if (remainingTime > 0) {
             if (timer != null) {
                 timer.cancel();
             }
-            timer = new SecurityCodeCountDownTimer(this, btnResendCode, remainingTime);
+            timer = new SecurityCodeCountDownTimer(remainingTime);
             timer.start();
         }
     }
 
-    protected static class SecurityCodeCountDownTimer extends CountDownTimer {
-        private final Button button;
-        private final Context context;
+    protected void updateResendButtonState() {
+        btnResend.setEnabled(!resendButtonTicking && !verificationInProgress);
+    }
 
-        public SecurityCodeCountDownTimer(Context context, Button button,
-                                          long millisInFuture) {
+    protected class SecurityCodeCountDownTimer extends CountDownTimer {
+
+        public SecurityCodeCountDownTimer(long millisInFuture) {
             super(millisInFuture, (long) VerifySecurityCodeActivity.ONE_SECOND);
-            this.context = context;
-            this.button = button;
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            button.setClickable(false);
-            button.setText(millisUntilFinished / ONE_SECOND + "秒");
+            resendButtonTicking = true;
+            updateResendButtonState();
+            btnResend.setText(millisUntilFinished / ONE_SECOND + "秒");
+
         }
 
         @Override
         public void onFinish() {
-            button.setText(context.getResources().getString(R.string.send_again));
-            button.setClickable(true);
+            btnResend.setText(R.string.send_again);
+            resendButtonTicking = false;
+            updateResendButtonState();
         }
     }
 }
