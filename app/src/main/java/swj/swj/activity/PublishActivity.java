@@ -58,10 +58,12 @@ public class PublishActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         Uri uri = getIntent().getParcelableExtra("imagePath");
+        tvPublish.setEnabled(false);
         BitmapUtil.prepareImageForUploading(this, uri)
                 .done(new DoneCallback<Bitmap>() {
                     @Override
                     public void onDone(Bitmap bitmap) {
+                        tvPublish.setEnabled(true);
                         imageView.setImageBitmap(bitmap);
                     }
                 }).fail(new BitmapUtil.ImageProcessingFailureCallback(this));

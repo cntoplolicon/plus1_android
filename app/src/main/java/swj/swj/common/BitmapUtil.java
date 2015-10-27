@@ -60,17 +60,18 @@ public final class BitmapUtil {
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(false)
                     .considerExifParams(true).imageScaleType(ImageScaleType.EXACTLY).build();
             NonViewAware nonViewAware = new NonViewAware(imageSize, ViewScaleType.FIT_INSIDE);
-            ImageLoader.getInstance().displayImage(uri.toString(), nonViewAware, options, new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    deferredObject.reject(failReason);
-                }
+            ImageLoader.getInstance().displayImage(Uri.decode(uri.toString()), nonViewAware, options,
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            deferredObject.reject(failReason);
+                        }
 
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    deferredObject.resolve(loadedImage);
-                }
-            });
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            deferredObject.resolve(loadedImage);
+                        }
+                    });
         } catch (IOException e) {
             Log.e(BitmapUtil.class.getName(), "failed preparing image for uploading", e);
             deferredObject.reject(e);
