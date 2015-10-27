@@ -9,8 +9,8 @@
         android:layout_height="match_parent"
         android:horizontalSpacing="5dp"
         android:numColumns="auto_fit"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingLeft="@dimen/myself_grid_view_margin_left"
+        android:paddingRight="@dimen/myself_grid_view_margin_left"
         android:paddingTop="15dp"
         android:scrollbarStyle="outsideOverlay"
         android:verticalSpacing="5dp"></GridView>
