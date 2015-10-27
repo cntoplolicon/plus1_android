@@ -39,10 +39,10 @@ public class MessageFragment extends Fragment {
         messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
         lvListView.setAdapter(messageAdapter);
-        if (lvListView.getCount() > 0) {
-            tvNoMessage.setVisibility(View.GONE);
-        } else {
+        if (notifications.isEmpty()) {
             tvNoMessage.setVisibility(View.VISIBLE);
+        } else {
+            tvNoMessage.setVisibility(View.GONE);
         }
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
