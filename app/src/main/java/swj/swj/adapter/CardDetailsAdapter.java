@@ -1,6 +1,7 @@
 package swj.swj.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ import swj.swj.model.Post;
  * Created by shw on 2015/9/14.
  */
 public class CardDetailsAdapter extends ArrayAdapter<Comment> {
-
+    private int selectItem = -1;
     private LayoutInflater mInflater;
     private ViewClickedListener viewClickedListener;
 
@@ -114,7 +115,16 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
         viewHolder.tvNickname.setOnClickListener(customViewClickListener);
         view.setTag(comment);
+        if (position == selectItem) {
+            view.setBackgroundColor(Color.parseColor("#efefef"));
+        } else {
+            view.setBackgroundColor(Color.TRANSPARENT);
+        }
         return view;
+    }
+
+    public void setSelectItem(int selectItem) {
+        this.selectItem = selectItem;
     }
 
     public Comment getCommentById(int id) {
