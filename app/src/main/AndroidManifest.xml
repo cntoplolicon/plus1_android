@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<manifest package="swj.swj"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="swj.swj"
     android:versionCode="1"
-    android:versionName="0.0.1">
+    android:versionName="0.0.1" >
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -24,24 +23,25 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="YUNBA_APPKEY"
             android:value="561b7f3d860409b810e0d11a" />
+
         <service
             android:name="io.yunba.android.core.YunBaService"
             android:exported="true" />
 
-        <receiver android:name="io.yunba.android.core.YunBaReceiver">
+        <receiver android:name="io.yunba.android.core.YunBaReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <receiver android:name="swj.swj.receiver.PushNotificationsReceiver">
+        <receiver android:name=".receiver.PushNotificationsReceiver" >
             <intent-filter>
                 <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
+
                 <category android:name="swj.swj" />
             </intent-filter>
         </receiver>
@@ -61,22 +61,29 @@
 
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.CardDetailsActivity"
             android:label="@string/title_activity_card_details"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
-        <meta-data android:value="5625ebc8e0f55a40fa000034" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="Wandoujia" android:name="UMENG_CHANNEL"/>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5625ebc8e0f55a40fa000034" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Wandoujia" />
+
         <activity android:name=".activity.PersonalSettingsActivity" />
         <activity android:name=".activity.PersonalProfileActivity" />
         <activity android:name=".activity.UpdateNicknameActivity" />
@@ -95,6 +102,13 @@
         <activity android:name=".activity.ResetPwdStepThree" />
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name=".activity.UserHomeActivity" android:label="@string/title_activity_user_home" />
+        <activity
+            android:name=".activity.UserHomeActivity"
+            android:label="@string/title_activity_user_home" />
+        <activity
+            android:name=".activity.GuideActivity"
+            android:label="@string/title_activity_guide" >
+        </activity>
     </application>
+
 </manifest>
