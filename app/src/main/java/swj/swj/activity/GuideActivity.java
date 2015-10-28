@@ -65,7 +65,7 @@ public class GuideActivity extends Activity {
             llContainer.addView(point);
         }
         mViewPager.setAdapter(new GuideAdapter());
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 if (position == mImageIds.length - 1) {
@@ -98,15 +98,13 @@ public class GuideActivity extends Activity {
                     public void onGlobalLayout() {
                         mPointDis = llContainer.getChildAt(1).getLeft()
                                 - llContainer.getChildAt(0).getLeft();
-
-                        ivRedPoint.getViewTreeObserver()
-                                .removeGlobalOnLayoutListener(this);
+                        ivRedPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     }
                 });
     }
 
     @OnClick(R.id.btn_start)
-    public void btnStart() {
+    public void onStartButtonClicked() {
         startActivity(new Intent(getApplicationContext(),
                 LoginActivity.class));
 
@@ -117,7 +115,7 @@ public class GuideActivity extends Activity {
         finish();
     }
 
-    class GuideAdapter extends PagerAdapter {
+    private class GuideAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return mImageIds.length;

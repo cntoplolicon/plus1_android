@@ -72,7 +72,7 @@ public class LoginActivity extends BaseActivity {
 
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
-        first();
+        showGuideOnFirstLogin();
     }
 
     private boolean inputValidation() {
@@ -86,7 +86,7 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    private void first() {
+    private void showGuideOnFirstLogin() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
                 Context.MODE_PRIVATE);
         boolean isGuideShowed = sharedPreferences.getBoolean("is_guide_showed",
