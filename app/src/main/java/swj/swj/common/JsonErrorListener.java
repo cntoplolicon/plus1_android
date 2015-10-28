@@ -4,7 +4,10 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
 import org.jdeferred.FailCallback;
@@ -57,8 +60,16 @@ public class JsonErrorListener implements FailCallback<VolleyError> {
 
         if (!jsonResponseHandled) {
             Log.e(ERROR_TAG, "network error", error);
-            Toast.makeText(context, context.getResources().getString(R.string.network_error),
-                    Toast.LENGTH_SHORT).show();
+            int resourceId = R.string.unknown_error;
+            if (error instanceof NetworkError) {
+                resourceId = R.string.network_error;
+            } else if (error instanceof ServerError) {
+                resourceId = R.string.server_error;
+            } else if (error instanceof TimeoutError) {
+                resourceId = R.string.timeout_error;
+            }
+            Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
+
         }
     }
 }
