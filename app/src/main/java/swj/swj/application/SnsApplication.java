@@ -2,7 +2,9 @@ package swj.swj.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -16,6 +18,7 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import swj.swj.BuildConfig;
+import swj.swj.R;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
@@ -80,7 +83,6 @@ public class SnsApplication extends Application {
 
     private void loadAppInfo() {
         appInfo = new AppInfo();
-        appInfo.setApiVersion(BuildConfig.VERSION_NAME);
         String imageHost = LocalUserInfo.getPreferences().getString("image_host", "");
         if (imageHost.isEmpty()) {
             imageHost = DEFAULT_IMAGE_HOST;
@@ -92,8 +94,21 @@ public class SnsApplication extends Application {
                     public void onDone(JSONObject response) {
                         appInfo = CommonMethods.createDefaultGson().fromJson(response.toString(), AppInfo.class);
                         LocalUserInfo.getPreferences().edit().putString("image_host", getImageServerUrl()).commit();
+                        try {
+                            int versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+
+                            if (versionCode < appInfo.getVersionCode()) {
+                                updateApp();
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {
+                            throw new IllegalStateException("version code must be specified in manifest", e);
+                        }
                     }
                 }
         ).fail(new JsonErrorListener(getApplicationContext(), null));
+    }
+
+    private void updateApp() {
+        Toast.makeText(getApplicationContext(), R.string.app_name, Toast.LENGTH_SHORT).show();
     }
 }
