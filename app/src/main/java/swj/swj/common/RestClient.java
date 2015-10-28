@@ -272,7 +272,7 @@ public class RestClient {
     public Promise<JSONObject, VolleyError, Void> newPostView(int infectionId, int result) {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
 
-        if (!POST_VIEWS_ENABLED) {
+        if (BuildConfig.DEBUG && !POST_VIEWS_ENABLED) {
             return deferredObject.promise();
         }
 
