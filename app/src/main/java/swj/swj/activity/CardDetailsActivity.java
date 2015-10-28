@@ -72,6 +72,7 @@ public class CardDetailsActivity extends BaseActivity {
     private CardDetailsAdapter cardDetailsAdapter;
     private Comment replyTarget;
     private Comment notifiedComment;
+    private Comment newComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,7 +268,7 @@ public class CardDetailsActivity extends BaseActivity {
                     public void onDone(JSONObject result) {
                         etNewComment.setText("");
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
-                        Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
+                        newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
                         cardDetailsAdapter.add(newComment);
                         cardDetailsAdapter.sortComments();
                         cardDetailsAdapter.notifyDataSetChanged();
@@ -318,14 +319,18 @@ public class CardDetailsActivity extends BaseActivity {
     }
 
     private void showComment() {
-        if (replyTarget != null) {
-            for (int x = 0; x < cardDetailsAdapter.getCount(); x++) {
-                if (cardDetailsAdapter.getItem(x).getReplyToId() == replyTarget.getReplyToId()) {
-                    lvListView.setSelection(x);
+        if (newComment != null) {
+            lvListView.post(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
+                        if (cardDetailsAdapter.getItem(i).getId() == newComment.getId()) {
+                            lvListView.setSelection(i);
+                            return;
+                        }
+                    }
                 }
-            }
-        } else {
-            lvListView.setSelection(lvListView.getBottom());
+            });
         }
     }
 }
