@@ -200,19 +200,7 @@ public class CardDetailsActivity extends BaseActivity {
         });
         cardDetailsAdapter.setOnViewClickedListener(new OnViewClickedListener());
         lvListView.setAdapter(cardDetailsAdapter);
-        if (notifiedComment != null) {
-            lvListView.post(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
-                        if (cardDetailsAdapter.getItem(i).getId() == notifiedComment.getId()) {
-                            lvListView.setSelection(i);
-                            return;
-                        }
-                    }
-                }
-            });
-        }
+        showComment(notifiedComment);
     }
 
     @OnClick(R.id.iv_bookmark)
@@ -271,6 +259,7 @@ public class CardDetailsActivity extends BaseActivity {
                         cardDetailsAdapter.add(newComment);
                         cardDetailsAdapter.sortComments();
                         cardDetailsAdapter.notifyDataSetChanged();
+                        showComment(newComment);
                     }
                 })
                 .fail(new JsonErrorListener(getApplicationContext(), null) {
@@ -314,5 +303,22 @@ public class CardDetailsActivity extends BaseActivity {
     private void hideInput(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void showComment(final Comment comment) {
+        if (comment == null) {
+            return;
+        }
+        lvListView.post(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
+                    if (cardDetailsAdapter.getItem(i).getId() == comment.getId()) {
+                        lvListView.setSelection(i);
+                        return;
+                    }
+                }
+            }
+        });
     }
 }
