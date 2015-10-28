@@ -17,15 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 
+
 public class GuideActivity extends Activity {
+
     private int[] mImageIds = new int[]{R.drawable.guide_1,
             R.drawable.guide_2, R.drawable.guide_3};
-    private ArrayList<ImageView> mImageList;
+    private List<ImageView> mImageList = new ArrayList<ImageView>();
     private int mPointDis;
 
     @Bind(R.id.vp_guide)
@@ -45,7 +49,6 @@ public class GuideActivity extends Activity {
 
         ButterKnife.bind(this);
 
-        mImageList = new ArrayList<ImageView>();
         for (int i = 0; i < mImageIds.length; i++) {
             ImageView view = new ImageView(getApplicationContext());
             view.setBackgroundResource(mImageIds[i]);
@@ -88,6 +91,7 @@ public class GuideActivity extends Activity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
         ivRedPoint.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -99,19 +103,18 @@ public class GuideActivity extends Activity {
                                 .removeGlobalOnLayoutListener(this);
                     }
                 });
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),
-                        LoginActivity.class));
+    }
 
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
-                        Context.MODE_PRIVATE);
-                sharedPreferences.edit().putBoolean("is_guide_showed", true).commit();
+    @OnClick(R.id.btn_start)
+    public void btnStart() {
+        startActivity(new Intent(getApplicationContext(),
+                LoginActivity.class));
 
-                finish();
-            }
-        });
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
+                Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("is_guide_showed", true).commit();
+
+        finish();
     }
 
     class GuideAdapter extends PagerAdapter {
