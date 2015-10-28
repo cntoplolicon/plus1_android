@@ -315,6 +315,8 @@ public class CardDetailsActivity extends BaseActivity {
                 for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
                     if (cardDetailsAdapter.getItem(i).getId() == comment.getId()) {
                         lvListView.setSelection(i);
+                        cardDetailsAdapter.setSelectItem(i);
+                        cardDetailsAdapter.notifyDataSetInvalidated();
                         return;
                     }
                 }

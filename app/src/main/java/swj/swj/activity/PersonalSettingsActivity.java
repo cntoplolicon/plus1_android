@@ -73,6 +73,7 @@ public class PersonalSettingsActivity extends BaseActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         Window window = alertDialog.getWindow();
         alertDialog.show();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.setContentView(R.layout.cache_clear_dialog);
         TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
         TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
