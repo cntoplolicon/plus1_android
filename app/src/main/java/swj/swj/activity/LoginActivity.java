@@ -94,6 +94,7 @@ public class LoginActivity extends BaseActivity {
         if (!isGuideShowed) {
             startActivity(new Intent(getApplicationContext(),
                     GuideActivity.class));
+            finish();
         }
     }
 }
