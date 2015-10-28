@@ -38,7 +38,7 @@
             android:id="@+id/top_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/common_yellow">
+            android:background="#DCDCDC">
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:tag="text"
                 android:text="@string/home_pass_post"
-                android:textColor="#fefefe"
+                android:textColor="#666666"
                 android:textSize="16sp" />
         </FrameLayout>
 

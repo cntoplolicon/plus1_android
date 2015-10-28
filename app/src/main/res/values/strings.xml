@@ -153,5 +153,6 @@
     <!--home text and hint-->
     <string name="home_pass_post">滚粗吧，无聊君~</string>
     <string name="home_spread_post">哎呦，不错哦！</string>
+    <string name="title_activity_guide">GuideActivity</string>
 
 </resources>
