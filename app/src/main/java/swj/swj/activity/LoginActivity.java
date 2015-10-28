@@ -1,6 +1,8 @@
 package swj.swj.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +72,7 @@ public class LoginActivity extends BaseActivity {
 
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
+        isFirst();
     }
 
     private boolean inputValidation() {
@@ -81,5 +84,16 @@ public class LoginActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    private void isFirst() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
+                Context.MODE_PRIVATE);
+        boolean isGuideShowed = sharedPreferences.getBoolean("is_guide_showed",
+                false);
+        if (!isGuideShowed) {
+            startActivity(new Intent(getApplicationContext(),
+                    GuideActivity.class));
+        }
     }
 }

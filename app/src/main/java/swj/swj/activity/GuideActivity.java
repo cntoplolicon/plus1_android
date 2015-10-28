@@ -1,14 +1,16 @@
 package swj.swj.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,8 +21,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
-import swj.swj.common.DensityUtils;
-import swj.swj.common.PrefUtils;
 
 public class GuideActivity extends Activity {
     private int[] mImageIds = new int[]{R.drawable.guide_1,
@@ -40,7 +40,7 @@ public class GuideActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_guide);
 
         ButterKnife.bind(this);
@@ -55,7 +55,8 @@ public class GuideActivity extends Activity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             if (i != 0) {
-                params.leftMargin = DensityUtils.dp2px(this, 10);
+                float density = this.getResources().getDisplayMetrics().density;
+                params.leftMargin = (int) (12 * density + 0.5f);
             }
             point.setLayoutParams(params);
             llContainer.addView(point);
@@ -102,9 +103,12 @@ public class GuideActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),
-                        HomeActivity.class));
-                PrefUtils.putBoolean("is_guide_showed", true,
-                        getApplicationContext());
+                        LoginActivity.class));
+
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
+                        Context.MODE_PRIVATE);
+                sharedPreferences.edit().putBoolean("is_guide_showed", true).commit();
+
                 finish();
             }
         });
