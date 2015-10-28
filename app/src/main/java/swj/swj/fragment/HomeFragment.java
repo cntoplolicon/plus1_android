@@ -3,6 +3,7 @@ package swj.swj.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import swj.swj.view.HomePageLayout;
 
 public class HomeFragment extends Fragment {
 
+    private static final int LOADING_INTERVAL = 15000;
+
     @Bind(R.id.loading_layout)
     View loadingView;
     @Bind(R.id.cleared_layout)
@@ -32,6 +35,7 @@ public class HomeFragment extends Fragment {
     HomePageLayout slidingView;
 
     private InfectionsAdapter adapter;
+    private LoadNewInfectionsTimer timer = new LoadNewInfectionsTimer(LOADING_INTERVAL * 20);
 
     private void changeViewsByAdapterState(int state) {
         switch (state) {
@@ -59,6 +63,7 @@ public class HomeFragment extends Fragment {
         adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
         changeViewsByAdapterState(adapter.getState());
+        timer.start();
         return view;
     }
 
@@ -66,6 +71,7 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         adapter.setCallback(null);
+        timer.cancel();
     }
 
     private class LayoutCallbacks implements HomePageLayout.Callback {
@@ -109,6 +115,26 @@ public class HomeFragment extends Fragment {
             int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
             RestClient.getInstance().newPostView(infection.getId(), result)
                     .fail(new JsonErrorListener(getActivity(), null));
+            adapter.checkRemainingInfectionsAndUpdate();
+        }
+    }
+
+    private class LoadNewInfectionsTimer extends CountDownTimer {
+
+        public LoadNewInfectionsTimer(long millisInFuture) {
+            super(millisInFuture, (long) LOADING_INTERVAL);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if (adapter.getState() == InfectionsAdapter.STATE_CLEARED) {
+                adapter.loadInfections();
+            }
+        }
+
+        @Override
+        public void onFinish() {
+            start();
         }
     }
 
