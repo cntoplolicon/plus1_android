@@ -63,7 +63,7 @@ public final class BitmapUtil {
                 return uri;
             }
         };
-        normalizeUriTask.execute(new Object[] {context, uri});
+        normalizeUriTask.execute(new Object[]{context, uri});
 
         final ThrowableDeferredObject<Bitmap, FailReason, Void> deferredObject = new ThrowableDeferredObject<>();
         normalizeUriTask.promise().fail(new ImageProcessingFailureCallback<Throwable>(context) {

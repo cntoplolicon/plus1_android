@@ -14,6 +14,7 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class InfectionsAdapter {
     public static final int STATE_CLEARED = 0;
     public static final int STATE_LOADING = 1;
     public static final int STATE_NORMAL = 2;
+    private static final Set<Integer> INFECTION_THRESHOLDS = new HashSet<>(20, 5);
 
     private static final int ID_CACHE_CAPACITY = 256;
 
@@ -56,6 +58,7 @@ public class InfectionsAdapter {
     private int state = STATE_CLEARED;
     private boolean loading = false;
     private Callback callback;
+
 
     public static InfectionsAdapter getInstance() {
         return instance;
@@ -185,6 +188,12 @@ public class InfectionsAdapter {
                 });
         loading = true;
         updateState();
+    }
+
+    public void checkRemainingInfectionsAndUpdate() {
+        if (INFECTION_THRESHOLDS.contains(id2infections.size())) {
+            loadInfections();
+        }
     }
 
     public int getState() {
