@@ -18,12 +18,15 @@ import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.adapter.RecommendGridViewAdapter;
 import swj.swj.common.CommonMethods;
+import swj.swj.view.HeaderGridView;
 
 
 public class RecommendFragment extends Fragment {
 
+    private View spaceHeader;
+
     @Bind(R.id.grid_view_concentration)
-    GridView gridView;
+    HeaderGridView gridView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class RecommendFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        spaceHeader = inflater.inflate(R.layout.list_gridview_space_header, null);
+        gridView.addHeaderView(spaceHeader, null, false);
         RecommendGridViewAdapter adapter = new RecommendGridViewAdapter(getActivity());
         gridView.setAdapter(adapter);
 
