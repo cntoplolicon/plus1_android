@@ -25,6 +25,7 @@ import swj.swj.model.User;
 public class MessageFragment extends Fragment {
     private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;
+    private View spaceHeader;
 
     @Bind(R.id.tv_no_message)
     TextView tvNoMessage;
@@ -38,6 +39,8 @@ public class MessageFragment extends Fragment {
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
+        spaceHeader = inflater.inflate(R.layout.list_gridview_space_header, null);
+        lvListView.addHeaderView(spaceHeader, null, false);
         lvListView.setAdapter(messageAdapter);
         if (notifications.isEmpty()) {
             tvNoMessage.setVisibility(View.VISIBLE);
