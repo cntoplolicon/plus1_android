@@ -33,7 +33,7 @@ import swj.swj.model.User;
  */
 public class SnsApplication extends Application {
 
-    private static String DEFAULT_IMAGE_HOST = "http://infection-development.s3-website.cn-north-1.amazonaws.com.cn/";
+    private static String DEFAULT_IMAGE_HOST = "http://image.oneplusapp.com/";
     private static AppInfo appInfo;
 
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
