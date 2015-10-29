@@ -50,4 +50,5 @@ dependencies {
     compile 'com.kyleduo.switchbutton:library:1.2.10'
     compile 'org.slf4j:slf4j-android:1.7.12'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.github.paolorotolo:appintro:3.2.0'
 }
