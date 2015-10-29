@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/publish_margin_bottom"
         android:background="@drawable/icon_publish_phone" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:layout_marginBottom="@dimen/publish_image_margin_bottom"
         android:background="@drawable/icon_publish_right" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

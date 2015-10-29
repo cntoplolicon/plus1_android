@@ -65,10 +65,8 @@ public class HomeActivity extends BaseActivity {
             finish();
             return;
         }
-
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-
         switchTab(R.id.rb_home);
         if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
             loadProgressBar(PublishActivity.getPromise());

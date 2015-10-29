@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
@@ -37,8 +36,8 @@ public class PublishFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_publish, container, false);
-        Button btnAddImage = (Button) view.findViewById(R.id.btn_image);
-        Button btnAddText = (Button) view.findViewById(R.id.btn_text);
+        TextView btnAddImage = (TextView) view.findViewById(R.id.btn_image);
+        TextView btnAddText = (TextView) view.findViewById(R.id.btn_text);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setCanceledOnTouchOutside(false);
         btnAddImage.setOnClickListener(new View.OnClickListener() {

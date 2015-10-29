@@ -80,7 +80,6 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
-
         String avatarUrl = comment.getUser().getAvatar();
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
@@ -171,7 +170,6 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
     }
 
     private static class CommentComparator implements Comparator<Comment> {
-
         @Override
         public int compare(Comment comment1, Comment comment2) {
             if (comment1.getCreatedAt().equals(comment2.getCreatedAt())) {
@@ -201,5 +199,4 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         @Bind(R.id.tv_reply_target)
         TextView tvReplyTarget;
     }
-
 }

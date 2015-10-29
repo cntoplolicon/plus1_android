@@ -312,9 +312,9 @@ public class CardDetailsActivity extends BaseActivity {
         lvListView.post(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
+                for (int i = 0; i < lvListView.getCount(); i++) {
                     if (cardDetailsAdapter.getItem(i).getId() == comment.getId()) {
-                        lvListView.setSelection(i);
+                        lvListView.setSelection(i + 1);
                         cardDetailsAdapter.setSelectItem(i);
                         cardDetailsAdapter.notifyDataSetInvalidated();
                         return;

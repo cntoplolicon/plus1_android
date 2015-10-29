@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:paddingLeft="@dimen/common_margin_left_right"
-    android:paddingRight="@dimen/common_margin_left_right"
-    android:background="#fff">
+    android:paddingRight="@dimen/common_margin_left_right">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
@@ -83,9 +83,9 @@
         android:gravity="center"
         android:lines="2"
         android:text="喔噢"
-        android:visibility="gone"
         android:textColor="#999999"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_views"
