@@ -44,7 +44,7 @@ public class CommonDialog {
         lp.width = (int) (display.getWidth() * 0.8);
         window.setContentView(R.layout.custom_dialog_update_versions);
         TextView tvTitle = (TextView) window.findViewById(R.id.tv_title);
-        tvTitle.setText("有新版本啦");
+        tvTitle.setText("有新版本啦"); 
         TextView tvUnConfirm = (TextView) window.findViewById(R.id.tv_un_confirm);
         tvUnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
