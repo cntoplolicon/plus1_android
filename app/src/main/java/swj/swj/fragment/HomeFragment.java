@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
+import swj.swj.activity.HomeActivity;
 import swj.swj.activity.UserHomeActivity;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.CommonMethods;
@@ -65,6 +68,14 @@ public class HomeFragment extends Fragment {
         changeViewsByAdapterState(adapter.getState());
         timer.start();
         return view;
+    }
+
+    @OnClick(R.id.tv_hot)
+    public void skipRecommend() {
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        RadioButton radioButton = (RadioButton) homeActivity.findViewById(R.id.rb_recommendation);
+        radioButton.setChecked(true);
+        homeActivity.switchTab(R.id.rb_recommendation);
     }
 
     @Override

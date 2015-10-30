@@ -137,7 +137,6 @@ public class InfectionsAdapter {
                     itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
         }
         view.setTag(infection);
-
         return view;
     }
 
