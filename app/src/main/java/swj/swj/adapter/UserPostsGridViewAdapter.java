@@ -2,7 +2,11 @@ package swj.swj.adapter;
 
 import android.content.Context;
 
+import com.android.volley.VolleyError;
+
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONArray;
 
 import swj.swj.common.CommonMethods;
@@ -17,6 +21,7 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
 
     public UserPostsGridViewAdapter(Context context, int userId) {
         super(context);
+        loading = true;
         RestClient.getInstance().getUserPosts(userId).done(
                 new DoneCallback<JSONArray>() {
                     @Override
@@ -24,6 +29,13 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
                         updateAll(CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class));
                         notifyDataSetChanged();
                     }
-                }).fail(new JsonErrorListener(context, null));
+                }).fail(new JsonErrorListener(context, null))
+                .always(new AlwaysCallback<JSONArray, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
+                        loading = false;
+                        notifyLoadingStatusChanged();
+                    }
+                });
     }
 }

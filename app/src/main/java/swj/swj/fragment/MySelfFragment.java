@@ -2,6 +2,7 @@ package swj.swj.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,9 @@ import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.PersonalProfileActivity;
+import swj.swj.adapter.PostsGridViewAdapter;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
-import swj.swj.application.SnsApplication;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
@@ -32,31 +33,49 @@ import swj.swj.view.HeaderGridView;
 public class MySelfFragment extends Fragment {
 
     private View headerView;
-    private HeaderGridView gridView;
     private UserPostsGridViewAdapter postsAdapter;
     private UserBookmarksGridViewAdapter bookmarksAdapter;
     private User user;
+    private HeaderGridView gridView;
+    private ImageView ivLoading;
+    private TextView tvContentEmpty;
 
     @Bind(R.id.tv_biography)
     TextView tvBiography;
-
     @Bind(R.id.tv_nickname)
     TextView tvNickname;
-
     @Bind(R.id.iv_gender)
     ImageView ivGender;
-
     @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
-
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
+
+    private void changeViewsByAdapterState() {
+        PostsGridViewAdapter adapter = radioGroup.getCheckedRadioButtonId() == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter;
+        boolean loading = adapter.isLoading();
+        boolean isEmpty = adapter.isEmpty();
+        if (!isEmpty) {
+            ivLoading.setVisibility(View.GONE);
+            tvContentEmpty.setVisibility(View.GONE);
+        } else if (loading) {
+            tvContentEmpty.setVisibility(View.GONE);
+            ivLoading.setVisibility(View.VISIBLE);
+        } else {
+            ivLoading.setVisibility(View.GONE);
+            tvContentEmpty.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myself, container, false);
         gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
+        ivLoading = (ImageView) view.findViewById(R.id.iv_loading);
+        tvContentEmpty = (TextView) view.findViewById(R.id.tv_content_empty);
+        tvContentEmpty.setText(getResources().getString(R.string.home_no_publish));
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
         ButterKnife.bind(this, headerView);
@@ -69,11 +88,28 @@ public class MySelfFragment extends Fragment {
             ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
             bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
             BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
+            bookmarksAdapter.registerDataSetObserver(new CustomDataSetObserver());
+            bookmarksAdapter.registerCallback(new CustomPostGridViewCallback());
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    if (checkedId == R.id.tv_myself_publish) {
+                        gridView.setAdapter(postsAdapter);
+                        tvContentEmpty.setText(getResources().getString(R.string.home_no_publish));
+                    } else {
+                        gridView.setAdapter(bookmarksAdapter);
+                        tvContentEmpty.setText(getResources().getString(R.string.home_no_bookmard));
+                    }
+                }
+            });
         } else {
             radioGroup.setVisibility(View.GONE);
         }
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
+        postsAdapter.registerDataSetObserver(new CustomDataSetObserver());
+        postsAdapter.registerCallback(new CustomPostGridViewCallback());
+        changeViewsByAdapterState();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,12 +120,6 @@ public class MySelfFragment extends Fragment {
         });
 
         gridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                gridView.setAdapter(checkedId == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter);
-            }
-        });
         return view;
     }
 
@@ -121,7 +151,9 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
+        if (user.getAvatar() != null) {
+            ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
+        }
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {
@@ -130,6 +162,23 @@ public class MySelfFragment extends Fragment {
         public void onBookmarkChanged() {
             bookmarksAdapter.updateAll(BookmarkService.getInstance().getBookmarkedPosts());
             bookmarksAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class CustomDataSetObserver extends DataSetObserver {
+
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            changeViewsByAdapterState();
+        }
+    }
+
+    private class CustomPostGridViewCallback implements PostsGridViewAdapter.Callback {
+
+        @Override
+        public void onLoadingStatusChanged(boolean loading) {
+            changeViewsByAdapterState();
         }
     }
 }

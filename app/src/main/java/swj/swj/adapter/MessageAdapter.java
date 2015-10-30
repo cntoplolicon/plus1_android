@@ -15,7 +15,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
-import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.model.Comment;
 import swj.swj.model.Notification;
@@ -48,8 +47,11 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
+        if (comment.getUser().getAvatar() == null) {
+            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        } else {
+            ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
+        }
         return view;
     }
 

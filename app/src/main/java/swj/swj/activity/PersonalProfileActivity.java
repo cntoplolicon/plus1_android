@@ -34,7 +34,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.R;
-import swj.swj.application.SnsApplication;
 import swj.swj.common.ActivityHyperlinkClickListener;
 import swj.swj.common.BitmapUtil;
 import swj.swj.common.CommonMethods;
@@ -74,7 +73,9 @@ public class PersonalProfileActivity extends BaseActivity {
 
     private void initView() {
         String avatarUrl = User.current.getAvatar();
-        ImageLoader.getInstance().displayImage(avatarUrl, ivAvatar);
+        if (avatarUrl != null) {
+            ImageLoader.getInstance().displayImage(avatarUrl, ivAvatar);
+        }
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
@@ -179,7 +180,11 @@ public class PersonalProfileActivity extends BaseActivity {
                     @Override
                     public void onFail(VolleyError e) {
                         super.onFail(e);
-                        ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
+                        if (User.current.getAvatar() == null) {
+                            ivAvatar.setImageResource(R.drawable.default_useravatar);
+                        } else {
+                            ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
+                        }
                     }
                 });
     }

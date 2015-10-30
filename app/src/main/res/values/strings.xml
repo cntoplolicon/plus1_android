@@ -159,6 +159,8 @@
     <!--update versions-->
     <string name="update_versions_title">有新版本啦</string>
 
-    <string name="content_empty">暂时没东西,自己想办法</string>
+    <string name="home_no_publish">暂时没有发布过话题哟~</string>
+    <string name="home_no_bookmard">暂时没有评论或喜欢过话题哟~</string>
+    <string name="no_recommend">没有新的热门话题了</string>
 
 </resources>

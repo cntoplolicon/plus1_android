@@ -155,7 +155,9 @@ public class CardDetailsActivity extends BaseActivity {
                 break;
         }
         CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
-        ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
+        if (post.getUser().getAvatar() != null) {
+            ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
+        }
         tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
