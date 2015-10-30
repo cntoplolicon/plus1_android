@@ -40,7 +40,7 @@ import swj.swj.model.User;
 public class SnsApplication extends Application {
 
     private static AppInfo appInfo;
-    private String UpdateVersions = "";
+    private String UpdateVersionsText = "";
 
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
             .cacheInMemory(true)
@@ -130,7 +130,7 @@ public class SnsApplication extends Application {
             }
         });
         TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
-        tvReminder.setText(UpdateVersions);
+        tvReminder.setText(UpdateVersionsText);
         window.setAttributes(lp);
     }
 }
