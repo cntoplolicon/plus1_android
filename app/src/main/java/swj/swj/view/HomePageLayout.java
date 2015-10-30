@@ -34,6 +34,7 @@ public class HomePageLayout extends ViewGroup {
     private int dragRange;
     private int settleStart, settleEnd;
     private boolean settling;
+    private int minimumSuggestedHeight;
 
     private InfectionsAdapter adapter;
     private Callback callback;
@@ -103,11 +104,21 @@ public class HomePageLayout extends ViewGroup {
 
         topView = findViewById(R.id.top_view);
         bottomView = findViewById(R.id.bottom_view);
+        minimumSuggestedHeight = Math.max(getDesiredHeight(topView), minimumSuggestedHeight);
+        minimumSuggestedHeight = Math.max(getDesiredHeight(bottomView), minimumSuggestedHeight);
+        minimumSuggestedHeight = Math.max(dragHelper.getTouchSlop(), minimumSuggestedHeight * 3);
+    }
+
+    private int getDesiredHeight(View view) {
+        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+        int widthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+        view.measure(widthMeasureSpec, heightMeasureSpec);
+        return view.getMeasuredHeight();
     }
 
     public HomePageLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        dragHelper = ViewDragHelper.create(this, 0.1f, new DragHelperCallback());
+        dragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
     }
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
@@ -126,7 +137,7 @@ public class HomePageLayout extends ViewGroup {
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
-            if (Math.abs(offset) < dragHelper.getTouchSlop()) {
+            if (Math.abs(offset) < minimumSuggestedHeight) {
                 dragHelper.settleCapturedViewAt(releasedChild.getLeft(), 0);
                 invalidate();
                 return;
