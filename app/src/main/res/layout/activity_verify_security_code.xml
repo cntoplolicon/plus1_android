@@ -1,18 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_white_bg"
-    android:orientation="vertical">
+    android:background="@color/common_white_bg">
 
     <RelativeLayout
+        android:id="@+id/rl_security"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/tv_security_code_sent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23dp"
             android:text="@string/security_code_sent"
             android:textColor="#999999"
             android:textSize="@dimen/common_yellow_button_text_size" />
@@ -27,55 +27,49 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/rl_testing"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/et_security_code"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_alignBottom="@+id/register_line"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="25dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/hint_security_code"
+        android:inputType="phone"
+        android:textColorHint="@color/common_hint_color"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:textSize="@dimen/register_security_code" />
 
-        <EditText
-            android:id="@+id/et_security_code"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@+id/register_line"
-            android:layout_alignLeft="@+id/register_line"
-            android:layout_alignStart="@+id/register_line"
-            android:background="@null"
-            android:gravity="center"
-            android:hint="@string/hint_security_code"
-            android:inputType="phone"
-            android:textColorHint="@color/common_hint_color"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="@dimen/register_security_code" />
 
-        <TextView
-            android:id="@+id/register_line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_margin_line_height"
-            android:layout_alignBottom="@+id/btn_resend_security_code"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_toLeftOf="@+id/btn_resend_security_code"
-            android:background="@color/home_title_color" />
+    <Button
+        android:id="@+id/btn_resend_security_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_security"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_submit"
+        android:text="@string/send_again"
+        android:textColor="@color/common_button_text_color"
+        android:textSize="@dimen/common_yellow_button_text_size" />
 
-        <Button
-            android:id="@+id/btn_resend_security_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/btn_submit"
-            android:text="@string/send_again"
-            android:textColor="@color/common_button_text_color"
-            android:textSize="@dimen/common_yellow_button_text_size" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/register_line"
+        android:layout_width="160dp"
+        android:layout_height="@dimen/register_margin_line_height"
+        android:layout_alignBottom="@+id/btn_resend_security_code"
+        android:layout_marginLeft="25dp"
+        android:background="@color/home_title_color" />
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/register_line"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/register_margin_top_button_send_verification_code"
@@ -84,4 +78,4 @@
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -11,6 +11,6 @@
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_left"
-        android:scrollbarStyle="outsideOverlay"></swj.swj.view.HeaderGridView>
+        android:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>
