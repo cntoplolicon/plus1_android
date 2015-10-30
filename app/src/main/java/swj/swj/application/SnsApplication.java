@@ -40,7 +40,6 @@ import swj.swj.model.User;
 public class SnsApplication extends Application {
 
     private static AppInfo appInfo;
-    private String UpdateVersionsText = "";
 
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
             .cacheInMemory(true)
@@ -114,7 +113,7 @@ public class SnsApplication extends Application {
         lp.width = (int) (display.getWidth() * 0.8);
         window.setContentView(R.layout.custom_dialog_update_versions);
         TextView tvTitle = (TextView) window.findViewById(R.id.tv_title);
-        tvTitle.setText(this.getResources().getString(R.string.update_versions_title));
+        tvTitle.setText(R.string.update_versions_title);
         TextView tvUnConfirm = (TextView) window.findViewById(R.id.tv_un_confirm);
         tvUnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +129,6 @@ public class SnsApplication extends Application {
             }
         });
         TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
-        tvReminder.setText(UpdateVersionsText);
         window.setAttributes(lp);
     }
 }
