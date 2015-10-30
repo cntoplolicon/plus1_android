@@ -74,9 +74,7 @@ public class PersonalProfileActivity extends BaseActivity {
 
     private void initView() {
         String avatarUrl = User.current.getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(avatarUrl, ivAvatar);
 
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
@@ -181,7 +179,7 @@ public class PersonalProfileActivity extends BaseActivity {
                     @Override
                     public void onFail(VolleyError e) {
                         super.onFail(e);
-                        ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + User.current.getAvatar(), ivAvatar);
+                        ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
                     }
                 });
     }

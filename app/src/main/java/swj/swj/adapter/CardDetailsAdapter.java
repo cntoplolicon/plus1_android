@@ -80,13 +80,9 @@ public class CardDetailsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
-        String avatarUrl = comment.getUser().getAvatar();
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl,
-                    viewHolder.ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
 
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());

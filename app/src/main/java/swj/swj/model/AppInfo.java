@@ -5,7 +5,6 @@ package swj.swj.model;
  */
 public class AppInfo {
     private int versionCode;
-    private String[] imageHosts;
 
     public int getVersionCode() {
         return versionCode;
@@ -13,13 +12,5 @@ public class AppInfo {
 
     public void setVersionCode(int versionCode) {
         this.versionCode = versionCode;
-    }
-
-    public String[] getImageHosts() {
-        return imageHosts;
-    }
-
-    public void setImageHosts(String[] imageHosts) {
-        this.imageHosts = imageHosts;
     }
 }

@@ -48,11 +48,8 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        String avatarUrl = comment.getUser().getAvatar();
         viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, viewHolder.ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
         return view;
     }
 

@@ -33,7 +33,6 @@ import swj.swj.model.User;
  */
 public class SnsApplication extends Application {
 
-    private static String DEFAULT_IMAGE_HOST = "http://image.oneplusapp.com/";
     private static AppInfo appInfo;
 
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
@@ -69,10 +68,6 @@ public class SnsApplication extends Application {
         ImageLoader.getInstance().init(config.build());
     }
 
-    public static String getImageServerUrl() {
-        return appInfo.getImageHosts()[0];
-    }
-
     private void loadCurrentUser() {
         String userJson = LocalUserInfo.getPreferences().getString(User.CURRENT_USER_KEY, "");
         Log.d("user_json", userJson);
@@ -83,17 +78,11 @@ public class SnsApplication extends Application {
 
     private void loadAppInfo() {
         appInfo = new AppInfo();
-        String imageHost = LocalUserInfo.getPreferences().getString("image_host", "");
-        if (imageHost.isEmpty()) {
-            imageHost = DEFAULT_IMAGE_HOST;
-        }
-        appInfo.setImageHosts(new String[]{imageHost});
         RestClient.getInstance().getAppInfo().done(
                 new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject response) {
                         appInfo = CommonMethods.createDefaultGson().fromJson(response.toString(), AppInfo.class);
-                        LocalUserInfo.getPreferences().edit().putString("image_host", getImageServerUrl()).commit();
                         try {
                             int versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
 

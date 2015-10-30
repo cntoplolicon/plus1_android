@@ -117,9 +117,7 @@ public class InfectionsAdapter {
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivAvatar);
         itemViews.ivAvatar.setImageResource(R.drawable.default_useravatar);
         String avatarUrl = infection.getPost().getUser().getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, itemViews.ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(avatarUrl, itemViews.ivAvatar);
         String imagePath = post.getPostPages()[0].getImage();
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
         if (imagePath == null || imagePath.isEmpty()) {
@@ -133,8 +131,7 @@ public class InfectionsAdapter {
             itemViews.tvContent.setText(post.getPostPages()[0].getText());
             itemViews.tvNoImageContent.setVisibility(View.GONE);
             itemViews.ivImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imagePath,
-                    itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
+            ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
         }
         view.setTag(infection);
         return view;

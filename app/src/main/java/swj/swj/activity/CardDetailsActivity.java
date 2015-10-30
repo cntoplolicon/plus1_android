@@ -155,10 +155,7 @@ public class CardDetailsActivity extends BaseActivity {
                 break;
         }
         CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
-        String avatarUrl = post.getUser().getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
         tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
@@ -167,7 +164,9 @@ public class CardDetailsActivity extends BaseActivity {
                 DateTime.now().toLocalDate()).getDays();
         tvTime.setText(String.format(createdAtFormat, daysAgo));
         String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null) {
+
+        ImageLoader.getInstance().cancelDisplayTask(ivImage);
+        if (imageUrl == null || imageUrl.isEmpty()) {
             ivImage.setVisibility(View.GONE);
             tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
         } else {
@@ -176,7 +175,7 @@ public class CardDetailsActivity extends BaseActivity {
                     .showImageOnLoading(R.color.home_title_color)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl, ivImage, options);
+            ImageLoader.getInstance().displayImage(imageUrl, ivImage, options);
         }
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override

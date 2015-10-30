@@ -121,10 +121,7 @@ public class MySelfFragment extends Fragment {
                     R.drawable.icon_woman : R.drawable.icon_man;
             ivGender.setImageResource(resource);
         }
-        String avatarUrl = user.getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + avatarUrl, ivAvatar);
-        }
+        ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
     }
 
     private class BookmarkChangedCallback implements BookmarkService.Callback {

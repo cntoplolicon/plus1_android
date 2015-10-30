@@ -78,8 +78,7 @@ public class PostsGridViewAdapter extends BaseAdapter {
             tvText.setVisibility(View.VISIBLE);
         } else {
             tvText.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(SnsApplication.getImageServerUrl() + imageUrl,
-                    imageView, DISPLAY_IMAGE_OPTIONS);
+            ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
         }
 
         return gridView;
