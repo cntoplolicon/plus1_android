@@ -36,7 +36,7 @@
     <string name="off">关</string>
     <string name="on">开</string>
     <string name="gallery">相册</string>
-    <string name="security_code_sent">我们已发送验证码到：</string>
+    <string name="security_code_sent">已发送验证码到：</string>
     <string name="register_finish_hint_nickname">您的注册昵称为</string>
     <string name="save_new_pwd">保存新密码</string>
     <string name="pwd_reset_succeed">密码修改成功</string>

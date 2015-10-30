@@ -61,7 +61,6 @@ public class PostsGridViewAdapter extends BaseAdapter {
         if (gridView == null) {
             gridView = LayoutInflater.from(context).inflate(R.layout.user_post_grid_view_item, null);
         }
-
         Post post = posts[position];
         TextView tvText = (TextView) gridView.findViewById(R.id.tv_text);
         tvText.setText(post.getPostPages()[0].getText());
@@ -80,7 +79,6 @@ public class PostsGridViewAdapter extends BaseAdapter {
             tvText.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
         }
-
         return gridView;
     }
 }
