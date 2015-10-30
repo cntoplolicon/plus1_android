@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import swj.swj.BuildConfig;
 import swj.swj.R;
 import swj.swj.adapter.InfectionsAdapter;
+import swj.swj.common.CommonDialog;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.LocalUserInfo;
@@ -98,6 +99,6 @@ public class SnsApplication extends Application {
     }
 
     private void updateApp() {
-        Toast.makeText(getApplicationContext(), R.string.app_name, Toast.LENGTH_SHORT).show();
+        CommonDialog.showDialogUpdate(this, R.string.update_versions_content);
     }
 }

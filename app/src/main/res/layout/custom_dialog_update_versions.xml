@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center_horizontal"
+        android:text="Hi"
+        android:textColor="@color/common_button_text_color"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_yellow_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_margin_line_height"
+        android:layout_below="@id/tv_title"
+        android:background="#fed724" />
+
+    <ScrollView
+        android:id="@+id/sv_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/tv_yellow_line">
+
+        <TextView
+            android:id="@+id/tv_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/setting_text_color"
+            android:textSize="16sp" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_un_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/sv_scroll"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:text="稍后再说"
+        android:textSize="16sp"
+        android:textColor="@color/profile_hint_text"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/sv_scroll"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:text="立即更新"
+        android:textSize="16sp"
+        android:textColor="@color/setting_text_color"
+        android:visibility="visible" />
+
+</RelativeLayout>
