@@ -34,7 +34,7 @@ public class CommonDialog {
         showDialog(context, context.getResources().getString(resourceId));
     }
 
-    public static void showDialogUpdate(final Context context, String dialogMsg) {
+    public static void showDialogUpdateVersions(final Context context, String dialogMsg) {
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
@@ -63,7 +63,7 @@ public class CommonDialog {
         tvReminder.setText(dialogMsg);
         window.setAttributes(lp);
     }
-    public static void showDialogUpdate(Context context, int resourceId) {
-        showDialogUpdate(context, context.getResources().getString(resourceId));
+    public static void showDialogUpdateVersions(Context context, int resourceId) {
+        showDialogUpdateVersions(context, context.getResources().getString(resourceId));
     }
 }

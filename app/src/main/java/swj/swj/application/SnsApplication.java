@@ -99,6 +99,6 @@ public class SnsApplication extends Application {
     }
 
     private void updateApp() {
-        CommonDialog.showDialogUpdate(this, R.string.update_versions_content);
+        CommonDialog.showDialogUpdateVersions(this, R.string.update_versions_content);
     }
 }
