@@ -8,13 +8,16 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
@@ -23,7 +26,7 @@ import swj.swj.model.Post;
 /**
  * Created by jiewei on 9/14/15.
  */
-public class PostsGridViewAdapter extends BaseAdapter {
+public class PostsGridViewAdapter extends ArrayAdapter<Post> {
 
     private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
             new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
@@ -33,35 +36,25 @@ public class PostsGridViewAdapter extends BaseAdapter {
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .build();
 
-    protected Context context;
-    protected Post[] posts = new Post[]{};
+    protected Set<Callback> callbacks = new HashSet<>();
+    protected boolean loading;
 
     public PostsGridViewAdapter(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return posts.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return posts[position];
+        super(context, 0);
     }
 
     @Override
     public long getItemId(int position) {
-        return posts[position].getId();
+        return getItem(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View gridView = convertView;
         if (gridView == null) {
-            gridView = LayoutInflater.from(context).inflate(R.layout.user_post_grid_view_item, null);
+            gridView = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, null);
         }
-        Post post = posts[position];
+        Post post = getItem(position);
         TextView tvText = (TextView) gridView.findViewById(R.id.tv_text);
         tvText.setText(post.getPostPages()[0].getText());
         TextView tvComments = (TextView) gridView.findViewById(R.id.tv_comments);
@@ -80,5 +73,32 @@ public class PostsGridViewAdapter extends BaseAdapter {
             ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
         }
         return gridView;
+    }
+
+    protected void notifyLoadingStatusChanged() {
+        for (Callback callback : callbacks) {
+            callback.onLoadingStatusChanged(loading);
+        }
+    }
+
+    public void updateAll(Post[] posts) {
+        clear();
+        addAll(posts);
+    }
+
+    public void registerCallback(Callback callback) {
+        callbacks.add(callback);
+    }
+
+    public void unregisterCallback(Callback callback) {
+        callbacks.remove(callback);
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public interface Callback {
+        void onLoadingStatusChanged(boolean loading);
     }
 }

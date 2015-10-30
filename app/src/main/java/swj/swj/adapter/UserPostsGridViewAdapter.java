@@ -21,7 +21,7 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
                 new DoneCallback<JSONArray>() {
                     @Override
                     public void onDone(JSONArray response) {
-                        posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        updateAll(CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class));
                         notifyDataSetChanged();
                     }
                 }).fail(new JsonErrorListener(context, null));

@@ -159,4 +159,6 @@
     <!--update versions-->
     <string name="update_versions_title">有新版本啦</string>
 
+    <string name="content_empty">暂时没东西,自己想办法</string>
+
 </resources>
