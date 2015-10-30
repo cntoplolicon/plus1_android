@@ -24,16 +24,9 @@ public class User {
     private String username;
     private String nickname;
     private int gender;
-    private String password;
     private String biography;
     private String avatar;
-
-    private int canInfect;
-    private int infectionIndex;
-
     private DateTime createdAt;
-    private DateTime updatedAt;
-
     private String accessToken;
 
     public int getId() {
@@ -68,14 +61,6 @@ public class User {
         this.gender = gender;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getBiography() {
         return biography;
     }
@@ -84,36 +69,12 @@ public class User {
         this.biography = biography;
     }
 
-    public int getCanInfect() {
-        return canInfect;
-    }
-
-    public void setCanInfect(int canInfect) {
-        this.canInfect = canInfect;
-    }
-
-    public int getInfectionIndex() {
-        return infectionIndex;
-    }
-
-    public void setInfectionIndex(int infectionIndex) {
-        this.infectionIndex = infectionIndex;
-    }
-
     public DateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public DateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(DateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getAvatar() {

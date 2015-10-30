@@ -12,7 +12,6 @@ public class Comment {
     private String content;
     private User user;
     private DateTime createdAt;
-    private DateTime updatedAt;
 
     public int getId() {
         return id;
@@ -56,9 +55,5 @@ public class Comment {
 
     public DateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public DateTime getUpdatedAt() {
-        return updatedAt;
     }
 }
