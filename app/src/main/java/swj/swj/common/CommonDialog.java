@@ -43,25 +43,23 @@ public class CommonDialog {
         Display display = window.getWindowManager().getDefaultDisplay();
         lp.width = (int) (display.getWidth() * 0.8);
         window.setContentView(R.layout.custom_dialog_update_versions);
-        TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
         TextView tvTitle = (TextView) window.findViewById(R.id.tv_title);
-        TextView tvUnConfirm = (TextView) window.findViewById(R.id.tv_un_confirm);
-        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirm);
         tvTitle.setText("有新版本啦");
-        tvUnConfirm.setVisibility(View.VISIBLE);
+        TextView tvUnConfirm = (TextView) window.findViewById(R.id.tv_un_confirm);
         tvUnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.cancel();
             }
         });
-        tvConfirm.setVisibility(View.VISIBLE);
+        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirm);
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "你真好，亲爱的", Toast.LENGTH_SHORT).show();
             }
         });
+        TextView tvReminder = (TextView) window.findViewById(R.id.tv_reminder);
         tvReminder.setText(dialogMsg);
         window.setAttributes(lp);
     }
