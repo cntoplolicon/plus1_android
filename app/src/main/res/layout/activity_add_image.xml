@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white_bg"
+    android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingRight="15dp">
 
@@ -30,26 +31,22 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:id="@+id/sc_image"
-        android:layout_width="@dimen/home_big_image_length"
-        android:layout_height="@dimen/home_big_image_length"
-        android:layout_below="@id/rl_actionbar">
 
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
-    </ScrollView>
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:maxHeight="330dp"
+        android:maxWidth="330dp"
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/tv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/sc_image"
         android:layout_gravity="right"
         android:text="@string/publish_delete_image"
         android:textSize="@dimen/common_hint_text_size" />
@@ -59,10 +56,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_delete"
+        android:layout_marginTop="19dp"
         android:background="@null"
         android:gravity="top"
         android:hint="@string/publish_hint"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="@dimen/common_hint_text_size" />
 
-</RelativeLayout>
+</LinearLayout>

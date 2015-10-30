@@ -60,7 +60,6 @@ public class MySelfFragment extends Fragment {
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
         ButterKnife.bind(this, headerView);
-
         user = User.current;
         String userJson = getActivity().getIntent().getStringExtra("user_json");
         if (userJson != null) {
@@ -75,7 +74,6 @@ public class MySelfFragment extends Fragment {
         }
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,7 +90,6 @@ public class MySelfFragment extends Fragment {
                 gridView.setAdapter(checkedId == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter);
             }
         });
-
         return view;
     }
 

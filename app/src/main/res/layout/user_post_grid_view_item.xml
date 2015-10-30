@@ -64,7 +64,6 @@
             android:textColor="#FFFFFF"
             android:textSize="@dimen/home_text_views_size" />
 
-
     </RelativeLayout>
 
     <TextView
