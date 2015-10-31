@@ -30,7 +30,7 @@ public class AddTextActivity extends BaseActivity {
 
     @Bind(R.id.et_text)
     EditText editText;
-    @Bind(R.id.tv_publish) 
+    @Bind(R.id.tv_publish)
     TextView tvPublish;
 
     public static Promise<JSONObject, VolleyError, Void> getPromise() {
