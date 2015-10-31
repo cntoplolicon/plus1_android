@@ -109,5 +109,4 @@
             android:name=".activity.GuideActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
-
 </manifest>
