@@ -1,6 +1,6 @@
 <resources>
     <!--common string-->
-    <string name="app_name">Swj</string>
+    <string name="app_name">加一</string>
     <string name="hello_world">Hello world!</string>
     <string name="network_error">网络连接错误</string>
     <string name="server_error">服务器异常</string>

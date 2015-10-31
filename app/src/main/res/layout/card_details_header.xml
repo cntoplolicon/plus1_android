@@ -84,7 +84,7 @@
         android:layout_below="@id/tv_content"
         android:layout_marginBottom="@dimen/home_text_views_margin_bottom"
         android:layout_marginRight="35dp"
-        android:drawableLeft="@drawable/icon_comment"
+        android:drawableLeft="@drawable/icon_comment_home"
         android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="21"
         android:textSize="@dimen/home_text_views_size" />
@@ -97,7 +97,7 @@
         android:layout_marginBottom="@dimen/home_text_views_margin_bottom"
         android:layout_marginRight="35dp"
         android:layout_toLeftOf="@id/tv_comments"
-        android:drawableLeft="@drawable/icon_views"
+        android:drawableLeft="@drawable/icon_views_home"
         android:drawablePadding="@dimen/home_text_views_image_spacing"
         android:text="150"
         android:textSize="@dimen/home_text_views_size" />
