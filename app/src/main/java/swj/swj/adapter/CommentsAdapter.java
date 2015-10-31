@@ -24,7 +24,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import swj.swj.R;
-import swj.swj.application.SnsApplication;
 import swj.swj.common.CommonMethods;
 import swj.swj.common.JsonErrorListener;
 import swj.swj.common.RestClient;
@@ -81,9 +80,11 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             view.setPadding(0, 0, 0, 0);
         }
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
-        ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
-
+        if (comment.getUser().getAvatar() != null) {
+            ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
+        } else {
+            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+        }
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         View.OnClickListener customViewClickListener = new View.OnClickListener() {

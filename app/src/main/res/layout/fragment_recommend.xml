@@ -1,7 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white_bg">
+
+    <FrameLayout
+        android:id="@+id/fl_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/homepage_loading" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_empty_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_content_empty"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="@string/no_recommend"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/profile_hint_text">
+        </TextView>
+    </FrameLayout>
+
+
 
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_concentration"
@@ -11,6 +43,7 @@
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_left"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:background="@android:color/white"></swj.swj.view.HeaderGridView>
 
-</LinearLayout>
+</FrameLayout>
