@@ -100,6 +100,7 @@ public class MySelfFragment extends Fragment {
                         gridView.setAdapter(bookmarksAdapter);
                         tvContentEmpty.setText(getResources().getString(R.string.home_no_bookmard));
                     }
+                    changeViewsByAdapterState();
                 }
             });
         } else {
