@@ -341,6 +341,18 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> getAppInfo() {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                getResourceUrl("/app_info"), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+
     public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
         ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);

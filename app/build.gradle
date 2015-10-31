@@ -8,6 +8,8 @@ android {
         applicationId "swj.swj"
         minSdkVersion 15
         targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
     }
     buildTypes {
         release {
@@ -20,12 +22,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
     }
-
-    lintOptions {
-        disable 'MissingTranslation'
-    }
 }
-
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
