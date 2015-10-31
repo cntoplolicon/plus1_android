@@ -9,7 +9,6 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.umeng.update.UmengUpdateAgent;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -43,7 +42,6 @@ public class SnsApplication extends Application {
         InfectionsAdapter.initialize(getApplicationContext());
         ActiveAndroid.initialize(getApplicationContext());
         loadCurrentUser();
-        UmengUpdateAgent.update(this);
     }
 
     private void initImageLoader(Context context) {

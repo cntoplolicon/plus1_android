@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.umeng.update.UmengUpdateAgent;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.Promise;
@@ -86,6 +87,8 @@ public class HomeActivity extends BaseActivity {
         });
 
         PushNotificationService.getInstance().registerCallback(callback);
+
+        UmengUpdateAgent.update(this);
     }
 
     @Override
