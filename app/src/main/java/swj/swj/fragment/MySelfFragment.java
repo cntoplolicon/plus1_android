@@ -162,6 +162,7 @@ public class MySelfFragment extends Fragment {
         public void onBookmarkChanged() {
             bookmarksAdapter.updateAll(BookmarkService.getInstance().getBookmarkedPosts());
             bookmarksAdapter.notifyDataSetChanged();
+
         }
     }
 
