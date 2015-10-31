@@ -258,6 +258,8 @@ public class CardDetailsActivity extends BaseActivity {
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
                         commentsAdapter.add(newComment);
+                        replyTarget = null;
+                        etNewComment.setHint(getResources().getString(R.string.publish_comment));
                         commentsAdapter.sortComments();
                         commentsAdapter.notifyDataSetChanged();
                         showComment(newComment);
