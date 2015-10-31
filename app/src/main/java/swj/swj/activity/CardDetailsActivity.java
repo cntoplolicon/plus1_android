@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import swj.swj.BuildConfig;
 import swj.swj.R;
-import swj.swj.adapter.CardDetailsAdapter;
+import swj.swj.adapter.CommentsAdapter;
 import swj.swj.application.SnsApplication;
 import swj.swj.common.BookmarkService;
 import swj.swj.common.CommonMethods;
@@ -69,7 +69,7 @@ public class CardDetailsActivity extends BaseActivity {
     ListView lvListView;
 
     private Post post;
-    private CardDetailsAdapter cardDetailsAdapter;
+    private CommentsAdapter commentsAdapter;
     private Comment replyTarget;
     private Comment notifiedComment;
 
@@ -190,15 +190,15 @@ public class CardDetailsActivity extends BaseActivity {
     }
 
     private void loadComments() {
-        cardDetailsAdapter = new CardDetailsAdapter(this, post);
-        cardDetailsAdapter.registerDataSetObserver(new DataSetObserver() {
+        commentsAdapter = new CommentsAdapter(this, post);
+        commentsAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
-                tvComments.setText(String.valueOf(cardDetailsAdapter.getCount()));
+                tvComments.setText(String.valueOf(commentsAdapter.getCount()));
             }
         });
-        cardDetailsAdapter.setOnViewClickedListener(new OnViewClickedListener());
-        lvListView.setAdapter(cardDetailsAdapter);
+        commentsAdapter.setOnViewClickedListener(new OnViewClickedListener());
+        lvListView.setAdapter(commentsAdapter);
         showComment(notifiedComment);
     }
 
@@ -255,9 +255,9 @@ public class CardDetailsActivity extends BaseActivity {
                         etNewComment.setText("");
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
-                        cardDetailsAdapter.add(newComment);
-                        cardDetailsAdapter.sortComments();
-                        cardDetailsAdapter.notifyDataSetChanged();
+                        commentsAdapter.add(newComment);
+                        commentsAdapter.sortComments();
+                        commentsAdapter.notifyDataSetChanged();
                         showComment(newComment);
                     }
                 })
@@ -280,19 +280,19 @@ public class CardDetailsActivity extends BaseActivity {
         }
     }
 
-    private class OnViewClickedListener implements CardDetailsAdapter.ViewClickedListener {
+    private class OnViewClickedListener implements CommentsAdapter.ViewClickedListener {
 
         @Override
         public void onViewClick(View view, int position) {
             if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getItem(position).getUser()));
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getItem(position).getUser()));
                 hideInput(view);
                 startActivity(intent);
             } else if (view.getId() == R.id.tv_reply_target) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                int replyTargetId = cardDetailsAdapter.getItem(position).getReplyToId();
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(cardDetailsAdapter.getCommentById(replyTargetId).getUser()));
+                int replyTargetId = commentsAdapter.getItem(position).getReplyToId();
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getCommentById(replyTargetId).getUser()));
                 hideInput(view);
                 startActivity(intent);
             }
@@ -311,11 +311,11 @@ public class CardDetailsActivity extends BaseActivity {
         lvListView.post(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < cardDetailsAdapter.getCount(); i++) {
-                    if (cardDetailsAdapter.getItem(i).getId() == comment.getId()) {
+                for (int i = 0; i < commentsAdapter.getCount(); i++) {
+                    if (commentsAdapter.getItem(i).getId() == comment.getId()) {
                         lvListView.setSelection(i + 1);
-                        cardDetailsAdapter.setSelectItem(i);
-                        cardDetailsAdapter.notifyDataSetInvalidated();
+                        commentsAdapter.setSelectItem(i);
+                        commentsAdapter.notifyDataSetInvalidated();
                         return;
                     }
                 }

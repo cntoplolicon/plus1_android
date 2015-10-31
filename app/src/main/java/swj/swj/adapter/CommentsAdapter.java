@@ -34,12 +34,12 @@ import swj.swj.model.Post;
 /**
  * Created by shw on 2015/9/14.
  */
-public class CardDetailsAdapter extends ArrayAdapter<Comment> {
+public class CommentsAdapter extends ArrayAdapter<Comment> {
     private int selectItem = -1;
     private LayoutInflater mInflater;
     private ViewClickedListener viewClickedListener;
 
-    public CardDetailsAdapter(Context context, Post post) {
+    public CommentsAdapter(Context context, Post post) {
         super(context, 0);
         mInflater = LayoutInflater.from(context);
         if (post.getComments() == null) {
