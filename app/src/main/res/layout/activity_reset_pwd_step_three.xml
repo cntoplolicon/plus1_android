@@ -31,6 +31,7 @@
             android:layout_marginLeft="25dp"
             android:background="@null"
             android:hint="@string/hint_input_new_pwd"
+            android:inputType="textPassword"
             android:textColorHint="@color/common_hint_color"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="@dimen/common_hint_text_size" />
