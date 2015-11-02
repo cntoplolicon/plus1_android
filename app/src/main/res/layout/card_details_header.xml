@@ -57,8 +57,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:adjustViewBounds="true" />
 
     <TextView
         android:id="@+id/tv_content"
