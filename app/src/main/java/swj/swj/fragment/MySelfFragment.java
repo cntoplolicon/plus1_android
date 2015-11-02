@@ -105,6 +105,12 @@ public class MySelfFragment extends Fragment {
             });
         } else {
             radioGroup.setVisibility(View.GONE);
+            ivAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonMethods.showImageDialog(user.getAvatar(), getActivity());
+                }
+            });
         }
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
