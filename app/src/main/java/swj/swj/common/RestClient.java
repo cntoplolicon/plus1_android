@@ -34,7 +34,7 @@ import swj.swj.model.User;
  */
 public class RestClient {
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.145:9393";
     private static final String RELEASE_SERVER_URL = "http://oneplusapp.com";
     private static final boolean POST_VIEWS_ENABLED = false;
 
@@ -96,6 +96,17 @@ public class RestClient {
         public void onResponse(T error) {
             deferredObject.resolve(error);
         }
+    }
+
+    public Promise<JSONObject, VolleyError, Void> getAppRelease() {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                getResourceUrl("/app_release"), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 
     public Promise<JSONObject, VolleyError, Void> newSecurityCode4Account(String username) {
@@ -341,18 +352,6 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONObject, VolleyError, Void> getAppInfo() {
-        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
-        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                getResourceUrl("/app_info"), listener, listener);
-        requestQueue.add(request);
-
-        return deferredObject.promise();
-    }
-
-
     public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
         ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
@@ -398,13 +397,13 @@ public class RestClient {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
-        Map<String, Object> userParmas = createUserParams();
-        userParmas.put("content", content);
+        Map<String, Object> userParams = createUserParams();
+        userParams.put("content", content);
         if (contact != null && !contact.isEmpty()) {
-            userParmas.put("contact", contact);
+            userParams.put("contact", contact);
         }
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
-                getResourceUrl("/feedbacks"), userParmas, listener, listener);
+                getResourceUrl("/feedbacks"), userParams, listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();

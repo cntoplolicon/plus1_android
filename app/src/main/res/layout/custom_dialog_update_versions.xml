@@ -12,7 +12,7 @@
         android:layout_marginBottom="12dp"
         android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
-        android:text="Hi"
+        android:text="@string/update_versions_title"
         android:textColor="@color/common_button_text_color"
         android:textSize="18sp" />
 
@@ -41,7 +41,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/tv_un_confirm"
+        android:id="@+id/tv_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

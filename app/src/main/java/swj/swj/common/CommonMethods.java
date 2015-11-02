@@ -1,10 +1,15 @@
 package swj.swj.common;
 
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.FieldNamingPolicy;
@@ -15,6 +20,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +37,9 @@ public final class CommonMethods {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[0-9]{11}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[ -~]{6,20}$");
     private static final Pattern SECURITY_CODE_PATTERN = Pattern.compile("^[0-9]{6}$");
+
+    private static final String SCHEME_FILE = "file";
+    private static final String SCHEME_CONTENT = "content";
 
     private CommonMethods() {
     }
@@ -108,5 +117,41 @@ public final class CommonMethods {
         } else {
             textView.setTextColor(ContextCompat.getColor(context, R.color.unknown_gender));
         }
+    }
+
+    public static File getFileFromMediaUri(Context context, Uri uri) {
+        if (uri == null) {
+            return null;
+        }
+
+        ContentResolver resolver = context.getContentResolver();
+        if (SCHEME_FILE.equals(uri.getScheme())) {
+            return new File(uri.getPath());
+        }
+        if (SCHEME_CONTENT.equals(uri.getScheme())) {
+            final String[] filePathColumn = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME};
+            Cursor cursor = null;
+            try {
+                cursor = resolver.query(uri, filePathColumn, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    final int columnIndex = (uri.toString().startsWith("content://com.google.android.gallery3d")) ?
+                            cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME) :
+                            cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
+                    if (columnIndex != -1) {
+                        String filePath = cursor.getString(columnIndex);
+                        if (filePath != null && !filePath.isEmpty()) {
+                            return new File(filePath);
+                        }
+                    }
+                }
+            } catch (SecurityException e) {
+                Log.w(BitmapUtil.class.getName(), "failed converting uri to file", e);
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        return null;
     }
 }

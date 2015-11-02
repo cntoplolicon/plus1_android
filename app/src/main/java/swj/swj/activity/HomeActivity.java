@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -25,6 +26,7 @@ import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import swj.swj.R;
 import swj.swj.common.PushNotificationService;
+import swj.swj.common.UpdateChecker;
 import swj.swj.fragment.HomeFragment;
 import swj.swj.fragment.MessageFragment;
 import swj.swj.fragment.MySelfFragment;
@@ -86,6 +88,7 @@ public class HomeActivity extends BaseActivity {
         });
 
         PushNotificationService.getInstance().registerCallback(callback);
+        UpdateChecker.getInstance().checkUpdate(this);
     }
 
     @Override

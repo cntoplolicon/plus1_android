@@ -1,11 +1,8 @@
 package swj.swj.common;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -38,9 +35,6 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_WIDTH = 960;
     private static int MAX_IMAGE_HEIGHT = 960;
 
-    private static final String SCHEME_FILE = "file";
-    private static final String SCHEME_CONTENT = "content";
-
     public static int DEFAULT_QUALITY = 75;
 
     private BitmapUtil() {
@@ -53,7 +47,7 @@ public final class BitmapUtil {
                 Context context = (Context) params[0];
                 Uri uri = (Uri) params[1];
                 File tempFile = getTempFile(context);
-                File inputFile = getFileFromMediaUri(context, uri);
+                File inputFile = CommonMethods.getFileFromMediaUri(context, uri);
                 if (inputFile == null) {
                     inputFile = saveUriToFile(context, uri, tempFile);
                 }
@@ -121,41 +115,6 @@ public final class BitmapUtil {
         }
     }
 
-    public static File getFileFromMediaUri(Context context, Uri uri) {
-        if (uri == null) {
-            return null;
-        }
-
-        ContentResolver resolver = context.getContentResolver();
-        if (SCHEME_FILE.equals(uri.getScheme())) {
-            return new File(uri.getPath());
-        }
-        if (SCHEME_CONTENT.equals(uri.getScheme())) {
-            final String[] filePathColumn = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME};
-            Cursor cursor = null;
-            try {
-                cursor = resolver.query(uri, filePathColumn, null, null, null);
-                if (cursor != null && cursor.moveToFirst()) {
-                    final int columnIndex = (uri.toString().startsWith("content://com.google.android.gallery3d")) ?
-                            cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME) :
-                            cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
-                    if (columnIndex != -1) {
-                        String filePath = cursor.getString(columnIndex);
-                        if (filePath != null && !filePath.isEmpty()) {
-                            return new File(filePath);
-                        }
-                    }
-                }
-            } catch (SecurityException e) {
-                Log.w(BitmapUtil.class.getName(), "failed converting uri to file", e);
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-            }
-        }
-        return null;
-    }
 
     public static byte[] compressBitmap(Bitmap bitmap, int quality) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
