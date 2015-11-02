@@ -14,7 +14,7 @@ import swj.swj.R;
  */
 public class AutoHeightScrollView extends ScrollView {
     private int maxHeight;
-    private final int defaultHeight = 100;
+    private static final int defaultHeight = 100;
 
     public AutoHeightScrollView(Context context) {
         super(context);
@@ -48,6 +48,12 @@ public class AutoHeightScrollView extends ScrollView {
             maxHeight = styledAttrs.getDimensionPixelSize(R.styleable.AutoHeightScrollView_maxHeight, defaultHeight);
             styledAttrs.recycle();
         }
+    }
+
+    public void setMaxHeight(int maxHeight) {
+        this.maxHeight = maxHeight;
+        invalidate();
+        requestLayout();
     }
 
     @Override
