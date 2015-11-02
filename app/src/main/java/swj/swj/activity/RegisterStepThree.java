@@ -3,6 +3,8 @@ package swj.swj.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -58,7 +60,6 @@ public class RegisterStepThree extends BaseActivity {
             String username = getIntent().getStringExtra("username");
             String nickname = nicknameInput.getText().toString();
             String password = passwordInput.getText().toString();
-
             RestClient.getInstance().signUp(username, nickname,
                     password, getSelectedGender(), imageBody).done(
                     new DoneCallback<JSONObject>() {
@@ -128,6 +129,7 @@ public class RegisterStepThree extends BaseActivity {
         final AlertDialog alertDialog = new AlertDialog.Builder(RegisterStepThree.this).create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.setContentView(R.layout.activity_dialog);
         TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
         TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);

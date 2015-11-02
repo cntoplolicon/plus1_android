@@ -17,16 +17,16 @@
             android:id="@+id/action_bar"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/action_bar_height"
-            custom:page_title="@string/publish_title" />
+            custom:page_title="@string/publish_add_image" />
 
         <TextView
             android:id="@+id/tv_publish"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="@string/publish_publish"
-            android:textColor="@color/common_button_text_color"
+            android:textColor="#666666"
             android:textSize="@dimen/common_hint_text_size" />
 
     </RelativeLayout>
@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
+        android:layout_marginTop="10dp"
         android:text="@string/publish_delete_image"
         android:textSize="@dimen/common_hint_text_size" />
 
@@ -56,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_delete"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="25dp"
         android:background="@null"
         android:gravity="top"
         android:hint="@string/publish_hint"
