@@ -144,7 +144,7 @@
     <string name="title_activity_card_details">CardDetailsActivity</string>
     <!--user home text and hint-->
     <string name="myself_header_my_topic">我的话题</string>
-    <string name="myself_header_favorite">我的喜欢</string>
+    <string name="myself_header_favorite">我的收藏</string>
 
     <!--feedback text and hint-->
     <string name="feedback_text_hint">颜值低、没意思、太难用、总闪退，不吐槽+1都对不起自己！</string>
