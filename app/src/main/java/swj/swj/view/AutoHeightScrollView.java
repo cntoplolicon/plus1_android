@@ -56,6 +56,10 @@ public class AutoHeightScrollView extends ScrollView {
         requestLayout();
     }
 
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.AT_MOST);
