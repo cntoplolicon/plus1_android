@@ -48,11 +48,10 @@
         android:textSize="@dimen/home_location_name_text_size"
         android:visibility="gone" />
 
-
-    <ImageView
+    <swj.swj.view.JellyBeanAdjustImageView
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/iv_avatar"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
