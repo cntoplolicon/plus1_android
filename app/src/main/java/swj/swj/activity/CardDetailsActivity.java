@@ -165,7 +165,7 @@ public class CardDetailsActivity extends BaseActivity {
         int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
                 DateTime.now().toLocalDate()).getDays();
         tvTime.setText(String.format(createdAtFormat, daysAgo));
-        String imageUrl = post.getPostPages()[0].getImage();
+        final String imageUrl = post.getPostPages()[0].getImage();
 
         ImageLoader.getInstance().cancelDisplayTask(ivImage);
         if (imageUrl == null || imageUrl.isEmpty()) {
@@ -178,6 +178,12 @@ public class CardDetailsActivity extends BaseActivity {
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
             ImageLoader.getInstance().displayImage(imageUrl, ivImage, options);
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonMethods.showImageDialog(imageUrl, CardDetailsActivity.this);
+                }
+            });
         }
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
