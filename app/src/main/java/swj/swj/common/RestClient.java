@@ -103,7 +103,7 @@ public class RestClient {
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                getResourceUrl("/app_release"), listener, listener);
+                getResourceUrl("/app_release/android"), listener, listener);
         requestQueue.add(request);
 
         return deferredObject.promise();
