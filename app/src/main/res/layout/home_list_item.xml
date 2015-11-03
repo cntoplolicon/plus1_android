@@ -81,7 +81,7 @@
         android:layout_marginRight="15dp"
         android:ellipsize="end"
         android:gravity="center"
-        android:lines="2"
+        android:lines="4"
         android:text="喔噢"
         android:textColor="#999999"
         android:textSize="25sp"
