@@ -61,3 +61,7 @@
 -keepclassmembers class model.** {
     public <fields>;
 }
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
