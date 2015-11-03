@@ -116,7 +116,7 @@ public class PushNotificationService {
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(CardDetailsActivity.class);
         stackBuilder.addNextIntent(intent);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         String notificationBarBody = "";
         if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
