@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_white_bg"
-    android:orientation="vertical"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_actionbar"
@@ -25,10 +23,10 @@
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:gravity="center"
+            android:paddingRight="@dimen/common_margin_left_right"
             android:text="@string/publish_publish"
             android:textColor="#666666"
             android:textSize="@dimen/common_hint_text_size" />
-
     </RelativeLayout>
 
 
@@ -37,6 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
         android:maxHeight="330dp"
         android:maxWidth="330dp"
@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:text="@string/publish_delete_image"
         android:textSize="@dimen/common_hint_text_size" />
@@ -57,6 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_delete"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
         android:background="@null"
         android:gravity="top"
