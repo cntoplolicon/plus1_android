@@ -8,13 +8,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -27,6 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -162,7 +170,7 @@ public final class CommonMethods {
         return null;
     }
 
-    public static void showImageDialog(String resString, Activity activity) {
+    public static void showImageDialog(final String resString, final Activity activity) {
         final AlertDialog imageDialog = new AlertDialog.Builder(activity).create();
         imageDialog.show();
         Window window = imageDialog.getWindow();
@@ -175,6 +183,56 @@ public final class CommonMethods {
         ImageView ivEnlargedImage = (ImageView) window.findViewById(R.id.iv_enlarged_image);
         if (resString != null) {
             ImageLoader.getInstance().displayImage(resString, ivEnlargedImage, options);
+        }
+        ivEnlargedImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new DownloadImageTask().execute(resString);
+                Toast.makeText(activity.getApplicationContext(), "Downloading", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+    }
+
+    private static class DownloadImageTask extends AsyncTask<String, Context, Void> {
+
+        private File imageFile;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/plusOneApp/images");
+            if (!mediaStorageDir.exists()) {
+                mediaStorageDir.mkdirs();
+            }
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageName = "plus_one_" + timeStamp + ".jpg";
+            imageFile = new File(mediaStorageDir.getPath() + File.separator + imageName);
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                URL url = new URL(params[0]);
+                InputStream inputStream = url.openStream();
+                try {
+                    FileOutputStream outputStream = new FileOutputStream(imageFile);
+                    try {
+                        byte[] buffer = new byte[5 * 1024 * 1024];
+                        int bytesRead = 0;
+                        while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >=0) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+                    } finally {
+                        outputStream.close();
+                    }
+                } finally {
+                    inputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
