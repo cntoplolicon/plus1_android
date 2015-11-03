@@ -1,16 +1,16 @@
 package swj.swj.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 
 /**
  * Created by jiewei on 11/2/15.
  */
-public class JellyBeanAdjustImageView extends ImageView{
+public class JellyBeanAdjustImageView extends ImageView {
     boolean mJellyBeanAdjustViewBounds;
 
     public JellyBeanAdjustImageView(Context context) {
@@ -40,6 +40,7 @@ public class JellyBeanAdjustImageView extends ImageView{
         }
 
         if (mJellyBeanAdjustViewBounds) {
+
             int mDrawableWidth = mDrawable.getIntrinsicWidth();
             int mDrawableHeight = mDrawable.getIntrinsicHeight();
             int heightSize = MeasureSpec.getSize(heightMeasureSpec);
@@ -47,38 +48,16 @@ public class JellyBeanAdjustImageView extends ImageView{
             int heightMode = MeasureSpec.getMode(heightMeasureSpec);
             int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 
-            if (heightMode == MeasureSpec.EXACTLY && widthMode != MeasureSpec.EXACTLY) {
-                // Fixed Height & Adjustable Width
-                int height = heightSize;
-                int width = height * mDrawableWidth / mDrawableHeight;
-                if (isInScrollingContainer())
-                    setMeasuredDimension(width, height);
-                else
-                    setMeasuredDimension(Math.min(width, widthSize), Math.min(height, heightSize));
-            } else if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
+            if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
                 // Fixed Width & Adjustable Height
                 int width = widthSize;
                 int height = width * mDrawableHeight / mDrawableWidth;
-                if (isInScrollingContainer())
-                    setMeasuredDimension(width, height);
-                else
-                    setMeasuredDimension(Math.min(width, widthSize), Math.min(height, heightSize));
+                setMeasuredDimension(Math.min(width, widthSize), height);
             } else {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             }
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
-    }
-
-    private boolean isInScrollingContainer() {
-        ViewParent p = getParent();
-        while (p != null && p instanceof ViewGroup) {
-            if (((ViewGroup) p).shouldDelayChildPressedState()) {
-                return true;
-            }
-            p = p.getParent();
-        }
-        return false;
     }
 }
