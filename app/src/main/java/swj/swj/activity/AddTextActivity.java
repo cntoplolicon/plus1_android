@@ -28,7 +28,7 @@ import swj.swj.common.RestClient;
 public class AddTextActivity extends BaseActivity {
     private static Promise<JSONObject, VolleyError, Void> promise;
 
-    @Bind(R.id.et_text)  
+    @Bind(R.id.et_text)
     EditText editText;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
