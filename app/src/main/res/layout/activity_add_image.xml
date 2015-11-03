@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="@string/publish_delete_image"
         android:textSize="@dimen/common_hint_text_size" />
 
