@@ -164,8 +164,7 @@
     <string name="no_recommend">没有新的热门话题了</string>
 
     <string name="downloading_image">正在保存</string>
-    <string name="downloading_finish">保存成功</string>
+    <string name="downloading_finish">成功保存至</string>
     <string name="tv_save_storage">保存到手机</string>
-    <string name="title_activity_show_image">ShowImageActivity</string>
 
 </resources>
