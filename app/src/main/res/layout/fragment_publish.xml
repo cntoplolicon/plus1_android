@@ -16,19 +16,27 @@
         android:id="@+id/btn_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/publish_margin_right"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/publish_image_margin_bottom"
-        android:background="@drawable/icon_publish_right" />
+        android:background="@drawable/icon_publish_right"
+        android:layout_above="@+id/iv_phone"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginBottom="-10dp"/>
 
     <TextView
         android:id="@+id/btn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/publish_margin_left"
-        android:layout_marginBottom="@dimen/publish_text_margin_bottom"
-        android:background="@drawable/icon_publish_left" />
+        android:background="@drawable/icon_publish_left"
+        android:layout_above="@+id/iv_phone"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView"
+        android:layout_marginBottom="-20dp"
+        android:layout_marginRight="-10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_above="@+id/iv_phone"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
