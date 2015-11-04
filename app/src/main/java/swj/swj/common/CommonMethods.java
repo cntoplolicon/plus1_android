@@ -6,13 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -23,9 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +40,6 @@ public final class CommonMethods {
 
     private static final String SCHEME_FILE = "file";
     private static final String SCHEME_CONTENT = "content";
-    public static final String STORAGE_DIRECTORY = "/Android/OnePlusAPP/";
 
     private CommonMethods() {
     }
@@ -159,55 +153,6 @@ public final class CommonMethods {
             }
         }
         return null;
-    }
-
-    public static class DownloadImageTask extends AsyncTask<String, Context, Void> {
-
-        private File imageFile;
-        private Exception exception;
-        private Context context;
-
-        public DownloadImageTask(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            imageFile = BitmapUtil.getStorageDir();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                URL url = new URL(params[0]);
-                InputStream inputStream = url.openStream();
-                FileOutputStream outputStream = new FileOutputStream(imageFile);
-                try {
-                    byte[] buffer = new byte[5 * 1024 * 1024];
-                    int bytesRead = 0;
-                    while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >= 0) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                } finally {
-                    IOUtil.closeSilently(inputStream);
-                    IOUtil.closeSilently(outputStream);
-                }
-            } catch (Exception e) {
-                exception = e;
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (exception != null) {
-                Log.e("download image error", "an exception occurred while downloading image", exception);
-                return;
-            }
-            Toast.makeText(context, context.getResources().getString(R.string.downloading_finish), Toast.LENGTH_LONG).show();
-        }
     }
 
 }

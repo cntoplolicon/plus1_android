@@ -118,7 +118,7 @@ public final class BitmapUtil {
         }
     }
 
-    public static File getStorageDir() {
+    public static File getImageFile() {
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "plus-one-app/");
         if (!dir.exists() && !dir.mkdirs()) {
             Log.e("make dir error", "cannot make dir " + dir.toString());

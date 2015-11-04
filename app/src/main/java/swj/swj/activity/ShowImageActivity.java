@@ -16,13 +16,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import swj.swj.R;
 import swj.swj.application.SnsApplication;
-import swj.swj.common.CommonMethods;
+import swj.swj.common.DownloadImageTask;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ShowImageActivity extends AppCompatActivity {
 
-    ImageView ivPhoto;
-    PhotoViewAttacher photoViewAttacher;
+    private ImageView ivPhoto;
+    private PhotoViewAttacher photoViewAttacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,8 @@ public class ShowImageActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         alertDialog.cancel();
-                        new CommonMethods.DownloadImageTask(getApplicationContext()).execute(resString);
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.downloading_image), Toast.LENGTH_LONG).show();
+                        new DownloadImageTask(getApplicationContext()).execute(resString);
+                        Toast.makeText(getApplicationContext(), R.string.downloading_image, Toast.LENGTH_LONG).show();
                     }
                 });
                 tvCancel.setOnClickListener(new View.OnClickListener() {

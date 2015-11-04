@@ -93,7 +93,7 @@ public class PublishFragment extends Fragment {
 
     private void getCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraFileUri = Uri.fromFile(BitmapUtil.getStorageDir());
+        cameraFileUri = Uri.fromFile(BitmapUtil.getImageFile());
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
         startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
