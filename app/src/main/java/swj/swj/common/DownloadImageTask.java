@@ -62,6 +62,6 @@ public final class DownloadImageTask extends AsyncTask<String, Context, Void> {
         } else {
             BitmapUtil.notifyMediaScanner(context, Uri.fromFile(imageFile));
         }
-        Toast.makeText(context, R.string.downloading_finish, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, context.getResources().getString(R.string.downloading_finish) + imageFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
     }
 }
