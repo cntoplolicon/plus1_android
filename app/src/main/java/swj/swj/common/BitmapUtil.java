@@ -1,6 +1,7 @@
 package swj.swj.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -139,6 +140,13 @@ public final class BitmapUtil {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
         return outputStream.toByteArray();
+    }
+
+    public static void notifyMediaScanner(Context context, Uri uri) {
+        if (context == null || uri == null) {
+            return;
+        }
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
     }
 
     private static class ImageProcessingFailureCallback<T> implements FailCallback<T> {

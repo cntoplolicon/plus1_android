@@ -1,6 +1,7 @@
 package swj.swj.common;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,6 +59,8 @@ public final class DownloadImageTask extends AsyncTask<String, Context, Void> {
         if (exception != null) {
             Log.e("download image error", "an exception occurred while downloading image", exception);
             return;
+        } else {
+            BitmapUtil.notifyMediaScanner(context, Uri.fromFile(imageFile));
         }
         Toast.makeText(context, R.string.downloading_finish, Toast.LENGTH_LONG).show();
     }

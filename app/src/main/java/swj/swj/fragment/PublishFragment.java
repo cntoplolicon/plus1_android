@@ -116,7 +116,8 @@ public class PublishFragment extends Fragment {
                     Log.e(PublishFragment.class.toString(), "SD card is not available/writable right now.");
                     return;
                 }
-                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", cameraFileUri);
+                BitmapUtil.notifyMediaScanner(getActivity(), cameraFileUri);
+                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).putExtra("imagePath", cameraFileUri);
                 startActivity(intentCamera);
                 break;
             case PHOTO_REQUEST_GALLERY:
@@ -124,7 +125,7 @@ public class PublishFragment extends Fragment {
                     return;
                 }
                 Uri originalUri = data.getData();
-                Intent intentGallery = new Intent(getActivity(), PublishActivity.class).setAction("getGallery").putExtra("imagePath", originalUri);
+                Intent intentGallery = new Intent(getActivity(), PublishActivity.class).putExtra("imagePath", originalUri);
                 startActivity(intentGallery);
                 break;
         }

@@ -141,6 +141,7 @@ public class PersonalProfileActivity extends BaseActivity {
                 break;
             case PHOTO_REQUEST_TAKE_PHOTO:
                 if (CommonMethods.hasSdCard()) {
+                    BitmapUtil.notifyMediaScanner(this, cameraFileUri);
                     beginCrop(cameraFileUri);
                 } else {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();

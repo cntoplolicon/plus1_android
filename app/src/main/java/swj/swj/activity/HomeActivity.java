@@ -91,6 +91,8 @@ public class HomeActivity extends BaseActivity {
 
         PushNotificationService.getInstance().registerCallback(callback);
         UpdateChecker.getInstance().checkUpdate(this);
+
+
     }
 
     @Override

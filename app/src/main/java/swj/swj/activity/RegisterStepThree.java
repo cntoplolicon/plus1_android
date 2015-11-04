@@ -187,6 +187,7 @@ public class RegisterStepThree extends BaseActivity {
                 break;
             case CAMERA_REQUEST_CODE:
                 if (CommonMethods.hasSdCard()) {
+                    BitmapUtil.notifyMediaScanner(this, cameraFileUri);
                     beginCrop(cameraFileUri);
                 } else {
                     CommonDialog.showDialog(this, R.string.unable_to_find_sd_card);
