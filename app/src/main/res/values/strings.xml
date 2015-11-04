@@ -167,4 +167,6 @@
     <string name="downloading_finish">成功保存至</string>
     <string name="tv_save_storage">保存到手机</string>
 
+    <string name="account_sign_in_error">您的账号在别处登录</string>
+
 </resources>
