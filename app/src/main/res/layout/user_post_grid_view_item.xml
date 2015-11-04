@@ -5,16 +5,16 @@
     android:background="@drawable/grid_view_image_background"
     android:gravity="center">
 
-    <FrameLayout
+    <swj.swj.view.PostGridViewItemLayout
         android:id="@+id/fl_content"
-        android:layout_width="@dimen/myself_grid_view_big_image_length"
-        android:layout_height="@dimen/myself_grid_view_big_image_length">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
             android:background="#fff"
             android:scaleType="centerCrop" />
 
@@ -22,23 +22,21 @@
             android:id="@+id/tv_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
             android:background="#fff"
             android:ellipsize="end"
             android:gravity="center"
             android:lines="3"
             android:padding="15dp"
             android:visibility="gone" />
-    </FrameLayout>
+    </swj.swj.view.PostGridViewItemLayout>
 
     <RelativeLayout
         android:id="@+id/rl_image_info"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_marginRight="@dimen/post_grid_view_item_border_width"
-        android:layout_marginLeft="@dimen/post_grid_view_item_border_width"
-        android:layout_marginBottom="@dimen/post_grid_view_item_border_width"
         android:layout_alignBottom="@+id/fl_content"
+        android:layout_alignLeft="@+id/fl_content"
+        android:layout_alignRight="@+id/fl_content"
         android:background="#4d000000">
 
         <TextView

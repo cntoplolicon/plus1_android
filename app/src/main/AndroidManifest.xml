@@ -41,7 +41,6 @@
         <receiver android:name=".receiver.PushNotificationsReceiver">
             <intent-filter>
                 <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
-
                 <category android:name="swj.swj" />
             </intent-filter>
         </receiver>

@@ -3,7 +3,7 @@
         <attr name="page_title" format="string" />
         <attr name="hide_back_arrow" format="boolean" />
     </declare-styleable>
-        <declare-styleable name="AutoHeightScrollView">
-            <attr name="maxHeight" format="dimension" />
-        </declare-styleable>
+    <declare-styleable name="AutoHeightScrollView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
 </resources>
