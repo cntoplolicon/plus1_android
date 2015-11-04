@@ -1,18 +1,10 @@
 package swj.swj.application;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Update;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -21,12 +13,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import swj.swj.BuildConfig;
-import swj.swj.R;
 import swj.swj.adapter.InfectionsAdapter;
 import swj.swj.common.LocalUserInfo;
 import swj.swj.common.PushNotificationService;
 import swj.swj.common.RestClient;
-import swj.swj.common.UpdateChecker;
 import swj.swj.model.User;
 
 /**

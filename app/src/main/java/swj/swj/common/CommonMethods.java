@@ -1,7 +1,5 @@
 package swj.swj.common;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,15 +10,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -33,7 +27,6 @@ import java.util.regex.Pattern;
 import swj.swj.R;
 import swj.swj.activity.LoginActivity;
 import swj.swj.adapter.InfectionsAdapter;
-import swj.swj.application.SnsApplication;
 import swj.swj.model.User;
 
 /**
@@ -160,22 +153,6 @@ public final class CommonMethods {
             }
         }
         return null;
-    }
-
-    public static void showImageDialog(String resString, Activity activity) {
-        final AlertDialog imageDialog = new AlertDialog.Builder(activity).create();
-        imageDialog.show();
-        Window window = imageDialog.getWindow();
-        window.setContentView(R.layout.dialog_image);
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                .showImageOnLoading(R.color.home_title_color)
-                .showImageOnFail(R.drawable.image_load_fail)
-                .build();
-        ImageView ivEnlargedImage = (ImageView) window.findViewById(R.id.iv_enlarged_image);
-        if (resString != null) {
-            ImageLoader.getInstance().displayImage(resString, ivEnlargedImage, options);
-        }
     }
 
 }

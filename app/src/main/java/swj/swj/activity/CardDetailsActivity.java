@@ -181,7 +181,9 @@ public class CardDetailsActivity extends BaseActivity {
             ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CommonMethods.showImageDialog(imageUrl, CardDetailsActivity.this);
+                    Intent intent = new Intent(CardDetailsActivity.this, ShowImageActivity.class);
+                    intent.putExtra("image_url", imageUrl);
+                    startActivity(intent);
                 }
             });
         }

@@ -82,7 +82,8 @@
             android:value="5625ebc8e0f55a40fa000034" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"/>
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
         <activity android:name=".activity.PersonalSettingsActivity" />
         <activity android:name=".activity.PersonalProfileActivity" />
         <activity android:name=".activity.UpdateNicknameActivity" />
@@ -107,5 +108,9 @@
         <activity
             android:name=".activity.GuideActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ShowImageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
+
 </manifest>
