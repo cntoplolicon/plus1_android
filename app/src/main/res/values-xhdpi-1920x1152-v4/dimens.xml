@@ -6,9 +6,5 @@
     <dimen name="myself_grid_view_margin_left">27dp</dimen>
     <dimen name="myself_grid_view_margin_right">27dp</dimen>
 
-    <dimen name="publish_margin_left">68dp</dimen>
-    <dimen name="publish_margin_right">79dp</dimen>
     <dimen name="publish_margin_bottom">75dp</dimen>
-    <dimen name="publish_image_margin_bottom">320dp</dimen>
-    <dimen name="publish_text_margin_bottom">310dp</dimen>
 </resources>
