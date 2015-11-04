@@ -83,7 +83,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         if (comment.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
         } else {
-            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+            viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         }
         viewHolder.tvNickname.setText(comment.getUser().getNickname());
         CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());

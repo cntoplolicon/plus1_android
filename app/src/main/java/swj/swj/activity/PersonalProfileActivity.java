@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -195,7 +194,7 @@ public class PersonalProfileActivity extends BaseActivity {
 
     private void showCurrentUserAvatar() {
         if (User.current.getAvatar() == null) {
-            ivAvatar.setImageResource(R.drawable.default_useravatar);
+            ivAvatar.setImageResource(R.drawable.default_user_avatar);
         } else {
             ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
         }
