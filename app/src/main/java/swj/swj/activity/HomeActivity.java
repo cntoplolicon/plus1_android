@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -69,7 +68,10 @@ public class HomeActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        switchTab(R.id.rb_home);
+
+        if (savedInstanceState == null) {
+            switchTab(R.id.rb_home);
+        }
         if (getIntent().getSerializableExtra("publish_class") == PublishActivity.class) {
             loadProgressBar(PublishActivity.getPromise());
         }

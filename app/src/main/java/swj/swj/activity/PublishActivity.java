@@ -38,6 +38,8 @@ import swj.swj.common.ThrowableDeferredAsyncTask;
  */
 public class PublishActivity extends BaseActivity {
 
+    private static final String KEY_PROCESSED_BITMAP = "processed_bitmap";
+
     private static Promise<JSONObject, VolleyError, Void> promise;
 
     @Bind(R.id.iv_image)
@@ -49,6 +51,8 @@ public class PublishActivity extends BaseActivity {
     @Bind(R.id.tv_publish)
     TextView tvPublish;
 
+    private Bitmap processBitmap;
+
     public static Promise<JSONObject, VolleyError, Void> getPromise() {
         return promise;
     }
@@ -59,16 +63,35 @@ public class PublishActivity extends BaseActivity {
         setContentView(R.layout.activity_add_image);
         ButterKnife.bind(this);
 
-        Uri uri = getIntent().getParcelableExtra("imagePath");
         tvPublish.setEnabled(false);
-        BitmapUtil.prepareImageForUploading(this, uri)
-                .done(new DoneCallback<Bitmap>() {
-                    @Override
-                    public void onDone(Bitmap bitmap) {
-                        tvPublish.setEnabled(true);
-                        imageView.setImageBitmap(bitmap);
-                    }
-                });
+        if (savedInstanceState != null) {
+            processBitmap = savedInstanceState.getParcelable(KEY_PROCESSED_BITMAP);
+            if (processBitmap != null) {
+                handleProcessedBitmap();
+            }
+        }
+        if (processBitmap == null) {
+            Uri uri = getIntent().getParcelableExtra("imagePath");
+            BitmapUtil.prepareImageForUploading(this, uri)
+                    .done(new DoneCallback<Bitmap>() {
+                        @Override
+                        public void onDone(Bitmap bitmap) {
+                            processBitmap = bitmap;
+                            handleProcessedBitmap();
+                        }
+                    });
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(KEY_PROCESSED_BITMAP, processBitmap);
+    }
+
+    private void handleProcessedBitmap() {
+        tvPublish.setEnabled(true);
+        imageView.setImageBitmap(processBitmap);
     }
 
     @OnClick(R.id.tv_delete)

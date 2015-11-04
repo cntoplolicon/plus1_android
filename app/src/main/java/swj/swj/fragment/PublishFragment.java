@@ -31,7 +31,14 @@ public class PublishFragment extends Fragment {
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
 
-    private String filename;
+    private static final String KEY_CAMERA_FILE_URI = "camera_file_uri";
+
+    private Uri cameraFileUri;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,22 +79,32 @@ public class PublishFragment extends Fragment {
                 });
             }
         });
-
         btnAddText.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), AddTextActivity.class));
+
+        if (savedInstanceState != null) {
+            cameraFileUri = savedInstanceState.getParcelable(KEY_CAMERA_FILE_URI);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(KEY_CAMERA_FILE_URI, cameraFileUri);
     }
 
     private void getCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + "myImage");
-        if (!dir.exists()) {
-            dir.mkdirs();
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "plus-one-app/");
+        if (!dir.exists() && !dir.mkdirs()) {
+            Log.e(PublishFragment.class.getName(), "cannot make dir " + dir.toString());
         }
-        filename = "IMG_" + getNowTime() + ".jpg";
+        String filename = "IMG_" + getNowTime() + ".jpg";
         File file = new File(dir, filename);
-        Uri uri = Uri.fromFile(file);
+        cameraFileUri = Uri.fromFile(file);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
         startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
     }
 
@@ -108,9 +125,7 @@ public class PublishFragment extends Fragment {
                     Log.e(PublishFragment.class.toString(), "SD card is not available/writable right now.");
                     return;
                 }
-                File file = new File(Environment.getExternalStorageDirectory() + "/" + "myImage" + "/" + filename);
-                Uri fileUri = Uri.fromFile(file);
-                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", fileUri);
+                Intent intentCamera = new Intent(getActivity(), PublishActivity.class).setAction("getCamera").putExtra("imagePath", cameraFileUri);
                 startActivity(intentCamera);
                 break;
             case PHOTO_REQUEST_GALLERY:
