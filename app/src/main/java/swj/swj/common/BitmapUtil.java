@@ -38,7 +38,7 @@ public final class BitmapUtil {
     private static int MAX_IMAGE_WIDTH = 960;
     private static int MAX_IMAGE_HEIGHT = 960;
 
-    public static int DEFAULT_QUALITY = 75;
+    public static int DEFAULT_QUALITY = 80;
 
     private BitmapUtil() {
     }

@@ -46,9 +46,13 @@ import swj.swj.model.User;
  */
 public class PersonalProfileActivity extends BaseActivity {
 
-    private static final String IMAGE_FILE_NAME = "personalImage.jpg";
+    private static final String KEY_CAMERA_FILE_URI = "camera_file_uri";
+
     private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
     private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
+
+    private Uri cameraFileUri;
+
     @Bind(R.id.re_nickname)
     TextView reNickname;
     @Bind(R.id.tv_profile_nickname)
@@ -68,19 +72,22 @@ public class PersonalProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
         ButterKnife.bind(this);
-        initView();
-    }
 
-    private void initView() {
-        String avatarUrl = User.current.getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(avatarUrl, ivAvatar);
-        }
-
+        showCurrentUserAvatar();
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
         reSign.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
         rePhone.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
+
+        if (savedInstanceState != null) {
+            cameraFileUri = savedInstanceState.getParcelable(KEY_CAMERA_FILE_URI);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(KEY_CAMERA_FILE_URI, cameraFileUri);
     }
 
     @OnClick(R.id.re_avatar)
@@ -99,8 +106,9 @@ public class PersonalProfileActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (CommonMethods.hasSdCard()) {
-                    File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                    intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(avatar));
+                    File avatar = BitmapUtil.getImageFile();
+                    cameraFileUri = Uri.fromFile(avatar);
+                    intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
                 }
                 startActivityForResult(intentFromCamera, PHOTO_REQUEST_TAKE_PHOTO);
                 alertDialog.cancel();
@@ -133,10 +141,8 @@ public class PersonalProfileActivity extends BaseActivity {
                 break;
             case PHOTO_REQUEST_TAKE_PHOTO:
                 if (CommonMethods.hasSdCard()) {
-                    File avatar = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
-                    beginCrop(Uri.fromFile(avatar));
+                    beginCrop(cameraFileUri);
                 } else {
-                    //toast error message when unable to find sdcard
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -181,13 +187,17 @@ public class PersonalProfileActivity extends BaseActivity {
                     @Override
                     public void onFail(VolleyError e) {
                         super.onFail(e);
-                        if (User.current.getAvatar() == null) {
-                            ivAvatar.setImageResource(R.drawable.default_useravatar);
-                        } else {
-                            ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
-                        }
+                        showCurrentUserAvatar();
                     }
                 });
+    }
+
+    private void showCurrentUserAvatar() {
+        if (User.current.getAvatar() == null) {
+            ivAvatar.setImageResource(R.drawable.default_useravatar);
+        } else {
+            ImageLoader.getInstance().displayImage(User.current.getAvatar(), ivAvatar);
+        }
     }
 
     public void onResume() {
