@@ -48,7 +48,7 @@
         android:textSize="@dimen/home_location_name_text_size"
         android:visibility="gone" />
 
-    <swj.swj.view.AdjustableImageView
+    <com.oneplusapp.view.AdjustableImageView
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

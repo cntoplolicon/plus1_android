@@ -1,4 +1,4 @@
-package swj.swj;
+package com.oneplusapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

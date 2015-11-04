@@ -5,7 +5,7 @@ android {
     buildToolsVersion '23.0.1'
 
     defaultConfig {
-        applicationId "swj.swj"
+        applicationId "com.oneplusapp"
         minSdkVersion 15
         targetSdkVersion 22
     }

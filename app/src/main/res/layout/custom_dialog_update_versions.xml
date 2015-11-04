@@ -24,7 +24,7 @@
         android:layout_below="@id/tv_title"
         android:background="#fed724" />
 
-    <swj.swj.view.AutoHeightScrollView
+    <com.oneplusapp.view.AutoHeightScrollView
         android:id="@+id/sv_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_marginRight="15dp"
             android:textColor="@color/setting_text_color"
             android:textSize="16sp" />
-    </swj.swj.view.AutoHeightScrollView>
+    </com.oneplusapp.view.AutoHeightScrollView>
 
     <TextView
         android:id="@+id/tv_cancel"

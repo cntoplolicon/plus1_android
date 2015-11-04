@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
-    <swj.swj.view.ActionBarLayout
+    <com.oneplusapp.view.ActionBarLayout
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/action_bar_height"

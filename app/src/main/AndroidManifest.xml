@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="swj.swj"
-    android:versionCode="2"
-    android:versionName="0.0.2">
+    package="com.oneplusapp"
+    android:versionCode="1"
+    android:versionName="0.0.1">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -41,7 +41,7 @@
         <receiver android:name=".receiver.PushNotificationsReceiver">
             <intent-filter>
                 <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
-                <category android:name="swj.swj" />
+                <category android:name="com.oneplusapp" />
             </intent-filter>
         </receiver>
 
@@ -53,10 +53,10 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="swj.swj.model.Notification" />
+            android:value="com.oneplusapp.model.Notification" />
         <meta-data
             android:name="AA_SERIALIZERS"
-            android:value="swj.swj.common.AAJodaDateTimeSerializer" />
+            android:value="com.oneplusapp.common.AAJodaDateTimeSerializer" />
 
         <activity
             android:name=".activity.HomeActivity"

@@ -33,7 +33,7 @@
         </TextView>
     </FrameLayout>
 
-    <swj.swj.view.HeaderGridView
+    <com.oneplusapp.view.HeaderGridView
         android:id="@+id/grid_view_concentration"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

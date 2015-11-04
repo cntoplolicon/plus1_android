@@ -5,7 +5,7 @@
     android:background="@drawable/grid_view_image_background"
     android:gravity="center">
 
-    <swj.swj.view.PostGridViewItemLayout
+    <com.oneplusapp.view.PostGridViewItemLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:lines="3"
             android:padding="15dp"
             android:visibility="gone" />
-    </swj.swj.view.PostGridViewItemLayout>
+    </com.oneplusapp.view.PostGridViewItemLayout>
 
     <RelativeLayout
         android:id="@+id/rl_image_info"

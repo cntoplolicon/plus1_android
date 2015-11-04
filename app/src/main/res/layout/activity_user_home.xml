@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <swj.swj.view.ActionBarLayout
+    <com.oneplusapp.view.ActionBarLayout
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/action_bar_height"/>
@@ -12,7 +12,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="swj.swj.fragment.MySelfFragment"
+        android:name="com.oneplusapp.fragment.MySelfFragment"
         android:id="@+id/fragment"
         android:layout_below="@+id/action_bar"
         android:layout_alignParentLeft="true"
