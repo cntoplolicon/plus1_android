@@ -9,11 +9,14 @@
         android:layout_height="wrap_content"
         android:fadingEdgeLength="100dp"
         android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
+        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing"
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_right"
+        android:paddingBottom="@dimen/myself_grid_view_vertical_spacing"
+        android:clipToPadding="false"
         android:background="@android:color/white"
-        android:scrollbarStyle="outsideOverlay"></swj.swj.view.HeaderGridView>
+        android:scrollbarStyle="outsideOverlay" />
 
         <ImageView
             android:layout_width="wrap_content"

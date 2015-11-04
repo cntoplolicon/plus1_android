@@ -63,12 +63,6 @@
             android:text="21"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/home_text_views_size" />
-
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_below="@id/rl_image_info"
-        android:background="#fff" />
 </RelativeLayout>
