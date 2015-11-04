@@ -1,6 +1,5 @@
 <resources>
     <dimen name="home_big_image_length">330dp</dimen>
-    <dimen name="myself_grid_view_big_image_length">162dp</dimen>
     <dimen name="message_red_point_margin_right">85dp</dimen>
 
     <dimen name="myself_grid_view_margin_left">27dp</dimen>
