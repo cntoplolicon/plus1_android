@@ -48,7 +48,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         if (comment.getUser().getAvatar() == null) {
-            viewHolder.ivAvatar.setImageResource(R.drawable.default_useravatar);
+            viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         } else {
             ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
         }

@@ -119,7 +119,7 @@ public class InfectionsAdapter {
         if (avatarUrl != null) {
             ImageLoader.getInstance().displayImage(avatarUrl, itemViews.ivAvatar);
         } else {
-            itemViews.ivAvatar.setImageResource(R.drawable.default_useravatar);
+            itemViews.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         }
         String imagePath = post.getPostPages()[0].getImage();
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);

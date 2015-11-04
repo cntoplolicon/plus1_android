@@ -47,9 +47,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="9dp"
-        android:src="@drawable/default_useravatar"
+        android:src="@drawable/default_user_avatar"
         app:border_color="@color/common_yellow"
-        app:border_width="2px" />
+        app:border_width="@dimen/common_avatar_image_border" />
 
     <TextView
         android:id="@+id/re_nickname"
@@ -75,8 +75,8 @@
         android:layout_height="50dp"
         android:layout_alignTop="@+id/iv_forward_nick"
         android:layout_marginLeft="@dimen/common_margin_left_right"
-        android:maxWidth="300dp"
         android:ellipsize="end"
+        android:maxWidth="300dp"
         android:singleLine="true"
         android:text="海绵宝宝"
         android:textColor="#666666"

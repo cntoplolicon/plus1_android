@@ -39,7 +39,7 @@ public class ShowImageActivity extends AppCompatActivity {
         if (resString != null) {
             ImageLoader.getInstance().displayImage(resString, ivPhoto, options);
         } else {
-            ivPhoto.setImageResource(R.drawable.default_useravatar);
+            ivPhoto.setImageResource(R.drawable.default_user_avatar);
         }
         photoViewAttacher = new PhotoViewAttacher(ivPhoto);
         photoViewAttacher.setOnLongClickListener(new View.OnLongClickListener() {
