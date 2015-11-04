@@ -86,6 +86,7 @@ public class PersonalProfileActivity extends BaseActivity {
     @OnClick(R.id.re_avatar)
     public void showPhotoDialog() {
         final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

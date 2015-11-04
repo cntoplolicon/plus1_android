@@ -16,14 +16,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import swj.swj.R;
 import swj.swj.activity.AddTextActivity;
 import swj.swj.activity.PublishActivity;
 import swj.swj.common.ActivityHyperlinkClickListener;
+import swj.swj.common.BitmapUtil;
 
 
 public class PublishFragment extends Fragment {
@@ -96,13 +93,7 @@ public class PublishFragment extends Fragment {
 
     private void getCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "plus-one-app/");
-        if (!dir.exists() && !dir.mkdirs()) {
-            Log.e(PublishFragment.class.getName(), "cannot make dir " + dir.toString());
-        }
-        String filename = "IMG_" + getNowTime() + ".jpg";
-        File file = new File(dir, filename);
-        cameraFileUri = Uri.fromFile(file);
+        cameraFileUri = Uri.fromFile(BitmapUtil.getStorageDir());
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
         startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
@@ -139,9 +130,4 @@ public class PublishFragment extends Fragment {
         }
     }
 
-    private String getNowTime() {
-        Date date = new Date();
-        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
-        return dataFormat.format(date);
-    }
 }

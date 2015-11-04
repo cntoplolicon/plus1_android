@@ -1,7 +1,5 @@
 package swj.swj.common;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -13,17 +11,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -33,15 +26,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import swj.swj.R;
 import swj.swj.activity.LoginActivity;
 import swj.swj.adapter.InfectionsAdapter;
-import swj.swj.application.SnsApplication;
 import swj.swj.model.User;
 
 /**
@@ -55,6 +45,7 @@ public final class CommonMethods {
 
     private static final String SCHEME_FILE = "file";
     private static final String SCHEME_CONTENT = "content";
+    public static final String STORAGE_DIRECTORY = "/Android/OnePlusAPP/";
 
     private CommonMethods() {
     }
@@ -170,44 +161,20 @@ public final class CommonMethods {
         return null;
     }
 
-    public static void showImageDialog(final String resString, final Activity activity) {
-        final AlertDialog imageDialog = new AlertDialog.Builder(activity).create();
-        imageDialog.show();
-        Window window = imageDialog.getWindow();
-        window.setContentView(R.layout.dialog_image);
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                .showImageOnLoading(R.color.home_title_color)
-                .showImageOnFail(R.drawable.image_load_fail)
-                .build();
-        ImageView ivEnlargedImage = (ImageView) window.findViewById(R.id.iv_enlarged_image);
-        if (resString != null) {
-            ImageLoader.getInstance().displayImage(resString, ivEnlargedImage, options);
-        }
-        ivEnlargedImage.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                new DownloadImageTask().execute(resString);
-                Toast.makeText(activity.getApplicationContext(), "Downloading", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
-    }
-
-    private static class DownloadImageTask extends AsyncTask<String, Context, Void> {
+    public static class DownloadImageTask extends AsyncTask<String, Context, Void> {
 
         private File imageFile;
+        private Exception exception;
+        private Context context;
+
+        public DownloadImageTask(Context context) {
+            this.context = context;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/plusOneApp/images");
-            if (!mediaStorageDir.exists()) {
-                mediaStorageDir.mkdirs();
-            }
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String imageName = "plus_one_" + timeStamp + ".jpg";
-            imageFile = new File(mediaStorageDir.getPath() + File.separator + imageName);
+            imageFile = BitmapUtil.getStorageDir();
         }
 
         @Override
@@ -215,24 +182,31 @@ public final class CommonMethods {
             try {
                 URL url = new URL(params[0]);
                 InputStream inputStream = url.openStream();
+                FileOutputStream outputStream = new FileOutputStream(imageFile);
                 try {
-                    FileOutputStream outputStream = new FileOutputStream(imageFile);
-                    try {
-                        byte[] buffer = new byte[5 * 1024 * 1024];
-                        int bytesRead = 0;
-                        while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >=0) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                    } finally {
-                        outputStream.close();
+                    byte[] buffer = new byte[5 * 1024 * 1024];
+                    int bytesRead = 0;
+                    while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >= 0) {
+                        outputStream.write(buffer, 0, bytesRead);
                     }
                 } finally {
-                    inputStream.close();
+                    IOUtil.closeSilently(inputStream);
+                    IOUtil.closeSilently(outputStream);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                exception = e;
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (exception != null) {
+                Log.e("download image error", "an exception occurred while downloading image", exception);
+                return;
+            }
+            Toast.makeText(context, context.getResources().getString(R.string.downloading_finish), Toast.LENGTH_LONG).show();
         }
     }
 

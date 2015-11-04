@@ -3,6 +3,7 @@ package swj.swj.common;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import swj.swj.R;
 
@@ -115,6 +118,22 @@ public final class BitmapUtil {
         }
     }
 
+    public static File getStorageDir() {
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "plus-one-app/");
+        if (!dir.exists() && !dir.mkdirs()) {
+            Log.e("make dir error", "cannot make dir " + dir.toString());
+            return null;
+        }
+        String filename = "IMG_" + getNowTime() + ".jpg";
+        File file = new File(dir, filename);
+        return file;
+    }
+
+    private static String getNowTime() {
+        Date date = new Date();
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
+        return dataFormat.format(date);
+    }
 
     public static byte[] compressBitmap(Bitmap bitmap, int quality) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import swj.swj.R;
 import swj.swj.activity.CardDetailsActivity;
 import swj.swj.activity.PersonalProfileActivity;
+import swj.swj.activity.ShowImageActivity;
 import swj.swj.adapter.PostsGridViewAdapter;
 import swj.swj.adapter.UserBookmarksGridViewAdapter;
 import swj.swj.adapter.UserPostsGridViewAdapter;
@@ -108,7 +109,9 @@ public class MySelfFragment extends Fragment {
             ivAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CommonMethods.showImageDialog(user.getAvatar(), getActivity());
+                    Intent intent = new Intent(getActivity(), ShowImageActivity.class);
+                    intent.putExtra("image_url", user.getAvatar());
+                    startActivity(intent);
                 }
             });
         }
