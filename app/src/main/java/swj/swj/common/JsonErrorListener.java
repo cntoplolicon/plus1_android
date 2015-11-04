@@ -37,6 +37,7 @@ public class JsonErrorListener implements FailCallback<VolleyError> {
     public void onFail(VolleyError error) {
         if (error.networkResponse != null && error.networkResponse.statusCode == HttpURLConnection.HTTP_FORBIDDEN) {
             CommonMethods.clientSideSignOut(context);
+            Toast.makeText(context, R.string.account_sign_in_error, Toast.LENGTH_LONG).show();
             return;
         }
 
