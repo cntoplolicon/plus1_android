@@ -33,17 +33,19 @@
         </TextView>
     </FrameLayout>
 
-
-
     <swj.swj.view.HeaderGridView
         android:id="@+id/grid_view_concentration"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="5dp"
+        android:horizontalSpacing="@dimen/myself_grid_view_horizontal_spacing"
+        android:verticalSpacing="@dimen/myself_grid_view_vertical_spacing"
         android:numColumns="auto_fit"
         android:paddingLeft="@dimen/myself_grid_view_margin_left"
         android:paddingRight="@dimen/myself_grid_view_margin_left"
+        android:paddingTop="10dp"
+        android:paddingBottom="@dimen/myself_grid_view_vertical_spacing"
+        android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
-        android:background="@android:color/white"></swj.swj.view.HeaderGridView>
+        android:background="@android:color/white" />
 
 </FrameLayout>

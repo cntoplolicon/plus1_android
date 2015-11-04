@@ -24,8 +24,6 @@ import swj.swj.view.HeaderGridView;
 
 public class RecommendFragment extends Fragment {
 
-    private View spaceHeader;
-
     @Bind(R.id.grid_view_concentration)
     HeaderGridView gridView;
     @Bind(R.id.fl_loading_layout)
@@ -53,8 +51,6 @@ public class RecommendFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        spaceHeader = inflater.inflate(R.layout.list_gridview_space_header, null);
-        gridView.addHeaderView(spaceHeader, null, false);
         adapter = new RecommendGridViewAdapter(getActivity());
         gridView.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
