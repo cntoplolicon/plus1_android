@@ -14,8 +14,8 @@
         android:layout_marginTop="15dp"
         android:padding="5dp"
         android:src="@drawable/default_useravatar"
-        app:border_color="#fed724"
-        app:border_width="2px" />
+        app:border_color="@color/common_yellow"
+        app:border_width="@dimen/common_avatar_image_border" />
 
     <TextView
         android:id="@+id/tv_nickname"

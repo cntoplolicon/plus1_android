@@ -16,7 +16,7 @@
         android:layout_marginTop="7dp"
         android:src="@drawable/default_useravatar"
         app:border_color="@color/common_yellow"
-        app:border_width="2px" />
+        app:border_width="@dimen/common_avatar_image_border" />
 
     <TextView
         android:id="@+id/tv_nickname"

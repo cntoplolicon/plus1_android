@@ -26,8 +26,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="44dp"
         android:src="@drawable/default_useravatar"
-        app:border_color="#b3b3b3"
-        app:border_width="2px" />
+        app:border_color="@color/common_yellow"
+        app:border_width="@dimen/common_avatar_image_border" />
 
 
     <RelativeLayout
