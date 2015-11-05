@@ -1,5 +1,6 @@
 package com.oneplusapp.activity;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,6 +40,8 @@ import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
+
+import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -118,17 +122,47 @@ public class CardDetailsActivity extends BaseActivity {
                 notifyManager.cancelAll();
             }
         }
+
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Comment commentClicked = (Comment) view.getTag();
-                if (commentClicked.getUser().getId() != User.current.getId()) {
+                if (commentClicked.getUser().getId() != User.current.getId() && !replyTarget.getDeleted()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     setReplyTarget(commentClicked);
                 } else {
                     resetReply();
                 }
+            }
+        });
+
+        lvListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Comment chosenComment = (Comment) view.getTag();
+                if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.getDeleted()) {
+                    final AlertDialog alertDialog = new AlertDialog.Builder(CardDetailsActivity.this).create();
+                    alertDialog.show();
+                    Window window = alertDialog.getWindow();
+                    window.setContentView(R.layout.dialog_delete_comment);
+                    TextView tvDeleteConfirm = (TextView) window.findViewById(R.id.tv_delete_confirm);
+                    TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
+                    tvDeleteConfirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deleteComment(chosenComment);
+                            alertDialog.cancel();
+                        }
+                    });
+                    tvCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.cancel();
+                        }
+                    });
+                }
+                return true;
             }
         });
 
@@ -314,6 +348,31 @@ public class CardDetailsActivity extends BaseActivity {
     private void hideInput(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void deleteComment(final Comment comment) {
+        RestClient.getInstance().removeComment(post.getId(), comment.getId())
+                .done(new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject result) {
+                        Toast.makeText(getApplicationContext(), R.string.delete_succeed, Toast.LENGTH_LONG).show();
+                        Comment targetComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
+                        for (int i = 0; i < commentsAdapter.getCount(); i++) {
+                            if (commentsAdapter.getItem(i).getId() == comment.getId()) {
+                                commentsAdapter.remove(commentsAdapter.getItem(i));
+                                commentsAdapter.insert(targetComment, i);
+                                commentsAdapter.notifyDataSetChanged();
+                                return;
+                            }
+                        }
+                    }
+                })
+                .fail(new FailCallback<VolleyError>() {
+                    @Override
+                    public void onFail(VolleyError result) {
+                        Toast.makeText(getApplicationContext(), R.string.delete_failed, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private void focusComment(final Comment comment) {

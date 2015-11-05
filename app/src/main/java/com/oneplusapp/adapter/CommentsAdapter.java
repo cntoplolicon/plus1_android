@@ -62,16 +62,21 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         viewHolder.tvNickname.setUser(user);
         viewHolder.ivAvatar.setUser(user);
         if (comment.getReplyToId() == 0) {
-            viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReply.setVisibility(View.GONE);
             viewHolder.tvReplyTarget.setVisibility(View.GONE);
         } else {
             viewHolder.tvReply.setVisibility(View.VISIBLE);
             viewHolder.tvReplyTarget.setVisibility(View.VISIBLE);
             Comment repliedComment = getCommentById(comment.getReplyToId());
-            viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setUser(repliedComment.getUser());
         }
+
+        if (comment.getDeleted()) {
+            viewHolder.tvContent.setText(R.string.comment_deleted);
+        }else {
+            viewHolder.tvContent.setText(comment.getContent());
+        }
+
         view.setTag(comment);
         if (position == selectItem) {
             view.setBackgroundColor(Color.parseColor("#efefef"));
