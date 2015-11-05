@@ -96,17 +96,20 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             }
         };
         if (comment.getReplyToId() == 0) {
-            viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReply.setVisibility(view.GONE);
             viewHolder.tvReplyTarget.setVisibility(view.GONE);
         } else {
             viewHolder.tvReply.setVisibility(view.VISIBLE);
             viewHolder.tvReplyTarget.setVisibility(view.VISIBLE);
             Comment repliedComment = getCommentById(comment.getReplyToId());
-            viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setText(repliedComment.getUser().getNickname());
             CommonMethods.chooseNicknameColorViaGender(viewHolder.tvReplyTarget, repliedComment.getUser(), getContext());
             viewHolder.tvReplyTarget.setOnClickListener(customViewClickListener);
+        }
+        if (comment.getDeleted()) {
+            viewHolder.tvContent.setText(R.string.comment_deleted);
+        }else {
+            viewHolder.tvContent.setText(comment.getContent());
         }
         viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
         viewHolder.tvNickname.setOnClickListener(customViewClickListener);

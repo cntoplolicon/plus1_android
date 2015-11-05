@@ -11,6 +11,7 @@ public class Comment {
     private int replyToId;
     private String content;
     private User user;
+    private Boolean deleted;
     private DateTime createdAt;
 
     public int getId() {
@@ -51,6 +52,14 @@ public class Comment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public DateTime getCreatedAt() {

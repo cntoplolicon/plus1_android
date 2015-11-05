@@ -170,4 +170,9 @@
     <string name="account_sign_in_error">您的账号在别处登录</string>
     <string name="notification_config_error">更新推送配置失败</string>
 
+    <string name="comment_deleted">该评论已删除</string>
+    <string name="delete_confirm">确认删除</string>
+    <string name="delete_succeed">删除成功</string>
+    <string name="delete_failed">删除失败</string>
+
 </resources>

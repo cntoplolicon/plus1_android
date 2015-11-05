@@ -404,6 +404,18 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> removeComment(int postId, int commentId) {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
+                encodeUrlParams("/posts/" + postId + "/comments/" + commentId, params), listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
     public Promise<JSONObject, VolleyError, Void> getPost(int postId) {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
