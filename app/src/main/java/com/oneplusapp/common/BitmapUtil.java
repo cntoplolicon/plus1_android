@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.oneplusapp.R;
 
 import org.jdeferred.DonePipe;
 import org.jdeferred.FailCallback;
@@ -30,8 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.oneplusapp.R;
 
 
 public final class BitmapUtil {

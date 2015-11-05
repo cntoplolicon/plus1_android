@@ -14,6 +14,11 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.oneplusapp.R;
+import com.oneplusapp.common.BitmapUtil;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.common.ThrowableDeferredAsyncTask;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -26,11 +31,6 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.BitmapUtil;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.common.ThrowableDeferredAsyncTask;
 
 
 /**

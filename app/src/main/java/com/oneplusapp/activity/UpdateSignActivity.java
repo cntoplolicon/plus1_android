@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.oneplusapp.R;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.User;
+
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
@@ -13,10 +18,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.User;
 
 /**
  * Created by jiewei on 9/4/15.

@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import io.yunba.android.manager.YunBaManager;
 import com.oneplusapp.common.PushNotificationService;
+
+import io.yunba.android.manager.YunBaManager;
 
 /**
  * Created by cntoplolicon on 10/13/15.

@@ -15,6 +15,10 @@ import android.widget.TextView;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.oneplusapp.R;
+import com.oneplusapp.activity.LoginActivity;
+import com.oneplusapp.adapter.InfectionsAdapter;
+import com.oneplusapp.model.User;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -23,11 +27,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.oneplusapp.R;
-import com.oneplusapp.activity.LoginActivity;
-import com.oneplusapp.adapter.InfectionsAdapter;
-import com.oneplusapp.model.User;
 
 /**
  * Created by silentgod on 15-9-5.

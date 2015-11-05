@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.oneplusapp.R;
+import com.oneplusapp.fragment.IntroductionSlide;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.oneplusapp.R;
-import com.oneplusapp.fragment.IntroductionSlide;
 
 
 public class GuideActivity extends AppIntro {

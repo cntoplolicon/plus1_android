@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.DownloadImageTask;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ShowImageActivity extends AppCompatActivity {

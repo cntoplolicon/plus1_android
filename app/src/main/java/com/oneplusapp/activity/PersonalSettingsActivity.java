@@ -11,12 +11,6 @@ import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.io.File;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.oneplusapp.R;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonMethods;
@@ -24,6 +18,12 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+
+import java.io.File;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**

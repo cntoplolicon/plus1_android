@@ -1,9 +1,9 @@
 package com.oneplusapp.model;
 
-import org.joda.time.DateTime;
-
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.LocalUserInfo;
+
+import org.joda.time.DateTime;
 
 /**
  * Created by cntoplolicon on 9/12/15.

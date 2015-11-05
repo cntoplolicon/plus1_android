@@ -1,9 +1,9 @@
 package com.oneplusapp.common;
 
+import com.oneplusapp.model.Post;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.oneplusapp.model.Post;
 
 /**
  * Created by jiewei on 10/10/15.

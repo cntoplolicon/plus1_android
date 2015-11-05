@@ -11,6 +11,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
+import com.oneplusapp.common.PushNotificationService;
+import com.oneplusapp.common.UpdateChecker;
+import com.oneplusapp.fragment.HomeFragment;
+import com.oneplusapp.fragment.MessageFragment;
+import com.oneplusapp.fragment.MySelfFragment;
+import com.oneplusapp.fragment.PublishFragment;
+import com.oneplusapp.fragment.RecommendFragment;
+import com.oneplusapp.model.Notification;
+import com.oneplusapp.model.User;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.Promise;
@@ -23,16 +33,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
-import com.oneplusapp.R;
-import com.oneplusapp.common.PushNotificationService;
-import com.oneplusapp.common.UpdateChecker;
-import com.oneplusapp.fragment.HomeFragment;
-import com.oneplusapp.fragment.MessageFragment;
-import com.oneplusapp.fragment.MySelfFragment;
-import com.oneplusapp.fragment.PublishFragment;
-import com.oneplusapp.fragment.RecommendFragment;
-import com.oneplusapp.model.Notification;
-import com.oneplusapp.model.User;
 
 public class HomeActivity extends BaseActivity {
     private PushNotificationService.Callback callback = new NotificationChanged();

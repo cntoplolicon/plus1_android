@@ -10,6 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.oneplusapp.R;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.Comment;
+import com.oneplusapp.model.Post;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
@@ -23,12 +29,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.oneplusapp.R;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.Comment;
-import com.oneplusapp.model.Post;
 
 /**
  * Created by shw on 2015/9/14.

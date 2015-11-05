@@ -6,12 +6,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.oneplusapp.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-
-import com.oneplusapp.R;
 
 /**
  * Created by silentgod on 15-11-4.

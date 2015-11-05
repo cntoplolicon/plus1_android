@@ -7,6 +7,11 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.ResetViewClickable;
+import com.oneplusapp.common.RestClient;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -17,11 +22,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.ResetViewClickable;
-import com.oneplusapp.common.RestClient;
 
 /**
  * Created by jiewei on 9/4/15.

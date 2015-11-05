@@ -16,6 +16,13 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.oneplusapp.R;
+import com.oneplusapp.common.ActivityHyperlinkClickListener;
+import com.oneplusapp.common.BitmapUtil;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.User;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -32,13 +39,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.ActivityHyperlinkClickListener;
-import com.oneplusapp.common.BitmapUtil;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.User;
 
 /**
  * Created by jiewei on 9/3/15.

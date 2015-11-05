@@ -18,12 +18,12 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oneplusapp.R;
+
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
 
 import java.io.File;
-
-import com.oneplusapp.R;
 
 /**
  * Created by cntoplolicon on 11/2/15.

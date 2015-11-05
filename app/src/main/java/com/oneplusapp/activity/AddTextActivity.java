@@ -8,6 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.ResetViewClickable;
+import com.oneplusapp.common.RestClient;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.DoneCallback;
@@ -17,10 +21,6 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.ResetViewClickable;
-import com.oneplusapp.common.RestClient;
 
 /**
  * Created by syb on 2015/9/18.
