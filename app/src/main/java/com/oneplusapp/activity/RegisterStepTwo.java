@@ -2,8 +2,9 @@ package com.oneplusapp.activity;
 
 import android.os.Bundle;
 
-import butterknife.ButterKnife;
 import com.oneplusapp.R;
+
+import butterknife.ButterKnife;
 
 public class RegisterStepTwo extends VerifySecurityCodeActivity {
 

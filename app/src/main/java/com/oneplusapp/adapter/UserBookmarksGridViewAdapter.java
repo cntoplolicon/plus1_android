@@ -3,17 +3,16 @@ package com.oneplusapp.adapter;
 import android.content.Context;
 
 import com.android.volley.VolleyError;
-
-import org.jdeferred.AlwaysCallback;
-import org.jdeferred.DoneCallback;
-import org.jdeferred.Promise;
-import org.json.JSONArray;
-
 import com.oneplusapp.common.BookmarkService;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Post;
+
+import org.jdeferred.AlwaysCallback;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
+import org.json.JSONArray;
 
 /**
  * Created by cntoplolicon on 10/7/15.

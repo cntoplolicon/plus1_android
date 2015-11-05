@@ -14,6 +14,8 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.oneplusapp.BuildConfig;
+import com.oneplusapp.model.User;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.Promise;
@@ -25,9 +27,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import com.oneplusapp.BuildConfig;
-import com.oneplusapp.model.User;
 
 /**
  * Created by cntoplolicon on 9/10/15.

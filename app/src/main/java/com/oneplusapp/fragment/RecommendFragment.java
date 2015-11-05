@@ -11,15 +11,15 @@ import android.widget.AdapterView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.adapter.PostsGridViewAdapter;
 import com.oneplusapp.adapter.RecommendGridViewAdapter;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.view.HeaderGridView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class RecommendFragment extends Fragment {

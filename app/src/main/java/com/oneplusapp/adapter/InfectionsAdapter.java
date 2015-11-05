@@ -9,6 +9,15 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.oneplusapp.R;
+import com.oneplusapp.application.SnsApplication;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.LRUCacheMap;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.Infection;
+import com.oneplusapp.model.Post;
+import com.oneplusapp.model.User;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
@@ -22,15 +31,6 @@ import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.oneplusapp.R;
-import com.oneplusapp.application.SnsApplication;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.LRUCacheMap;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.Infection;
-import com.oneplusapp.model.Post;
-import com.oneplusapp.model.User;
 
 /**
  * Created by shw on 2015/9/15.

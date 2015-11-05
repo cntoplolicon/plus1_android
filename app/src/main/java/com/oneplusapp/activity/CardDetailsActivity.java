@@ -20,16 +20,6 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.jdeferred.DoneCallback;
-import org.jdeferred.Promise;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.json.JSONObject;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.oneplusapp.BuildConfig;
 import com.oneplusapp.R;
 import com.oneplusapp.adapter.CommentsAdapter;
@@ -44,6 +34,16 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
+
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.json.JSONObject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CardDetailsActivity extends BaseActivity {
 
@@ -80,20 +80,25 @@ public class CardDetailsActivity extends BaseActivity {
         initListView();
         ButterKnife.bind(this);
         etNewComment.requestFocus();
+        int postId = 0;
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
+            postId = post.getId();
             updatePostInfo();
         }
 
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
             notifiedComment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            loadPost(notifiedComment.getPostId());
+            postId = notifiedComment.getPostId();
             if (!BuildConfig.DEBUG) {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
             }
+        }
+        if (postId > 0) {
+            loadPost(postId);
         }
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

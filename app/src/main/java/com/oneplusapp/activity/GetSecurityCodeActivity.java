@@ -9,6 +9,11 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
+import com.oneplusapp.common.CommonDialog;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.ResetViewClickable;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
@@ -16,11 +21,6 @@ import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.oneplusapp.R;
-import com.oneplusapp.common.CommonDialog;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.ResetViewClickable;
 
 public abstract class GetSecurityCodeActivity extends BaseActivity {
 

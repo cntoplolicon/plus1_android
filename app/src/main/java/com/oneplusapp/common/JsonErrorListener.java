@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
 
 import org.jdeferred.FailCallback;
 import org.json.JSONException;
@@ -16,8 +17,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-
-import com.oneplusapp.R;
 
 /**
  * Created by cntoplolicon on 9/11/15.

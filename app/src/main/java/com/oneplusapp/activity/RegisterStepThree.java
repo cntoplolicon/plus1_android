@@ -15,6 +15,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.oneplusapp.R;
+import com.oneplusapp.common.BitmapUtil;
+import com.oneplusapp.common.CommonDialog;
+import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.ResetViewClickable;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.User;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -28,14 +36,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.oneplusapp.R;
-import com.oneplusapp.common.BitmapUtil;
-import com.oneplusapp.common.CommonDialog;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.ResetViewClickable;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.User;
 
 public class RegisterStepThree extends BaseActivity {
 

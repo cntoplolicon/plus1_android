@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.PersonalProfileActivity;
@@ -29,6 +26,9 @@ import com.oneplusapp.common.BookmarkService;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.HeaderGridView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class MySelfFragment extends Fragment {

@@ -15,13 +15,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.model.Post;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by jiewei on 9/14/15.

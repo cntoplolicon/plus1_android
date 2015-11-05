@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-import org.jdeferred.DoneCallback;
-import org.json.JSONObject;
-
 import com.oneplusapp.R;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonDialog;
@@ -23,6 +19,9 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+
+import org.jdeferred.DoneCallback;
+import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity {
 

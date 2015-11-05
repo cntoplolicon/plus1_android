@@ -9,15 +9,14 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import net.danlew.android.joda.JodaTimeAndroid;
-
 import com.oneplusapp.BuildConfig;
 import com.oneplusapp.adapter.InfectionsAdapter;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 /**
  * Created by cntoplolicon on 9/15/15.

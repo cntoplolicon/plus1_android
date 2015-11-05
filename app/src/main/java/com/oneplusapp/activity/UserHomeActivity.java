@@ -2,12 +2,13 @@ package com.oneplusapp.activity;
 
 import android.os.Bundle;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.oneplusapp.R;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.ActionBarLayout;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class UserHomeActivity extends BaseActivity {
 

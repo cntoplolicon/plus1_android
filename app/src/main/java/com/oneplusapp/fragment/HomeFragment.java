@@ -11,9 +11,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;
@@ -25,6 +22,10 @@ import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.PostView;
 import com.oneplusapp.view.HomePageLayout;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeFragment extends Fragment {
 

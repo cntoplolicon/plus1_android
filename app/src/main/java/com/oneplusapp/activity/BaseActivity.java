@@ -2,9 +2,8 @@ package com.oneplusapp.activity;
 
 import android.app.Activity;
 
-import com.umeng.analytics.MobclickAgent;
-
 import com.oneplusapp.BuildConfig;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by Administrator on 2015/10/24.

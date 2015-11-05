@@ -9,16 +9,15 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-import org.jdeferred.DoneCallback;
-import org.json.JSONObject;
-
 import com.oneplusapp.R;
 import com.oneplusapp.common.CommonDialog;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
+
+import org.jdeferred.DoneCallback;
+import org.json.JSONObject;
 
 public class ResetPwdStepThree extends BaseActivity {
 

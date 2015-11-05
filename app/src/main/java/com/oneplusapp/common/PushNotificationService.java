@@ -11,6 +11,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.oneplusapp.R;
+import com.oneplusapp.activity.CardDetailsActivity;
+import com.oneplusapp.model.Comment;
+import com.oneplusapp.model.Notification;
+import com.oneplusapp.model.User;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -22,11 +27,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.yunba.android.manager.YunBaManager;
-import com.oneplusapp.R;
-import com.oneplusapp.activity.CardDetailsActivity;
-import com.oneplusapp.model.Comment;
-import com.oneplusapp.model.Notification;
-import com.oneplusapp.model.User;
 
 /**
  * Created by cntoplolicon on 10/12/15.
