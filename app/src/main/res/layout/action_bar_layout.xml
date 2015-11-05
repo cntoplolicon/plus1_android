@@ -17,6 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:singleLine="true"
         android:text="首页"
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/home_title_text_size" />
