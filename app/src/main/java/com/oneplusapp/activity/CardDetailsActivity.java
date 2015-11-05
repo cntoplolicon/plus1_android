@@ -83,6 +83,7 @@ public class CardDetailsActivity extends BaseActivity {
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
+            loadPost(post.getId());
             updatePostInfo();
         }
 
