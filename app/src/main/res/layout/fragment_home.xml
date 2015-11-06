@@ -1,6 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_paddingTop="15dp"
+    android:layout_paddingBottom="15dp">
 
     <FrameLayout
         android:id="@+id/cleared_layout"
@@ -97,8 +99,13 @@
         <FrameLayout
             android:id="@+id/top_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#DCDCDC">
+            android:layout_height="wrap_content">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_skip"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="centerCrop" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,8 +121,13 @@
         <FrameLayout
             android:id="@+id/bottom_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/common_yellow">
+            android:layout_height="wrap_content">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_spread"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="centerCrop" />-->
 
             <TextView
                 android:layout_width="match_parent"
