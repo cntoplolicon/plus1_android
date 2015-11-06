@@ -168,5 +168,6 @@
     <string name="tv_save_storage">保存到手机</string>
 
     <string name="account_sign_in_error">您的账号在别处登录</string>
+    <string name="notification_config_error">更新推送配置失败</string>
 
 </resources>

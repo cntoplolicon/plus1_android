@@ -5,6 +5,9 @@ import com.oneplusapp.common.LocalUserInfo;
 
 import org.joda.time.DateTime;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by cntoplolicon on 9/12/15.
  */
@@ -17,7 +20,7 @@ public class User {
     public static final String CURRENT_USER_KEY = "user";
 
     public static volatile User current;
-    private static UserChangedCallback userChangedCallback;
+    private static Set<UserChangedCallback> userChangedCallbacks = new HashSet<>();
 
     private int id;
 
@@ -108,17 +111,23 @@ public class User {
     }
 
     private static void tryCallUserChangedCallback(User oldUser, User newUser) {
-        if (oldUser == null && newUser == null || userChangedCallback == null) {
+        if (oldUser == null && newUser == null) {
             return;
         }
         if (oldUser != null && newUser == null || oldUser == null && newUser != null ||
                 oldUser.getId() != newUser.getId()) {
-            userChangedCallback.onUserChanged(oldUser, newUser);
+            for (UserChangedCallback callback : userChangedCallbacks) {
+                callback.onUserChanged(oldUser, newUser);
+            }
         }
     }
 
-    public static void setUserChangedCallback(UserChangedCallback callback) {
-        userChangedCallback = callback;
+    public static void registerUserChangedCallback(UserChangedCallback callback) {
+        userChangedCallbacks.add(callback);
+    }
+
+    public static void unregisterUserChangedCallback(UserChangedCallback callback) {
+        userChangedCallbacks.remove(callback);
     }
 
     public interface UserChangedCallback {

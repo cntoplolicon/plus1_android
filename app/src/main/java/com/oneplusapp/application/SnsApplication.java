@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
+import com.avos.avoscloud.AVOSCloud;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -34,13 +35,22 @@ public class SnsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(getApplicationContext());
-        PushNotificationService.init(getApplicationContext());
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
         InfectionsAdapter.initialize(getApplicationContext());
         ActiveAndroid.initialize(getApplicationContext());
+        initLeanCloud(getApplicationContext());
+        // push notification must be initialized after lean count and before current user
+        PushNotificationService.init(getApplicationContext());
         loadCurrentUser();
+    }
+
+    private void initLeanCloud(Context context) {
+        AVOSCloud.initialize(context, "uRHAcbn8PbOthR28S6hd6ArI", "HQmVcG0WJ67OiCcV2OnhiBew");
+        if (BuildConfig.DEBUG) {
+            AVOSCloud.setDebugLogEnabled(true);
+        }
     }
 
     private void initImageLoader(Context context) {

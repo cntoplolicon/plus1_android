@@ -392,6 +392,19 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> updateAccountInfo(int userId, String accessToken, Map<String, Object> info) {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> userParams = new HashMap<>(info);
+        userParams.put("access_token", accessToken);
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/users/" + userId + "/account_info"), userParams, listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
     public Promise<JSONObject, VolleyError, Void> newFeedback(String contact, String content) {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);

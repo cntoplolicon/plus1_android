@@ -3,11 +3,15 @@ package com.oneplusapp.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.PushNotificationService;
+import com.oneplusapp.model.Notification;
 
-import io.yunba.android.manager.YunBaManager;
+import java.lang.reflect.Type;
+import java.util.Map;
 
 /**
  * Created by cntoplolicon on 10/13/15.
@@ -15,23 +19,13 @@ import io.yunba.android.manager.YunBaManager;
 public class PushNotificationsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!YunBaManager.MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-            return;
-        }
-
-        String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
-        String message = intent.getStringExtra(YunBaManager.MQTT_MSG);
-        StringBuilder logMessage = new StringBuilder()
-                .append("Received message from server: ")
-                .append(YunBaManager.MQTT_TOPIC)
-                .append(" = ")
-                .append(topic)
-                .append(" ")
-                .append(YunBaManager.MQTT_MSG)
-                .append(" = ")
-                .append(message);
-        Log.d(PushNotificationService.class.getName(), logMessage.toString());
-
-        PushNotificationService.getInstance().handleNotification(topic, message);
+        String json = intent.getExtras().getString("com.avos.avoscloud.Data");
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+        Map<String, String> map = CommonMethods.createDefaultGson().fromJson(json, type);
+        String contentJson = map.get("content");
+        Gson gson = CommonMethods.defaultGsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Notification notification = gson.fromJson(contentJson, Notification.class);
+        PushNotificationService.getInstance().handleNotification(notification);
     }
 }

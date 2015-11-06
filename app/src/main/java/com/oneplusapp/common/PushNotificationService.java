@@ -10,23 +10,26 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
+import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.SaveCallback;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
+import com.oneplusapp.activity.HomeActivity;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.User;
 
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
+import org.jdeferred.impl.DeferredObject;
 import org.joda.time.DateTime;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-
-import io.yunba.android.manager.YunBaManager;
 
 /**
  * Created by cntoplolicon on 10/12/15.
@@ -38,115 +41,117 @@ public class PushNotificationService {
     private static PushNotificationService instance;
     private Context context;
     private Set<Callback> callbacks = new HashSet<>();
+    private Promise<String, AVException, Void> installationPromise;
 
-    public static void init(final Context context) {
-        YunBaManager.start(context);
+    public static void init(Context context) {
         instance = new PushNotificationService(context);
     }
 
     private PushNotificationService(final Context context) {
         this.context = context;
-        User.setUserChangedCallback(new User.UserChangedCallback() {
-
+        PushService.setDefaultPushCallback(context, HomeActivity.class);
+        installationPromise = saveInstallation();
+        installationPromise.fail(new FailCallback<AVException>() {
+            @Override
+            public void onFail(AVException e) {
+                Log.e(PushNotificationService.class.getName(), "failed saving av installation id", e);
+                Toast.makeText(context, R.string.notification_config_error, Toast.LENGTH_LONG).show();
+            }
+        });
+        User.registerUserChangedCallback(new User.UserChangedCallback() {
             @Override
             public void onUserChanged(User oldUser, User newUser) {
-                final FailCallback<Throwable> failCallback = new FailCallback<Throwable>() {
-                    @Override
-                    public void onFail(Throwable t) {
-                        Log.e(PushNotificationService.class.getName(), "failed subscribing or unsubscribing", t);
-                        Toast.makeText(context, "更新推送配置失败", Toast.LENGTH_SHORT).show();
-                    }
-                };
-                String[] oldTopics = getUserTopics(oldUser);
-                String[] newTopics = getUserTopics(newUser);
-                if (oldTopics.length > 0) {
-                    unsubscribe(oldTopics).fail(failCallback);
-                }
-                if (newTopics.length > 0 && newUser != null) {
-                    subscribe(newTopics).fail(failCallback);
+                if (newUser != null) {
+                    syncUserInstallationId(newUser, AVInstallation.getCurrentInstallation().getInstallationId());
                 }
             }
         });
     }
 
-    private Promise<IMqttToken, Throwable, Void> unsubscribe(String topics[]) {
-        final ThrowableDeferredObject<IMqttToken, Throwable, Void> deferred = new ThrowableDeferredObject<>();
-        YunBaManager.unsubscribe(context, topics, new NotifyPromiseListener(deferred));
-        return deferred.promise();
+    private void syncUserInstallationId(User user, String installationId) {
+        if (user.getAccessToken() == null) {
+            return;
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("av_installation_id", installationId);
+        RestClient.getInstance().updateAccountInfo(user.getId(), user.getAccessToken(), params)
+                .fail(new JsonErrorListener(context, null));
     }
 
-    private Promise<IMqttToken, Throwable, Void> subscribe(String topics[]) {
-        final ThrowableDeferredObject<IMqttToken, Throwable, Void> deferred = new ThrowableDeferredObject<>();
-        YunBaManager.subscribe(context, topics, new NotifyPromiseListener(deferred));
-        return deferred.promise();
+    private void trySaveInstallation(final int retry, final int delay, final DeferredObject<String, AVException, Void> deferredObject) {
+        AVInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    deferredObject.resolve(AVInstallation.getCurrentInstallation().getInstallationId());
+                    return;
+                }
+
+                Log.e(PushNotificationService.class.getName(), "failed saving installation", e);
+                if (retry == 0) {
+                    deferredObject.reject(e);
+                } else {
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            trySaveInstallation(retry - 1, delay * 2, deferredObject);
+                        }
+                    }, delay);
+                }
+            }
+        });
     }
 
-    private String[] getUserTopics(User user) {
-        return user == null ? new String[]{} : getUserTopics(user.getId());
-    }
-
-    private String[] getUserTopics(int userId) {
-        return new String[]{"user_" + userId};
+    private Promise<String, AVException, Void> saveInstallation() {
+        ThrowableDeferredObject<String, AVException, Void> deferredObject = new ThrowableDeferredObject<>();
+        trySaveInstallation(5, 1000, deferredObject);  // 5 reties, exponential backoff from 1 sec
+        return deferredObject.promise();
     }
 
     public static PushNotificationService getInstance() {
         return instance;
     }
 
-    public void handleNotification(String topic, String message) {
-        Gson gson = CommonMethods.defaultGsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        Notification notification = gson.fromJson(message, Notification.class);
+    public void handleNotification(Notification notification) {
         if (User.current != null && notification.getUserId() > 0
                 && notification.getUserId() != User.current.getId()) {
-            unsubscribe(getUserTopics(notification.getUserId()));
+            syncUserInstallationId(User.current, AVInstallation.getCurrentInstallation().getInstallationId());
             return;
         }
+
         notification.setReceiveTime(DateTime.now());
         notification.save();
         for (Callback callback : callbacks) {
             callback.onNotificationReceived(notification);
         }
-
         if (!LocalUserInfo.getPreferences().getBoolean("notification_enabled", true)) {
             return;
         }
 
-        Intent intent = new Intent(context, CardDetailsActivity.class);
-        intent.putExtra("notification", notification);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(CardDetailsActivity.class);
-        stackBuilder.addNextIntent(intent);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        String notificationBarBody = "";
-        if (notification != null && notification.getType().equals(TYPE_COMMENT)) {
+        if (notification.getType().equals(TYPE_COMMENT)) {
+            Intent intent = new Intent(context, CardDetailsActivity.class);
+            intent.putExtra("notification", notification);
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addParentStack(CardDetailsActivity.class);
+            stackBuilder.addNextIntent(intent);
+            PendingIntent pendingIntent = stackBuilder.getPendingIntent(notification.getId().intValue(),
+                    PendingIntent.FLAG_ONE_SHOT);
+
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            String CommentFormat = (comment.getReplyToId() == 0 ? context.getResources().getString(R.string.notification_card) : context.getResources().getString(R.string.notification_comment));
-            notificationBarBody = String.format(CommentFormat, comment.getUser().getNickname());
-        }
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notificaiton_small)
-                .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
-                .setContentText(notificationBarBody)
-                .setContentIntent(pendingIntent);
-        NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
-        notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
-    }
+            String commentFormat = (comment.getReplyToId() == 0 ?
+                    context.getResources().getString(R.string.notification_card) :
+                    context.getResources().getString(R.string.notification_comment));
 
-    private static class NotifyPromiseListener implements IMqttActionListener {
-        private ThrowableDeferredObject<IMqttToken, Throwable, Void> deferredObject;
-
-        private NotifyPromiseListener(ThrowableDeferredObject<IMqttToken, Throwable, Void> deferredObject) {
-            this.deferredObject = deferredObject;
-        }
-
-        @Override
-        public void onSuccess(IMqttToken iMqttToken) {
-            deferredObject.resolve(iMqttToken);
-        }
-
-        @Override
-        public void onFailure(IMqttToken iMqttToken, Throwable throwable) {
-            deferredObject.reject(throwable);
+            String notificationBarBody = String.format(commentFormat, comment.getUser().getNickname());
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.notificaiton_small)
+                    .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
+                    .setContentText(notificationBarBody)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+            NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
+            notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
         }
     }
 
