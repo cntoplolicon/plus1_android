@@ -110,6 +110,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_weixin:
                 login(SHARE_MEDIA.WEIXIN);
                 break;
+
         }
     }
 
@@ -149,7 +150,7 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onComplete(final Bundle value, SHARE_MEDIA platform) {
+            public void onComplete(Bundle value, SHARE_MEDIA platform) {
                 StringBuilder sb = new StringBuilder();
                 Set<String> keySet = value.keySet();
                 for (String key : keySet) {
