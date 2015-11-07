@@ -92,13 +92,18 @@
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="#9e9e9e">
 
         <FrameLayout
             android:id="@+id/top_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#DCDCDC">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_skip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,8 +119,13 @@
         <FrameLayout
             android:id="@+id/bottom_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/common_yellow">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_spread"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -124,7 +134,7 @@
                 android:gravity="center"
                 android:tag="text"
                 android:text="@string/home_spread_post"
-                android:textColor="#fefefe"
+                android:textColor="#666666"
                 android:textSize="16sp" />
         </FrameLayout>
     </com.oneplusapp.view.HomePageLayout>

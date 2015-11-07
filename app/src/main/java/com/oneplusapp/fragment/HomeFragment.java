@@ -2,6 +2,7 @@ package com.oneplusapp.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;
@@ -31,6 +34,13 @@ public class HomeFragment extends Fragment {
 
     private static final int LOADING_INTERVAL = 15000;
 
+    private static Bitmap bitmapSkip;
+    private static Bitmap bitmapSpread;
+
+    @Bind(R.id.iv_skip)
+    ImageView ivSkip;
+    @Bind(R.id.iv_spread)
+    ImageView ivSpread;
     @Bind(R.id.loading_layout)
     View loadingView;
     @Bind(R.id.cleared_layout)
@@ -68,6 +78,15 @@ public class HomeFragment extends Fragment {
         slidingView.setAdapter(adapter);
         changeViewsByAdapterState(adapter.getState());
         timer.start();
+        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
+        if (bitmapSkip == null) {
+            bitmapSkip = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.skip, displayOptions);
+        }
+        ivSkip.setImageBitmap(bitmapSkip);
+        if (bitmapSpread == null) {
+            bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, displayOptions);
+        }
+        ivSpread.setImageBitmap(bitmapSpread);
         return view;
     }
 
