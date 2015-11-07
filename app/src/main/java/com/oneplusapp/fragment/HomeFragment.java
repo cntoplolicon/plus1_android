@@ -31,10 +31,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeFragment extends Fragment {
+
+    private static final int LOADING_INTERVAL = 15000;
+
     private static Bitmap bitmapSkip;
     private static Bitmap bitmapSpread;
 
-    private static final int LOADING_INTERVAL = 15000;
     @Bind(R.id.iv_skip)
     ImageView ivSkip;
     @Bind(R.id.iv_spread)
