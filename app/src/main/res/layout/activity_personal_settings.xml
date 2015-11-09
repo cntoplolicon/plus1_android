@@ -110,6 +110,7 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:gravity="center_vertical"
         android:text="12M"
+        android:textSize="14sp"
         android:textColor="@color/setting_text_color" />
 
     <Button
@@ -124,5 +125,16 @@
         android:text="@string/log_out"
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
+
+    <TextView
+        android:id="@+id/tv_version_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/setting_text_color"
+        android:textSize="14sp"
+        android:text=""/>
 
 </RelativeLayout>

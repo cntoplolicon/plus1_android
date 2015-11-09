@@ -30,6 +30,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
+import com.oneplusapp.common.ToastUtil;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
@@ -253,7 +254,8 @@ public class CardDetailsActivity extends BaseActivity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_added, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CardDetailsActivity.this, R.string.bookmark_added, Toast.LENGTH_SHORT).show();
+                                ToastUtil.showToast(getApplicationContext().getResources().getString(R.string.bookmark_added));
                                 BookmarkService.getInstance().addBookmark(post);
                             }
                             syncBookmarkInfo();
@@ -268,7 +270,8 @@ public class CardDetailsActivity extends BaseActivity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_removed, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CardDetailsActivity.this, R.string.bookmark_removed, Toast.LENGTH_SHORT).show();
+                                ToastUtil.showToast(getApplicationContext().getResources().getString(R.string.bookmark_removed));
                                 BookmarkService.getInstance().removeBookmark(post);
                             }
                             syncBookmarkInfo();
