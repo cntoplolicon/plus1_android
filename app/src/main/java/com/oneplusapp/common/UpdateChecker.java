@@ -32,7 +32,6 @@ public class UpdateChecker {
 
     public static UpdateChecker instance;
 
-    private static File APK_FILE = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "plus-one.apk");
     private static String APK_MIME_TYPE = "application/vnd.android.package-archive";
 
     private boolean updateNotified;
@@ -116,8 +115,6 @@ public class UpdateChecker {
         Uri uri = Uri.parse(appRelease.downloadUrl);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType(APK_MIME_TYPE);
-        request.setDestinationUri(Uri.fromFile(APK_FILE));
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         downloadId = downloadManager.enqueue(request);
@@ -150,25 +147,32 @@ public class UpdateChecker {
             DownloadManager.Query query = new DownloadManager.Query();
             query.setFilterById(id);
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-            Cursor cursor = manager.query(query);
-            if (cursor.moveToFirst()) {
-                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                    String uri = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                    File downloadedFile = CommonMethods.getFileFromMediaUri(context, Uri.parse(uri));
-                    if (downloadedFile == null) {
-                        downloadedFile = APK_FILE;
+            Cursor cursor = null;
+            try {
+                cursor = manager.query(query);
+                if (cursor.moveToFirst()) {
+                    int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        String uri = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                        File downloadedFile = CommonMethods.getFileFromMediaUri(context, Uri.parse(uri));
+                        if (downloadedFile == null) {
+                            Toast.makeText(context, R.string.downloaded_apk_missing, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        promptUpdate(context, Uri.fromFile(downloadedFile));
+                        if (receiver != null) {
+                            context.unregisterReceiver(receiver);
+                            receiver = null;
+                        }
+                    } else {
+                        Toast.makeText(context, R.string.download_apk_error, Toast.LENGTH_LONG).show();
                     }
-                    promptUpdate(context, Uri.fromFile(downloadedFile));
-                    if (receiver != null) {
-                        context.unregisterReceiver(receiver);
-                        receiver = null;
-                    }
-                } else {
-                    Toast.makeText(context, "下载失败", Toast.LENGTH_LONG).show();
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
                 }
             }
-            cursor.close();
         }
     }
 }

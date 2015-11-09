@@ -169,5 +169,6 @@
 
     <string name="account_sign_in_error">您的账号在别处登录</string>
     <string name="notification_config_error">更新推送配置失败</string>
-
+    <string name="download_apk_error">下载安装包失败</string>
+    <string name="downloaded_apk_missing">找不到下载的安装包</string>
 </resources>
