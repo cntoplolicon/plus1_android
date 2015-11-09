@@ -23,7 +23,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
  * Created by cntoplolicon on 9/15/15.
  */
 public class SnsApplication extends Application {
-    private static Context context;
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
             .cacheInMemory(true)
             .cacheOnDisk(true)
@@ -34,7 +33,6 @@ public class SnsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
         initImageLoader(getApplicationContext());
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
@@ -72,8 +70,5 @@ public class SnsApplication extends Application {
         if (!userJson.isEmpty()) {
             User.updateCurrentUser(userJson);
         }
-    }
-    public static Context getContext(){
-        return context;
     }
 }

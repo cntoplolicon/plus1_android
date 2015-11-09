@@ -111,7 +111,7 @@ public class PersonalSettingsActivity extends BaseActivity {
         });
 
         tvCacheSize.setText(calcImageCacheSize());
-        tvVersionName.setText("版本号：" + getVersionName());
+        tvVersionName.setText(getResources().getString(R.string.apk_version_name) + getVersionName());
     }
 
     @Override
@@ -137,8 +137,7 @@ public class PersonalSettingsActivity extends BaseActivity {
             String versionName = packageInfo.versionName;
             return versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("version name must be specified in manifest", e);
         }
-        return "";
     }
 }
