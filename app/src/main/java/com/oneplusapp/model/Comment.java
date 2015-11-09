@@ -12,7 +12,7 @@ public class Comment {
     private String content;
     private User user;
     private Post post;
-    private Boolean deleted;
+    private boolean deleted;
     private DateTime createdAt;
 
     public int getId() {
