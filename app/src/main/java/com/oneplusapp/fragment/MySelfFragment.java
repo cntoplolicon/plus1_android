@@ -170,9 +170,7 @@ public class MySelfFragment extends Fragment {
 
         @Override
         public void onBookmarkChanged() {
-            bookmarksAdapter.updateAll(BookmarkService.getInstance().getBookmarkedPosts());
-            bookmarksAdapter.notifyDataSetChanged();
-
+            bookmarksAdapter.loadBookmarks();
         }
     }
 
