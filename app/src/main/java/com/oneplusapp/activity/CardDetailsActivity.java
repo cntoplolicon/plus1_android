@@ -122,8 +122,7 @@ public class CardDetailsActivity extends BaseActivity {
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
                 } else {
-                    replyTarget = null;
-                    etNewComment.setHint(R.string.publish_comment);
+                    resetReply();
                 }
             }
         });
@@ -144,9 +143,8 @@ public class CardDetailsActivity extends BaseActivity {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replyTarget = null;
+                resetReply();
                 hideInput(headerView);
-                etNewComment.setHint(R.string.publish_comment);
             }
         });
         lvListView.addHeaderView(headerView, null, false);
