@@ -1,6 +1,8 @@
 package com.oneplusapp.activity;
 
 import android.app.AlertDialog;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -41,6 +43,8 @@ public class PersonalSettingsActivity extends BaseActivity {
     TextView tvFeedbacks;
     @Bind(R.id.tv_cache_size)
     TextView tvCacheSize;
+    @Bind(R.id.tv_version_name)
+    TextView tvVersionName;
 
     @OnClick(R.id.btn_logout)
     public void logout(View view) {
@@ -107,6 +111,7 @@ public class PersonalSettingsActivity extends BaseActivity {
         });
 
         tvCacheSize.setText(calcImageCacheSize());
+        tvVersionName.setText(getResources().getString(R.string.apk_version_name) + getVersionName());
     }
 
     @Override
@@ -123,5 +128,16 @@ public class PersonalSettingsActivity extends BaseActivity {
             size += file.length();
         }
         return size / 1024 / 1024 + "M";
+    }
+
+    private String getVersionName() {
+        PackageManager packageManager = this.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            String versionName = packageInfo.versionName;
+            return versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new IllegalStateException("version name must be specified in manifest", e);
+        }
     }
 }
