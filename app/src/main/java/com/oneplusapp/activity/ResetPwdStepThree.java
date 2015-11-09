@@ -40,7 +40,7 @@ public class ResetPwdStepThree extends BaseActivity {
                         public void onDone(JSONObject response) {
                             Intent intent = new Intent(ResetPwdStepThree.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.pwd_reset_succeed), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.pwd_reset_succeed, Toast.LENGTH_LONG).show();
                             startActivity(intent);
                             finish();
                         }
