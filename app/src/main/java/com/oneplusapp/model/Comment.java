@@ -11,7 +11,7 @@ public class Comment {
     private int replyToId;
     private String content;
     private User user;
-    private Boolean deleted;
+    private boolean deleted;
     private DateTime createdAt;
 
     public int getId() {

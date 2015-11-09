@@ -403,10 +403,12 @@ public class CardDetailsActivity extends BaseActivity {
                         }
                     }
                 })
-                .fail(new FailCallback<VolleyError>() {
+                .fail(new JsonErrorListener(getApplicationContext(), null) {
                     @Override
-                    public void onFail(VolleyError result) {
-                        Toast.makeText(getApplicationContext(), R.string.delete_failed, Toast.LENGTH_LONG).show();
+                    public void onFail(VolleyError error) {
+                        super.onFail(error);
+                        Log.e(PublishActivity.class.getName(), "failed delete comment", error);
+                        Toast.makeText(getApplicationContext(), R.string.comment_failure, Toast.LENGTH_LONG).show();
                     }
                 });
     }
