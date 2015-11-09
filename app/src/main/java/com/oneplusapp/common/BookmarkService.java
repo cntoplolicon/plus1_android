@@ -52,10 +52,6 @@ public class BookmarkService {
         }
     }
 
-    public Post[] getBookmarkedPosts() {
-        return BookmarkService.bookmarkedPosts.values().toArray(new Post[]{});
-    }
-
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
