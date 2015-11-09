@@ -19,6 +19,9 @@ import java.util.List;
 
 @Table(name = "Notifications")
 public class Notification extends Model implements Parcelable {
+
+    public static final String TYPE_COMMENT = "comment";
+
     @Column
     @Expose
     private int userId;

@@ -66,12 +66,26 @@ public class CardDetailsActivity extends BaseActivity {
     @Bind(R.id.et_new_comment)
     EditText etNewComment;
 
-    ListView lvListView;
+    private ListView lvListView;
 
+    private int postId = 0;
     private Post post;
     private CommentsAdapter commentsAdapter;
     private Comment replyTarget;
     private Comment notifiedComment;
+
+    private PushNotificationService.Callback notificationCallback = new PushNotificationService.Callback() {
+        @Override
+        public void onNotificationReceived(Notification notification) {
+            if (!notification.getType().equals(Notification.TYPE_COMMENT)) {
+                return;
+            }
+            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            if (comment.getPostId() == postId) {
+                addCommentToListView(comment);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +94,6 @@ public class CardDetailsActivity extends BaseActivity {
         initListView();
         ButterKnife.bind(this);
         etNewComment.requestFocus();
-        int postId = 0;
         String postJson = getIntent().getStringExtra("post_json");
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
@@ -109,10 +122,18 @@ public class CardDetailsActivity extends BaseActivity {
                 etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
             }
         });
+
+        PushNotificationService.getInstance().registerCallback(notificationCallback);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PushNotificationService.getInstance().unregisterCallback(notificationCallback);
     }
 
     private void initListView() {
-        lvListView = (ListView) findViewById(R.id.lv_listview);
+        lvListView = (ListView) findViewById(R.id.lv_list_view);
         lvListView.setDividerHeight(0);
         final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +235,7 @@ public class CardDetailsActivity extends BaseActivity {
         });
         commentsAdapter.setOnViewClickedListener(new OnViewClickedListener());
         lvListView.setAdapter(commentsAdapter);
-        showComment(notifiedComment);
+        focusComment(notifiedComment);
     }
 
     @OnClick(R.id.iv_bookmark)
@@ -267,15 +288,11 @@ public class CardDetailsActivity extends BaseActivity {
                 .done(new DoneCallback<JSONObject>() {
                     @Override
                     public void onDone(JSONObject result) {
-                        etNewComment.setText("");
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
+                        resetReply();
+
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
-                        commentsAdapter.add(newComment);
-                        replyTarget = null;
-                        etNewComment.setHint(getResources().getString(R.string.publish_comment));
-                        commentsAdapter.sortComments();
-                        commentsAdapter.notifyDataSetChanged();
-                        showComment(newComment);
+                        addCommentToListView(newComment);
                     }
                 })
                 .fail(new JsonErrorListener(getApplicationContext(), null) {
@@ -287,6 +304,19 @@ public class CardDetailsActivity extends BaseActivity {
                     }
                 })
                 .always(new ResetViewClickable<JSONObject, VolleyError>(view));
+    }
+
+    private void resetReply() {
+        replyTarget = null;
+        etNewComment.setText("");
+        etNewComment.setHint(R.string.publish_comment);
+    }
+
+    private void addCommentToListView(Comment comment) {
+        commentsAdapter.add(comment);
+        commentsAdapter.sortComments();
+        commentsAdapter.notifyDataSetChanged();
+        focusComment(comment);
     }
 
     private void syncBookmarkInfo() {
@@ -321,7 +351,7 @@ public class CardDetailsActivity extends BaseActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void showComment(final Comment comment) {
+    private void focusComment(final Comment comment) {
         if (comment == null) {
             return;
         }

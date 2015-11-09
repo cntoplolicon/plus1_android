@@ -49,11 +49,11 @@
     </com.oneplusapp.view.ActionBarLayout>
 
     <ListView
-        android:id="@+id/lv_listview"
+        android:id="@+id/lv_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/action_bar"
-        android:layout_marginBottom="50dp"></ListView>
+        android:layout_marginBottom="50dp" />
 
     <FrameLayout
         android:id="@+id/fl_card_details"

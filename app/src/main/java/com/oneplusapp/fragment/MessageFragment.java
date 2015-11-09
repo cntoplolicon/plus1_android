@@ -42,7 +42,7 @@ public class MessageFragment extends Fragment {
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
         messageAdapter.setOnViewClickedListener(new OnViewClickedListener());
-        ListView lvListView = (ListView) view.findViewById(R.id.lv_listView);
+        ListView lvListView = (ListView) view.findViewById(R.id.lv_list_view);
         lvListView.setAdapter(messageAdapter);
         if (notifications.isEmpty()) {
             tvNoMessage.setVisibility(View.VISIBLE);
@@ -52,9 +52,12 @@ public class MessageFragment extends Fragment {
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                intent.putExtra("notification", (Notification) view.getTag());
-                startActivity(intent);
+                Notification notification = (Notification)view.getTag();
+                if (notification.getType().equals(Notification.TYPE_COMMENT)) {
+                    Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                    intent.putExtra("notification", notification);
+                    startActivity(intent);
+                }
             }
         });
 
