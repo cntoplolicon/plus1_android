@@ -76,7 +76,7 @@ public class MySelfFragment extends Fragment {
         gridView = (HeaderGridView) view.findViewById(R.id.grid_view_authored_posts);
         ivLoading = (ImageView) view.findViewById(R.id.iv_loading);
         tvContentEmpty = (TextView) view.findViewById(R.id.tv_content_empty);
-        tvContentEmpty.setText(getResources().getString(R.string.home_no_publish));
+        tvContentEmpty.setText(R.string.home_no_publish);
         headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
         ButterKnife.bind(this, headerView);
@@ -96,10 +96,10 @@ public class MySelfFragment extends Fragment {
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     if (checkedId == R.id.tv_myself_publish) {
                         gridView.setAdapter(postsAdapter);
-                        tvContentEmpty.setText(getResources().getString(R.string.home_no_publish));
+                        tvContentEmpty.setText(R.string.home_no_publish);
                     } else {
                         gridView.setAdapter(bookmarksAdapter);
-                        tvContentEmpty.setText(getResources().getString(R.string.home_no_bookmard));
+                        tvContentEmpty.setText(R.string.home_no_bookmard);
                     }
                     changeViewsByAdapterState();
                 }

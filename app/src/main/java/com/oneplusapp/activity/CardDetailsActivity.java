@@ -141,7 +141,7 @@ public class CardDetailsActivity extends BaseActivity {
             public void onClick(View view) {
                 replyTarget = null;
                 hideInput(headerView);
-                etNewComment.setHint(getResources().getString(R.string.publish_comment));
+                etNewComment.setHint(R.string.publish_comment);
             }
         });
         lvListView.addHeaderView(headerView, null, false);
@@ -250,7 +250,7 @@ public class CardDetailsActivity extends BaseActivity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmark_added), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_added, Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().addBookmark(post);
                             }
                             syncBookmarkInfo();
@@ -265,7 +265,7 @@ public class CardDetailsActivity extends BaseActivity {
                         public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
                             super.onAlways(state, resolved, rejected);
                             if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, getResources().getString(R.string.bookmark_removed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_removed, Toast.LENGTH_SHORT).show();
                                 BookmarkService.getInstance().removeBookmark(post);
                             }
                             syncBookmarkInfo();
@@ -277,7 +277,7 @@ public class CardDetailsActivity extends BaseActivity {
     @OnClick(R.id.btn_send_comment)
     public void onSendCommentClicked(View view) {
         if (etNewComment.getText().toString().isEmpty()) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.comment_text_required), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.comment_text_required, Toast.LENGTH_LONG).show();
             return;
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

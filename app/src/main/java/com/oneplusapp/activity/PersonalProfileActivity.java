@@ -143,7 +143,7 @@ public class PersonalProfileActivity extends BaseActivity {
                     BitmapUtil.notifyMediaScanner(this, cameraFileUri);
                     beginCrop(cameraFileUri);
                 } else {
-                    Toast.makeText(getBaseContext(), getResources().getString(R.string.unable_to_find_sd_card), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.unable_to_find_sd_card, Toast.LENGTH_LONG).show();
                 }
                 break;
             case Crop.REQUEST_CROP:
