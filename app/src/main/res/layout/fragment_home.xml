@@ -97,7 +97,8 @@
         <FrameLayout
             android:id="@+id/top_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#d6d6d6">
 
             <ImageView
                 android:id="@+id/iv_skip"
@@ -119,7 +120,8 @@
         <FrameLayout
             android:id="@+id/bottom_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fed724">
 
             <ImageView
                 android:id="@+id/iv_spread"
