@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.android.volley.Cache;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
@@ -35,6 +37,9 @@ public class RestClient {
 
     private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "https://oneplusapp.com";
+
+    private static final RetryPolicy DEFAULT_RETRY_POLICY = new DefaultRetryPolicy(30 * 1000, // 30 sec
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     private static final boolean POST_VIEWS_ENABLED = false;
 
     private static RestClient instance;
@@ -103,6 +108,7 @@ public class RestClient {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                 getResourceUrl("/app_release/android"), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -116,6 +122,7 @@ public class RestClient {
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/security_codes/account"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -129,6 +136,7 @@ public class RestClient {
         params.put("username", username);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/security_codes/password"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -143,6 +151,7 @@ public class RestClient {
         params.put("security_code", securityCode);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/security_codes/verify"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -163,6 +172,7 @@ public class RestClient {
 
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
                 getResourceUrl("/users"), params.entrySet(), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -178,6 +188,7 @@ public class RestClient {
 
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/sign_in"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -191,6 +202,7 @@ public class RestClient {
         String userId = params.get("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/sign_out"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -205,6 +217,7 @@ public class RestClient {
         String userId = params.get("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
                 getResourceUrl("/users/" + userId), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -219,6 +232,7 @@ public class RestClient {
         String userId = params.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.PUT,
                 getResourceUrl("/users/" + userId), params.entrySet(), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -234,6 +248,7 @@ public class RestClient {
         params.put("password", password);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.PUT,
                 getResourceUrl("/users/password"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -261,6 +276,7 @@ public class RestClient {
         String userId = userParams.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/posts"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -274,6 +290,7 @@ public class RestClient {
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/users/" + userId + "/infections/active", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -294,6 +311,7 @@ public class RestClient {
         String path = "/users/" + userId + "/infections/" + infectionId + "/post_view";
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl(path), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -306,6 +324,7 @@ public class RestClient {
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/users/" + authorId + "/posts", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -320,6 +339,7 @@ public class RestClient {
         String userId = params.remove("user_id").toString();
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/bookmarks"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -333,6 +353,7 @@ public class RestClient {
         String userId = params.remove("user_id").toString();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
                 encodeUrlParams("/users/" + userId + "/bookmarks/" + postId, params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -346,6 +367,7 @@ public class RestClient {
         String userId = params.remove("user_id").toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/users/" + userId + "/bookmarks", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -358,6 +380,7 @@ public class RestClient {
         Map<String, Object> params = createUserParams();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/posts/" + postId + "/comments", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -375,6 +398,7 @@ public class RestClient {
 
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/posts/" + postId + "/comments"), userParams, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -387,6 +411,7 @@ public class RestClient {
         Map<String, Object> userParams = createUserParams();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                 encodeUrlParams("/posts/" + postId, userParams), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -400,6 +425,7 @@ public class RestClient {
         userParams.put("access_token", accessToken);
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/account_info"), userParams, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -416,20 +442,22 @@ public class RestClient {
         }
         JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
                 getResourceUrl("/feedbacks"), userParams, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
     }
 
-    public Promise<JSONArray, VolleyError, Void> getRecommendPosts() {
+    public Promise<JSONArray, VolleyError, Void> getRecommendedPosts() {
         ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
         Map<String, Object> params = createUserParams();
+
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/recommendations", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();
     }
-
 }

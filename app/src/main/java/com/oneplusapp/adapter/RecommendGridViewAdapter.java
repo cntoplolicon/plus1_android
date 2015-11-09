@@ -21,7 +21,7 @@ public class RecommendGridViewAdapter extends PostsGridViewAdapter {
     public RecommendGridViewAdapter(Context context) {
         super(context);
         loading = true;
-        RestClient.getInstance().getRecommendPosts().done(
+        RestClient.getInstance().getRecommendedPosts().done(
                 new DoneCallback<JSONArray>() {
                     @Override
                     public void onDone(JSONArray response) {
