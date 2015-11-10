@@ -314,15 +314,9 @@ public class CardDetailsActivity extends BaseActivity {
 
         @Override
         public void onViewClick(View view, int position) {
-            if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
+            if (view.getId() == R.id.iv_avatar) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getItem(position).getUser()));
-                hideInput(view);
-                startActivity(intent);
-            } else if (view.getId() == R.id.tv_reply_target) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                int replyTargetId = commentsAdapter.getItem(position).getReplyToId();
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getCommentById(replyTargetId).getUser()));
                 hideInput(view);
                 startActivity(intent);
             }

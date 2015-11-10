@@ -52,7 +52,7 @@ public class MessageFragment extends Fragment {
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Notification notification = (Notification)view.getTag();
+                Notification notification = (Notification) view.getTag();
                 if (notification.getType().equals(Notification.TYPE_COMMENT)) {
                     Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
                     intent.putExtra("notification", notification);

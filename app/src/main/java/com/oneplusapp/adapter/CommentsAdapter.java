@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
-import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.Comment;
+import com.oneplusapp.view.UserNicknameTextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,14 +59,13 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
+        viewHolder.tvNickname.setUser(comment.getUser());
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         if (comment.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
         } else {
             viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         }
-        viewHolder.tvNickname.setText(comment.getUser().getNickname());
-        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, comment.getUser(), getContext());
         View.OnClickListener customViewClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,12 +83,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             viewHolder.tvReplyTarget.setVisibility(view.VISIBLE);
             Comment repliedComment = getCommentById(comment.getReplyToId());
             viewHolder.tvContent.setText(comment.getContent());
-            viewHolder.tvReplyTarget.setText(repliedComment.getUser().getNickname());
-            CommonMethods.chooseNicknameColorViaGender(viewHolder.tvReplyTarget, repliedComment.getUser(), getContext());
-            viewHolder.tvReplyTarget.setOnClickListener(customViewClickListener);
+            viewHolder.tvReplyTarget.setUser(repliedComment.getUser());
         }
         viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
-        viewHolder.tvNickname.setOnClickListener(customViewClickListener);
         view.setTag(comment);
         if (position == selectItem) {
             view.setBackgroundColor(Color.parseColor("#efefef"));
@@ -168,12 +164,12 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         @Bind(R.id.iv_avatar)
         ImageView ivAvatar;
         @Bind(R.id.tv_nickname)
-        TextView tvNickname;
+        UserNicknameTextView tvNickname;
         @Bind(R.id.tv_content)
         TextView tvContent;
         @Bind(R.id.tv_reply)
         TextView tvReply;
         @Bind(R.id.tv_reply_target)
-        TextView tvReplyTarget;
+        UserNicknameTextView tvReplyTarget;
     }
 }
