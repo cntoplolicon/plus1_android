@@ -88,7 +88,6 @@ public class MySelfFragment extends Fragment {
         if (user.getId() == User.current.getId()) {
             ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
             bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
-            BookmarkService.getInstance().setCallback(new BookmarkChangedCallback());
             bookmarksAdapter.registerDataSetObserver(new CustomDataSetObserver());
             bookmarksAdapter.registerCallback(new CustomPostGridViewCallback());
             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -141,6 +140,9 @@ public class MySelfFragment extends Fragment {
         }
         showCurrentUserInfo();
         gridView.invalidateViews();
+        if (bookmarksAdapter != null) {
+            bookmarksAdapter.loadBookmarks();
+        }
     }
 
     @Override
@@ -163,14 +165,6 @@ public class MySelfFragment extends Fragment {
         }
         if (user.getAvatar() != null) {
             ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
-        }
-    }
-
-    private class BookmarkChangedCallback implements BookmarkService.Callback {
-
-        @Override
-        public void onBookmarkChanged() {
-            bookmarksAdapter.loadBookmarks();
         }
     }
 
