@@ -3,7 +3,6 @@ package com.oneplusapp.adapter;
 import android.content.Context;
 
 import com.android.volley.VolleyError;
-import com.oneplusapp.common.BookmarkService;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
@@ -33,7 +32,6 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
                         Post[] posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
                         updateAll(posts);
                         notifyDataSetChanged();
-                        BookmarkService.getInstance().updateBookmarkCache(posts);
                     }
                 }).fail(new JsonErrorListener(getContext(), null))
                 .always(new AlwaysCallback<JSONArray, VolleyError>() {

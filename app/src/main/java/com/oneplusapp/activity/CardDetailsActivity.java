@@ -4,7 +4,6 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import com.oneplusapp.BuildConfig;
 import com.oneplusapp.R;
 import com.oneplusapp.adapter.CommentsAdapter;
 import com.oneplusapp.application.SnsApplication;
-import com.oneplusapp.common.BookmarkService;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.PushNotificationService;
@@ -36,7 +34,7 @@ import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
 
 import org.jdeferred.DoneCallback;
-import org.jdeferred.Promise;
+import org.jdeferred.FailCallback;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -68,11 +66,11 @@ public class CardDetailsActivity extends BaseActivity {
 
     private ListView lvListView;
 
-    private int postId = 0;
     private Post post;
     private CommentsAdapter commentsAdapter;
     private Comment replyTarget;
     private Comment notifiedComment;
+    private boolean postImageDisplayed = false;
 
     private PushNotificationService.Callback notificationCallback = new PushNotificationService.Callback() {
         @Override
@@ -81,7 +79,7 @@ public class CardDetailsActivity extends BaseActivity {
                 return;
             }
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            if (comment.getPostId() == postId) {
+            if (post != null && post.getId() == comment.getPostId()) {
                 addCommentToListView(comment);
             }
         }
@@ -95,6 +93,7 @@ public class CardDetailsActivity extends BaseActivity {
         ButterKnife.bind(this);
         etNewComment.requestFocus();
         String postJson = getIntent().getStringExtra("post_json");
+        int postId = 0;
         if (postJson != null) {
             post = CommonMethods.createDefaultGson().fromJson(postJson, Post.class);
             postId = post.getId();
@@ -103,15 +102,16 @@ public class CardDetailsActivity extends BaseActivity {
 
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
-            notifiedComment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            postId = notifiedComment.getPostId();
+            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+            postId = comment.getPostId();
+            // no need to focus on the notified comment when activity recreated
+            if (savedInstanceState == null) {
+                notifiedComment = comment;
+            }
             if (!BuildConfig.DEBUG) {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
             }
-        }
-        if (postId > 0) {
-            loadPost(postId);
         }
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,6 +126,14 @@ public class CardDetailsActivity extends BaseActivity {
                 }
             }
         });
+
+        commentsAdapter = new CommentsAdapter(this);
+        lvListView.setAdapter(commentsAdapter);
+        commentsAdapter.setOnViewClickedListener(new OnViewClickedListener());
+
+        if (postId > 0) {
+            loadPost(postId);
+        }
 
         PushNotificationService.getInstance().registerCallback(notificationCallback);
     }
@@ -156,6 +164,13 @@ public class CardDetailsActivity extends BaseActivity {
             public void onDone(JSONObject result) {
                 post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
                 updatePostInfo();
+
+                commentsAdapter.clear();
+                commentsAdapter.addAll(post.getComments());
+                commentsAdapter.sortComments();
+                commentsAdapter.notifyDataSetChanged();
+
+                focusComment(notifiedComment);
             }
         }).fail(new JsonErrorListener(getApplicationContext(), null));
     }
@@ -183,20 +198,46 @@ public class CardDetailsActivity extends BaseActivity {
                 genderIcon = 0;
                 break;
         }
+        tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
         if (post.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
         }
-        tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         String createdAtFormat = getResources().getString(R.string.post_created_at);
         int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
                 DateTime.now().toLocalDate()).getDays();
         tvTime.setText(String.format(createdAtFormat, daysAgo));
-        final String imageUrl = post.getPostPages()[0].getImage();
 
-        ImageLoader.getInstance().cancelDisplayTask(ivImage);
+        final String imageUrl = post.getPostPages()[0].getImage();
+        ivImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CardDetailsActivity.this, ShowImageActivity.class);
+                intent.putExtra("image_url", imageUrl);
+                startActivity(intent);
+            }
+        });
+        displayPostImage(imageUrl);
+
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
+                startActivity(intent);
+            }
+        });
+        int bookmarkResource = post.isBookmarked() ? R.drawable.icon_bookmark_checked : R.drawable.icon_bookmark;
+        ivBookmark.setImageResource(bookmarkResource);
+    }
+
+    private void displayPostImage(final String imageUrl) {
+        if (postImageDisplayed) {
+            return;
+        }
+
         if (imageUrl == null || imageUrl.isEmpty()) {
             ivImage.setVisibility(View.GONE);
             tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
@@ -207,73 +248,37 @@ public class CardDetailsActivity extends BaseActivity {
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
             ImageLoader.getInstance().displayImage(imageUrl, ivImage, options);
-            ivImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(CardDetailsActivity.this, ShowImageActivity.class);
-                    intent.putExtra("image_url", imageUrl);
-                    startActivity(intent);
-                }
-            });
         }
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
-                startActivity(intent);
-            }
-        });
-        syncBookmarkInfo();
-        loadComments();
-    }
-
-    private void loadComments() {
-        commentsAdapter = new CommentsAdapter(this, post);
-        commentsAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                tvComments.setText(String.valueOf(commentsAdapter.getCount()));
-            }
-        });
-        commentsAdapter.setOnViewClickedListener(new OnViewClickedListener());
-        lvListView.setAdapter(commentsAdapter);
-        focusComment(notifiedComment);
+        postImageDisplayed = true;
     }
 
     @OnClick(R.id.iv_bookmark)
     public void onBookmarkClicked(View view) {
         view.setEnabled(false);
-        if (!BookmarkService.getInstance().isBookmarked(post)) {
+        DoneCallback<JSONObject> onDone = new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject result) {
+                post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
+                updatePostInfo();
+                int toastResource = post.isBookmarked() ? R.string.bookmark_added : R.string.bookmark_removed;
+                Toast.makeText(CardDetailsActivity.this, toastResource, Toast.LENGTH_SHORT).show();
+            }
+        };
+        FailCallback<VolleyError> onFail = new JsonErrorListener(getApplicationContext(), null) {
+            @Override
+            public void onFail(VolleyError error) {
+                super.onFail(error);
+                updatePostInfo();
+            }
+        };
+        if (!post.isBookmarked()) {
             ivBookmark.setImageResource(R.drawable.icon_bookmark_checked);
-            RestClient.getInstance().createBookmark(post.getId())
-                    .fail(new JsonErrorListener(getApplicationContext(), null))
-                    .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
-                        @Override
-                        public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                            super.onAlways(state, resolved, rejected);
-                            if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_added, Toast.LENGTH_SHORT).show();
-                                BookmarkService.getInstance().addBookmark(post);
-                            }
-                            syncBookmarkInfo();
-                        }
-                    });
+            RestClient.getInstance().createBookmark(post.getId()).done(onDone).fail(onFail)
+                    .always(new ResetViewClickable<JSONObject, VolleyError>(view));
         } else {
             ivBookmark.setImageResource(R.drawable.icon_bookmark);
-            RestClient.getInstance().removeBookmark(post.getId())
-                    .fail(new JsonErrorListener(getApplicationContext(), null))
-                    .always(new ResetViewClickable<JSONObject, VolleyError>(view) {
-                        @Override
-                        public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                            super.onAlways(state, resolved, rejected);
-                            if (state == Promise.State.RESOLVED) {
-                                Toast.makeText(CardDetailsActivity.this, R.string.bookmark_removed, Toast.LENGTH_SHORT).show();
-                                BookmarkService.getInstance().removeBookmark(post);
-                            }
-                            syncBookmarkInfo();
-                        }
-                    });
+            RestClient.getInstance().removeBookmark(post.getId()).done(onDone).fail(onFail)
+                    .always(new ResetViewClickable<JSONObject, VolleyError>(view));
         }
     }
 
@@ -296,6 +301,9 @@ public class CardDetailsActivity extends BaseActivity {
 
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
                         addCommentToListView(newComment);
+
+                        post = newComment.getPost();
+                        updatePostInfo();
                     }
                 })
                 .fail(new JsonErrorListener(getApplicationContext(), null) {
@@ -320,14 +328,6 @@ public class CardDetailsActivity extends BaseActivity {
         commentsAdapter.sortComments();
         commentsAdapter.notifyDataSetChanged();
         focusComment(comment);
-    }
-
-    private void syncBookmarkInfo() {
-        if (BookmarkService.getInstance().isBookmarked(post)) {
-            ivBookmark.setImageResource(R.drawable.icon_bookmark_checked);
-        } else {
-            ivBookmark.setImageResource(R.drawable.icon_bookmark);
-        }
     }
 
     private class OnViewClickedListener implements CommentsAdapter.ViewClickedListener {

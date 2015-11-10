@@ -10,6 +10,7 @@ public class Post {
     private int spreadsCount;
     private int viewsCount;
     private int commentsCount;
+    private boolean bookmarked;
     private User user;
     private PostPage[] postPages;
     private Comment[] comments;
@@ -47,6 +48,14 @@ public class Post {
         this.commentsCount = commentsCount;
     }
 
+    public boolean isBookmarked() {
+        return bookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        this.bookmarked = bookmarked;
+    }
+
     public User getUser() {
         return user;
     }
@@ -73,5 +82,9 @@ public class Post {
 
     public DateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

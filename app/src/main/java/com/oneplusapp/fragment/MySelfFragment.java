@@ -22,7 +22,6 @@ import com.oneplusapp.adapter.PostsGridViewAdapter;
 import com.oneplusapp.adapter.UserBookmarksGridViewAdapter;
 import com.oneplusapp.adapter.UserPostsGridViewAdapter;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
-import com.oneplusapp.common.BookmarkService;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.HeaderGridView;
@@ -148,7 +147,6 @@ public class MySelfFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        BookmarkService.getInstance().setCallback(null);
     }
 
     private void showCurrentUserInfo() {

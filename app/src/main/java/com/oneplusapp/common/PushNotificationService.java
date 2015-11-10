@@ -14,6 +14,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.PushService;
 import com.avos.avoscloud.SaveCallback;
+import com.oneplusapp.BuildConfig;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;

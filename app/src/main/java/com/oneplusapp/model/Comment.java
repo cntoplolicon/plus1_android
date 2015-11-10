@@ -11,6 +11,7 @@ public class Comment {
     private int replyToId;
     private String content;
     private User user;
+    private Post post;
     private DateTime createdAt;
 
     public int getId() {
@@ -45,6 +46,14 @@ public class Comment {
         return content;
     }
 
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     public User getUser() {
         return user;
     }
@@ -55,5 +64,9 @@ public class Comment {
 
     public DateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
