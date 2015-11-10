@@ -21,17 +21,14 @@ public class UserNicknameTextView extends TextView {
     private boolean hideGenderIcon;
     private String userNickname;
     private int genderIcon;
-    private Context context;
 
     public UserNicknameTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
         init(context, attrs);
     }
 
     public UserNicknameTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
         init(context, attrs);
     }
 
@@ -49,9 +46,9 @@ public class UserNicknameTextView extends TextView {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, UserHomeActivity.class);
+                Intent intent = new Intent(getContext(), UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(user));
-                context.startActivity(intent);
+                getContext().startActivity(intent);
             }
         });
         userNickname = user.getNickname();
@@ -71,7 +68,7 @@ public class UserNicknameTextView extends TextView {
                 textColor = R.color.unknown_gender;
                 break;
         }
-        setTextColor(ContextCompat.getColor(context, textColor));
+        setTextColor(ContextCompat.getColor(getContext(), textColor));
         if (!hideGenderIcon) {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         }
