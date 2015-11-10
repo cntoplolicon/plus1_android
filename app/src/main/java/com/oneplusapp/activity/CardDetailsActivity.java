@@ -340,6 +340,7 @@ public class CardDetailsActivity extends BaseActivity {
                         lvListView.setSelection(i + 1);
                         commentsAdapter.setSelectItem(i);
                         commentsAdapter.notifyDataSetInvalidated();
+
                         return;
                     }
                 }

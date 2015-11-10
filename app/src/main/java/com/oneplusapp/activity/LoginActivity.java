@@ -27,6 +27,7 @@ import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONObject;
@@ -51,6 +52,8 @@ public class LoginActivity extends BaseActivity {
         mController = UMServiceFactory.getUMSocialService("com.umeng.login");
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104950070", "qBwAJcdsf58q3PNf");
         qqSsoHandler.addToSocialSDK();
+        UMWXHandler wxHandler = new UMWXHandler(this, "wx8722fc0d2579fb13", "d4624c36b6795d1d99dcf0547af5443d");
+        wxHandler.addToSocialSDK();
         Button loginSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);
         passwordInput = (EditText) findViewById(R.id.et_password);
@@ -102,6 +105,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_sina:
                 login(SHARE_MEDIA.SINA);
                 break;
+            case R.id.iv_weixin:
+                login(SHARE_MEDIA.WEIXIN);
         }
     }
 
