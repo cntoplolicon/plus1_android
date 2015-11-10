@@ -110,7 +110,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_weixin:
                 login(SHARE_MEDIA.WEIXIN);
                 break;
-
         }
     }
 

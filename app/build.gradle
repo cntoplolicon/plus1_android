@@ -66,5 +66,4 @@ dependencies {
     compile files('libs/SocialSDK_QQZone_1.jar')
     compile files('libs/SocialSDK_comment.jar')
     compile files('libs/SocialSDK_Sina.jar')
-
 }

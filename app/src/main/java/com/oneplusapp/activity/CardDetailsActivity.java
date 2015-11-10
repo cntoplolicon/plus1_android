@@ -346,3 +346,4 @@ public class CardDetailsActivity extends BaseActivity {
         return gradientDrawable;
     }
 }
+
