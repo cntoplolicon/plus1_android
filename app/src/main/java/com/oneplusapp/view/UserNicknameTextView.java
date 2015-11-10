@@ -1,12 +1,16 @@
 package com.oneplusapp.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 import com.oneplusapp.R;
+import com.oneplusapp.activity.UserHomeActivity;
+import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 
 /**
@@ -41,7 +45,15 @@ public class UserNicknameTextView extends TextView {
         }
     }
 
-    public void setUser(User user) {
+    public void setUser(final User user) {
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserHomeActivity.class);
+                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(user));
+                context.startActivity(intent);
+            }
+        });
         userNickname = user.getNickname();
         setText(userNickname);
         int textColor;

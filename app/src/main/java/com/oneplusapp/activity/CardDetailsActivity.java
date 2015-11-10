@@ -180,14 +180,6 @@ public class CardDetailsActivity extends BaseActivity {
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
         tvNickname.setUser(post.getUser());
-        tvNickname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
-                startActivity(intent);
-            }
-        });
         if (post.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
         }
