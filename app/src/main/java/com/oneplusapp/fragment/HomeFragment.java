@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         slidingView.setCallback(new LayoutCallbacks());
-        adapter = InfectionsAdapter.getInstance();
+        adapter = new InfectionsAdapter(getActivity());
         adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
         changeViewsByAdapterState(adapter.getState());
@@ -119,15 +119,15 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            TextView tvUser = (TextView) view.findViewById(R.id.tv_nickname);
-            tvUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
-                    startActivity(intent);
-                }
-            });
+//            TextView tvUser = (TextView) view.findViewById(R.id.tv_nickname);
+//            tvUser.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
+//                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
+//                    startActivity(intent);
+//                }
+//            });
 
             ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
             ivAvatar.setOnClickListener(new View.OnClickListener() {

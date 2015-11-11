@@ -37,7 +37,6 @@ public class SnsApplication extends Application {
         JodaTimeAndroid.init(getApplicationContext());
         RestClient.initialize(getApplicationContext());
         LocalUserInfo.initialize(getApplicationContext());
-        InfectionsAdapter.initialize(getApplicationContext());
         ActiveAndroid.initialize(getApplicationContext());
         initLeanCloud(getApplicationContext());
         // push notification must be initialized after lean count and before current user
