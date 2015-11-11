@@ -57,7 +57,7 @@ public class CustomUserAvatarView extends CircleImageView {
                     getContext().startActivity(intent);
                 }
             });
-        } else if (user.getId() != User.current.getId()) {
+        } else {
             setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

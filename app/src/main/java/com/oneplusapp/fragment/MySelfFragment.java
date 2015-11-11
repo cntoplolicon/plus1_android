@@ -17,13 +17,13 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.PersonalProfileActivity;
-import com.oneplusapp.activity.ShowImageActivity;
 import com.oneplusapp.adapter.PostsGridViewAdapter;
 import com.oneplusapp.adapter.UserBookmarksGridViewAdapter;
 import com.oneplusapp.adapter.UserPostsGridViewAdapter;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.CustomUserAvatarView;
 import com.oneplusapp.view.HeaderGridView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -46,7 +46,7 @@ public class MySelfFragment extends Fragment {
     @Bind(R.id.tv_nickname)
     UserNicknameTextView tvNickname;
     @Bind(R.id.iv_avatar)
-    ImageView ivAvatar;
+    CustomUserAvatarView ivAvatar;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
 
@@ -83,6 +83,7 @@ public class MySelfFragment extends Fragment {
         if (userJson != null) {
             user = CommonMethods.createDefaultGson().fromJson(userJson, User.class);
         }
+        ivAvatar.setUser(user);
         if (user.getId() == User.current.getId()) {
             ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
             bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
@@ -103,14 +104,6 @@ public class MySelfFragment extends Fragment {
             });
         } else {
             radioGroup.setVisibility(View.GONE);
-            ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ShowImageActivity.class);
-                    intent.putExtra("image_url", user.getAvatar());
-                    startActivity(intent);
-                }
-            });
         }
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);

@@ -7,15 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.oneplusapp.view.CustomUserAvatarView
             android:id="@+id/iv_avatar"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:src="@drawable/default_user_avatar"
-            app:border_color="@color/common_yellow"
-            app:border_width="@dimen/common_avatar_image_border" />
+            app:link_to_user_home="false"/>
 
         <LinearLayout
             android:id="@+id/ll_nick"

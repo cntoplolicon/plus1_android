@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -64,8 +63,8 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         viewHolder.tvNickname.setUser(tmpUser);
         viewHolder.ivAvatar.setUser(tmpUser);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        if (comment.getUser().getAvatar() != null) {
-            ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
+        if (tmpUser.getAvatar() != null) {
+            ImageLoader.getInstance().displayImage(tmpUser.getAvatar(), viewHolder.ivAvatar);
         } else {
             viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         }

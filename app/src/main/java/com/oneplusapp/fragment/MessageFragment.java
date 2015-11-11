@@ -12,11 +12,8 @@ import android.widget.TextView;
 
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
-import com.oneplusapp.activity.UserHomeActivity;
 import com.oneplusapp.adapter.MessageAdapter;
-import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.PushNotificationService;
-import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.User;
 
@@ -41,7 +38,6 @@ public class MessageFragment extends Fragment {
 
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
-        messageAdapter.setOnViewClickedListener(new OnViewClickedListener());
         ListView lvListView = (ListView) view.findViewById(R.id.lv_list_view);
         lvListView.setAdapter(messageAdapter);
         if (notifications.isEmpty()) {
@@ -71,18 +67,6 @@ public class MessageFragment extends Fragment {
         PushNotificationService.getInstance().unregisterCallback(callback);
     }
 
-    private class OnViewClickedListener implements MessageAdapter.ViewClickedListener {
-
-        @Override
-        public void onViewClicked(View view, int position) {
-            if (view.getId() == R.id.iv_avatar) {
-                Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-                Comment comment = CommonMethods.createDefaultGson().fromJson(messageAdapter.getItem(position).getContent(), Comment.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(comment.getUser()));
-                startActivity(intent);
-            }
-        }
-    }
 
     private class NotificationChangedCallback implements PushNotificationService.Callback {
         @Override
