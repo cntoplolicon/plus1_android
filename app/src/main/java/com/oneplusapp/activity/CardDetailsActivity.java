@@ -106,6 +106,8 @@ public class CardDetailsActivity extends BaseActivity {
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
             postId = comment.getPostId();
+            replyTarget = comment;
+            etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
             // no need to focus on the notified comment when activity recreated
             if (savedInstanceState == null) {
                 notifiedComment = comment;
