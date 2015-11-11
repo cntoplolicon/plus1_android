@@ -14,7 +14,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:src="@drawable/default_user_avatar"
-            app:link_to_user_home="false"/>
+            app:link_to_user_home="false"
+            app:border_color="@color/common_yellow"
+            app:border_width="@dimen/common_avatar_image_border"/>
 
         <LinearLayout
             android:id="@+id/ll_nick"
@@ -35,7 +37,9 @@
                 android:singleLine="true"
                 android:textSize="18sp"
                 android:drawablePadding="@dimen/home_text_location_image_spacing"
-                app:linked_to_user_home="false"/>
+                app:linked_to_user_home="false"
+                app:border_color="@color/common_yellow"
+                app:border_width="@dimen/common_avatar_image_border"/>
 
         </LinearLayout>
 
