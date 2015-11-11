@@ -373,19 +373,6 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONArray, VolleyError, Void> getPostComments(int postId) {
-        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
-        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
-
-        Map<String, Object> params = createUserParams();
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
-                encodeUrlParams("/posts/" + postId + "/comments", params), listener, listener);
-        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
-        requestQueue.add(request);
-
-        return deferredObject.promise();
-    }
-
     public Promise<JSONObject, VolleyError, Void> newComment(String content, int replyToId, int postId) {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
