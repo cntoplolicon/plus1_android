@@ -3,7 +3,6 @@ package com.oneplusapp.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -20,8 +19,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by silentgod on 15-11-11.
  */
 public class UserAvatarImageView extends CircleImageView {
-
-    private final static int BORDER_WIDTH = 1;
 
     private boolean linkToUserHome;
 
@@ -44,8 +41,6 @@ public class UserAvatarImageView extends CircleImageView {
             a.recycle();
         }
 
-        setBorderColor(ContextCompat.getColor(getContext(), R.color.common_yellow));
-        setBorderWidth(BORDER_WIDTH * 2);
     }
 
     public void setUser(final User user) {
