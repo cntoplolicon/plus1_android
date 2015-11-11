@@ -17,13 +17,14 @@ import com.oneplusapp.common.LRUCacheMap;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.Post;
+import com.oneplusapp.model.User;
+import com.oneplusapp.view.CustomUserAvatarView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class InfectionsAdapter {
     public static final int STATE_LOADING = 1;
     public static final int STATE_NORMAL = 2;
 
-    private static final int[] INFECTION_THRESHOLDS = new int[] {20, 5};
+    private static final int[] INFECTION_THRESHOLDS = new int[]{20, 5};
 
     private static final int ID_CACHE_CAPACITY = 256;
 
@@ -95,7 +96,9 @@ public class InfectionsAdapter {
         ButterKnife.bind(itemViews, view);
 
         Post post = infection.getPost();
-        itemViews.tvNickname.setUser(post.getUser());
+        User tmpUser = post.getUser();
+        itemViews.tvNickname.setUser(tmpUser);
+        itemViews.ivAvatar.setUser(tmpUser);
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivAvatar);
@@ -214,6 +217,6 @@ public class InfectionsAdapter {
         ImageView ivImage;
 
         @Bind(R.id.iv_avatar)
-        ImageView ivAvatar;
+        CustomUserAvatarView ivAvatar;
     }
 }
