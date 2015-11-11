@@ -10,7 +10,7 @@
         <attr name="hide_gender_icon" format="boolean" />
         <attr name="linked_to_user_home" format="boolean" />
     </declare-styleable>
-    <declare-styleable name="CustomUserAvatarView">
+    <declare-styleable name="UserAvatarImageView">
         <attr name="link_to_user_home" format="boolean" />
     </declare-styleable>
 </resources>

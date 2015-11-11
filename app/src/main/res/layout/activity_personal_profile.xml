@@ -37,7 +37,7 @@
         android:layout_marginTop="19dp"
         android:src="@drawable/arrow_right_open" />
 
-    <com.oneplusapp.view.CustomUserAvatarView
+    <com.oneplusapp.view.UserAvatarImageView
         android:id="@+id/iv_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"

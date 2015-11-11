@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/common_white_bg">
 
-    <com.oneplusapp.view.CustomUserAvatarView
+    <com.oneplusapp.view.UserAvatarImageView
         android:id="@+id/iv_avatar"
         android:layout_width="38dp"
         android:layout_height="38dp"
