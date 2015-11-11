@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -118,16 +117,6 @@ public class HomeFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-
-//            TextView tvUser = (TextView) view.findViewById(R.id.tv_nickname);
-//            tvUser.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-//                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
-//                    startActivity(intent);
-//                }
-//            });
 
             ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
             ivAvatar.setOnClickListener(new View.OnClickListener() {

@@ -17,7 +17,6 @@ import com.oneplusapp.common.LRUCacheMap;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.Post;
-import com.oneplusapp.model.User;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;

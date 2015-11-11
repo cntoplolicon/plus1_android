@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.oneplusapp.BuildConfig;
-import com.oneplusapp.adapter.InfectionsAdapter;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;

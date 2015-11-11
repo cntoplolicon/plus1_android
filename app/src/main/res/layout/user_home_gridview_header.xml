@@ -35,7 +35,8 @@
                 android:maxWidth="300dp"
                 android:singleLine="true"
                 android:textSize="18sp"
-                android:drawablePadding="@dimen/home_text_location_image_spacing"/>
+                android:drawablePadding="@dimen/home_text_location_image_spacing"
+                app:linked_to_user_home="false"/>
 
         </LinearLayout>
 

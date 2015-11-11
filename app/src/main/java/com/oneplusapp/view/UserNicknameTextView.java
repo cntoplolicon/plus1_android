@@ -21,6 +21,7 @@ public class UserNicknameTextView extends TextView {
     private boolean hideGenderIcon;
     private String userNickname;
     private int genderIcon;
+    private boolean linkedToUserHome;
 
     public UserNicknameTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,20 +38,23 @@ public class UserNicknameTextView extends TextView {
 
         try {
             hideGenderIcon = a.getBoolean(R.styleable.CustomNicknameLayout_hide_gender_icon, false);
+            linkedToUserHome = a.getBoolean(R.styleable.CustomNicknameLayout_linked_to_user_home, true);
         } finally {
             a.recycle();
         }
     }
 
     public void setUser(final User user) {
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(user));
-                getContext().startActivity(intent);
-            }
-        });
+        if (linkedToUserHome) {
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), UserHomeActivity.class);
+                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(user));
+                    getContext().startActivity(intent);
+                }
+            });
+        }
         userNickname = user.getNickname();
         setText(userNickname);
         int textColor;
@@ -72,6 +76,14 @@ public class UserNicknameTextView extends TextView {
         if (!hideGenderIcon) {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
         }
+    }
+
+    public void setLinkedToUserHome(boolean linkedToUserHome) {
+        this.linkedToUserHome = linkedToUserHome;
+    }
+
+    public boolean isLinkedToUserHome() {
+        return linkedToUserHome;
     }
 
     public void setHideGenderIcon(boolean hideGenderIcon) {

@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.LoginActivity;
-import com.oneplusapp.adapter.InfectionsAdapter;
 import com.oneplusapp.model.User;
 
 import org.joda.time.DateTime;
