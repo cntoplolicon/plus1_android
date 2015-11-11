@@ -278,7 +278,6 @@ public class CardDetailsActivity extends BaseActivity {
                     public void onDone(JSONObject result) {
                         Toast.makeText(getApplicationContext(), R.string.comment_success, Toast.LENGTH_LONG).show();
                         resetReply();
-
                         Comment newComment = CommonMethods.createDefaultGson().fromJson(result.toString(), Comment.class);
                         addCommentToListView(newComment);
 

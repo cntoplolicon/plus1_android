@@ -45,7 +45,7 @@
         android:src="@drawable/arrow_right_open" />
 
     <TextView
-        android:id="@+id/tv_feedbacks"
+        android:id="@+id/tv_about"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/tv_clear_cache"
@@ -53,18 +53,19 @@
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_margin_left_right"
-        android:text="意见反馈"
+        android:text="@string/apk_about"
         android:textColor="@color/setting_text_color"
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
-        android:id="@+id/iv_forward_idea"
+        android:id="@+id/iv_about"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_feedbacks"
+        android:layout_alignTop="@+id/tv_about"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
+
 
     <TextView
         android:id="@+id/tv_notification_switch"
@@ -110,14 +111,14 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:gravity="center_vertical"
         android:text="12M"
-        android:textSize="14sp"
-        android:textColor="@color/setting_text_color" />
+        android:textColor="@color/setting_text_color"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/tv_feedbacks"
+        android:layout_below="@+id/tv_about"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="60dp"
@@ -125,16 +126,5 @@
         android:text="@string/log_out"
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
-
-    <TextView
-        android:id="@+id/tv_version_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/setting_text_color"
-        android:textSize="14sp"
-        android:text=""/>
 
 </RelativeLayout>
