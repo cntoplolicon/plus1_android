@@ -5,16 +5,14 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.oneplusapp.view.CustomUserAvatarView
         android:id="@+id/iv_avatar"
         android:layout_width="@dimen/home_round_image_length"
         android:layout_height="@dimen/home_round_image_length"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/default_user_avatar"
-        app:border_color="@color/common_yellow"
-        app:border_width="@dimen/common_avatar_image_border" />
+        android:src="@drawable/default_user_avatar" />
 
     <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"
