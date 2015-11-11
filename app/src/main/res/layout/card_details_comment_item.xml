@@ -17,7 +17,7 @@
         app:border_color="@color/common_yellow"
         app:border_width="@dimen/common_avatar_image_border" />
 
-    <TextView
+    <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,9 +27,8 @@
         android:ellipsize="end"
         android:maxWidth="100dp"
         android:singleLine="true"
-        android:text="阳光少年"
-        android:textColor="@color/personal_common_male_username"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:hide_gender_icon="true"/>
 
     <TextView
         android:id="@+id/tv_reply"
@@ -43,7 +42,7 @@
         android:textColor="#999999"
         android:textSize="15sp" />
 
-    <TextView
+    <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_reply_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,9 +53,8 @@
         android:ellipsize="end"
         android:maxWidth="100dp"
         android:singleLine="true"
-        android:text="cntoplolicon"
-        android:textColor="@color/personal_common_male_username"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        app:hide_gender_icon="true"/>
 
     <TextView
         android:id="@+id/tv_content"
@@ -67,7 +65,6 @@
         android:layout_below="@+id/tv_nickname"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:text="阳光少年"
         android:textColor="#999999"
         android:textSize="13sp" />
 </RelativeLayout>

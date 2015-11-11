@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.LoginActivity;
-import com.oneplusapp.adapter.InfectionsAdapter;
 import com.oneplusapp.model.User;
 
 import org.joda.time.DateTime;
@@ -102,7 +101,6 @@ public final class CommonMethods {
         User.clearCurrentUser();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-        InfectionsAdapter.getInstance().reset();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

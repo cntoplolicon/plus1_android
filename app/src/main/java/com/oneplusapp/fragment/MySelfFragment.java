@@ -25,6 +25,7 @@ import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.HeaderGridView;
+import com.oneplusapp.view.UserNicknameTextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,9 +44,7 @@ public class MySelfFragment extends Fragment {
     @Bind(R.id.tv_biography)
     TextView tvBiography;
     @Bind(R.id.tv_nickname)
-    TextView tvNickname;
-    @Bind(R.id.iv_gender)
-    ImageView ivGender;
+    UserNicknameTextView tvNickname;
     @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
     @Bind(R.id.rg_group)
@@ -150,17 +149,8 @@ public class MySelfFragment extends Fragment {
     }
 
     private void showCurrentUserInfo() {
-        tvNickname.setText(user.getNickname());
-        CommonMethods.chooseNicknameColorViaGender(tvNickname, user, getActivity().getBaseContext());
+        tvNickname.setUser(user);
         tvBiography.setText(user.getBiography());
-        if (user.getGender() == User.GENDER_UNKNOWN) {
-            ivGender.setVisibility(View.INVISIBLE);
-        } else {
-            ivGender.setVisibility(View.VISIBLE);
-            int resource = user.getGender() == User.GENDER_FEMALE ?
-                    R.drawable.icon_woman : R.drawable.icon_man;
-            ivGender.setImageResource(resource);
-        }
         if (user.getAvatar() != null) {
             ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
         }

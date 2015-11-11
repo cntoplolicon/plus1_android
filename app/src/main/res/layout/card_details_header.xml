@@ -16,7 +16,7 @@
         app:border_color="@color/common_yellow"
         app:border_width="@dimen/common_avatar_image_border" />
 
-    <TextView
+    <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,12 +24,9 @@
         android:layout_marginTop="@dimen/home_nickname_margin_top"
         android:layout_toRightOf="@+id/iv_avatar"
         android:drawablePadding="@dimen/home_text_location_image_spacing"
-        android:drawableRight="@drawable/icon_woman"
         android:ellipsize="middle"
         android:maxWidth="200dp"
         android:singleLine="true"
-        android:text="用户昵称"
-        android:textColor="@color/personal_common_female_username"
         android:textSize="@dimen/home_nickname_text_size" />
 
     <TextView

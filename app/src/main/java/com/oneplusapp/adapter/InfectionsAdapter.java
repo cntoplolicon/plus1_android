@@ -17,7 +17,7 @@ import com.oneplusapp.common.LRUCacheMap;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.Post;
-import com.oneplusapp.model.User;
+import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
@@ -50,7 +50,6 @@ public class InfectionsAdapter {
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
 
-    private static InfectionsAdapter instance;
     private Context context;
 
     private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
@@ -59,16 +58,7 @@ public class InfectionsAdapter {
     private boolean loading = false;
     private Callback callback;
 
-
-    public static InfectionsAdapter getInstance() {
-        return instance;
-    }
-
-    public static void initialize(Context context) {
-        instance = new InfectionsAdapter(context);
-    }
-
-    private InfectionsAdapter(Context context) {
+    public InfectionsAdapter(Context context) {
         this.context = context;
         loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
     }
@@ -105,13 +95,7 @@ public class InfectionsAdapter {
         ButterKnife.bind(itemViews, view);
 
         Post post = infection.getPost();
-        itemViews.tvUser.setText(post.getUser().getNickname());
-        CommonMethods.chooseNicknameColorViaGender(itemViews.tvUser, post.getUser(), context);
-        int genderIcon = 0;
-        if (post.getUser().getGender() != User.GENDER_UNKNOWN) {
-            genderIcon = post.getUser().getGender() == User.GENDER_FEMALE ? R.drawable.icon_woman : R.drawable.icon_man;
-        }
-        itemViews.tvUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
+        itemViews.tvNickname.setUser(post.getUser());
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivAvatar);
@@ -209,7 +193,7 @@ public class InfectionsAdapter {
 
     static class HomePageItemViews {
         @Bind(R.id.tv_nickname)
-        TextView tvUser;
+        UserNicknameTextView tvNickname;
 
         @Bind(R.id.tv_content)
         TextView tvContent;

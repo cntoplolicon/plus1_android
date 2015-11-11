@@ -6,4 +6,8 @@
     <declare-styleable name="AutoHeightScrollView">
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="CustomNicknameLayout">
+        <attr name="hide_gender_icon" format="boolean" />
+        <attr name="linked_to_user_home" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -73,7 +72,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         slidingView.setCallback(new LayoutCallbacks());
-        adapter = InfectionsAdapter.getInstance();
+        adapter = new InfectionsAdapter(getActivity());
         adapter.setCallback(new AdapterCallbacks());
         slidingView.setAdapter(adapter);
         changeViewsByAdapterState(adapter.getState());
@@ -115,16 +114,6 @@ public class HomeFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
                     intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
-                    startActivity(intent);
-                }
-            });
-
-            TextView tvUser = (TextView) view.findViewById(R.id.tv_nickname);
-            tvUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
                     startActivity(intent);
                 }
             });

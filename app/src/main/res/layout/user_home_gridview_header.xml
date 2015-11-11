@@ -27,23 +27,17 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <com.oneplusapp.view.UserNicknameTextView
                 android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxWidth="300dp"
                 android:singleLine="true"
-                android:text="用户昵称"
-                android:textColor="@color/personal_common_female_username"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:drawablePadding="@dimen/home_text_location_image_spacing"
+                app:linked_to_user_home="false"/>
 
-            <ImageView
-                android:id="@+id/iv_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/icon_woman" />
         </LinearLayout>
 
 

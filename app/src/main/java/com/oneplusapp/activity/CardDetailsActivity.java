@@ -32,6 +32,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
@@ -45,8 +46,6 @@ import butterknife.OnClick;
 
 public class CardDetailsActivity extends BaseActivity {
 
-    @Bind(R.id.tv_nickname)
-    TextView tvNickname;
     @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
     @Bind(R.id.iv_image)
@@ -63,6 +62,8 @@ public class CardDetailsActivity extends BaseActivity {
     ImageView ivBookmark;
     @Bind(R.id.et_new_comment)
     EditText etNewComment;
+    @Bind(R.id.tv_nickname)
+    UserNicknameTextView tvNickname;
 
     private ListView lvListView;
 
@@ -91,6 +92,7 @@ public class CardDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_card_details);
         initListView();
         ButterKnife.bind(this);
+
         etNewComment.requestFocus();
         String postJson = getIntent().getStringExtra("post_json");
         int postId = 0;
@@ -177,29 +179,7 @@ public class CardDetailsActivity extends BaseActivity {
 
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
-        tvNickname.setText(post.getUser().getNickname());
-        tvNickname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
-                startActivity(intent);
-            }
-        });
-        int genderIcon;
-        switch (post.getUser().getGender()) {
-            case User.GENDER_FEMALE:
-                genderIcon = R.drawable.icon_woman;
-                break;
-            case User.GENDER_MALE:
-                genderIcon = R.drawable.icon_man;
-                break;
-            default:
-                genderIcon = 0;
-                break;
-        }
-        tvNickname.setCompoundDrawablesWithIntrinsicBounds(0, 0, genderIcon, 0);
-        CommonMethods.chooseNicknameColorViaGender(tvNickname, post.getUser(), getBaseContext());
+        tvNickname.setUser(post.getUser());
         if (post.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
         }
@@ -334,15 +314,9 @@ public class CardDetailsActivity extends BaseActivity {
 
         @Override
         public void onViewClick(View view, int position) {
-            if (view.getId() == R.id.tv_nickname || view.getId() == R.id.iv_avatar) {
+            if (view.getId() == R.id.iv_avatar) {
                 Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
                 intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getItem(position).getUser()));
-                hideInput(view);
-                startActivity(intent);
-            } else if (view.getId() == R.id.tv_reply_target) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                int replyTargetId = commentsAdapter.getItem(position).getReplyToId();
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getCommentById(replyTargetId).getUser()));
                 hideInput(view);
                 startActivity(intent);
             }
