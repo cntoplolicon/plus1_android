@@ -40,7 +40,8 @@ public class InfectionsAdapter {
     public static final int STATE_CLEARED = 0;
     public static final int STATE_LOADING = 1;
     public static final int STATE_NORMAL = 2;
-    private static final Set<Integer> INFECTION_THRESHOLDS = new HashSet<>(20, 5);
+
+    private static final int[] INFECTION_THRESHOLDS = new int[] {20, 5};
 
     private static final int ID_CACHE_CAPACITY = 256;
 
@@ -51,7 +52,6 @@ public class InfectionsAdapter {
                     .build();
 
     private Context context;
-
     private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
     private Set<Integer> loadedInfectionIds;
     private int state = STATE_CLEARED;
@@ -174,8 +174,11 @@ public class InfectionsAdapter {
     }
 
     public void checkRemainingInfectionsAndUpdate() {
-        if (INFECTION_THRESHOLDS.contains(id2infections.size())) {
-            loadInfections();
+        for (int threshold : INFECTION_THRESHOLDS) {
+            if (threshold == id2infections.size()) {
+                loadInfections();
+                break;
+            }
         }
     }
 
