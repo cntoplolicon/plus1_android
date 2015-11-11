@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.model.Comment;
+import com.oneplusapp.model.User;
+import com.oneplusapp.view.CustomUserAvatarView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ import butterknife.ButterKnife;
 public class CommentsAdapter extends ArrayAdapter<Comment> {
     private int selectItem = -1;
     private LayoutInflater mInflater;
-    private ViewClickedListener viewClickedListener;
 
     public CommentsAdapter(Context context) {
         super(context, 0);
@@ -59,21 +60,15 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
-        viewHolder.tvNickname.setUser(comment.getUser());
+        User tmpUser = comment.getUser();
+        viewHolder.tvNickname.setUser(tmpUser);
+        viewHolder.ivAvatar.setUser(tmpUser);
         ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
         if (comment.getUser().getAvatar() != null) {
             ImageLoader.getInstance().displayImage(comment.getUser().getAvatar(), viewHolder.ivAvatar);
         } else {
             viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
         }
-        View.OnClickListener customViewClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (viewClickedListener != null) {
-                    viewClickedListener.onViewClick(view, position);
-                }
-            }
-        };
         if (comment.getReplyToId() == 0) {
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReply.setVisibility(view.GONE);
@@ -85,7 +80,6 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setUser(repliedComment.getUser());
         }
-        viewHolder.ivAvatar.setOnClickListener(customViewClickListener);
         view.setTag(comment);
         if (position == selectItem) {
             view.setBackgroundColor(Color.parseColor("#efefef"));
@@ -152,17 +146,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         }
     }
 
-    public void setOnViewClickedListener(ViewClickedListener listener) {
-        this.viewClickedListener = listener;
-    }
-
-    public interface ViewClickedListener {
-        void onViewClick(View view, int position);
-    }
-
     static class ViewHolder {
         @Bind(R.id.iv_avatar)
-        ImageView ivAvatar;
+        CustomUserAvatarView ivAvatar;
         @Bind(R.id.tv_nickname)
         UserNicknameTextView tvNickname;
         @Bind(R.id.tv_content)
