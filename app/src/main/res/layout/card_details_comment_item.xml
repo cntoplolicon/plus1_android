@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/common_white_bg">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.oneplusapp.view.UserAvatarImageView
         android:id="@+id/iv_avatar"
         android:layout_width="38dp"
         android:layout_height="38dp"
@@ -15,7 +15,7 @@
         android:padding="5dp"
         android:src="@drawable/default_user_avatar"
         app:border_color="@color/common_yellow"
-        app:border_width="@dimen/common_avatar_image_border" />
+        app:border_width="@dimen/common_avatar_image_border"/>
 
     <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"

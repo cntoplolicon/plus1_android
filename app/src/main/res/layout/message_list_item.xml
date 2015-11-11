@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/common_white_bg">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.oneplusapp.view.UserAvatarImageView
         android:id="@+id/iv_avatar"
         android:layout_width="38dp"
         android:layout_height="38dp"
@@ -16,9 +16,9 @@
         android:layout_marginTop="7dp"
         android:src="@drawable/default_user_avatar"
         app:border_color="@color/common_yellow"
-        app:border_width="@dimen/common_avatar_image_border" />
+        app:border_width="@dimen/common_avatar_image_border"/>
 
-    <TextView
+    <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,9 @@
         android:ellipsize="end"
         android:maxWidth="100dp"
         android:singleLine="true"
-        android:textSize="@dimen/message_text_size" />
+        android:textSize="@dimen/message_text_size"
+        app:linked_to_user_home="false"
+        app:hide_gender_icon="true"/>
 
     <TextView
         android:id="@+id/tv_message"

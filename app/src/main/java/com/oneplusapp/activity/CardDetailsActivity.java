@@ -32,6 +32,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
@@ -47,7 +48,7 @@ import butterknife.OnClick;
 public class CardDetailsActivity extends BaseActivity {
 
     @Bind(R.id.iv_avatar)
-    ImageView ivAvatar;
+    UserAvatarImageView ivAvatar;
     @Bind(R.id.iv_image)
     ImageView ivImage;
     @Bind(R.id.tv_content)
@@ -132,7 +133,6 @@ public class CardDetailsActivity extends BaseActivity {
 
         commentsAdapter = new CommentsAdapter(this);
         lvListView.setAdapter(commentsAdapter);
-        commentsAdapter.setOnViewClickedListener(new OnViewClickedListener());
 
         if (postId > 0) {
             loadPost(postId);
@@ -180,10 +180,9 @@ public class CardDetailsActivity extends BaseActivity {
 
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
-        tvNickname.setUser(post.getUser());
-        if (post.getUser().getAvatar() != null) {
-            ImageLoader.getInstance().displayImage(post.getUser().getAvatar(), ivAvatar);
-        }
+        User user = post.getUser();
+        tvNickname.setUser(user);
+        ivAvatar.setUser(user);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         String createdAtFormat = getResources().getString(R.string.post_created_at);
@@ -202,14 +201,6 @@ public class CardDetailsActivity extends BaseActivity {
         });
         displayPostImage(imageUrl);
 
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(post.getUser()));
-                startActivity(intent);
-            }
-        });
         int bookmarkResource = post.isBookmarked() ? R.drawable.icon_bookmark_checked : R.drawable.icon_bookmark;
         ivBookmark.setImageResource(bookmarkResource);
     }
@@ -316,19 +307,6 @@ public class CardDetailsActivity extends BaseActivity {
         commentsAdapter.sortComments();
         commentsAdapter.notifyDataSetChanged();
         focusComment(comment);
-    }
-
-    private class OnViewClickedListener implements CommentsAdapter.ViewClickedListener {
-
-        @Override
-        public void onViewClick(View view, int position) {
-            if (view.getId() == R.id.iv_avatar) {
-                Intent intent = new Intent(CardDetailsActivity.this, UserHomeActivity.class);
-                intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(commentsAdapter.getItem(position).getUser()));
-                hideInput(view);
-                startActivity(intent);
-            }
-        }
     }
 
     private void hideInput(View view) {

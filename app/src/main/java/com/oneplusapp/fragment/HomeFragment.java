@@ -16,7 +16,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;
-import com.oneplusapp.activity.UserHomeActivity;
 import com.oneplusapp.adapter.InfectionsAdapter;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
@@ -114,16 +113,6 @@ public class HomeFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
                     intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
-                    startActivity(intent);
-                }
-            });
-
-            ImageView ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
-            ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), UserHomeActivity.class);
-                    intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(infection.getPost().getUser()));
                     startActivity(intent);
                 }
             });

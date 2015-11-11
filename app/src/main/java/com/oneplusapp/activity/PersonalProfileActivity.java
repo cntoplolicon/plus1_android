@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -57,7 +57,7 @@ public class PersonalProfileActivity extends BaseActivity {
     @Bind(R.id.tv_profile_nickname)
     TextView tvNickname;
     @Bind(R.id.iv_avatar)
-    ImageView ivAvatar;
+    UserAvatarImageView ivAvatar;
     @Bind(R.id.re_password)
     TextView rePassword;
     @Bind(R.id.re_sign)
@@ -73,6 +73,7 @@ public class PersonalProfileActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         showCurrentUserAvatar();
+        ivAvatar.setUser(User.current);
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
         rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
         reSign.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
