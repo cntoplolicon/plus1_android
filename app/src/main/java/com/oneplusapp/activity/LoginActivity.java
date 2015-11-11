@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,7 @@ public class LoginActivity extends BaseActivity {
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104950070", "qBwAJcdsf58q3PNf");
         qqSsoHandler.addToSocialSDK();
         UMWXHandler wxHandler = new UMWXHandler(this, "wx8722fc0d2579fb13", "d4624c36b6795d1d99dcf0547af5443d");
+        wxHandler.setRefreshTokenAvailable(false);
         wxHandler.addToSocialSDK();
         Button loginSubmit = (Button) findViewById(R.id.btn_submit);
         usernameInput = (EditText) findViewById(R.id.et_username);
@@ -107,6 +109,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.iv_weixin:
                 login(SHARE_MEDIA.WEIXIN);
+                break;
         }
     }
 
@@ -146,9 +149,17 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
-                //获取相关授权信息
+            public void onComplete(final Bundle value, SHARE_MEDIA platform) {
+                StringBuilder sb = new StringBuilder();
+                Set<String> keySet = value.keySet();
+                for (String key : keySet) {
+                    sb.append(key + "=" + value.get(key).toString() + "\r\n");
+                }
+                Log.d("QQData", sb.toString());
+                if (value != null && !TextUtils.isEmpty(value.getString("uid"))) {
+                    String openid = value.getString("uid");
+                    Log.d("QQuid", openid);
+                }
                 mController.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
                     @Override
                     public void onStart() {
@@ -164,8 +175,9 @@ public class LoginActivity extends BaseActivity {
                                 sb.append(key + "=" + info.get(key).toString() + "\r\n");
                             }
                             Toast.makeText(LoginActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+                            Log.d("ResultData", sb.toString());
                         } else {
-                            Log.d("TestData", "发生错误：" + status);
+                            Log.d("ResultData", "发生错误：" + status);
                         }
                     }
                 });

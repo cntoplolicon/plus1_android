@@ -125,27 +125,27 @@
         android:id="@+id/tv_else"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_submit"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/login_text_else_margin_top"
+        android:layout_above="@+id/iv_qq"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
         android:text="第三方登录" />
 
     <ImageView
         android:id="@+id/iv_qq"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@id/tv_else"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
+        android:layout_marginBottom="35dp"
         android:src="@drawable/qq" />
 
     <ImageView
         android:id="@+id/iv_sina"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@id/tv_else"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
         android:layout_marginLeft="22dp"
-        android:layout_marginTop="17dp"
         android:layout_toRightOf="@id/iv_qq"
         android:src="@drawable/sina" />
 
@@ -153,9 +153,9 @@
         android:id="@+id/iv_weixin"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
         android:layout_marginRight="22dp"
-        android:layout_below="@id/tv_else"
-        android:layout_marginTop="17dp"
         android:layout_toLeftOf="@id/iv_qq"
         android:src="@drawable/wexin" />
 
