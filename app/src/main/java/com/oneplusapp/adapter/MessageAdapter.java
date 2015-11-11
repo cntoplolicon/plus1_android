@@ -14,6 +14,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.UserAvatarImageView;
+import com.oneplusapp.view.UserNicknameTextView;
 
 import java.util.List;
 
@@ -46,8 +47,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
         User user = comment.getUser();
         viewHolder.ivAvatar.setUser(user);
-        viewHolder.tvNickname.setText(user.getNickname());
-        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, user, getContext());
+        viewHolder.tvNickname.setUser(user);
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
         return view;
     }
@@ -56,7 +56,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         @Bind(R.id.iv_avatar)
         UserAvatarImageView ivAvatar;
         @Bind(R.id.tv_nickname)
-        TextView tvNickname;
+        UserNicknameTextView tvNickname;
         @Bind(R.id.tv_message)
         TextView tvMessage;
     }
