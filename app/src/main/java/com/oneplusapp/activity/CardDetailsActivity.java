@@ -107,8 +107,7 @@ public class CardDetailsActivity extends BaseActivity {
         if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
             postId = comment.getPostId();
-            replyTarget = comment;
-            etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
+            setReplyTarget(comment);
             // no need to focus on the notified comment when activity recreated
             if (savedInstanceState == null) {
                 notifiedComment = comment;
@@ -121,11 +120,11 @@ public class CardDetailsActivity extends BaseActivity {
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                replyTarget = (Comment) view.getTag();
-                if (replyTarget.getUser().getId() != User.current.getId()) {
+                Comment commentClicked = (Comment) view.getTag();
+                if (commentClicked.getUser().getId() != User.current.getId()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                    etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
+                    setReplyTarget(commentClicked);
                 } else {
                     resetReply();
                 }
@@ -296,6 +295,13 @@ public class CardDetailsActivity extends BaseActivity {
         replyTarget = null;
         etNewComment.setText("");
         etNewComment.setHint(R.string.publish_comment);
+    }
+
+    private void setReplyTarget(Comment comment) {
+        replyTarget = comment;
+        etNewComment.setText("");
+        etNewComment.setHint(String.format(getResources().getString(R.string.reply_to_comment_format), replyTarget.getUser().getNickname()));
+
     }
 
     private void addCommentToListView(Comment comment) {
