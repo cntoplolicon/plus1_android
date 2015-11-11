@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.oneplusapp"
+<manifest package="com.oneplusapp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="1"
     android:versionName="0.0.1">
 
@@ -149,6 +149,9 @@
             android:name=".activity.ShowImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ProductInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

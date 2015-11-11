@@ -17,9 +17,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.oneplusapp.R;
 
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -53,16 +55,13 @@ public class UpdateChecker {
             @Override
             public void onDone(JSONObject result) {
                 AppRelease appRelease = CommonMethods.createDefaultGson().fromJson(result.toString(), AppRelease.class);
-                if (getCurrentVersionCode(context) >= appRelease.versionCode) {
-                    return;
-                }
                 showUpdateNotification(context, appRelease);
                 updateNotified = true;
             }
         }).fail(new JsonErrorListener(context, null));
     }
 
-    private int getCurrentVersionCode(Context context) {
+    public int getCurrentVersionCode(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionCode;
@@ -71,7 +70,19 @@ public class UpdateChecker {
         }
     }
 
-    private void showUpdateNotification(final Context context, final AppRelease appRelease) {
+    public String getCurrentVersionName(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new IllegalStateException("version name must be specified in manifest", e);
+        }
+    }
+
+    public void showUpdateNotification(final Context context, final AppRelease appRelease) {
+        if (getCurrentVersionCode(context) >= appRelease.versionCode) {
+            return;
+        }
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
@@ -173,5 +184,25 @@ public class UpdateChecker {
                 }
             }
         }
+    }
+
+    public Promise<AppRelease, VolleyError, Void> getAppRelease(final Context context) {
+        final ThrowableDeferredObject<AppRelease, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+
+        RestClient.getInstance().getAppRelease().done(new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject result) {
+                AppRelease appRelease = CommonMethods.createDefaultGson().fromJson(result.toString(), AppRelease.class);
+                deferredObject.resolve(appRelease);
+            }
+        }).fail(new JsonErrorListener(context, null) {
+            @Override
+            public void onFail(VolleyError error) {
+                super.onFail(error);
+                deferredObject.reject(error);
+            }
+        });
+
+        return deferredObject.promise();
     }
 }
