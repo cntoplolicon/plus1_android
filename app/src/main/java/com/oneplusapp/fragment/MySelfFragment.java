@@ -23,7 +23,7 @@ import com.oneplusapp.adapter.UserPostsGridViewAdapter;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.HeaderGridView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -46,7 +46,7 @@ public class MySelfFragment extends Fragment {
     @Bind(R.id.tv_nickname)
     UserNicknameTextView tvNickname;
     @Bind(R.id.iv_avatar)
-    CustomUserAvatarView ivAvatar;
+    UserAvatarImageView ivAvatar;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
 
@@ -144,9 +144,6 @@ public class MySelfFragment extends Fragment {
     private void showCurrentUserInfo() {
         tvNickname.setUser(user);
         tvBiography.setText(user.getBiography());
-        if (user.getAvatar() != null) {
-            ImageLoader.getInstance().displayImage(user.getAvatar(), ivAvatar);
-        }
     }
 
     private class CustomDataSetObserver extends DataSetObserver {

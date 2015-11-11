@@ -22,7 +22,7 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -57,7 +57,7 @@ public class PersonalProfileActivity extends BaseActivity {
     @Bind(R.id.tv_profile_nickname)
     TextView tvNickname;
     @Bind(R.id.iv_avatar)
-    CustomUserAvatarView ivAvatar;
+    UserAvatarImageView ivAvatar;
     @Bind(R.id.re_password)
     TextView rePassword;
     @Bind(R.id.re_sign)

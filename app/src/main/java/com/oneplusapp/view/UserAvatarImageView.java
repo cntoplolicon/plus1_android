@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.ShowImageActivity;
 import com.oneplusapp.activity.UserHomeActivity;
@@ -18,27 +19,27 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by silentgod on 15-11-11.
  */
-public class CustomUserAvatarView extends CircleImageView {
+public class UserAvatarImageView extends CircleImageView {
 
     private final static int BORDER_WIDTH = 1;
 
     private boolean linkToUserHome;
 
-    public CustomUserAvatarView(Context context, AttributeSet attrs) {
+    public UserAvatarImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public CustomUserAvatarView(Context context, AttributeSet attrs, int defStyle) {
+    public UserAvatarImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomUserAvatarView, 0, 0);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.UserAvatarImageView, 0, 0);
 
         try {
-            linkToUserHome = a.getBoolean(R.styleable.CustomUserAvatarView_link_to_user_home, true);
+            linkToUserHome = a.getBoolean(R.styleable.UserAvatarImageView_link_to_user_home, true);
         } finally {
             a.recycle();
         }
@@ -48,6 +49,12 @@ public class CustomUserAvatarView extends CircleImageView {
     }
 
     public void setUser(final User user) {
+        ImageLoader.getInstance().cancelDisplayTask(this);
+        if (user.getAvatar() != null) {
+            ImageLoader.getInstance().displayImage(user.getAvatar(), this);
+        } else {
+            setImageResource(R.drawable.default_user_avatar);
+        }
         if (linkToUserHome) {
             setOnClickListener(new OnClickListener() {
                 @Override

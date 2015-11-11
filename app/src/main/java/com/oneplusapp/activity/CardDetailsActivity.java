@@ -32,7 +32,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
@@ -48,7 +48,7 @@ import butterknife.OnClick;
 public class CardDetailsActivity extends BaseActivity {
 
     @Bind(R.id.iv_avatar)
-    CustomUserAvatarView ivAvatar;
+    UserAvatarImageView ivAvatar;
     @Bind(R.id.iv_image)
     ImageView ivImage;
     @Bind(R.id.tv_content)
@@ -179,12 +179,9 @@ public class CardDetailsActivity extends BaseActivity {
 
     private void updatePostInfo() {
         tvContent.setText(post.getPostPages()[0].getText());
-        User tmpUser = post.getUser();
-        tvNickname.setUser(tmpUser);
-        ivAvatar.setUser(tmpUser);
-        if (tmpUser.getAvatar() != null) {
-            ImageLoader.getInstance().displayImage(tmpUser.getAvatar(), ivAvatar);
-        }
+        User user = post.getUser();
+        tvNickname.setUser(user);
+        ivAvatar.setUser(user);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         String createdAtFormat = getResources().getString(R.string.post_created_at);

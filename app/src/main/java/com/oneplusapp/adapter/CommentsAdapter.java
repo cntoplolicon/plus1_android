@@ -12,7 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import java.util.ArrayList;
@@ -59,15 +59,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         } else {
             view.setPadding(0, 0, 0, 0);
         }
-        User tmpUser = comment.getUser();
-        viewHolder.tvNickname.setUser(tmpUser);
-        viewHolder.ivAvatar.setUser(tmpUser);
-        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        if (tmpUser.getAvatar() != null) {
-            ImageLoader.getInstance().displayImage(tmpUser.getAvatar(), viewHolder.ivAvatar);
-        } else {
-            viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
-        }
+        User user = comment.getUser();
+        viewHolder.tvNickname.setUser(user);
+        viewHolder.ivAvatar.setUser(user);
         if (comment.getReplyToId() == 0) {
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReply.setVisibility(view.GONE);
@@ -147,7 +141,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
 
     static class ViewHolder {
         @Bind(R.id.iv_avatar)
-        CustomUserAvatarView ivAvatar;
+        UserAvatarImageView ivAvatar;
         @Bind(R.id.tv_nickname)
         UserNicknameTextView tvNickname;
         @Bind(R.id.tv_content)
