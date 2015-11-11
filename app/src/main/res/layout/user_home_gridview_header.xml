@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.oneplusapp.view.CustomUserAvatarView
+        <com.oneplusapp.view.UserAvatarImageView
             android:id="@+id/iv_avatar"
             android:layout_width="75dp"
             android:layout_height="75dp"

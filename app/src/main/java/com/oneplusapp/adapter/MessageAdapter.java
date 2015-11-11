@@ -13,7 +13,7 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 
 import java.util.List;
 
@@ -44,23 +44,17 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         view.setTag(notification);
 
         Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-        User tmpUser = comment.getUser();
-        viewHolder.ivAvatar.setUser(tmpUser);
-        viewHolder.tvNickname.setText(tmpUser.getNickname());
-        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, tmpUser, getContext());
+        User user = comment.getUser();
+        viewHolder.ivAvatar.setUser(user);
+        viewHolder.tvNickname.setText(user.getNickname());
+        CommonMethods.chooseNicknameColorViaGender(viewHolder.tvNickname, user, getContext());
         viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
-        ImageLoader.getInstance().cancelDisplayTask(viewHolder.ivAvatar);
-        if (tmpUser.getAvatar() == null) {
-            viewHolder.ivAvatar.setImageResource(R.drawable.default_user_avatar);
-        } else {
-            ImageLoader.getInstance().displayImage(tmpUser.getAvatar(), viewHolder.ivAvatar);
-        }
         return view;
     }
 
     static class ViewHolder {
         @Bind(R.id.iv_avatar)
-        CustomUserAvatarView ivAvatar;
+        UserAvatarImageView ivAvatar;
         @Bind(R.id.tv_nickname)
         TextView tvNickname;
         @Bind(R.id.tv_message)

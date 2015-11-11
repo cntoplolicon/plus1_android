@@ -18,7 +18,7 @@ import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.CustomUserAvatarView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
@@ -96,18 +96,11 @@ public class InfectionsAdapter {
         ButterKnife.bind(itemViews, view);
 
         Post post = infection.getPost();
-        User tmpUser = post.getUser();
-        itemViews.tvNickname.setUser(tmpUser);
-        itemViews.ivAvatar.setUser(tmpUser);
+        User user = post.getUser();
+        itemViews.tvNickname.setUser(user);
+        itemViews.ivAvatar.setUser(user);
         itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
         itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
-        ImageLoader.getInstance().cancelDisplayTask(itemViews.ivAvatar);
-        String avatarUrl = infection.getPost().getUser().getAvatar();
-        if (avatarUrl != null) {
-            ImageLoader.getInstance().displayImage(avatarUrl, itemViews.ivAvatar);
-        } else {
-            itemViews.ivAvatar.setImageResource(R.drawable.default_user_avatar);
-        }
         String imagePath = post.getPostPages()[0].getImage();
         ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
         if (imagePath == null || imagePath.isEmpty()) {
@@ -217,6 +210,6 @@ public class InfectionsAdapter {
         ImageView ivImage;
 
         @Bind(R.id.iv_avatar)
-        CustomUserAvatarView ivAvatar;
+        UserAvatarImageView ivAvatar;
     }
 }

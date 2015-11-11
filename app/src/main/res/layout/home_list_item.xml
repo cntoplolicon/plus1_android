@@ -19,7 +19,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp">
 
-            <com.oneplusapp.view.CustomUserAvatarView
+            <com.oneplusapp.view.UserAvatarImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/home_round_image_length"
                 android:layout_height="@dimen/home_round_image_length"
