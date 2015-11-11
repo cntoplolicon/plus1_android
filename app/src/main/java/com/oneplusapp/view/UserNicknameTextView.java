@@ -78,10 +78,6 @@ public class UserNicknameTextView extends TextView {
         }
     }
 
-    public void setLinkedToUserHome(boolean linkedToUserHome) {
-        this.linkedToUserHome = linkedToUserHome;
-    }
-
     public boolean isLinkedToUserHome() {
         return linkedToUserHome;
     }
