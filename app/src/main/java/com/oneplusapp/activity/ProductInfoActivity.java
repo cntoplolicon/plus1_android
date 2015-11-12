@@ -24,8 +24,8 @@ public class ProductInfoActivity extends BaseActivity {
     TextView tvFeedbacks;
     @Bind(R.id.tv_version)
     TextView tvVersion;
-//    @Bind(R.id.tv_versioncode)
-//    TextView tvVersionCode;
+    @Bind(R.id.tv_server_version_name)
+    TextView tvServerVersionName;
     @Bind(R.id.iv_new)
     ImageView ivNew;
 
@@ -36,6 +36,7 @@ public class ProductInfoActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
         tvVersion.setText(getResources().getString(R.string.apk_version_name) + UpdateChecker.getInstance().getCurrentVersionName(this));
+        tvServerVersionName.setText(UpdateChecker.getInstance().serverVersionName);
 
         UpdateChecker.getInstance().getAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
             @Override
