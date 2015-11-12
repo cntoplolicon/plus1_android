@@ -22,6 +22,9 @@ import com.oneplusapp.model.Post;
 import java.util.HashSet;
 import java.util.Set;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by jiewei on 9/14/15.
  */
@@ -55,27 +58,26 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
         }
 
         Post post = getItem(position);
-        TextView tvText = (TextView) view.findViewById(R.id.tv_text);
-        tvText.setText(post.getPostPages()[0].getText());
-        TextView tvComments = (TextView) view.findViewById(R.id.tv_comments);
-        tvComments.setText(String.valueOf(post.getCommentsCount()));
-        TextView tvViews = (TextView) view.findViewById(R.id.tv_views);
-        tvViews.setText(String.valueOf(post.getViewsCount()));
+        ViewHolder viewHolder = new ViewHolder();
+        ButterKnife.bind(viewHolder, view);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
+        viewHolder.tvText.setText(post.getPostPages()[0].getText());
+        viewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
+        viewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
+
         String imageUrl = post.getPostPages()[0].getImage();
         if (imageUrl == null) {
             imageUrl = "";
         }
-        if (!imageUrl.equals(imageView.getTag())) {
+        if (!imageUrl.equals(viewHolder.ivImage.getTag())) {
             if (imageUrl.isEmpty()) {
-                imageView.setImageDrawable(null);
-                tvText.setVisibility(View.VISIBLE);
+                viewHolder.ivImage.setImageDrawable(null);
+                viewHolder.tvText.setVisibility(View.VISIBLE);
             } else {
-                tvText.setVisibility(View.GONE);
-                ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
+                viewHolder.tvText.setVisibility(View.GONE);
+                ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
             }
-            imageView.setTag(imageUrl);
+            viewHolder.ivImage.setTag(imageUrl);
         }
 
         return view;
@@ -106,5 +108,16 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
 
     public interface Callback {
         void onLoadingStatusChanged(boolean loading);
+    }
+
+    class ViewHolder {
+        @Bind(R.id.tv_text)
+        TextView tvText;
+        @Bind(R.id.tv_comments)
+        TextView tvComments;
+        @Bind(R.id.tv_views)
+        TextView tvViews;
+        @Bind(R.id.iv_image)
+        ImageView ivImage;
     }
 }
