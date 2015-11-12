@@ -1,9 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_white_bg"
-    android:orientation="vertical">
+    android:background="@color/common_white_bg">
 
     <com.oneplusapp.view.ActionBarLayout
         android:id="@+id/action_bar"
@@ -12,91 +11,83 @@
         custom:hide_back_arrow="true"
         custom:page_title="@string/log_in" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp">
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="@dimen/register_image_phone_width_height"
-            android:layout_height="@dimen/register_image_phone_width_height"
-            android:layout_alignTop="@+id/et_username"
-            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
-            android:src="@drawable/username" />
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="@dimen/register_image_phone_width_height"
+        android:layout_height="@dimen/register_image_phone_width_height"
+        android:layout_below="@id/action_bar"
+        android:layout_marginLeft="@dimen/register_margin_left_phone_image"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/username" />
 
-        <EditText
-            android:id="@+id/et_username"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_image_phone_width_height"
-            android:layout_marginBottom="7dp"
-            android:layout_toRightOf="@id/imageView5"
-            android:background="@null"
-            android:gravity="bottom"
-            android:hint="@string/hint_input_phone"
-            android:inputType="phone"
-            android:paddingLeft="10dp"
-            android:textColorHint="@color/common_hint_color"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="@dimen/common_hint_text_size" />
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_image_phone_width_height"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignTop="@+id/imageView5"
+        android:background="@null"
+        android:gravity="bottom"
+        android:hint="@string/hint_input_phone"
+        android:inputType="phone"
+        android:paddingLeft="45dp"
+        android:textColorHint="@color/common_hint_color"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:textSize="@dimen/common_hint_text_size" />
 
-        <TextView
-            android:id="@+id/register_line1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_margin_line_height"
-            android:layout_below="@id/et_username"
-            android:layout_marginLeft="@dimen/common_margin_left_right"
-            android:layout_marginRight="@dimen/common_margin_left_right"
-            android:layout_toLeftOf="@+id/btn_resend_security_code"
-            android:background="@color/home_title_color" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="@dimen/register_image_phone_width_height"
-            android:layout_height="@dimen/register_image_phone_width_height"
-            android:layout_alignTop="@+id/et_password"
-            android:layout_marginLeft="@dimen/register_margin_left_phone_image"
-            android:src="@drawable/password" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_image_phone_width_height"
-            android:layout_marginBottom="7dp"
-            android:layout_toRightOf="@id/imageView6"
-            android:background="@null"
-            android:ems="10"
-            android:gravity="bottom"
-            android:hint="@string/hint_input_pwd"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:textColorHint="@color/common_hint_color"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="@dimen/common_hint_text_size" />
+    <TextView
+        android:id="@+id/register_line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_margin_line_height"
+        android:layout_below="@id/et_username"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="7dp"
+        android:background="@color/home_title_color" />
 
 
-        <TextView
-            android:id="@+id/register_line2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_margin_line_height"
-            android:layout_below="@id/et_password"
-            android:layout_marginLeft="@dimen/common_margin_left_right"
-            android:layout_marginRight="@dimen/common_margin_left_right"
-            android:layout_toLeftOf="@+id/btn_resend_security_code"
-            android:background="@color/home_title_color" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="@dimen/register_image_phone_width_height"
+        android:layout_height="@dimen/register_image_phone_width_height"
+        android:layout_below="@+id/register_line1"
+        android:layout_marginLeft="@dimen/register_margin_left_phone_image"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/password" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_image_phone_width_height"
+        android:layout_alignLeft="@+id/imageView6"
+        android:layout_alignTop="@+id/imageView6"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="bottom"
+        android:hint="@string/hint_input_pwd"
+        android:inputType="textPassword"
+        android:paddingLeft="45dp"
+        android:textColorHint="@color/common_hint_color"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:textSize="@dimen/common_hint_text_size" />
+
+
+    <TextView
+        android:id="@+id/register_line2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_margin_line_height"
+        android:layout_below="@id/et_password"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="7dp"
+        android:background="@color/home_title_color" />
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/register_line2"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="57dp"
@@ -105,30 +96,67 @@
         android:textColor="@color/common_button_text_color"
         android:textSize="@dimen/common_yellow_button_text_size" />
 
-    <RelativeLayout
+
+    <TextView
+        android:id="@+id/tv_to_reset_pwd"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_submit"
+        android:layout_marginLeft="@dimen/common_margin_left_right"
+        android:layout_marginTop="@dimen/common_margin_left_right"
+        android:text="@string/to_reset_pwd"
+        android:textColor="@color/register_security_code"
+        android:textSize="@dimen/register_reminder" />
 
-        <TextView
-            android:id="@+id/tv_to_reset_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_margin_left_right"
-            android:layout_marginTop="@dimen/common_margin_left_right"
-            android:text="@string/to_reset_pwd"
-            android:textColor="@color/register_security_code"
-            android:textSize="@dimen/register_reminder" />
+    <TextView
+        android:id="@+id/tv_to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/btn_submit"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:layout_marginTop="@dimen/common_margin_left_right"
+        android:text="@string/to_register"
+        android:textColor="@color/register_security_code"
+        android:textSize="@dimen/register_reminder" />
 
-        <TextView
-            android:id="@+id/tv_to_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/common_margin_left_right"
-            android:layout_marginTop="@dimen/common_margin_left_right"
-            android:text="@string/to_register"
-            android:textColor="@color/register_security_code"
-            android:textSize="@dimen/register_reminder" />
-    </RelativeLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_else"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iv_qq"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="第三方登录" />
+
+    <ImageView
+        android:id="@+id/iv_qq"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:src="@drawable/qq" />
+
+    <ImageView
+        android:id="@+id/iv_sina"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@id/iv_qq"
+        android:src="@drawable/sina" />
+
+    <ImageView
+        android:id="@+id/iv_weixin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="22dp"
+        android:layout_toLeftOf="@id/iv_qq"
+        android:src="@drawable/wexin" />
+
+</RelativeLayout>

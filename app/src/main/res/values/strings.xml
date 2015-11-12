@@ -45,7 +45,7 @@
     <string name="phone_reset_succeed">手机号修改成功</string>
     <string name="unknown_error">未知错误</string>
     <string name="post_created_at">%d天前</string>
-
+    <string name="login_else">第三方登录</string>
     <!--activity titles-->
     <string name="register_step_one">注册（1/3）</string>
     <string name="register_step_two">注册（2/3）</string>

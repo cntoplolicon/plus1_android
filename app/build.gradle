@@ -63,4 +63,7 @@ dependencies {
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     compile 'cn.leancloud.android:avoscloud-push:v3.+@aar'
     compile 'cn.leancloud.android:Java-WebSocket:1.2.0-leancloud'
+    compile files('libs/SocialSDK_QQZone_1.jar')
+    compile files('libs/SocialSDK_comment.jar')
+    compile files('libs/SocialSDK_Sina.jar')
 }

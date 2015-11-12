@@ -64,6 +64,6 @@
     <dimen name="publish_margin_bottom">75dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+    <dimen name="login_text_else_margin_top">120dp</dimen>
     <dimen name="post_grid_view_item_border_width">1dp</dimen>
 </resources>
