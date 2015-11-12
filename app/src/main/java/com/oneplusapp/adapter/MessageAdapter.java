@@ -37,7 +37,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = mInflater.inflate(R.layout.message_list_item, null);
+            view = mInflater.inflate(R.layout.message_list_item, parent, false);
         }
         ViewHolder viewHolder = new ViewHolder();
         ButterKnife.bind(viewHolder, view);

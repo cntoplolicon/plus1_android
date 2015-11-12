@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.User;
@@ -47,7 +46,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         Comment comment = getItem(position);
         View view = convertView;
         if (view == null) {
-            view = mInflater.inflate(R.layout.card_details_comment_item, null);
+            view = mInflater.inflate(R.layout.card_details_comment_item, parent, false);
         }
         ViewHolder viewHolder = new ViewHolder();
         ButterKnife.bind(viewHolder, view);
@@ -64,11 +63,11 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
         viewHolder.ivAvatar.setUser(user);
         if (comment.getReplyToId() == 0) {
             viewHolder.tvContent.setText(comment.getContent());
-            viewHolder.tvReply.setVisibility(view.GONE);
-            viewHolder.tvReplyTarget.setVisibility(view.GONE);
+            viewHolder.tvReply.setVisibility(View.GONE);
+            viewHolder.tvReplyTarget.setVisibility(View.GONE);
         } else {
-            viewHolder.tvReply.setVisibility(view.VISIBLE);
-            viewHolder.tvReplyTarget.setVisibility(view.VISIBLE);
+            viewHolder.tvReply.setVisibility(View.VISIBLE);
+            viewHolder.tvReplyTarget.setVisibility(View.VISIBLE);
             Comment repliedComment = getCommentById(comment.getReplyToId());
             viewHolder.tvContent.setText(comment.getContent());
             viewHolder.tvReplyTarget.setUser(repliedComment.getUser());

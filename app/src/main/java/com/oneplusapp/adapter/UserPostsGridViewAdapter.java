@@ -14,8 +14,6 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONArray;
 
-import java.util.Currency;
-
 /**
  * Created by jiewei on 9/14/15.
  */
