@@ -23,6 +23,7 @@ import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.User;
 
 import org.jdeferred.AlwaysCallback;
+import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONObject;
 
@@ -49,6 +50,7 @@ public class HomeActivity extends BaseActivity {
     FrameLayout flRedPoint;
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
+    private static boolean appUpdateNotified = false;
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
@@ -90,8 +92,18 @@ public class HomeActivity extends BaseActivity {
         });
 
         PushNotificationService.getInstance().registerCallback(callback);
-        UpdateChecker.getInstance().checkUpdate(this);
 
+        if (!appUpdateNotified) {
+            UpdateChecker.getInstance().loadLatestAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
+                @Override
+                public void onDone(UpdateChecker.AppRelease appRelease) {
+                    if (UpdateChecker.getInstance().getCurrentVersionCode(HomeActivity.this) < appRelease.versionCode) {
+                        UpdateChecker.getInstance().showUpdateNotification(HomeActivity.this, appRelease);
+                        appUpdateNotified = true;
+                    }
+                }
+            });
+        }
 
     }
 

@@ -30,40 +30,54 @@ public class ProductInfoActivity extends BaseActivity {
     @Bind(R.id.iv_new)
     ImageView ivNew;
 
+    private UpdateChecker.AppReleaseReadyCallback onAppReleaseReady = new UpdateChecker.AppReleaseReadyCallback() {
+        @Override
+        public void onAppReleaseReady(UpdateChecker.AppRelease appRelease) {
+            showUpdateInformation(appRelease);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productinfo);
         ButterKnife.bind(this);
+
         tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
         tvVersion.setText(getResources().getString(R.string.apk_version_name) + UpdateChecker.getInstance().getCurrentVersionName(this));
-        tvServerVersionName.setText(UpdateChecker.getInstance().serverVersionName);
 
-        UpdateChecker.getInstance().getAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
-            @Override
-            public void onDone(UpdateChecker.AppRelease appRelease) {
-                showUpdateInformation(appRelease);
-            }
-        });
+        showUpdateInformation(UpdateChecker.getInstance().getAppRelease());
+        UpdateChecker.getInstance().registerAppReleaseReadyCallback(onAppReleaseReady);
+        UpdateChecker.getInstance().loadLatestAppRelease(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UpdateChecker.getInstance().unregisterAppReleaseReadyCallback(onAppReleaseReady);
     }
 
     @OnClick(R.id.tv_update)
     public void checkUpdate(View view) {
-        UpdateChecker.getInstance().getAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
+        UpdateChecker.getInstance().loadLatestAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
             @Override
             public void onDone(UpdateChecker.AppRelease appRelease) {
                 if (UpdateChecker.getInstance().getCurrentVersionCode(ProductInfoActivity.this) >= appRelease.versionCode) {
                     CommonDialog.showDialog(ProductInfoActivity.this, R.string.update_dialog);
+                } else {
+                    UpdateChecker.getInstance().showUpdateNotification(ProductInfoActivity.this, appRelease);
                 }
-                UpdateChecker.getInstance().showUpdateNotification(ProductInfoActivity.this, appRelease);
             }
         });
     }
 
-    public void showUpdateInformation(UpdateChecker.AppRelease appRelease) {
+    private void showUpdateInformation(UpdateChecker.AppRelease appRelease) {
+        if (appRelease == null) {
+            return;
+        }
+        tvServerVersionName.setText(appRelease.versionName);
         if (UpdateChecker.getInstance().getCurrentVersionCode(this) >= appRelease.versionCode) {
             ivNew.setVisibility(View.GONE);
-            tvServerVersionName.setText(UpdateChecker.getInstance().getCurrentVersionName(this));
         } else {
             ivNew.setVisibility(View.VISIBLE);
         }
