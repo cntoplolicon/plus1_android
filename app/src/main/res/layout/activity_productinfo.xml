@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.oneplusapp.view.ActionBarLayout
+        android:id="@+id/action_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/action_bar_height"
+        custom:page_title="@string/app_about" />
+
+    <ImageView
+        android:id="@+id/iv_app_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/action_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/app_about" />
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_app_about"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="plus one"
+        android:textColor="@color/common_button_text_color" />
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/setting_text_color" />
+
+    <TextView
+        android:id="@+id/tv_feedbacks"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_version"
+        android:layout_marginTop="25dp"
+        android:background="@color/common_white_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:text="@string/feedbacks"
+        android:textColor="@color/setting_text_color" />
+
+    <ImageView
+        android:id="@+id/iv_forward_idea"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_feedbacks"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:src="@drawable/arrow_right_open" />
+
+    <TextView
+        android:id="@+id/tv_update"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_feedbacks"
+        android:layout_marginTop="3dp"
+        android:background="@color/common_white_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:text="@string/update"
+        android:textColor="@color/setting_text_color" />
+
+
+    <ImageView
+        android:id="@+id/iv_new"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/tv_update"
+        android:layout_marginLeft="85dp"
+        android:src="@drawable/update"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_server_version_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_update"
+        android:layout_marginRight="@dimen/common_margin_left_right"
+        android:gravity="center_vertical"
+        android:textColor="@color/setting_text_color" />
+
+    <TextView
+        android:id="@+id/user_agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/copyright"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="25dp"
+        android:text="@string/user_agreement"
+        android:textColor="#304dc2"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/copyright_en"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:text="@string/copyright"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/copyright_en"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="BeiJing Siwujiang Technology Co Ltd"
+        android:textSize="14sp" />
+</RelativeLayout>
