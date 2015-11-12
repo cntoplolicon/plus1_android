@@ -25,41 +25,27 @@ import org.jdeferred.Promise;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by cntoplolicon on 11/2/15.
  */
 public class UpdateChecker {
 
-    public static UpdateChecker instance;
-    public String serverVersionName;
+    private static final String APK_MIME_TYPE = "application/vnd.android.package-archive";
+    private static UpdateChecker instance;
 
-    private static String APK_MIME_TYPE = "application/vnd.android.package-archive";
-
-    private boolean updateNotified;
+    private AppRelease appRelease;
     private Long downloadId;
     private ApkDownloadReceiver receiver;
+    private Set<AppReleaseReadyCallback> callbacks = new HashSet<>();
 
     public static UpdateChecker getInstance() {
         if (instance == null) {
             instance = new UpdateChecker();
         }
         return instance;
-    }
-
-    public void checkUpdate(final Context context) {
-        if (updateNotified) {
-            return;
-        }
-
-        RestClient.getInstance().getAppRelease().done(new DoneCallback<JSONObject>() {
-            @Override
-            public void onDone(JSONObject result) {
-                AppRelease appRelease = CommonMethods.createDefaultGson().fromJson(result.toString(), AppRelease.class);
-                showUpdateNotification(context, appRelease);
-                updateNotified = true;
-            }
-        }).fail(new JsonErrorListener(context, null));
     }
 
     public int getCurrentVersionCode(Context context) {
@@ -81,10 +67,6 @@ public class UpdateChecker {
     }
 
     public void showUpdateNotification(final Context context, final AppRelease appRelease) {
-        serverVersionName = appRelease.versionName;
-        if (getCurrentVersionCode(context) >= appRelease.versionCode) {
-            return;
-        }
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
@@ -139,6 +121,43 @@ public class UpdateChecker {
         context.startActivity(intent);
     }
 
+    public Promise<AppRelease, VolleyError, Void> loadLatestAppRelease(final Context context) {
+        final ThrowableDeferredObject<AppRelease, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        RestClient.getInstance().getAppRelease().done(new DoneCallback<JSONObject>() {
+            @Override
+            public void onDone(JSONObject result) {
+                appRelease = CommonMethods.createDefaultGson().fromJson(result.toString(), AppRelease.class);
+                for (AppReleaseReadyCallback callback : callbacks) {
+                    callback.onAppReleaseReady(appRelease);
+                }
+                deferredObject.resolve(appRelease);
+            }
+        }).fail(new JsonErrorListener(context, null) {
+            @Override
+            public void onFail(VolleyError error) {
+                super.onFail(error);
+                deferredObject.reject(error);
+            }
+        });
+        return deferredObject.promise();
+    }
+
+    public AppRelease getAppRelease() {
+        return appRelease;
+    }
+
+    public void registerAppReleaseReadyCallback(AppReleaseReadyCallback callback) {
+        callbacks.add(callback);
+    }
+
+    public void unregisterAppReleaseReadyCallback(AppReleaseReadyCallback callback) {
+        callbacks.remove(callback);
+    }
+
+    public interface AppReleaseReadyCallback {
+        void onAppReleaseReady(AppRelease appRelease);
+    }
+
     public static class AppRelease {
         public int versionCode;
         public String message;
@@ -187,25 +206,5 @@ public class UpdateChecker {
                 }
             }
         }
-    }
-
-    public Promise<AppRelease, VolleyError, Void> getAppRelease(final Context context) {
-        final ThrowableDeferredObject<AppRelease, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
-
-        RestClient.getInstance().getAppRelease().done(new DoneCallback<JSONObject>() {
-            @Override
-            public void onDone(JSONObject result) {
-                AppRelease appRelease = CommonMethods.createDefaultGson().fromJson(result.toString(), AppRelease.class);
-                deferredObject.resolve(appRelease);
-            }
-        }).fail(new JsonErrorListener(context, null) {
-            @Override
-            public void onFail(VolleyError error) {
-                super.onFail(error);
-                deferredObject.reject(error);
-            }
-        });
-
-        return deferredObject.promise();
     }
 }
