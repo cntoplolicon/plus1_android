@@ -58,6 +58,7 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
         @Override
         public void onUserChanged(User oldUser, User newUser) {
             bookmarksCache = new Post[]{};
+            RestClient.getInstance().cancelRequests(RestClient.TAG_BOOKMARKS);
         }
     }
 }

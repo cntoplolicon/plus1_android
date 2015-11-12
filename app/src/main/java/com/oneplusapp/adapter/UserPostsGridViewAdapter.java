@@ -68,6 +68,7 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
         @Override
         public void onUserChanged(User oldUser, User newUser) {
             currentUserPosts = new Post[]{};
+            RestClient.getInstance().cancelRequests(RestClient.TAG_USER_POSTS);
         }
     }
 }
