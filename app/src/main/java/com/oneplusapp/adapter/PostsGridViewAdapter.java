@@ -110,7 +110,7 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
         void onLoadingStatusChanged(boolean loading);
     }
 
-    class ViewHolder {
+    static class ViewHolder {
         @Bind(R.id.tv_text)
         TextView tvText;
         @Bind(R.id.tv_comments)
