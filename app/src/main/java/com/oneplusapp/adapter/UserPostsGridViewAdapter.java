@@ -7,23 +7,34 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Post;
+import com.oneplusapp.model.User;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONArray;
 
+import java.util.Currency;
+
 /**
  * Created by jiewei on 9/14/15.
  */
 public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
+
+    private static Post[] currentUserPosts = new Post[]{};
+
+    static {
+        User.registerUserChangedCallback(new ClearCacheCallback());
+    }
 
     private int userId;
 
     public UserPostsGridViewAdapter(Context context, int userId) {
         super(context);
         this.userId = userId;
-        loadPosts();
+        if (userId == User.current.getId()) {
+            addAll(currentUserPosts);
+        }
     }
 
     public void loadPosts() {
@@ -36,7 +47,11 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
                 new DoneCallback<JSONArray>() {
                     @Override
                     public void onDone(JSONArray response) {
-                        updateAll(CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class));
+                        Post[] posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        if (userId == User.current.getId()) {
+                            currentUserPosts = posts;
+                        }
+                        updateAll(posts);
                         notifyDataSetChanged();
                     }
                 }).fail(new JsonErrorListener(getContext(), null))
@@ -47,5 +62,12 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
                         notifyLoadingStatusChanged();
                     }
                 });
+    }
+
+    private static class ClearCacheCallback implements User.UserChangedCallback {
+        @Override
+        public void onUserChanged(User oldUser, User newUser) {
+            currentUserPosts = new Post[]{};
+        }
     }
 }

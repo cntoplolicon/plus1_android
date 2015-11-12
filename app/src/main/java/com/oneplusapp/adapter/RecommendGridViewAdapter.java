@@ -23,7 +23,6 @@ public class RecommendGridViewAdapter extends PostsGridViewAdapter {
     public RecommendGridViewAdapter(Context context) {
         super(context);
         addAll(userBookmarksCache);
-        loadRecommendations();
     }
 
     public void loadRecommendations() {

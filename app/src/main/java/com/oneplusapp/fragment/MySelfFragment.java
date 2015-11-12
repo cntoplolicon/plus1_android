@@ -134,6 +134,7 @@ public class MySelfFragment extends Fragment {
         if (bookmarksAdapter != null) {
             bookmarksAdapter.loadBookmarks();
         }
+        postsAdapter.loadPosts();
     }
 
     @Override
