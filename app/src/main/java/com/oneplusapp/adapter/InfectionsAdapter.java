@@ -126,6 +126,9 @@ public class InfectionsAdapter {
             loadInfections();
             return null;
         }
+        if (entry == null) {
+            return null;
+        }
         return getView(entry.getValue(), convertView);
     }
 

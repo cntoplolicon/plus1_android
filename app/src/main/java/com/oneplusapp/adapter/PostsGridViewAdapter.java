@@ -54,7 +54,7 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, null);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, parent, false);
         }
 
         Post post = getItem(position);
