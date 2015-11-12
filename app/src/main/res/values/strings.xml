@@ -173,10 +173,11 @@
     <string name="download_apk_error">下载安装包失败</string>
     <string name="downloaded_apk_missing">找不到下载的安装包</string>
     <string name="apk_version_name">版本：</string>
-    <string name="apk_about">关于我们</string>
+    <string name="apk_about">关于加一 </string>
     <string name="feedbacks">意见反馈</string>
     <string name="update">版本更新</string>
     <string name="user_agreement">用户协议</string>
     <string name="copyright">思无疆公司版权所有</string>
+    <string name="update_dialog">已是最新版,无需更新</string>
 
 </resources>
