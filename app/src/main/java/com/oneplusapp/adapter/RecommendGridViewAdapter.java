@@ -18,14 +18,18 @@ import org.json.JSONArray;
  */
 public class RecommendGridViewAdapter extends PostsGridViewAdapter {
 
+    private static Post[] userBookmarksCache = new Post[]{};
+
     public RecommendGridViewAdapter(Context context) {
         super(context);
+        addAll(userBookmarksCache);
         loading = true;
         RestClient.getInstance().getRecommendedPosts().done(
                 new DoneCallback<JSONArray>() {
                     @Override
                     public void onDone(JSONArray response) {
-                        updateAll(CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class));
+                        userBookmarksCache = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        updateAll(userBookmarksCache);
                         notifyDataSetChanged();
                     }
                 }).fail(new JsonErrorListener(context, null))
@@ -37,5 +41,4 @@ public class RecommendGridViewAdapter extends PostsGridViewAdapter {
                     }
                 });
     }
-
 }

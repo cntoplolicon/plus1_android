@@ -49,29 +49,36 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View gridView = convertView;
-        if (gridView == null) {
-            gridView = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, null);
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, null);
         }
+
         Post post = getItem(position);
-        TextView tvText = (TextView) gridView.findViewById(R.id.tv_text);
+        TextView tvText = (TextView) view.findViewById(R.id.tv_text);
         tvText.setText(post.getPostPages()[0].getText());
-        TextView tvComments = (TextView) gridView.findViewById(R.id.tv_comments);
+        TextView tvComments = (TextView) view.findViewById(R.id.tv_comments);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
-        TextView tvViews = (TextView) gridView.findViewById(R.id.tv_views);
+        TextView tvViews = (TextView) view.findViewById(R.id.tv_views);
         tvViews.setText(String.valueOf(post.getViewsCount()));
 
-        ImageView imageView = (ImageView) gridView.findViewById(R.id.iv_image);
-        ImageLoader.getInstance().cancelDisplayTask(imageView);
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
         String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            imageView.setImageDrawable(null);
-            tvText.setVisibility(View.VISIBLE);
-        } else {
-            tvText.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
+        if (imageUrl == null) {
+            imageUrl = "";
         }
-        return gridView;
+        if (!imageUrl.equals(imageView.getTag())) {
+            if (imageUrl.isEmpty()) {
+                imageView.setImageDrawable(null);
+                tvText.setVisibility(View.VISIBLE);
+            } else {
+                tvText.setVisibility(View.GONE);
+                ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
+            }
+            imageView.setTag(imageUrl);
+        }
+
+        return view;
     }
 
     protected void notifyLoadingStatusChanged() {
