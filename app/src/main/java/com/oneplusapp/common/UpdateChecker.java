@@ -32,6 +32,7 @@ import java.io.File;
 public class UpdateChecker {
 
     public static UpdateChecker instance;
+    public String serverVersionName;
 
     private static String APK_MIME_TYPE = "application/vnd.android.package-archive";
 
@@ -80,6 +81,7 @@ public class UpdateChecker {
     }
 
     public void showUpdateNotification(final Context context, final AppRelease appRelease) {
+        serverVersionName = appRelease.versionName;
         if (getCurrentVersionCode(context) >= appRelease.versionCode) {
             return;
         }
@@ -140,6 +142,7 @@ public class UpdateChecker {
     public static class AppRelease {
         public int versionCode;
         public String message;
+        public String versionName;
         public String downloadUrl;
     }
 

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.oneplusapp.R;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
+import com.oneplusapp.common.CommonDialog;
 import com.oneplusapp.common.UpdateChecker;
 
 import org.jdeferred.DoneCallback;
@@ -24,8 +25,8 @@ public class ProductInfoActivity extends BaseActivity {
     TextView tvFeedbacks;
     @Bind(R.id.tv_version)
     TextView tvVersion;
-//    @Bind(R.id.tv_versioncode)
-//    TextView tvVersionCode;
+    @Bind(R.id.tv_server_version_name)
+    TextView tvServerVersionName;
     @Bind(R.id.iv_new)
     ImageView ivNew;
 
@@ -36,6 +37,7 @@ public class ProductInfoActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
         tvVersion.setText(getResources().getString(R.string.apk_version_name) + UpdateChecker.getInstance().getCurrentVersionName(this));
+        tvServerVersionName.setText(UpdateChecker.getInstance().serverVersionName);
 
         UpdateChecker.getInstance().getAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
             @Override
@@ -50,6 +52,9 @@ public class ProductInfoActivity extends BaseActivity {
         UpdateChecker.getInstance().getAppRelease(this).done(new DoneCallback<UpdateChecker.AppRelease>() {
             @Override
             public void onDone(UpdateChecker.AppRelease appRelease) {
+                if (UpdateChecker.getInstance().getCurrentVersionCode(ProductInfoActivity.this) >= appRelease.versionCode) {
+                    CommonDialog.showDialog(ProductInfoActivity.this, R.string.update_dialog);
+                }
                 UpdateChecker.getInstance().showUpdateNotification(ProductInfoActivity.this, appRelease);
             }
         });
@@ -58,6 +63,7 @@ public class ProductInfoActivity extends BaseActivity {
     public void showUpdateInformation(UpdateChecker.AppRelease appRelease) {
         if (UpdateChecker.getInstance().getCurrentVersionCode(this) >= appRelease.versionCode) {
             ivNew.setVisibility(View.GONE);
+            tvServerVersionName.setText(UpdateChecker.getInstance().getCurrentVersionName(this));
         } else {
             ivNew.setVisibility(View.VISIBLE);
         }
