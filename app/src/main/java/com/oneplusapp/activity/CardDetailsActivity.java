@@ -4,6 +4,8 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -216,7 +218,7 @@ public class CardDetailsActivity extends BaseActivity {
         } else {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.color.home_title_color)
+                    .showImageOnLoading(createLoadingDrawable())
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
             ImageLoader.getInstance().displayImage(imageUrl, ivImage, options);
@@ -331,5 +333,16 @@ public class CardDetailsActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private Drawable createLoadingDrawable() {
+        if (post.getPostPages()[0].getImageHeight() == null || post.getPostPages()[0].getImageWidth() == null) {
+            return getResources().getDrawable(R.color.home_title_color);
+        }
+
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(R.drawable.shape_loading);
+        gradientDrawable.setSize(post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
+        return gradientDrawable;
     }
 }
