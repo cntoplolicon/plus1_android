@@ -23,7 +23,15 @@ public class RecommendGridViewAdapter extends PostsGridViewAdapter {
     public RecommendGridViewAdapter(Context context) {
         super(context);
         addAll(userBookmarksCache);
+        loadRecommendations();
+    }
+
+    public void loadRecommendations() {
+        if (loading) {
+            return;
+        }
         loading = true;
+        notifyLoadingStatusChanged();
         RestClient.getInstance().getRecommendedPosts().done(
                 new DoneCallback<JSONArray>() {
                     @Override
@@ -32,7 +40,7 @@ public class RecommendGridViewAdapter extends PostsGridViewAdapter {
                         updateAll(userBookmarksCache);
                         notifyDataSetChanged();
                     }
-                }).fail(new JsonErrorListener(context, null))
+                }).fail(new JsonErrorListener(getContext(), null))
                 .always(new AlwaysCallback<JSONArray, VolleyError>() {
                     @Override
                     public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {

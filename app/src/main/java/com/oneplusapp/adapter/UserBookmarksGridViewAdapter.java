@@ -20,11 +20,14 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
 
     public UserBookmarksGridViewAdapter(Context context) {
         super(context);
-        loadBookmarks();
     }
 
     public void loadBookmarks() {
+        if (loading) {
+            return;
+        }
         loading = true;
+        notifyLoadingStatusChanged();
         RestClient.getInstance().getUserBookmarks().done(
                 new DoneCallback<JSONArray>() {
                     @Override
@@ -42,5 +45,4 @@ public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
                     }
                 });
     }
-
 }

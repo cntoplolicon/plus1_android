@@ -18,9 +18,20 @@ import org.json.JSONArray;
  */
 public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
 
+    private int userId;
+
     public UserPostsGridViewAdapter(Context context, int userId) {
         super(context);
+        this.userId = userId;
+        loadPosts();
+    }
+
+    public void loadPosts() {
+        if (loading) {
+            return;
+        }
         loading = true;
+        notifyLoadingStatusChanged();
         RestClient.getInstance().getUserPosts(userId).done(
                 new DoneCallback<JSONArray>() {
                     @Override
@@ -28,7 +39,7 @@ public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
                         updateAll(CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class));
                         notifyDataSetChanged();
                     }
-                }).fail(new JsonErrorListener(context, null))
+                }).fail(new JsonErrorListener(getContext(), null))
                 .always(new AlwaysCallback<JSONArray, VolleyError>() {
                     @Override
                     public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
