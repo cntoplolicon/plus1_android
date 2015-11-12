@@ -35,9 +35,11 @@ import java.util.Map;
  */
 public class RestClient {
 
+    public static final String TAG_USER_POSTS = "user_posts";
+    public static final String TAG_BOOKMARKS = "bookmarks";
+
     private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "https://oneplusapp.com";
-
     private static final RetryPolicy DEFAULT_RETRY_POLICY = new DefaultRetryPolicy(30 * 1000, // 30 sec
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     private static final boolean POST_VIEWS_ENABLED = false;
@@ -100,6 +102,10 @@ public class RestClient {
         public void onResponse(T error) {
             deferredObject.resolve(error);
         }
+    }
+
+    public void cancelRequests(Object tag) {
+        requestQueue.cancelAll(tag);
     }
 
     public Promise<JSONObject, VolleyError, Void> getAppRelease() {
@@ -325,6 +331,7 @@ public class RestClient {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/users/" + authorId + "/posts", params), listener, listener);
         request.setRetryPolicy(DEFAULT_RETRY_POLICY);
+        request.setTag(TAG_USER_POSTS);
         requestQueue.add(request);
 
         return deferredObject.promise();
@@ -368,6 +375,7 @@ public class RestClient {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 encodeUrlParams("/users/" + userId + "/bookmarks", params), listener, listener);
         request.setRetryPolicy(DEFAULT_RETRY_POLICY);
+        request.setTag(TAG_BOOKMARKS);
         requestQueue.add(request);
 
         return deferredObject.promise();
