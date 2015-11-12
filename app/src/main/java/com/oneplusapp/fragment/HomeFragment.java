@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
 
     private InfectionsAdapter adapter;
     private LoadNewInfectionsTimer timer = new LoadNewInfectionsTimer(LOADING_INTERVAL * 20);
+    private AdapterCallbacks adapterCallback = new AdapterCallbacks();
 
     private void changeViewsByAdapterState(int state) {
         switch (state) {
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
         slidingView.setCallback(new LayoutCallbacks());
         adapter = new InfectionsAdapter(getActivity());
-        adapter.setCallback(new AdapterCallbacks());
+        adapter.registerCallback(adapterCallback);
         slidingView.setAdapter(adapter);
         changeViewsByAdapterState(adapter.getState());
         timer.start();
@@ -88,19 +89,19 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter.unregisterCallback(adapterCallback);
+        timer.cancel();
+    }
+
     @OnClick(R.id.tv_hot)
     public void skipRecommend() {
         HomeActivity homeActivity = (HomeActivity) getActivity();
         RadioButton radioButton = (RadioButton) homeActivity.findViewById(R.id.rb_recommendation);
         radioButton.setChecked(true);
         homeActivity.switchTab(R.id.rb_recommendation);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        adapter.setCallback(null);
-        timer.cancel();
     }
 
     private class LayoutCallbacks implements HomePageLayout.Callback {

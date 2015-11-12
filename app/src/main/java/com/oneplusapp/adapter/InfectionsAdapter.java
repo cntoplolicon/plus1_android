@@ -25,6 +25,7 @@ import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,24 +53,17 @@ public class InfectionsAdapter {
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
 
-    private Context context;
     private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
     private Set<Integer> loadedInfectionIds;
     private int state = STATE_CLEARED;
     private boolean loading = false;
-    private Callback callback;
+
+    private Context context;
+    private Set<Callback> callbacks = new HashSet<>();
 
     public InfectionsAdapter(Context context) {
         this.context = context;
         loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
-    }
-
-    public void reset() {
-        loadedInfectionIds.clear();
-        id2infections.clear();
-        state = STATE_CLEARED;
-        loading = false;
-        callback = null;
     }
 
     private void updateState() {
@@ -79,8 +73,10 @@ public class InfectionsAdapter {
         } else {
             state = STATE_NORMAL;
         }
-        if (oldState != state && callback != null) {
-            callback.onStateChanged(oldState, state);
+        if (oldState != state) {
+            for (Callback callback : callbacks) {
+                callback.onStateChanged(oldState, state);
+            }
         }
     }
 
@@ -182,8 +178,12 @@ public class InfectionsAdapter {
         return state;
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+    public void registerCallback(Callback callback) {
+        callbacks.add(callback);
+    }
+
+    public void unregisterCallback(Callback callback) {
+        callbacks.remove(callback);
     }
 
     public interface Callback {
