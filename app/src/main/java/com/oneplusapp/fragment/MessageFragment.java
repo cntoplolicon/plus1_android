@@ -67,7 +67,6 @@ public class MessageFragment extends Fragment {
         PushNotificationService.getInstance().unregisterCallback(callback);
     }
 
-
     private class NotificationChangedCallback implements PushNotificationService.Callback {
         @Override
         public void onNotificationReceived(Notification notification) {

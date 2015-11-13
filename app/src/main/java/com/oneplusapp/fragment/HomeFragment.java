@@ -1,7 +1,7 @@
 package com.oneplusapp.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,15 +14,13 @@ import android.widget.RadioButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
-import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;
 import com.oneplusapp.adapter.InfectionsAdapter;
-import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.PostView;
-import com.oneplusapp.view.HomePageLayout;
+import com.oneplusapp.view.DraggableStackView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,30 +42,20 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.cleared_layout)
     View clearedView;
     @Bind(R.id.sliding_layout)
-    HomePageLayout slidingView;
-    @Bind(R.id.fragments_container)
-    View fragmentsContainerView;
+    DraggableStackView stackView;
 
     private InfectionsAdapter adapter;
     private LoadNewInfectionsTimer timer = new LoadNewInfectionsTimer(LOADING_INTERVAL * 20);
-    private AdapterCallbacks adapterCallback = new AdapterCallbacks();
 
-    private void changeViewsByAdapterState(int state) {
-        switch (state) {
-            case InfectionsAdapter.STATE_CLEARED:
-                clearedView.bringToFront();
-                break;
-            case InfectionsAdapter.STATE_LOADING:
-                loadingView.bringToFront();
-                break;
-            case InfectionsAdapter.STATE_NORMAL:
-                slidingView.bringToFront();
-                break;
-            default:
-                throw new IllegalArgumentException("unknown state " + state);
+    private void updateFrontView() {
+        View frontView = stackView;
+        if (adapter.getCount() == 0) {
+            frontView = adapter.isLoading() ? loadingView : clearedView;
         }
-        fragmentsContainerView.invalidate();
-        fragmentsContainerView.requestLayout();
+        frontView.bringToFront();
+        ViewGroup viewGroup = (ViewGroup) frontView.getParent();
+        viewGroup.invalidate();
+        viewGroup.requestLayout();
     }
 
     @Override
@@ -75,11 +63,25 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        slidingView.setCallback(new LayoutCallbacks());
+
         adapter = new InfectionsAdapter(getActivity());
-        adapter.registerCallback(adapterCallback);
-        slidingView.setAdapter(adapter);
-        changeViewsByAdapterState(adapter.getState());
+        adapter.registerLoadingStatusObserver(new InfectionsAdapter.LoadingStatusObserver() {
+            @Override
+            public void onLoadingStatusChanged(boolean loading) {
+                updateFrontView();
+            }
+        });
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                updateFrontView();
+            }
+        });
+        updateFrontView();
+
+        stackView.setOnViewReleasedListener(new StackedViewReleasedListener());
+        stackView.setAdapter(adapter);
+
         timer.start();
         DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
         if (bitmapSkip == null) {
@@ -90,13 +92,13 @@ public class HomeFragment extends Fragment {
             bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, displayOptions);
         }
         ivSpread.setImageBitmap(bitmapSpread);
+
         return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        adapter.unregisterCallback(adapterCallback);
         timer.cancel();
     }
 
@@ -108,20 +110,7 @@ public class HomeFragment extends Fragment {
         homeActivity.switchTab(R.id.rb_recommendation);
     }
 
-    private class LayoutCallbacks implements HomePageLayout.Callback {
-
-        @Override
-        public void onViewAdded(View view) {
-            final Infection infection = (Infection) view.getTag();
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                    intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
-                    startActivity(intent);
-                }
-            });
-        }
+    private class StackedViewReleasedListener implements DraggableStackView.OnViewReleasedListener {
 
         @Override
         public void onViewReleased(View view, int offset) {
@@ -129,7 +118,13 @@ public class HomeFragment extends Fragment {
             int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
             RestClient.getInstance().newPostView(infection.getId(), result)
                     .fail(new JsonErrorListener(getActivity(), null));
-            adapter.checkRemainingInfectionsAndUpdate();
+            adapter.checkRemainingInfectionsAndLoad();
+        }
+
+        @Override
+        public void onReleasedViewSettled(View view, int offset) {
+            adapter.pop();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -141,7 +136,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (adapter.getState() == InfectionsAdapter.STATE_CLEARED) {
+            if (!adapter.isLoading() && adapter.getCount() == 0) {
                 adapter.loadInfections();
             }
         }
@@ -149,17 +144,6 @@ public class HomeFragment extends Fragment {
         @Override
         public void onFinish() {
             start();
-        }
-    }
-
-    private class AdapterCallbacks implements InfectionsAdapter.Callback {
-
-        @Override
-        public void onStateChanged(int oldState, int newState) {
-            if (newState == InfectionsAdapter.STATE_NORMAL) {
-                slidingView.syncContentViews();
-            }
-            changeViewsByAdapterState(newState);
         }
     }
 }

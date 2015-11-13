@@ -25,9 +25,6 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by jiewei on 9/14/15.
- */
 public class PostsGridViewAdapter extends ArrayAdapter<Post> {
 
     private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
@@ -38,7 +35,7 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .build();
 
-    protected Set<Callback> callbacks = new HashSet<>();
+    protected Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
     protected boolean loading;
 
     public PostsGridViewAdapter(Context context) {
@@ -84,8 +81,8 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
     }
 
     protected void notifyLoadingStatusChanged() {
-        for (Callback callback : callbacks) {
-            callback.onLoadingStatusChanged(loading);
+        for (LoadingStatusObserver observer : loadingStatusObservers) {
+            observer.onLoadingStatusChanged(loading);
         }
     }
 
@@ -94,19 +91,19 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
         addAll(posts);
     }
 
-    public void registerCallback(Callback callback) {
-        callbacks.add(callback);
+    public void registerLoadingStatusObserver(LoadingStatusObserver observer) {
+        loadingStatusObservers.add(observer);
     }
 
-    public void unregisterCallback(Callback callback) {
-        callbacks.remove(callback);
+    public void unregisterLoadingStatusObserver(LoadingStatusObserver observer) {
+        loadingStatusObservers.remove(observer);
     }
 
     public boolean isLoading() {
         return loading;
     }
 
-    public interface Callback {
+    public interface LoadingStatusObserver {
         void onLoadingStatusChanged(boolean loading);
     }
 

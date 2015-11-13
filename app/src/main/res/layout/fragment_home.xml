@@ -89,7 +89,7 @@
             android:src="@drawable/homepage_loading" />
     </FrameLayout>
 
-    <com.oneplusapp.view.HomePageLayout
+    <com.oneplusapp.view.DraggableStackView
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -142,5 +142,5 @@
                 android:textColor="#666666"
                 android:textSize="16sp" />
         </FrameLayout>
-    </com.oneplusapp.view.HomePageLayout>
+    </com.oneplusapp.view.DraggableStackView>
 </FrameLayout>

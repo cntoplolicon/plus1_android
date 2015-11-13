@@ -88,7 +88,7 @@ public class MySelfFragment extends Fragment {
             ivAvatar.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), PersonalProfileActivity.class));
             bookmarksAdapter = new UserBookmarksGridViewAdapter(getActivity());
             bookmarksAdapter.registerDataSetObserver(new CustomDataSetObserver());
-            bookmarksAdapter.registerCallback(new CustomPostGridViewCallback());
+            bookmarksAdapter.registerLoadingStatusObserver(new CustomLoadingStatusObserver());
             radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -108,7 +108,7 @@ public class MySelfFragment extends Fragment {
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
         postsAdapter.registerDataSetObserver(new CustomDataSetObserver());
-        postsAdapter.registerCallback(new CustomPostGridViewCallback());
+        postsAdapter.registerLoadingStatusObserver(new CustomLoadingStatusObserver());
         changeViewsByAdapterState();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -156,7 +156,7 @@ public class MySelfFragment extends Fragment {
         }
     }
 
-    private class CustomPostGridViewCallback implements PostsGridViewAdapter.Callback {
+    private class CustomLoadingStatusObserver implements PostsGridViewAdapter.LoadingStatusObserver {
 
         @Override
         public void onLoadingStatusChanged(boolean loading) {

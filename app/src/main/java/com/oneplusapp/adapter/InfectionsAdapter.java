@@ -1,8 +1,11 @@
 package com.oneplusapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
+import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
@@ -21,7 +25,9 @@ import com.oneplusapp.model.User;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONArray;
 
 import java.util.Collections;
@@ -34,107 +40,27 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by shw on 2015/9/15.
- */
-public class InfectionsAdapter {
+public class InfectionsAdapter extends BaseAdapter {
 
-    public static final int STATE_CLEARED = 0;
-    public static final int STATE_LOADING = 1;
-    public static final int STATE_NORMAL = 2;
-
-    private static final int[] INFECTION_THRESHOLDS = new int[]{20, 5};
-
-    private static final int ID_CACHE_CAPACITY = 256;
-
+    private static final int ID_CACHE_CAPACITY = 4096;
+    private static final int[] LOADING_THRESHOLDS = new int[]{20, 5};
     private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
             new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.color.home_title_color)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
 
-    private Map<Integer, Infection> id2infections = new LinkedHashMap<>();
-    private Set<Integer> loadedInfectionIds;
-    private int state = STATE_CLEARED;
+    private static Set<Integer> loadedInfectionIds =
+            Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
+
+    private static Map<Integer, InfectionWrapper> id2infections = new LinkedHashMap<>();
     private boolean loading = false;
 
     private Context context;
-    private Set<Callback> callbacks = new HashSet<>();
+    private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
 
     public InfectionsAdapter(Context context) {
         this.context = context;
-        loadedInfectionIds = Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
-    }
-
-    private void updateState() {
-        int oldState = state;
-        if (id2infections.isEmpty()) {
-            state = loading ? STATE_LOADING : STATE_CLEARED;
-        } else {
-            state = STATE_NORMAL;
-        }
-        if (oldState != state) {
-            for (Callback callback : callbacks) {
-                callback.onStateChanged(oldState, state);
-            }
-        }
-    }
-
-    private View getView(Infection infection, View convertView) {
-        View view = convertView;
-        if (view != null && view.getTag() == infection) {
-            return view;
-        }
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.home_list_item, null);
-        }
-        HomePageItemViews itemViews = new HomePageItemViews();
-        ButterKnife.bind(itemViews, view);
-
-        Post post = infection.getPost();
-        User user = post.getUser();
-        itemViews.tvNickname.setUser(user);
-        itemViews.ivAvatar.setUser(user);
-        itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
-        itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
-        String imagePath = post.getPostPages()[0].getImage();
-        ImageLoader.getInstance().cancelDisplayTask(itemViews.ivImage);
-        if (imagePath == null || imagePath.isEmpty()) {
-            itemViews.ivImage.setImageBitmap(null);
-            itemViews.ivImage.setVisibility(View.GONE);
-            itemViews.tvContent.setVisibility(View.GONE);
-            itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
-            itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
-        } else {
-            itemViews.tvContent.setVisibility(View.VISIBLE);
-            itemViews.tvContent.setText(post.getPostPages()[0].getText());
-            itemViews.tvNoImageContent.setVisibility(View.GONE);
-            itemViews.ivImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
-        }
-        view.setTag(infection);
-        return view;
-    }
-
-    public View getViewAt(int index, View convertView) {
-        Iterator<Map.Entry<Integer, Infection>> iterator = id2infections.entrySet().iterator();
-        Map.Entry<Integer, Infection> entry = null;
-        while (iterator.hasNext() && index-- >= 0) {
-            entry = iterator.next();
-        }
-        if (index >= 0) {
-            loadInfections();
-            return null;
-        }
-        if (entry == null) {
-            return null;
-        }
-        return getView(entry.getValue(), convertView);
-    }
-
-    public void remove(View view) {
-        Infection infection = (Infection) view.getTag();
-        id2infections.remove(infection.getId());
     }
 
     public void loadInfections() {
@@ -149,48 +75,150 @@ public class InfectionsAdapter {
                         for (Infection infection : infections) {
                             if (!loadedInfectionIds.contains(infection.getId())) {
                                 loadedInfectionIds.add(infection.getId());
-                                id2infections.put(infection.getId(), infection);
+                                id2infections.put(infection.getId(), new InfectionWrapper(infection));
                             }
                         }
-                        loading = false;
-                        updateState();
+                        notifyDataSetChanged();
                     }
-                }).fail(
-                new JsonErrorListener(context, null) {
+                })
+                .fail(new JsonErrorListener(context, null)).always(
+                new AlwaysCallback<JSONArray, VolleyError>() {
                     @Override
-                    public void onFail(VolleyError error) {
-                        super.onFail(error);
+                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
                         loading = false;
-                        updateState();
+                        notifyLoadingStateChanged();
                     }
-                });
+                }
+        );
+
         loading = true;
-        updateState();
+        notifyLoadingStateChanged();
     }
 
-    public void checkRemainingInfectionsAndUpdate() {
-        for (int threshold : INFECTION_THRESHOLDS) {
-            if (threshold == id2infections.size()) {
+    public boolean pop() {
+        Infection infection = (Infection) getItem(0);
+        return infection != null && id2infections.remove(infection.getId()) != null;
+    }
+
+    public void checkRemainingInfectionsAndLoad() {
+        for (int threshold : LOADING_THRESHOLDS) {
+            if (threshold == getCount()) {
                 loadInfections();
                 break;
             }
         }
     }
 
-    public int getState() {
-        return state;
+    @Override
+    public int getCount() {
+        return id2infections.size();
     }
 
-    public void registerCallback(Callback callback) {
-        callbacks.add(callback);
+    @Override
+    public Object getItem(int position) {
+        Iterator<Map.Entry<Integer, InfectionWrapper>> iterator = id2infections.entrySet().iterator();
+        if (!iterator.hasNext()) {
+            return null;
+        }
+        Map.Entry<Integer, InfectionWrapper> entry = iterator.next();
+        for (int i = 0; i < position; i++) {
+            if (!iterator.hasNext()) {
+                return null;
+            }
+            entry = iterator.next();
+        }
+        return entry.getValue().infection;
     }
 
-    public void unregisterCallback(Callback callback) {
-        callbacks.remove(callback);
+    @Override
+    public long getItemId(int position) {
+        Infection infection = (Infection) getItem(position);
+        return infection == null ? 0 : infection.getId();
     }
 
-    public interface Callback {
-        void onStateChanged(int oldState, int newState);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Infection infection = (Infection) getItem(position);
+        if (infection == null) {
+            return null;
+        }
+
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.home_list_item, parent, false);
+        }
+        HomePageItemViews itemViews = new HomePageItemViews();
+        ButterKnife.bind(itemViews, view);
+
+        Post post = infection.getPost();
+        User user = post.getUser();
+        itemViews.tvNickname.setUser(user);
+        itemViews.ivAvatar.setUser(user);
+        itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
+        itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
+        String imagePath = post.getPostPages()[0].getImage();
+        if (imagePath == null) {
+            imagePath = "";
+        }
+        if (!imagePath.equals(itemViews.ivImage.getTag())) {
+            if (imagePath.isEmpty()) {
+                itemViews.ivImage.setImageBitmap(null);
+                itemViews.ivImage.setVisibility(View.GONE);
+                itemViews.tvContent.setVisibility(View.GONE);
+                itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
+                itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
+            } else {
+                itemViews.tvContent.setVisibility(View.VISIBLE);
+                itemViews.tvContent.setText(post.getPostPages()[0].getText());
+                itemViews.tvNoImageContent.setVisibility(View.GONE);
+                itemViews.ivImage.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
+            }
+        }
+        itemViews.ivImage.setTag(imagePath);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CardDetailsActivity.class);
+                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
+                context.startActivity(intent);
+            }
+        });
+
+        view.setTag(infection);
+
+        return view;
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    protected void notifyLoadingStateChanged() {
+        for (LoadingStatusObserver observer : loadingStatusObservers) {
+            observer.onLoadingStatusChanged(loading);
+        }
+    }
+
+    public void registerLoadingStatusObserver(LoadingStatusObserver observer) {
+        loadingStatusObservers.add(observer);
+    }
+
+    public void unregisterLoadingStatusObserver(LoadingStatusObserver observer) {
+        loadingStatusObservers.remove(observer);
+    }
+
+    private class InfectionWrapper {
+        private InfectionWrapper(Infection infection) {
+            this.infection = infection;
+        }
+
+        private Infection infection;
+    }
+
+    public interface LoadingStatusObserver {
+        void onLoadingStatusChanged(boolean loading);
     }
 
     static class HomePageItemViews {

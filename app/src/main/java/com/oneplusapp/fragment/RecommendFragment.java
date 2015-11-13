@@ -60,7 +60,7 @@ public class RecommendFragment extends Fragment {
                 changeViewsByAdapterState();
             }
         });
-        adapter.registerCallback(new PostsGridViewAdapter.Callback() {
+        adapter.registerLoadingStatusObserver(new PostsGridViewAdapter.LoadingStatusObserver() {
             @Override
             public void onLoadingStatusChanged(boolean loading) {
                 changeViewsByAdapterState();
