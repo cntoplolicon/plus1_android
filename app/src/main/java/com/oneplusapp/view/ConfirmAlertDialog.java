@@ -43,7 +43,7 @@ public class ConfirmAlertDialog extends AlertDialog {
         cancel();
     }
 
-    public TextView getTvConfirm() {
+    public TextView getConfirmTextView() {
         return tvConfirm;
     }
 

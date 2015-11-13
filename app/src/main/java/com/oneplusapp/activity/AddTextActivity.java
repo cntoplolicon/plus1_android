@@ -50,8 +50,8 @@ public class AddTextActivity extends BaseActivity {
     public void onBackPressed() {
         ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(AddTextActivity.this);
         confirmAlertDialog.show();
-        confirmAlertDialog.getTvConfirm().setText(R.string.quit_publishing);
-        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
+        confirmAlertDialog.getConfirmTextView().setText(R.string.quit_publishing);
+        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

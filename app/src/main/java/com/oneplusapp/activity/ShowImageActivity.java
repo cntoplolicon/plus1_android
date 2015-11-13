@@ -43,8 +43,8 @@ public class ShowImageActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(ShowImageActivity.this);
                 confirmAlertDialog.show();
-                confirmAlertDialog.getTvConfirm().setText(R.string.tv_save_storage);
-                confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
+                confirmAlertDialog.getConfirmTextView().setText(R.string.tv_save_storage);
+                confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         confirmAlertDialog.cancel();

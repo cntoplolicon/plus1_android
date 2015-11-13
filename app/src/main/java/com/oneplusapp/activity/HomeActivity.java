@@ -38,6 +38,9 @@ import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class HomeActivity extends BaseActivity {
+
+    private static final int DOUBLE_BACK_CLICKED_INTERVAL = 2000;
+
     private PushNotificationService.Callback callback = new NotificationChanged();
 
     @Bind(R.id.tv_page_title)
@@ -131,7 +134,7 @@ public class HomeActivity extends BaseActivity {
             public void run() {
                 doubleBackToExitPressedOnce = false;
             }
-        }, 2000);
+        }, DOUBLE_BACK_CLICKED_INTERVAL);
     }
 
     public void switchTab(int radioButtonId) {

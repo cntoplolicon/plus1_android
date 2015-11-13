@@ -58,8 +58,8 @@ public class PersonalSettingsActivity extends BaseActivity {
     public void logout(View view) {
         ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
         confirmAlertDialog.show();
-        confirmAlertDialog.getTvConfirm().setText(R.string.log_out_confirm);
-        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
+        confirmAlertDialog.getConfirmTextView().setText(R.string.log_out_confirm);
+        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
@@ -72,8 +72,8 @@ public class PersonalSettingsActivity extends BaseActivity {
     public void clearCache(View view) {
         final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
         confirmAlertDialog.show();
-        confirmAlertDialog.getTvConfirm().setText(R.string.clear_cache_confirm);
-        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
+        confirmAlertDialog.getConfirmTextView().setText(R.string.clear_cache_confirm);
+        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageLoader.getInstance().getDiskCache().clear();
