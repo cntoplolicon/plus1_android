@@ -54,7 +54,6 @@ public class DraggableStackView extends ViewGroup {
     }
 
     private void syncStackViews() {
-        View oldCurrentContentView = stackTopView;
         if (stackTopView != null && stackTopView.getParent() == this) {
             removeView(stackTopView);
         }
@@ -67,7 +66,7 @@ public class DraggableStackView extends ViewGroup {
             addView(stackTopView, 0);
         }
 
-        stackNextView = adapter.getView(1, oldCurrentContentView, this);
+        stackNextView = adapter.getView(1, null, this);
         if (stackNextView != null) {
             addView(stackNextView, 0);
         }
