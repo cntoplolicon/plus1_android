@@ -1,13 +1,9 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +13,7 @@ import com.oneplusapp.R;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
+import com.oneplusapp.view.ConfirmAlertDialog;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.DoneCallback;
@@ -51,28 +48,13 @@ public class AddTextActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (editText.getText().toString().isEmpty()) {
-            super.onBackPressed();
-            return;
-        }
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.publish_edit_cancel_dialog);
-        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(AddTextActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getTvConfirm().setText(R.string.quit_publishing);
+        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
             }
         });
     }

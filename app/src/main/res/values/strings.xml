@@ -161,7 +161,7 @@
     <string name="update_versions_title">有新版本啦</string>
 
     <string name="home_no_publish">暂时没有发布过话题哟~</string>
-    <string name="home_no_bookmard">暂时没有评论或喜欢过话题哟~</string>
+    <string name="home_no_bookmark">暂时没有评论或喜欢过话题哟~</string>
     <string name="no_recommend">没有新的热门话题了</string>
 
     <string name="downloading_image">正在保存</string>
@@ -180,5 +180,7 @@
     <string name="copyright">思无疆公司版权所有</string>
     <string name="update_dialog">已是最新版,无需更新</string>
     <string name="back_again_to_exit">再按一次退出</string>
+    <string name="quit_publishing">放弃编辑</string>
+    <string name="clear_cache_confirm">确认清除？</string>
 
 </resources>

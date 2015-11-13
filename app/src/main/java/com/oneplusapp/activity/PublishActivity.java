@@ -1,17 +1,13 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +20,7 @@ import com.oneplusapp.common.BitmapUtil;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.common.ThrowableDeferredAsyncTask;
+import com.oneplusapp.view.ConfirmAlertDialog;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -101,24 +98,13 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.publish_edit_cancel_dialog);
-        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PublishActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getTvConfirm().setText(R.string.quit_publishing);
+        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
             }
         });
     }

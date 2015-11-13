@@ -1,11 +1,7 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -18,6 +14,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.ConfirmAlertDialog;
 
 import java.io.File;
 
@@ -59,51 +56,29 @@ public class PersonalSettingsActivity extends BaseActivity {
 
     @OnClick(R.id.btn_logout)
     public void logout(View view) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.log_out_dialog);
-        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getTvConfirm().setText(R.string.log_out_confirm);
+        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
                 CommonMethods.clientSideSignOut(PersonalSettingsActivity.this);
             }
         });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
-            }
-        });
     }
 
     @OnClick(R.id.tv_clear_cache)
     public void clearCache(View view) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        Window window = alertDialog.getWindow();
-        alertDialog.show();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.cache_clear_dialog);
-        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+        final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getTvConfirm().setText(R.string.clear_cache_confirm);
+        confirmAlertDialog.getTvConfirm().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageLoader.getInstance().getDiskCache().clear();
                 tvCacheSize.setText(calcImageCacheSize());
-                alertDialog.cancel();
-            }
-        });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
+                confirmAlertDialog.cancel();
             }
         });
     }
