@@ -45,6 +45,8 @@ public class HomeFragment extends Fragment {
     View clearedView;
     @Bind(R.id.sliding_layout)
     HomePageLayout slidingView;
+    @Bind(R.id.fragments_container)
+    View fragmentsContainerView;
 
     private InfectionsAdapter adapter;
     private LoadNewInfectionsTimer timer = new LoadNewInfectionsTimer(LOADING_INTERVAL * 20);
@@ -64,6 +66,8 @@ public class HomeFragment extends Fragment {
             default:
                 throw new IllegalArgumentException("unknown state " + state);
         }
+        fragmentsContainerView.invalidate();
+        fragmentsContainerView.requestLayout();
     }
 
     @Override
