@@ -48,6 +48,11 @@ public class DraggableStackView extends ViewGroup {
         this(context, attrs, 0);
     }
 
+    public DraggableStackView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        dragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
+    }
+
     private void syncStackViews() {
         View oldCurrentContentView = stackTopView;
         if (stackTopView != null && stackTopView.getParent() == this) {
@@ -110,11 +115,6 @@ public class DraggableStackView extends ViewGroup {
         return view.getMeasuredHeight();
     }
 
-    public DraggableStackView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        dragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
-    }
-
 
     private void onCapturedViewSettled() {
         if (stackTopView != null) {
@@ -156,10 +156,10 @@ public class DraggableStackView extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.d("onMeasure()", "" + settling);
 
-        int topViewHeight = computeTopViewHeight();
+        int topViewHeight = computeHeaderViewHeight();
         measureExactHeight(headerView, topViewHeight, widthMeasureSpec);
 
-        int bottomViewHeight = computeBottomViewHeight();
+        int bottomViewHeight = computeFooterViewHeight();
         measureExactHeight(footerView, bottomViewHeight, widthMeasureSpec);
 
         if (stackTopView != null) {
@@ -171,15 +171,14 @@ public class DraggableStackView extends ViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private int computeTopViewHeight() {
-        Log.d("computeTopViewHeight", "" + settling + " " + offset);
+    private int computeHeaderViewHeight() {
         if (settling && settleEnd > settleStart) {
             return (int) (1.0f * (offset - settleEnd) / (settleStart - settleEnd) * settleStart);
         }
         return offset > 0 ? offset : 0;
     }
 
-    private int computeBottomViewHeight() {
+    private int computeFooterViewHeight() {
         if (settling && settleEnd < settleStart) {
             return (int) (1.0f * (offset - settleEnd) / (settleEnd - settleStart) * settleStart);
         }
@@ -196,20 +195,20 @@ public class DraggableStackView extends ViewGroup {
         Log.d("onLayout()", l + " " + t + " " + r + " " + b + " " + settling);
         dragRange = getHeight();
 
-        int topViewHeight = computeTopViewHeight();
-        headerView.layout(l, t, r, t + topViewHeight);
+        int headerViewHeight = computeHeaderViewHeight();
+        headerView.layout(l, t, r, t + headerViewHeight);
 
-        int bottomViewHeight = computeBottomViewHeight();
-        footerView.layout(l, b - bottomViewHeight, r, b);
+        int footerViewHeight = computeFooterViewHeight();
+        footerView.layout(l, b - footerViewHeight, r, b);
 
         if (stackNextView != null) {
             stackNextView.layout(l, t, r, b);
         }
         if (stackTopView != null) {
-            if (topViewHeight > 0) {
-                stackTopView.layout(l, t + topViewHeight, r, t + topViewHeight + stackTopView.getMeasuredHeight());
+            if (headerViewHeight > 0) {
+                stackTopView.layout(l, t + headerViewHeight, r, t + headerViewHeight + stackTopView.getMeasuredHeight());
             } else {
-                stackTopView.layout(l, b - bottomViewHeight - stackTopView.getMeasuredHeight(), r, b - bottomViewHeight);
+                stackTopView.layout(l, b - footerViewHeight - stackTopView.getMeasuredHeight(), r, b - footerViewHeight);
             }
         }
     }
@@ -250,6 +249,11 @@ public class DraggableStackView extends ViewGroup {
                 invalidate();
                 return;
             }
+
+            if (onViewReleasedListener != null) {
+                onViewReleasedListener.onViewReleased(releasedChild, offset);
+            }
+
             settleStart = offset;
             settleEnd = offset > 0 ? dragRange : -dragRange;
             settling = dragHelper.settleCapturedViewAt(releasedChild.getLeft(), settleEnd);
