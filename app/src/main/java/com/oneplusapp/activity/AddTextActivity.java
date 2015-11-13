@@ -1,8 +1,13 @@
 package com.oneplusapp.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +47,34 @@ public class AddTextActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_text);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (editText.getText().toString().isEmpty()) {
+            super.onBackPressed();
+            return;
+        }
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        window.setContentView(R.layout.publish_edit_cancel_dialog);
+        TextView tvConfirm = (TextView) window.findViewById(R.id.tv_confirms);
+        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
     }
 
     @OnClick(R.id.tv_publish)

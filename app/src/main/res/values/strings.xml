@@ -179,5 +179,6 @@
     <string name="user_agreement">用户协议</string>
     <string name="copyright">思无疆公司版权所有</string>
     <string name="update_dialog">已是最新版,无需更新</string>
+    <string name="back_again_to_exit">再按一次退出</string>
 
 </resources>
