@@ -95,52 +95,6 @@
         android:layout_height="match_parent"
         android:background="#9e9e9e">
 
-        <FrameLayout
-            android:id="@+id/top_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#d6d6d6">
 
-            <com.oneplusapp.view.AdjustableImageView
-                android:id="@+id/iv_skip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:tag="text"
-                android:text="@string/home_pass_post"
-                android:textColor="#666666"
-                android:textSize="16sp" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/bottom_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fed724">
-
-            <com.oneplusapp.view.AdjustableImageView
-                android:id="@+id/iv_spread"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:tag="text"
-                android:text="@string/home_spread_post"
-                android:textColor="#666666"
-                android:textSize="16sp" />
-        </FrameLayout>
     </com.oneplusapp.view.DraggableStackView>
 </FrameLayout>

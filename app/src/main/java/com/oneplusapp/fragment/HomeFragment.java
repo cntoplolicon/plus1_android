@@ -29,14 +29,13 @@ import butterknife.OnClick;
 public class HomeFragment extends Fragment {
 
     private static final int LOADING_INTERVAL = 15000;
+    private static final int DRAG_OFFSET_LIMIT_FACTOR = 3;
+    private DisplayImageOptions HEADER_FOOTER_DISPLAY_OPTION =
+            new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
 
     private static Bitmap bitmapSkip;
     private static Bitmap bitmapSpread;
 
-    @Bind(R.id.iv_skip)
-    ImageView ivSkip;
-    @Bind(R.id.iv_spread)
-    ImageView ivSpread;
     @Bind(R.id.loading_layout)
     View loadingView;
     @Bind(R.id.cleared_layout)
@@ -77,23 +76,42 @@ public class HomeFragment extends Fragment {
                 updateFrontView();
             }
         });
-        updateFrontView();
 
+        updateFrontView();
+        initStackView();
+        timer.start();
+
+        return view;
+    }
+
+    private int getDesiredHeight(View view) {
+        int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(spec, spec);
+        return view.getMeasuredHeight();
+    }
+
+    private void initStackView() {
         stackView.setOnViewReleasedListener(new StackedViewReleasedListener());
         stackView.setAdapter(adapter);
 
-        timer.start();
-        DisplayImageOptions displayOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).build();
         if (bitmapSkip == null) {
-            bitmapSkip = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.skip, displayOptions);
+            bitmapSkip = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.skip, HEADER_FOOTER_DISPLAY_OPTION);
         }
-        ivSkip.setImageBitmap(bitmapSkip);
-        if (bitmapSpread == null) {
-            bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, displayOptions);
-        }
-        ivSpread.setImageBitmap(bitmapSpread);
+        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.skip_layout, stackView, false);
+        ((ImageView) headerView.findViewById(R.id.iv_skip)).setImageBitmap(bitmapSkip);
+        stackView.setHeaderView(headerView);
 
-        return view;
+        if (bitmapSpread == null) {
+            bitmapSpread = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.spread, HEADER_FOOTER_DISPLAY_OPTION);
+        }
+        View footerView = LayoutInflater.from(getActivity()).inflate(R.layout.spread_layout, stackView, false);
+        ((ImageView) footerView.findViewById(R.id.iv_spread)).setImageBitmap(bitmapSpread);
+        stackView.setFooterView(footerView);
+
+        int dragOffsetLimit = 0;
+        dragOffsetLimit = Math.max(dragOffsetLimit, getDesiredHeight(headerView.findViewById(R.id.tv_skip)));
+        dragOffsetLimit = Math.max(dragOffsetLimit, getDesiredHeight(footerView.findViewById(R.id.tv_spread)));
+        stackView.setDragOffsetLimit(dragOffsetLimit * DRAG_OFFSET_LIMIT_FACTOR);
     }
 
     @Override

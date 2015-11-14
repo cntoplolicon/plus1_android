@@ -20,8 +20,6 @@ public class DraggableStackView extends ViewGroup {
 
     // affect the touch slop and  the minimum drag slot and settling duration
     private static int DRAG_RANGE_REDUCE_FACTOR = 10;
-    // affect the minimum offset to drag a view off the screen
-    private static int DRAG_OFF_OFFSET_FACTOR = 3;
 
     private final ViewDragHelper dragHelper;
 
@@ -31,11 +29,11 @@ public class DraggableStackView extends ViewGroup {
     private View stackTopView;
     private View stackNextView;
 
+    private int dragOffsetLimit;
     private int offset;
     private int dragRange;
     private int settleStart, settleEnd;
     private boolean settling;
-    private int minimumDragOffOffset;
 
     private BaseAdapter adapter;
     private OnViewReleasedListener onViewReleasedListener;
@@ -51,6 +49,7 @@ public class DraggableStackView extends ViewGroup {
     public DraggableStackView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         dragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
+        dragOffsetLimit = dragHelper.getTouchSlop();
     }
 
     private void syncStackViews() {
@@ -96,24 +95,29 @@ public class DraggableStackView extends ViewGroup {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-
-        headerView = findViewById(R.id.top_view);
-        footerView = findViewById(R.id.bottom_view);
-        minimumDragOffOffset = Math.max(getDesiredHeight(headerView), minimumDragOffOffset);
-        minimumDragOffOffset = Math.max(getDesiredHeight(footerView), minimumDragOffOffset);
-        minimumDragOffOffset = Math.max(dragHelper.getTouchSlop(), minimumDragOffOffset * DRAG_OFF_OFFSET_FACTOR);
+    public void setHeaderView(View view) {
+        if (headerView != null && headerView.getParent() == this) {
+            removeView(headerView);
+        }
+        headerView = view;
+        if (headerView != null) {
+            addView(headerView);
+        }
     }
 
-    private int getDesiredHeight(View view) {
-        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-        int widthMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-        view.measure(widthMeasureSpec, heightMeasureSpec);
-        return view.getMeasuredHeight();
+    public void setFooterView(View view) {
+        if (footerView != null && footerView.getParent() == this) {
+            removeView(footerView);
+        }
+        footerView = view;
+        if (footerView != null) {
+            addView(footerView);
+        }
     }
 
+    public void setDragOffsetLimit(int limit) {
+        dragOffsetLimit = Math.max(limit, dragHelper.getTouchSlop());
+    }
 
     private void onCapturedViewSettled() {
         if (stackTopView != null) {
@@ -155,11 +159,15 @@ public class DraggableStackView extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.d("onMeasure()", "" + settling);
 
-        int topViewHeight = computeHeaderViewHeight();
-        measureExactHeight(headerView, topViewHeight, widthMeasureSpec);
+        if (headerView != null) {
+            int topViewHeight = computeHeaderViewHeight();
+            measureExactHeight(headerView, topViewHeight, widthMeasureSpec);
+        }
 
-        int bottomViewHeight = computeFooterViewHeight();
-        measureExactHeight(footerView, bottomViewHeight, widthMeasureSpec);
+        if (footerView != null) {
+            int bottomViewHeight = computeFooterViewHeight();
+            measureExactHeight(footerView, bottomViewHeight, widthMeasureSpec);
+        }
 
         if (stackTopView != null) {
             stackTopView.measure(widthMeasureSpec, heightMeasureSpec);
@@ -195,10 +203,14 @@ public class DraggableStackView extends ViewGroup {
         dragRange = getHeight();
 
         int headerViewHeight = computeHeaderViewHeight();
-        headerView.layout(l, t, r, t + headerViewHeight);
+        if (headerView != null) {
+            headerView.layout(l, t, r, t + headerViewHeight);
+        }
 
         int footerViewHeight = computeFooterViewHeight();
-        footerView.layout(l, b - footerViewHeight, r, b);
+        if (footerView != null) {
+            footerView.layout(l, b - footerViewHeight, r, b);
+        }
 
         if (stackNextView != null) {
             stackNextView.layout(l, t, r, b);
@@ -243,7 +255,7 @@ public class DraggableStackView extends ViewGroup {
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
-            if (Math.abs(offset) < minimumDragOffOffset) {
+            if (Math.abs(offset) < dragOffsetLimit) {
                 dragHelper.settleCapturedViewAt(releasedChild.getLeft(), 0);
                 invalidate();
                 return;
