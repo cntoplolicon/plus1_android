@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.oneplusapp.common.BitmapUtil;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.common.ThrowableDeferredAsyncTask;
+import com.oneplusapp.view.ConfirmAlertDialog;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -92,6 +94,19 @@ public class PublishActivity extends BaseActivity {
     private void handleProcessedBitmap() {
         tvPublish.setEnabled(true);
         imageView.setImageBitmap(processBitmap);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PublishActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getConfirmTextView().setText(R.string.quit_publishing);
+        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.tv_delete)

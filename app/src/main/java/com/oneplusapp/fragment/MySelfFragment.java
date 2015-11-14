@@ -97,7 +97,7 @@ public class MySelfFragment extends Fragment {
                         tvContentEmpty.setText(R.string.home_no_publish);
                     } else {
                         gridView.setAdapter(bookmarksAdapter);
-                        tvContentEmpty.setText(R.string.home_no_bookmard);
+                        tvContentEmpty.setText(R.string.home_no_bookmark);
                     }
                     changeViewsByAdapterState();
                 }

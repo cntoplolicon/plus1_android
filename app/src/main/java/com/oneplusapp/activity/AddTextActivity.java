@@ -3,6 +3,7 @@ package com.oneplusapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.oneplusapp.R;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
+import com.oneplusapp.view.ConfirmAlertDialog;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.DoneCallback;
@@ -42,6 +44,19 @@ public class AddTextActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_text);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(AddTextActivity.this);
+        confirmAlertDialog.show();
+        confirmAlertDialog.getConfirmTextView().setText(R.string.quit_publishing);
+        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.tv_publish)

@@ -3,12 +3,14 @@ package com.oneplusapp.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
@@ -36,6 +38,9 @@ import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class HomeActivity extends BaseActivity {
+
+    private static final int DOUBLE_BACK_CLICKED_INTERVAL = 2000;
+
     private PushNotificationService.Callback callback = new NotificationChanged();
 
     @Bind(R.id.tv_page_title)
@@ -51,6 +56,7 @@ public class HomeActivity extends BaseActivity {
 
     private static final Map<Integer, HomeActivityFragment> fragments = new HashMap<>();
     private static boolean appUpdateNotified = false;
+    private static boolean doubleBackToExitPressedOnce = false;
 
     static {
         fragments.put(R.id.rb_home, new HomeActivityFragment(HomeFragment.class, R.string.home_tab));
@@ -111,6 +117,24 @@ public class HomeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         PushNotificationService.getInstance().unregisterCallback(callback);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.back_again_to_exit, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, DOUBLE_BACK_CLICKED_INTERVAL);
     }
 
     public void switchTab(int radioButtonId) {
