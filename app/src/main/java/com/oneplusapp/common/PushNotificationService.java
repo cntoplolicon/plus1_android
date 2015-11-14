@@ -145,7 +145,7 @@ public class PushNotificationService {
 
             String notificationBarBody = String.format(commentFormat, comment.getUser().getNickname());
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.notificaiton_small)
+                    .setSmallIcon(R.drawable.notification_small)
                     .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
                     .setContentText(notificationBarBody)
                     .setContentIntent(pendingIntent)
