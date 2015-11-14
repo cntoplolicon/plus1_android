@@ -63,4 +63,5 @@ dependencies {
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     compile 'cn.leancloud.android:avoscloud-push:v3.+@aar'
     compile 'cn.leancloud.android:Java-WebSocket:1.2.0-leancloud'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
 }

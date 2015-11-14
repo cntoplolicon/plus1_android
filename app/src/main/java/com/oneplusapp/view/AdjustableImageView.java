@@ -47,6 +47,12 @@ public class AdjustableImageView extends ImageView {
             // Fixed Width & Adjustable Height
             int width = widthSize;
             int height = width * mDrawableHeight / mDrawableWidth;
+
+            if (mAdjustableImageView && height / 2 >= width) {
+                height = (int) (width * 2.0);
+            } else if (mAdjustableImageView && height < width * 9 / 16) {
+                height = width;
+            }
             setMeasuredDimension(Math.min(width, widthSize), height);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
