@@ -25,11 +25,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.AbstractMap;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by cntoplolicon on 9/10/15.
@@ -457,17 +457,18 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONArray, VolleyError, Void> getNotificationUsersInfo(Set<Integer> UserIds) {
+    public Promise<JSONArray, VolleyError, Void> getNotificationUsersInfo(Collection<Integer> userIds) {
         ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
         Map<String, Object> params = createUserParams();
 
-        String formatUserIds = "";
-        for (Integer userId : UserIds) {
-            formatUserIds += userId + ";";
+        StringBuilder sbUserIds = new StringBuilder();
+        for (Integer userId : userIds) {
+            sbUserIds.append(userId);
+            sbUserIds.append(";");
         }
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, encodeUrlParams("/users/" + formatUserIds, params), listener, listener);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, encodeUrlParams("/users/" + sbUserIds, params), listener, listener);
         request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 

@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -36,8 +37,6 @@ import butterknife.ButterKnife;
 public class MessageFragment extends Fragment {
     private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;
-    private List<Notification> notifications;
-
 
     @Bind(R.id.tv_no_message)
     TextView tvNoMessage;
@@ -48,9 +47,9 @@ public class MessageFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        notifications = Notification.getMyNotifications(User.current.getId());
+        List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         messageAdapter = new MessageAdapter(getActivity(), notifications);
-        syncNotificationUsers();
+        syncNotificationUsers(notifications);
         ListView lvListView = (ListView) view.findViewById(R.id.lv_list_view);
         lvListView.setAdapter(messageAdapter);
         if (notifications.isEmpty()) {
@@ -80,16 +79,14 @@ public class MessageFragment extends Fragment {
         PushNotificationService.getInstance().unregisterCallback(callback);
     }
 
-    private void syncNotificationUsers() {
-
-        final HashMap<Integer, User> userHashMap = new HashMap<>();
-        final HashMap<Notification, Comment> commentNotificationHashMap = new HashMap<>();
+    private void syncNotificationUsers(List<Notification> notifications) {
+        final Map<Notification, Comment> notification2Comment = new HashMap<>();
 
         Set<Integer> userIds = new HashSet<>();
 
         for (Notification notification : notifications) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            commentNotificationHashMap.put(notification, comment);
+            notification2Comment.put(notification, comment);
             userIds.add(comment.getUser().getId());
         }
 
@@ -97,15 +94,17 @@ public class MessageFragment extends Fragment {
             RestClient.getInstance().getNotificationUsersInfo(userIds).done(new DoneCallback<JSONArray>() {
                 @Override
                 public void onDone(JSONArray result) {
-                    User[] notificationUsers = CommonMethods.createDefaultGson().fromJson(result.toString(), User[].class);
-                    for (User notificationUser : notificationUsers) {
-                        userHashMap.put(notificationUser.getId(), notificationUser);
+                    User[] users = CommonMethods.createDefaultGson().fromJson(result.toString(), User[].class);
+                    Map<Integer, User> id2User = new HashMap<>();
+                    for (User user : users) {
+                        id2User.put(user.getId(), user);
                     }
                     ActiveAndroid.beginTransaction();
                     try {
-                        for (Notification notification : notifications) {
-                            Comment comment = commentNotificationHashMap.get(notification);
-                            comment.setUser(userHashMap.get(comment.getUser().getId()));
+                        for (Map.Entry<Notification, Comment> entry : notification2Comment.entrySet()) {
+                            Comment comment = entry.getValue();
+                            comment.setUser(id2User.get(comment.getUser().getId()));
+                            Notification notification = entry.getKey();
                             notification.setContent(CommonMethods.createDefaultGson().toJson(comment));
                             notification.save();
                         }
