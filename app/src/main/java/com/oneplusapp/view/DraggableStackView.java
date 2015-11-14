@@ -158,15 +158,22 @@ public class DraggableStackView extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Log.d("onMeasure()", "" + settling);
-
+        int unspecifiedSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         if (headerView != null) {
-            int topViewHeight = computeHeaderViewHeight();
-            measureExactHeight(headerView, topViewHeight, widthMeasureSpec);
+            headerView.measure(widthMeasureSpec, unspecifiedSpec);
+            int headerViewOffset = computeHeaderViewOffset();
+            if (headerViewOffset > headerView.getMeasuredHeight()) {
+                int heightSpec = MeasureSpec.makeMeasureSpec(headerViewOffset, MeasureSpec.EXACTLY);
+                headerView.measure(widthMeasureSpec, heightSpec);
+            }
         }
-
         if (footerView != null) {
-            int bottomViewHeight = computeFooterViewHeight();
-            measureExactHeight(footerView, bottomViewHeight, widthMeasureSpec);
+            footerView.measure(widthMeasureSpec, unspecifiedSpec);
+            int footerViewOffset = computeFooterViewOffset();
+            if (footerViewOffset > footerView.getMeasuredHeight()) {
+                int heightSpec = MeasureSpec.makeMeasureSpec(footerViewOffset, MeasureSpec.EXACTLY);
+                footerView.measure(widthMeasureSpec, heightSpec);
+            }
         }
 
         if (stackTopView != null) {
@@ -175,26 +182,22 @@ public class DraggableStackView extends ViewGroup {
         if (stackNextView != null) {
             stackNextView.measure(widthMeasureSpec, heightMeasureSpec);
         }
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private int computeHeaderViewHeight() {
+    private int computeHeaderViewOffset() {
         if (settling && settleEnd > settleStart) {
             return (int) (1.0f * (offset - settleEnd) / (settleStart - settleEnd) * settleStart);
         }
         return offset > 0 ? offset : 0;
     }
 
-    private int computeFooterViewHeight() {
+    private int computeFooterViewOffset() {
         if (settling && settleEnd < settleStart) {
             return (int) (1.0f * (offset - settleEnd) / (settleEnd - settleStart) * settleStart);
         }
         return offset < 0 ? -offset : 0;
-    }
-
-    private void measureExactHeight(View view, int height, int widthMeasureSpec) {
-        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-        view.measure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
@@ -202,25 +205,19 @@ public class DraggableStackView extends ViewGroup {
         Log.d("onLayout()", l + " " + t + " " + r + " " + b + " " + settling);
         dragRange = getHeight();
 
-        int headerViewHeight = computeHeaderViewHeight();
-        if (headerView != null) {
-            headerView.layout(l, t, r, t + headerViewHeight);
-        }
-
-        int footerViewHeight = computeFooterViewHeight();
-        if (footerView != null) {
-            footerView.layout(l, b - footerViewHeight, r, b);
-        }
-
         if (stackNextView != null) {
             stackNextView.layout(l, t, r, b);
         }
         if (stackTopView != null) {
-            if (headerViewHeight > 0) {
-                stackTopView.layout(l, t + headerViewHeight, r, t + headerViewHeight + stackTopView.getMeasuredHeight());
-            } else {
-                stackTopView.layout(l, b - footerViewHeight - stackTopView.getMeasuredHeight(), r, b - footerViewHeight);
-            }
+            stackTopView.layout(l, l + offset, r, l + offset + stackTopView.getMeasuredHeight());
+        }
+        if (headerView != null) {
+            int headerViewOffset = computeHeaderViewOffset();
+            headerView.layout(l, t + headerViewOffset - headerView.getMeasuredHeight(), r, t + headerViewOffset);
+        }
+        if (footerView != null) {
+            int footerViewOffset = computeFooterViewOffset();
+            footerView.layout(l, b - footerViewOffset, r, b - footerViewOffset + footerView.getMeasuredHeight());
         }
     }
 
