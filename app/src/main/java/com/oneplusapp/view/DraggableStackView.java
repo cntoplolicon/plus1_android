@@ -28,8 +28,8 @@ public class DraggableStackView extends ViewGroup {
 
     private View stackTopView;
     private View stackNextView;
-    private long nextViewItemId;
 
+    private int position;
     private int dragOffsetLimit;
     private int offset;
     private int dragRange;
@@ -61,33 +61,17 @@ public class DraggableStackView extends ViewGroup {
             removeView(stackNextView);
         }
 
-        View convertView = stackTopView;
-        if (!adapter.isEmpty() && adapter.getItemId(0) == nextViewItemId) {
-            convertView = stackNextView;
-        }
-        stackTopView = adapter.getView(0, convertView, this);
-        if (stackTopView != null) {
+        if (position < adapter.getCount()) {
+            stackTopView = adapter.getView(position, stackTopView, this);
             addView(stackTopView, 0);
+        } else {
+            stackTopView = null;
         }
-
-        stackNextView = adapter.getView(1, null, this);
-        nextViewItemId = 0;
-        if (stackNextView != null) {
+        if (position + 1 < adapter.getCount()) {
+            stackNextView = adapter.getView(position + 1, null, this);
             addView(stackNextView, 0);
-            nextViewItemId = adapter.getItemId(1);
-        }
-    }
-
-    private void recycleContentViewBitmap(View contentView) {
-        if (contentView == null || contentView.getParent() != null) {
-            return;
-        }
-        ImageView imageView = (ImageView) contentView.findViewById(R.id.iv_image);
-        Drawable drawable = imageView.getDrawable();
-        if (drawable instanceof BitmapDrawable) {
-            imageView.setImageBitmap(null);
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            bitmapDrawable.getBitmap().recycle();
+        } else {
+            stackNextView = null;
         }
     }
 
@@ -126,15 +110,22 @@ public class DraggableStackView extends ViewGroup {
         dragOffsetLimit = Math.max(limit, dragHelper.getTouchSlop());
     }
 
+    public void resetPosition() {
+        position = 0;
+    }
+
     private void onCapturedViewSettled() {
-        if (stackTopView != null) {
-            removeView(stackTopView);
-            if (onViewReleasedListener != null) {
-                onViewReleasedListener.onReleasedViewSettled(stackTopView, offset);
-            }
-            recycleContentViewBitmap(stackTopView);
+        ++position;
+        if (stackTopView != null && onViewReleasedListener != null) {
+            onViewReleasedListener.onReleasedViewSettled(stackTopView, offset);
+        }
+        if (stackNextView != null) {
+            View tempView = stackNextView;
+            stackNextView = stackTopView;
+            stackTopView = tempView;
         }
         offset = 0;
+        syncStackViews();
     }
 
     @Override

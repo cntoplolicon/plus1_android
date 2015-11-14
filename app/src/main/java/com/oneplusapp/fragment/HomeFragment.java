@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onReleasedViewSettled(View view, int offset) {
             adapter.pop();
-            adapter.notifyDataSetChanged();
+            stackView.resetPosition();
         }
     }
 
