@@ -3,6 +3,7 @@ package com.oneplusapp.fragment;
 import android.app.Fragment;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -159,6 +160,16 @@ public class HomeFragment extends Fragment {
         public void onReleasedViewSettled(View view, int offset) {
             adapter.pop();
             stackView.resetPosition();
+            ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
+            if (imageView.getDrawable() instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                imageView.setImageBitmap(null);
+                imageView.setTag("");
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                if (bitmap != null) {
+                    bitmap.recycle();
+                }
+            }
         }
     }
 
