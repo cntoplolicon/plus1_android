@@ -5,6 +5,7 @@ import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,10 +46,11 @@ public class HomeFragment extends Fragment {
 
     private InfectionsAdapter adapter;
     private LoadNewInfectionsTimer timer = new LoadNewInfectionsTimer(LOADING_INTERVAL * 20);
+    private boolean noData = true;
 
     private void updateFrontView() {
         View frontView = stackView;
-        if (adapter.getCount() == 0) {
+        if (adapter.isEmpty()) {
             frontView = adapter.isLoading() ? loadingView : clearedView;
         }
         frontView.bringToFront();
@@ -73,15 +75,30 @@ public class HomeFragment extends Fragment {
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
+                if (!noData && adapter.isEmpty()) {
+                    adapter.loadInfections();
+                }
+                noData = adapter.isEmpty();
                 updateFrontView();
             }
         });
 
         updateFrontView();
         initStackView();
-        timer.start();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                timer.start();
+            }
+        }, LOADING_INTERVAL);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.loadInfections();
     }
 
     private int getDesiredHeight(View view) {
@@ -125,7 +142,6 @@ public class HomeFragment extends Fragment {
         HomeActivity homeActivity = (HomeActivity) getActivity();
         RadioButton radioButton = (RadioButton) homeActivity.findViewById(R.id.rb_recommendation);
         radioButton.setChecked(true);
-        homeActivity.switchTab(R.id.rb_recommendation);
     }
 
     private class StackedViewReleasedListener implements DraggableStackView.OnViewReleasedListener {

@@ -73,9 +73,14 @@ public class InfectionsAdapter extends BaseAdapter {
                     public void onDone(JSONArray response) {
                         Infection[] infections = CommonMethods.createDefaultGson().fromJson(response.toString(), Infection[].class);
                         for (Infection infection : infections) {
-                            if (!loadedInfectionIds.contains(infection.getId())) {
-                                loadedInfectionIds.add(infection.getId());
-                                id2infections.put(infection.getId(), new InfectionWrapper(infection));
+                            InfectionWrapper wrapper = id2infections.get(infection.getId());
+                            if (wrapper == null) {
+                                if (!loadedInfectionIds.contains(infection.getId())) {
+                                    loadedInfectionIds.add(infection.getId());
+                                    id2infections.put(infection.getId(), new InfectionWrapper(infection));
+                                }
+                            } else {
+                                wrapper.infection = infection;
                             }
                         }
                         notifyDataSetChanged();

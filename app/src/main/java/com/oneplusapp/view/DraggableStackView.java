@@ -28,6 +28,7 @@ public class DraggableStackView extends ViewGroup {
 
     private View stackTopView;
     private View stackNextView;
+    private long nextViewItemId;
 
     private int dragOffsetLimit;
     private int offset;
@@ -60,14 +61,20 @@ public class DraggableStackView extends ViewGroup {
             removeView(stackNextView);
         }
 
-        stackTopView = adapter.getView(0, stackNextView, this);
+        View convertView = stackTopView;
+        if (!adapter.isEmpty() && adapter.getItemId(0) == nextViewItemId) {
+            convertView = stackNextView;
+        }
+        stackTopView = adapter.getView(0, convertView, this);
         if (stackTopView != null) {
             addView(stackTopView, 0);
         }
 
         stackNextView = adapter.getView(1, null, this);
+        nextViewItemId = 0;
         if (stackNextView != null) {
             addView(stackNextView, 0);
+            nextViewItemId = adapter.getItemId(1);
         }
     }
 
