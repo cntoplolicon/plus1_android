@@ -28,7 +28,7 @@ public class JsonObjectFormRequest extends JsonObjectRequest {
 
     @Override
     protected Map<String, String> getParams() {
-        Map<String, String> strParams = new HashMap<String, String>();
+        Map<String, String> strParams = new HashMap<>();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (entry.getValue() == null) {
                 strParams.put(entry.getKey(), null);

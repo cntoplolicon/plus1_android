@@ -60,7 +60,7 @@ public final class BitmapUtil {
                 return uri;
             }
         };
-        normalizeUriTask.execute(new Object[]{context, uri});
+        normalizeUriTask.execute(context, uri);
 
         final ThrowableDeferredObject<Bitmap, FailReason, Void> deferredObject = new ThrowableDeferredObject<>();
         normalizeUriTask.promise().fail(new ImageProcessingFailureCallback<Throwable>(context) {
@@ -125,8 +125,7 @@ public final class BitmapUtil {
             return null;
         }
         String filename = "IMG_" + getNowTime() + ".jpg";
-        File file = new File(dir, filename);
-        return file;
+        return new File(dir, filename);
     }
 
     private static String getNowTime() {

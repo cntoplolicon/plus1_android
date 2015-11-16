@@ -106,16 +106,6 @@ public final class CommonMethods {
         context.startActivity(intent);
     }
 
-    public static void chooseNicknameColorViaGender(TextView textView, User user, Context context) {
-        if (user.getGender() == User.GENDER_MALE) {
-            textView.setTextColor(ContextCompat.getColor(context, R.color.personal_common_male_username));
-        } else if (user.getGender() == User.GENDER_FEMALE) {
-            textView.setTextColor(ContextCompat.getColor(context, R.color.personal_common_female_username));
-        } else {
-            textView.setTextColor(ContextCompat.getColor(context, R.color.unknown_gender));
-        }
-    }
-
     public static File getFileFromMediaUri(Context context, Uri uri) {
         if (uri == null) {
             return null;
