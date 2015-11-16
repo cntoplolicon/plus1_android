@@ -63,7 +63,7 @@ public class DraggableStackView extends ViewGroup {
             stackTopView = null;
         }
         if (position + 1 < adapter.getCount()) {
-            stackNextView = adapter.getView(position + 1, null, this);
+            stackNextView = adapter.getView(position + 1, stackNextView, this);
             addView(stackNextView, 0);
         } else {
             stackNextView = null;

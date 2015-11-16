@@ -22,6 +22,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Infection;
 import com.oneplusapp.model.PostView;
+import com.oneplusapp.model.User;
 import com.oneplusapp.view.DraggableStackView;
 
 import butterknife.Bind;
@@ -181,7 +182,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (!adapter.isLoading() && adapter.getCount() == 0) {
+            if (!adapter.isLoading() && adapter.getCount() == 0 && User.current != null) {
                 adapter.loadInfections();
             }
         }

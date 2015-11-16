@@ -52,10 +52,12 @@ public class InfectionsAdapter extends BaseAdapter {
 
     private static Set<Integer> loadedInfectionIds =
             Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
-
     private static Map<Integer, InfectionWrapper> id2infections = new LinkedHashMap<>();
-    private boolean loading = false;
+    static {
+        User.registerUserChangedCallback(new ClearCacheListener());
+    }
 
+    private boolean loading = false;
     private Context context;
     private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
 
@@ -214,7 +216,7 @@ public class InfectionsAdapter extends BaseAdapter {
         loadingStatusObservers.remove(observer);
     }
 
-    private class InfectionWrapper {
+    private static class InfectionWrapper {
         private InfectionWrapper(Infection infection) {
             this.infection = infection;
         }
@@ -224,6 +226,15 @@ public class InfectionsAdapter extends BaseAdapter {
 
     public interface LoadingStatusObserver {
         void onLoadingStatusChanged(boolean loading);
+    }
+
+    private static class ClearCacheListener implements User.UserChangedCallback {
+
+        @Override
+        public void onUserChanged(User oldUser, User newUser) {
+            id2infections.clear();
+            loadedInfectionIds.clear();
+        }
     }
 
     static class HomePageItemViews {
