@@ -66,14 +66,11 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
         if (imageUrl == null) {
             imageUrl = "";
         }
+        int textVisibility = imageUrl.isEmpty() ? View.VISIBLE : View.GONE;
+        viewHolder.tvText.setVisibility(textVisibility);
+
         if (!imageUrl.equals(viewHolder.ivImage.getTag())) {
-            if (imageUrl.isEmpty()) {
-                viewHolder.ivImage.setImageDrawable(null);
-                viewHolder.tvText.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.tvText.setVisibility(View.GONE);
-                ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
-            }
+            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
             viewHolder.ivImage.setTag(imageUrl);
         }
 

@@ -53,6 +53,7 @@ public class InfectionsAdapter extends BaseAdapter {
     private static Set<Integer> loadedInfectionIds =
             Collections.newSetFromMap(new LRUCacheMap<Integer, Boolean>(ID_CACHE_CAPACITY));
     private static Map<Integer, InfectionWrapper> id2infections = new LinkedHashMap<>();
+
     static {
         User.registerUserChangedCallback(new ClearCacheListener());
     }
@@ -167,22 +168,22 @@ public class InfectionsAdapter extends BaseAdapter {
         if (imagePath == null) {
             imagePath = "";
         }
-        if (!imagePath.equals(itemViews.ivImage.getTag())) {
-            if (imagePath.isEmpty()) {
-                itemViews.ivImage.setImageBitmap(null);
-                itemViews.ivImage.setVisibility(View.GONE);
-                itemViews.tvContent.setVisibility(View.GONE);
-                itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
-                itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
-            } else {
-                itemViews.tvContent.setVisibility(View.VISIBLE);
-                itemViews.tvContent.setText(post.getPostPages()[0].getText());
-                itemViews.tvNoImageContent.setVisibility(View.GONE);
-                itemViews.ivImage.setVisibility(View.VISIBLE);
-                ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
-            }
+        if (imagePath.isEmpty()) {
+            itemViews.ivImage.setImageBitmap(null);
+            itemViews.ivImage.setVisibility(View.GONE);
+            itemViews.tvContent.setVisibility(View.GONE);
+            itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
+            itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
+        } else {
+            itemViews.tvContent.setVisibility(View.VISIBLE);
+            itemViews.tvContent.setText(post.getPostPages()[0].getText());
+            itemViews.tvNoImageContent.setVisibility(View.GONE);
+            itemViews.ivImage.setVisibility(View.VISIBLE);
         }
-        itemViews.ivImage.setTag(imagePath);
+        if (!imagePath.equals(itemViews.ivImage.getTag())) {
+            ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
+            itemViews.ivImage.setTag(imagePath);
+        }
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
