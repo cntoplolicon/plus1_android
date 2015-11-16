@@ -64,6 +64,7 @@
         android:layout_alignStart="@+id/tv_nickname"
         android:layout_below="@+id/tv_nickname"
         android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:textColor="#999999"
         android:textSize="13sp" />
