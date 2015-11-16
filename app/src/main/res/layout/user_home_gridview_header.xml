@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:drawablePadding="@dimen/home_text_location_image_spacing"
-        android:ellipsize="middle"
+        android:ellipsize="end"
         android:maxWidth="300dp"
         android:singleLine="true"
         android:textSize="18sp"

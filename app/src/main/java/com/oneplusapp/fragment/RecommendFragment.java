@@ -1,6 +1,5 @@
 package com.oneplusapp.fragment;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.adapter.RecommendStaggeredGridAdapter;
 import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.PauseOnScrollListener;
 import com.oneplusapp.model.Post;
 
 import butterknife.Bind;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class RecommendFragment extends Fragment {
 
-    @Bind(R.id.id_recyclerView)
+    @Bind(R.id.id_recycler_view)
     RecyclerView recyclerView;
     @Bind(R.id.fl_loading_layout)
     View loadingView;
@@ -45,7 +45,6 @@ public class RecommendFragment extends Fragment {
         }
     }
 
-    @TargetApi(23)
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
@@ -78,63 +77,13 @@ public class RecommendFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        recyclerView.addOnScrollListener(new NewPauseOnScrollListener(ImageLoader.getInstance(), false, true));
+        recyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //adapter.loadRecommendations();
-    }
-
-    public class NewPauseOnScrollListener extends RecyclerView.OnScrollListener {
-
-        private ImageLoader imageLoader;
-
-        private final boolean pauseOnScroll;
-        private final boolean pauseOnSettling;
-        private final RecyclerView.OnScrollListener externalListener;
-
-        public NewPauseOnScrollListener(ImageLoader imageLoader, boolean pauseOnScroll, boolean pauseOnSettling) {
-            this(imageLoader, pauseOnScroll, pauseOnSettling, null);
-        }
-
-        public NewPauseOnScrollListener(ImageLoader imageLoader, boolean pauseOnScroll, boolean pauseOnSettling,
-                                        RecyclerView.OnScrollListener customListener) {
-            this.imageLoader = imageLoader;
-            this.pauseOnScroll = pauseOnScroll;
-            this.pauseOnSettling = pauseOnSettling;
-            externalListener = customListener;
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            switch (newState) {
-                case RecyclerView.SCROLL_STATE_IDLE:
-                    imageLoader.resume();
-                    break;
-                case RecyclerView.SCROLL_STATE_DRAGGING:
-                    if (pauseOnScroll) {
-                        imageLoader.pause();
-                    }
-                    break;
-                case RecyclerView.SCROLL_STATE_SETTLING:
-                    if (pauseOnSettling) {
-                        imageLoader.pause();
-                    }
-                    break;
-            }
-            if (externalListener != null) {
-                externalListener.onScrollStateChanged(recyclerView, newState);
-            }
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            if (externalListener != null) {
-                externalListener.onScrolled(recyclerView, dx, dy);
-            }
-        }
+        adapter.loadRecommendations();
     }
 }

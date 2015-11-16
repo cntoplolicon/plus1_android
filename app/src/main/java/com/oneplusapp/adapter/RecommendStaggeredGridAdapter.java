@@ -41,30 +41,16 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .build();
 
-    protected Set<Callback> callbacks = new HashSet<>();
-    public boolean loading;
+    private Set<Callback> callbacks = new HashSet<>();
+    private boolean loading;
 
     private LayoutInflater mInflater;
     private Post[] posts;
+    private Context mContext;
 
     public RecommendStaggeredGridAdapter(Context context) {
         super();
-        loading = true;
-        RestClient.getInstance().getRecommendedPosts().done(
-                new DoneCallback<JSONArray>() {
-                    @Override
-                    public void onDone(JSONArray response) {
-                        posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
-                        notifyDataSetChanged();
-                    }
-                }).fail(new JsonErrorListener(context, null))
-                .always(new AlwaysCallback<JSONArray, VolleyError>() {
-                    @Override
-                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
-                        loading = false;
-                        notifyLoadingStatusChanged();
-                    }
-                });
+        this.mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -95,6 +81,9 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
         } else {
             myViewHolder.tvContent.setVisibility(View.VISIBLE);
             myViewHolder.tvContent.setText(post.getPostPages()[0].getText());
+            if (myViewHolder.tvContent.getText().toString().trim().isEmpty()) {
+                myViewHolder.tvContent.setVisibility(View.GONE);
+            }
             myViewHolder.tvNoImageContent.setVisibility(View.GONE);
             myViewHolder.ivImage.setVisibility(View.VISIBLE);
             ImageLoader.getInstance().displayImage(imageUrl, myViewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
@@ -112,14 +101,30 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
 
     @Override
     public int getItemCount() {
-        if (posts == null) {
-            return 0;
-        }
-        return posts.length;
+        return posts == null ? 0 : posts.length;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, Post post);
+    public void loadRecommendations() {
+        if (loading) {
+            return;
+        }
+        loading = true;
+        notifyLoadingStatusChanged();
+        RestClient.getInstance().getRecommendedPosts().done(
+                new DoneCallback<JSONArray>() {
+                    @Override
+                    public void onDone(JSONArray response) {
+                        posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        notifyDataSetChanged();
+                    }
+                }).fail(new JsonErrorListener(mContext, null))
+                .always(new AlwaysCallback<JSONArray, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
+                        loading = false;
+                        notifyLoadingStatusChanged();
+                    }
+                });
     }
 
     private OnItemClickListener mOnItemClickListener;
@@ -128,7 +133,7 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
         this.mOnItemClickListener = listener;
     }
 
-    public Post getPost(int posion) {
+    private Post getPost(int posion) {
         return posts[posion];
     }
 
@@ -158,15 +163,19 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
         void onLoadingStatusChanged(boolean loading);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, Post post);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvComments;
-        TextView tvViews;
-        ImageView ivImage;
-        UserAvatarImageView ivAvatar;
-        TextView tvNoImageContent;
-        UserNicknameTextView tvNickname;
-        TextView tvContent;
+        private TextView tvComments;
+        private TextView tvViews;
+        private ImageView ivImage;
+        private UserAvatarImageView ivAvatar;
+        private TextView tvNoImageContent;
+        private UserNicknameTextView tvNickname;
+        private TextView tvContent;
 
         public ViewHolder(View itemView) {
             super(itemView);

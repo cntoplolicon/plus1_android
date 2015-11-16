@@ -8,10 +8,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/hot_item_background">
 
         <com.oneplusapp.view.UserAvatarImageView
@@ -19,10 +19,9 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="7dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/default_user_avatar"
             app:border_color="@color/common_yellow"
             app:border_width="@dimen/common_avatar_image_border" />
@@ -32,21 +31,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/iv_avatar"
             android:ellipsize="end"
             android:maxWidth="100dp"
             android:singleLine="true"
             android:text="ninini"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:hide_gender_icon="true"
             app:linked_to_user_home="false" />
 
-        <com.oneplusapp.view.AdjustableImageView
+        <com.oneplusapp.view.RecommendItemImageView
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_avatar"
+            android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
@@ -58,8 +58,9 @@
             android:layout_gravity="center_horizontal"
             android:ellipsize="end"
             android:maxLines="2"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_marginTop="10dp"
             android:text="喔噢交了"
             android:textColor="#666666"
             android:textSize="13sp" />
@@ -69,18 +70,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content"
-            android:layout_marginBottom="15dp"
-            android:paddingTop="5dp">
-            <TextView
+            android:layout_marginBottom="10dp">
+            <com.oneplusapp.view.RecommendItemTextView
                 android:id="@+id/tv_no_image_content"
-                android:background="#55f5f600"
+                android:background="#fff"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="3"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:maxLines="4"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="喔噢零距离交流距离距离距离看"
                 android:textColor="#999999"
                 android:textSize="13sp" />
@@ -92,7 +93,8 @@
                 android:layout_toLeftOf="@id/tv_comments"
                 android:drawableLeft="@drawable/icon_views_home"
                 android:drawablePadding="@dimen/home_text_views_image_spacing"
-                android:paddingRight="15dp"
+                android:paddingRight="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@id/tv_no_image_content"
                 android:text="150"
                 android:textColor="#999999"
@@ -106,6 +108,7 @@
                 android:drawableLeft="@drawable/icon_comment_home"
                 android:drawablePadding="@dimen/home_text_views_image_spacing"
                 android:paddingRight="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@id/tv_no_image_content"
                 android:text="21"
                 android:textColor="#999999"

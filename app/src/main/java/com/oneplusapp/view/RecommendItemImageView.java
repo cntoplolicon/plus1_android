@@ -8,18 +8,18 @@ import android.widget.ImageView;
 /**
  * Created by jiewei on 11/2/15.
  */
-public class AdjustableImageView extends ImageView {
+public class RecommendItemImageView extends ImageView {
     private boolean mAdjustableImageView;
 
-    public AdjustableImageView(Context context) {
+    public RecommendItemImageView(Context context) {
         super(context);
     }
 
-    public AdjustableImageView(Context context, AttributeSet attrs) {
+    public RecommendItemImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AdjustableImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RecommendItemImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -47,6 +47,12 @@ public class AdjustableImageView extends ImageView {
             // Fixed Width & Adjustable Height
             int width = widthSize;
             int height = width * mDrawableHeight / mDrawableWidth;
+
+            if (mAdjustableImageView && height / 2 >= width) {
+                height = (int) (width * 2.0);
+            } else if (mAdjustableImageView && height <= width / 2) {
+                width = (int) (height * 2.0);
+            }
             setMeasuredDimension(Math.min(width, widthSize), height);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
