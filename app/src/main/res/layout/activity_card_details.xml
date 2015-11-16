@@ -58,45 +58,48 @@
     <FrameLayout
         android:id="@+id/fl_card_details"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/home_title_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:background="#fff">
-
-            <Button
-                android:id="@+id/btn_send_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:background="#FED724"
-                android:gravity="center"
-                android:text="@string/send"
-                android:textColor="#333"
-                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_new_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:maxLines="4"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@id/btn_send_comment"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/edit_background"
                 android:hint="@string/publish_comment"
                 android:paddingLeft="15dp"
                 android:textCursorDrawable="@drawable/color_cursor"
-                android:textSize="14sp"></EditText>
+                android:textSize="14sp"
+                android:layout_toLeftOf="@+id/btn_send_comment"
+                android:layout_toStartOf="@+id/btn_send_comment" />
+
+            <Button
+                android:id="@+id/btn_send_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_yellow"
+                android:gravity="center"
+                android:text="@string/send"
+                android:textColor="#333"
+                android:textSize="14sp"
+                android:layout_alignBottom="@+id/et_new_comment" />
+
         </RelativeLayout>
     </FrameLayout>
 
