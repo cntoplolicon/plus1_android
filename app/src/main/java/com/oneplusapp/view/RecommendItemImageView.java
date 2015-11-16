@@ -51,7 +51,7 @@ public class RecommendItemImageView extends ImageView {
             if (mAdjustableImageView && height / 2 >= width) {
                 height = (int) (width * 2.0);
             } else if (mAdjustableImageView && height <= width / 2) {
-                width = (int) (height * 2.0);
+                height = (int) (width / 2.0);
             }
             setMeasuredDimension(Math.min(width, widthSize), height);
         } else {
