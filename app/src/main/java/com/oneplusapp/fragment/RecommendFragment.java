@@ -24,6 +24,9 @@ import butterknife.ButterKnife;
 
 public class RecommendFragment extends Fragment {
 
+    private static final int ITEM_HORIZONTAL_SPACING = 8;
+    private static final int ITEM_VERTICAL_SPACING = 15;
+
     @Bind(R.id.id_recycler_view)
     RecyclerView recyclerView;
     @Bind(R.id.fl_loading_layout)
@@ -53,7 +56,7 @@ public class RecommendFragment extends Fragment {
         ButterKnife.bind(this, view);
         adapter = new RecommendationsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(8, 15));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(ITEM_HORIZONTAL_SPACING, ITEM_VERTICAL_SPACING));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
