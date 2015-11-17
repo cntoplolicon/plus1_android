@@ -1,6 +1,7 @@
 package com.oneplusapp.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -24,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class RecommendFragment extends Fragment {
 
-    private static final int ITEM_HORIZONTAL_SPACING = 8;
-    private static final int ITEM_VERTICAL_SPACING = 15;
+    private static final int ITEM_HORIZONTAL_SPACING = 4;
+    private static final int ITEM_VERTICAL_SPACING = 7;
 
     @Bind(R.id.id_recycler_view)
     RecyclerView recyclerView;
@@ -56,7 +57,7 @@ public class RecommendFragment extends Fragment {
         ButterKnife.bind(this, view);
         adapter = new RecommendationsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(ITEM_HORIZONTAL_SPACING, ITEM_VERTICAL_SPACING));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(getActivity(), ITEM_HORIZONTAL_SPACING), dip2px(getActivity(), ITEM_VERTICAL_SPACING)));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -89,6 +90,11 @@ public class RecommendFragment extends Fragment {
     public void onResume() {
         super.onResume();
         adapter.loadRecommendations();
+    }
+
+    private static int dip2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 
     private static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
