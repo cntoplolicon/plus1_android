@@ -96,7 +96,7 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(myViewHolder.itemView, getPost(position));
+                    mOnItemClickListener.onItemClick(myViewHolder.itemView, posts[position]);
                 }
             });
         }
@@ -132,10 +132,6 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
-    }
-
-    private Post getPost(int position) {
-        return posts[position];
     }
 
     private void notifyLoadingStatusChanged() {

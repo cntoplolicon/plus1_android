@@ -59,7 +59,7 @@ public class AdjustableImageView extends ImageView {
             } else if (hwRatio < min_height_width_ratio) {
                 height = widthSize * min_height_width_ratio;
             }
-            int heightSize = (int)height;
+            int heightSize = (int) height;
             setMeasuredDimension(widthSize, heightSize);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -68,7 +68,11 @@ public class AdjustableImageView extends ImageView {
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AdjustableImageView);
-        min_height_width_ratio = a.getFloat(R.styleable.AdjustableImageView_min_height_width_ratio, Float.MIN_VALUE);
-        max_height_width_ratio = a.getFloat(R.styleable.AdjustableImageView_max_height_width_ratio, Float.MAX_VALUE);
+        try {
+            min_height_width_ratio = a.getFloat(R.styleable.AdjustableImageView_min_height_width_ratio, Float.MIN_VALUE);
+            max_height_width_ratio = a.getFloat(R.styleable.AdjustableImageView_max_height_width_ratio, Float.MAX_VALUE);
+        } finally {
+            a.recycle();
+        }
     }
 }
