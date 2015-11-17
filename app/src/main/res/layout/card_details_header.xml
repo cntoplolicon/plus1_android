@@ -14,7 +14,7 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/default_user_avatar"
         app:border_color="@color/common_yellow"
-        app:border_width="@dimen/common_avatar_image_border"/>
+        app:border_width="@dimen/common_avatar_image_border" />
 
     <com.oneplusapp.view.UserNicknameTextView
         android:id="@+id/tv_nickname"
@@ -54,7 +54,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:background="@color/home_title_color" />
 
     <TextView
         android:id="@+id/tv_content"
