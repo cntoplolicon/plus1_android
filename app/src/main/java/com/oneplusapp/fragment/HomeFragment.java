@@ -79,12 +79,14 @@ public class HomeFragment extends Fragment {
             public void onChanged() {
                 if (!noData && adapter.isEmpty()) {
                     adapter.loadInfections();
+                } else {
+                    updateFrontView();
                 }
                 noData = adapter.isEmpty();
-                updateFrontView();
             }
         });
 
+        noData = adapter.isEmpty();
         updateFrontView();
         initStackView();
         new Handler().postDelayed(new Runnable() {
@@ -159,18 +161,9 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onReleasedViewSettled(View view, int offset) {
-            adapter.pop();
             stackView.resetPosition();
-            ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);
-            if (imageView.getDrawable() instanceof BitmapDrawable) {
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-                imageView.setImageBitmap(null);
-                imageView.setTag("");
-                Bitmap bitmap = bitmapDrawable.getBitmap();
-                if (bitmap != null) {
-                    bitmap.recycle();
-                }
-            }
+            adapter.pop();
+            adapter.notifyDataSetChanged();
         }
     }
 
