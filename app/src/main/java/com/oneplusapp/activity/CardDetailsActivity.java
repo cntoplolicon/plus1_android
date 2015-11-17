@@ -5,10 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -217,9 +215,11 @@ public class CardDetailsActivity extends BaseActivity {
             ivImage.setVisibility(View.GONE);
             tvContent.setTextSize(getResources().getDimension(R.dimen.no_image_text_size_card_details));
         } else {
+            Drawable loadingDrawable = CommonMethods.createLoadingDrawable(this,
+                    post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
             DisplayImageOptions options = new DisplayImageOptions.Builder()
                     .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(createLoadingDrawable())
+                    .showImageOnLoading(loadingDrawable)
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
             ImageLoader.getInstance().displayImage(imageUrl, ivImage, options);
@@ -333,16 +333,5 @@ public class CardDetailsActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    private Drawable createLoadingDrawable() {
-        if (post.getPostPages()[0].getImageHeight() == null || post.getPostPages()[0].getImageWidth() == null) {
-            return getResources().getDrawable(R.color.home_title_color);
-        }
-
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setShape(R.drawable.shape_loading);
-        gradientDrawable.setSize(post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
-        return gradientDrawable;
     }
 }

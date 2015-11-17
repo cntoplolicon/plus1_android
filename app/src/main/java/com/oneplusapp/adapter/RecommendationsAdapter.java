@@ -1,7 +1,7 @@
 package com.oneplusapp.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
@@ -34,69 +33,74 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<RecommendStaggeredGridAdapter.ViewHolder> {
+public class RecommendationsAdapter extends RecyclerView.Adapter<RecommendationsAdapter.ViewHolder> {
 
-    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.color.home_title_color)
-                    .showImageOnFail(R.drawable.image_load_fail)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .build();
+    private static Post[] posts = new Post[]{};
 
-    private Set<Callback> callbacks = new HashSet<>();
+    private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
     private boolean loading;
 
     private LayoutInflater mInflater;
-    private Post[] posts = new Post[0];
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
-    public RecommendStaggeredGridAdapter(Context context) {
+    public RecommendationsAdapter(Context context) {
         super();
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public RecommendStaggeredGridAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.hot_item, viewGroup, false);
+    public RecommendationsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = mInflater.inflate(R.layout.recommended_post, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder myViewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         final Post post = posts[position];
         User user = post.getUser();
-        myViewHolder.tvNickname.setUser(user);
-        myViewHolder.ivAvatar.setUser(user);
-        myViewHolder.tvNoImageContent.setText(post.getPostPages()[0].getText());
-        myViewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
-        myViewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
-        ImageLoader.getInstance().cancelDisplayTask(myViewHolder.ivImage);
-        String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            myViewHolder.ivImage.setImageDrawable(null);
-            myViewHolder.ivImage.setVisibility(View.GONE);
-            myViewHolder.tvContent.setVisibility(View.GONE);
-            myViewHolder.tvNoImageContent.setVisibility(View.VISIBLE);
-            myViewHolder.tvNoImageContent.setText(post.getPostPages()[0].getText());
-        } else {
-            myViewHolder.tvContent.setVisibility(View.VISIBLE);
-            myViewHolder.tvContent.setText(post.getPostPages()[0].getText());
-            if (myViewHolder.tvContent.getText().toString().trim().isEmpty()) {
-                myViewHolder.tvContent.setVisibility(View.GONE);
-            }
-            myViewHolder.tvNoImageContent.setVisibility(View.GONE);
-            myViewHolder.ivImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(imageUrl, myViewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
-        }
 
+        viewHolder.tvNickname.setUser(user);
+        viewHolder.ivAvatar.setUser(user);
+        viewHolder.tvNoImageContent.setText(post.getPostPages()[0].getText());
+        viewHolder.tvContent.setText(post.getPostPages()[0].getText());
+        viewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
+        viewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
+
+        String imageUrl = post.getPostPages()[0].getImage();
+        if (imageUrl == null) {
+            imageUrl = "";
+        }
+        if (imageUrl.isEmpty()) {
+            viewHolder.ivImage.setVisibility(View.GONE);
+            viewHolder.tvContent.setVisibility(View.GONE);
+            viewHolder.tvNoImageContent.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.ivImage.setVisibility(View.VISIBLE);
+            viewHolder.tvContent.setVisibility(View.VISIBLE);
+            viewHolder.tvNoImageContent.setVisibility(View.GONE);
+            if (viewHolder.tvContent.getText().toString().trim().isEmpty()) {
+                viewHolder.tvContent.setVisibility(View.GONE);
+            }
+        }
+        if (!imageUrl.equals(viewHolder.ivImage.getTag())) {
+            Drawable loadingDrawable = CommonMethods.createLoadingDrawable(mContext,
+                    post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(loadingDrawable)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
+            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, options);
+            viewHolder.ivImage.setTag(imageUrl);
+        }
         if (mOnItemClickListener != null) {
-            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(myViewHolder.itemView, posts[position]);
+                    mOnItemClickListener.onItemClick(viewHolder.itemView, post);
                 }
             });
         }
@@ -135,17 +139,17 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
     }
 
     private void notifyLoadingStatusChanged() {
-        for (Callback callback : callbacks) {
-            callback.onLoadingStatusChanged(loading);
+        for (LoadingStatusObserver loadingStatusObserver : loadingStatusObservers) {
+            loadingStatusObserver.onLoadingStatusChanged(loading);
         }
     }
 
-    public void registerCallback(Callback callback) {
-        callbacks.add(callback);
+    public void registerCallback(LoadingStatusObserver observer) {
+        loadingStatusObservers.add(observer);
     }
 
-    public void unregisterCallback(Callback callback) {
-        callbacks.remove(callback);
+    public void unregisterCallback(LoadingStatusObserver observer) {
+        loadingStatusObservers.remove(observer);
     }
 
     public boolean isLoading() {
@@ -156,7 +160,7 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
         return getItemCount() == 0;
     }
 
-    public interface Callback {
+    public interface LoadingStatusObserver {
         void onLoadingStatusChanged(boolean loading);
     }
 

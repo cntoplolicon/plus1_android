@@ -6,7 +6,7 @@
     android:background="#ccc">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
         android:layout_marginLeft="4dp"
@@ -43,13 +43,15 @@
 
         <com.oneplusapp.view.AdjustableImageView
             android:id="@+id/iv_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:max_height_width_ratio="2.0"
+            app:min_height_width_ratio="0.5" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -72,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content"
             android:layout_marginBottom="10dp">
+
             <com.oneplusapp.view.SquareItemTextView
                 android:id="@+id/tv_no_image_content"
                 android:background="#fff"
@@ -116,5 +119,4 @@
                 android:textSize="@dimen/home_text_views_size" />
         </RelativeLayout>
     </RelativeLayout>
-
 </RelativeLayout>

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
-import com.oneplusapp.adapter.RecommendStaggeredGridAdapter;
+import com.oneplusapp.adapter.RecommendationsAdapter;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.PauseOnScrollListener;
 import com.oneplusapp.model.Post;
@@ -30,7 +30,7 @@ public class RecommendFragment extends Fragment {
     @Bind(R.id.fl_empty_layout)
     View emptyView;
 
-    private RecommendStaggeredGridAdapter adapter;
+    private RecommendationsAdapter adapter;
 
     private void changeViewsByAdapterState() {
         boolean loading = adapter.isLoading();
@@ -50,7 +50,7 @@ public class RecommendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
 
         ButterKnife.bind(this, view);
-        adapter = new RecommendStaggeredGridAdapter(getActivity());
+        adapter = new RecommendationsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -61,14 +61,14 @@ public class RecommendFragment extends Fragment {
             }
         });
 
-        adapter.registerCallback(new RecommendStaggeredGridAdapter.Callback() {
+        adapter.registerCallback(new RecommendationsAdapter.LoadingStatusObserver() {
             @Override
             public void onLoadingStatusChanged(boolean loading) {
                 changeViewsByAdapterState();
             }
         });
         changeViewsByAdapterState();
-        adapter.setOnItemClickListener(new RecommendStaggeredGridAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new RecommendationsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Post post) {
                 Intent intent = new Intent(getActivity(), CardDetailsActivity.class);

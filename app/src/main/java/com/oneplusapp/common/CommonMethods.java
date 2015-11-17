@@ -5,6 +5,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -140,6 +142,17 @@ public final class CommonMethods {
             }
         }
         return null;
+    }
+
+    public static Drawable createLoadingDrawable(Context context, Integer width, Integer height) {
+        if (height == null || width == null) {
+            return ContextCompat.getDrawable(context, R.color.home_title_color);
+        }
+
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(R.drawable.shape_loading);
+        gradientDrawable.setSize(width, height);
+        return gradientDrawable;
     }
 
 }
