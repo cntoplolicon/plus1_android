@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog_background">
+    android:background="@drawable/dialog_background"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -47,7 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/sv_scroll"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:text="稍后再说"
@@ -60,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/sv_scroll"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:text="立即更新"
