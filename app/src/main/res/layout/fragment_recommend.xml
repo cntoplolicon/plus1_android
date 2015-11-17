@@ -38,10 +38,10 @@
         android:layout_height="match_parent"
         android:background="#ccc"
         android:clipToPadding="false"
-        android:paddingBottom="10dp"
+        android:paddingBottom="6dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:paddingTop="10dp"
+        android:paddingTop="6dp"
         android:scrollbarStyle="outsideOverlay" />
 
 </FrameLayout>

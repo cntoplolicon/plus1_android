@@ -2,6 +2,7 @@ package com.oneplusapp.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -22,6 +23,9 @@ import butterknife.ButterKnife;
 
 
 public class RecommendFragment extends Fragment {
+
+    private static final int ITEM_HORIZONTAL_SPACING = 8;
+    private static final int ITEM_VERTICAL_SPACING = 15;
 
     @Bind(R.id.id_recycler_view)
     RecyclerView recyclerView;
@@ -52,6 +56,7 @@ public class RecommendFragment extends Fragment {
         ButterKnife.bind(this, view);
         adapter = new RecommendationsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(ITEM_HORIZONTAL_SPACING, ITEM_VERTICAL_SPACING));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -84,5 +89,23 @@ public class RecommendFragment extends Fragment {
     public void onResume() {
         super.onResume();
         adapter.loadRecommendations();
+    }
+
+    private static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private int horizontalSpace;
+        private int verticalSpace;
+
+        public SpacesItemDecoration(int horizontalSpace, int verticalSpace) {
+            this.horizontalSpace = horizontalSpace;
+            this.verticalSpace = verticalSpace;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.left = horizontalSpace;
+            outRect.right = horizontalSpace;
+            outRect.bottom = verticalSpace;
+            outRect.top = verticalSpace;
+        }
     }
 }
