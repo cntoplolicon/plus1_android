@@ -13,4 +13,8 @@
     <declare-styleable name="UserAvatarImageView">
         <attr name="link_to_user_home" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="AdjustableImageView">
+        <attr name="min_height_width_ratio" format="float" />
+        <attr name="max_height_width_ratio" format="float" />
+    </declare-styleable>
 </resources>

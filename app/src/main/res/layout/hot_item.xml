@@ -41,11 +41,12 @@
             app:hide_gender_icon="true"
             app:linked_to_user_home="false" />
 
-        <com.oneplusapp.view.RecommendItemImageView
+        <com.oneplusapp.view.AdjustableImageView
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_avatar"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content"
             android:layout_marginBottom="10dp">
-            <com.oneplusapp.view.RecommendItemTextView
+            <com.oneplusapp.view.SquareItemTextView
                 android:id="@+id/tv_no_image_content"
                 android:background="#fff"
                 android:layout_width="match_parent"

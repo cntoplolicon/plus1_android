@@ -31,13 +31,15 @@ import org.json.JSONArray;
 import java.util.HashSet;
 import java.util.Set;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<RecommendStaggeredGridAdapter.ViewHolder> {
 
     private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
             new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                     .showImageOnLoading(R.color.home_title_color)
                     .showImageOnFail(R.drawable.image_load_fail)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .build();
 
@@ -45,8 +47,9 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
     private boolean loading;
 
     private LayoutInflater mInflater;
-    private Post[] posts;
+    private Post[] posts = new Post[0];
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public RecommendStaggeredGridAdapter(Context context) {
         super();
@@ -101,7 +104,7 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
 
     @Override
     public int getItemCount() {
-        return posts == null ? 0 : posts.length;
+        return posts.length;
     }
 
     public void loadRecommendations() {
@@ -127,17 +130,15 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
                 });
     }
 
-    private OnItemClickListener mOnItemClickListener;
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 
-    private Post getPost(int posion) {
-        return posts[posion];
+    private Post getPost(int position) {
+        return posts[position];
     }
 
-    public void notifyLoadingStatusChanged() {
+    private void notifyLoadingStatusChanged() {
         for (Callback callback : callbacks) {
             callback.onLoadingStatusChanged(loading);
         }
@@ -169,23 +170,30 @@ public class RecommendStaggeredGridAdapter extends RecyclerView.Adapter<Recommen
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvComments;
-        private TextView tvViews;
-        private ImageView ivImage;
-        private UserAvatarImageView ivAvatar;
-        private TextView tvNoImageContent;
-        private UserNicknameTextView tvNickname;
-        private TextView tvContent;
+        @Bind(R.id.tv_nickname)
+        UserNicknameTextView tvNickname;
+
+        @Bind(R.id.tv_content)
+        TextView tvContent;
+
+        @Bind(R.id.tv_no_image_content)
+        TextView tvNoImageContent;
+
+        @Bind(R.id.tv_comments)
+        TextView tvComments;
+
+        @Bind(R.id.tv_views)
+        TextView tvViews;
+
+        @Bind(R.id.iv_image)
+        ImageView ivImage;
+
+        @Bind(R.id.iv_avatar)
+        UserAvatarImageView ivAvatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvComments = (TextView) itemView.findViewById(R.id.tv_comments);
-            tvViews = (TextView) itemView.findViewById(R.id.tv_views);
-            ivImage = (ImageView) itemView.findViewById(R.id.iv_image);
-            ivAvatar = (UserAvatarImageView) itemView.findViewById(R.id.iv_avatar);
-            tvNoImageContent = (TextView) itemView.findViewById(R.id.tv_no_image_content);
-            tvNickname = (UserNicknameTextView) itemView.findViewById(R.id.tv_nickname);
-            tvContent = (TextView) itemView.findViewById(R.id.tv_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -68,7 +68,6 @@ public class RecommendFragment extends Fragment {
             }
         });
         changeViewsByAdapterState();
-        adapter.notifyLoadingStatusChanged();
         adapter.setOnItemClickListener(new RecommendStaggeredGridAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Post post) {

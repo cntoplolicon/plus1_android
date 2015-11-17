@@ -7,16 +7,16 @@ import android.widget.TextView;
 /**
  * Created by shw on 2015/11/16.
  */
-public class RecommendItemTextView extends TextView {
-    public RecommendItemTextView(Context context) {
+public class SquareItemTextView extends TextView {
+    public SquareItemTextView(Context context) {
         super(context);
     }
 
-    public RecommendItemTextView(Context context, AttributeSet attrs) {
+    public SquareItemTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RecommendItemTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SquareItemTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -28,9 +28,7 @@ public class RecommendItemTextView extends TextView {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
 
         if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
-            int width = widthSize;
-            int height = widthSize;
-            setMeasuredDimension(width, height);
+            setMeasuredDimension(widthSize, widthSize);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
