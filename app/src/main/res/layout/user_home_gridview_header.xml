@@ -1,61 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="25dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <com.oneplusapp.view.UserAvatarImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/default_user_avatar"
+        app:border_color="@color/common_yellow"
+        app:border_width="@dimen/common_avatar_image_border"
+        app:link_to_user_home="false" />
 
-        <com.oneplusapp.view.UserAvatarImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/default_user_avatar"
-            app:link_to_user_home="false"
-            app:border_color="@color/common_yellow"
-            app:border_width="@dimen/common_avatar_image_border"/>
+    <com.oneplusapp.view.UserNicknameTextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="@dimen/home_text_location_image_spacing"
+        android:ellipsize="middle"
+        android:maxWidth="300dp"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:border_color="@color/common_yellow"
+        app:border_width="@dimen/common_avatar_image_border"
+        app:linked_to_user_home="false" />
 
-        <LinearLayout
-            android:id="@+id/ll_nick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_avatar"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.oneplusapp.view.UserNicknameTextView
-                android:id="@+id/tv_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:maxWidth="300dp"
-                android:singleLine="true"
-                android:textSize="18sp"
-                android:drawablePadding="@dimen/home_text_location_image_spacing"
-                app:linked_to_user_home="false"
-                app:border_color="@color/common_yellow"
-                app:border_width="@dimen/common_avatar_image_border"/>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/tv_biography"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_nick"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:text="我相信"
-            android:textColor="#999999"
-            android:textSize="13dp" />
-    </RelativeLayout>
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_biography"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_nickname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="我相信"
+        android:textColor="#999999"
+        android:textSize="13dp" />
+</RelativeLayout>
