@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="1dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/comment_edit_text_background">
 
         <EditText
@@ -67,7 +68,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="9dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
