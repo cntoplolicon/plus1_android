@@ -104,7 +104,6 @@
         android:layout_below="@id/tv_content"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
-        android:text="今日2:20"
         android:textSize="12sp" />
 
     <TextView

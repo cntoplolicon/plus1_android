@@ -44,7 +44,10 @@
     <string name="sign_reset_succeed">个性签名修改成功</string>
     <string name="phone_reset_succeed">手机号修改成功</string>
     <string name="unknown_error">未知错误</string>
-    <string name="post_created_at">%d天前</string>
+    <string name="post_created_days_ago">%d天前</string>
+    <string name="post_created_hours_ago">%d小时前</string>
+    <string name="post_created_minutes_ago">%d分钟前</string>
+    <string name="post_just_created">刚刚</string>
 
     <!--activity titles-->
     <string name="register_step_one">注册（1/3）</string>
