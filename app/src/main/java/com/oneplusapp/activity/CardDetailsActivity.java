@@ -41,6 +41,9 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Minutes;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -208,10 +211,7 @@ public class CardDetailsActivity extends BaseActivity {
         ivAvatar.setUser(user);
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
-        String createdAtFormat = getResources().getString(R.string.post_created_at);
-        int daysAgo = Days.daysBetween(post.getCreatedAt().toLocalDate(),
-                DateTime.now().toLocalDate()).getDays();
-        tvTime.setText(String.format(createdAtFormat, daysAgo));
+        tvTime.setText(createdAtFormat(post.getCreatedAt().toLocalDateTime()));
 
         final String imageUrl = post.getPostPages()[0].getImage();
         ivImage.setOnClickListener(new View.OnClickListener() {
@@ -382,5 +382,26 @@ public class CardDetailsActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private String createdAtFormat(LocalDateTime createDateTime) {
+        LocalDateTime currentDateTime = DateTime.now().toLocalDateTime();
+
+        int daysAgo = Days.daysBetween(createDateTime, currentDateTime).getDays();
+        if (daysAgo > 0) {
+            return String.format(getResources().getString(R.string.post_created_hours_ago), daysAgo);
+        }
+
+        int hoursAgo = Hours.hoursBetween(createDateTime, currentDateTime).getHours();
+        if (hoursAgo > 0) {
+            return String.format(getResources().getString(R.string.post_created_hours_ago), hoursAgo);
+        }
+
+        int minutesAgo = Minutes.minutesBetween(createDateTime, currentDateTime).getMinutes();
+        if (minutesAgo > 0) {
+            return String.format(getResources().getString(R.string.post_created_minutes_ago), minutesAgo);
+        }
+
+        return getResources().getString(R.string.post_just_created);
     }
 }
