@@ -1,6 +1,5 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -35,6 +33,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.ConfirmAlertDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -140,23 +139,14 @@ public class CardDetailsActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Comment chosenComment = (Comment) view.getTag();
                 if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.isDeleted()) {
-                    final AlertDialog alertDialog = new AlertDialog.Builder(CardDetailsActivity.this).create();
-                    alertDialog.show();
-                    Window window = alertDialog.getWindow();
-                    window.setContentView(R.layout.dialog_delete_comment);
-                    TextView tvDeleteConfirm = (TextView) window.findViewById(R.id.tv_delete_confirm);
-                    TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-                    tvDeleteConfirm.setOnClickListener(new View.OnClickListener() {
+                    final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(CardDetailsActivity.this);
+                    confirmAlertDialog.show();
+                    confirmAlertDialog.getConfirmTextView().setText(R.string.delete_confirm);
+                    confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             deleteComment(chosenComment);
-                            alertDialog.cancel();
-                        }
-                    });
-                    tvCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.cancel();
+                            confirmAlertDialog.cancel();
                         }
                     });
                 }
