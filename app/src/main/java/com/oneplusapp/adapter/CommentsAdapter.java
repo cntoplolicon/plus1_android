@@ -71,9 +71,9 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             viewHolder.tvReplyTarget.setUser(repliedComment.getUser());
         }
 
-        if (comment.getDeleted()) {
+        if (comment.isDeleted()) {
             viewHolder.tvContent.setText(R.string.comment_deleted);
-        }else {
+        } else {
             viewHolder.tvContent.setText(comment.getContent());
         }
 

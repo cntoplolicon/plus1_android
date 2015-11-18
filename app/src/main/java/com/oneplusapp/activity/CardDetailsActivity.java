@@ -40,8 +40,6 @@ import com.oneplusapp.view.UserNicknameTextView;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
-
-import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -127,7 +125,7 @@ public class CardDetailsActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Comment commentClicked = (Comment) view.getTag();
-                if (commentClicked.getUser().getId() != User.current.getId() && !replyTarget.getDeleted()) {
+                if (commentClicked.getUser().getId() != User.current.getId() && !commentClicked.isDeleted()) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     setReplyTarget(commentClicked);
@@ -141,7 +139,7 @@ public class CardDetailsActivity extends BaseActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Comment chosenComment = (Comment) view.getTag();
-                if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.getDeleted()) {
+                if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.isDeleted()) {
                     final AlertDialog alertDialog = new AlertDialog.Builder(CardDetailsActivity.this).create();
                     alertDialog.show();
                     Window window = alertDialog.getWindow();
