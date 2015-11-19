@@ -191,4 +191,10 @@
     <string name="delete_succeed">删除成功</string>
     <string name="delete_failed">删除失败</string>
 
+    <!-- oauth -->
+    <string name="oauth_authenticate">获取授权</string>
+    <string name="oauth_processing">正在处理</string>
+    <string name="oauth_error">授权错误</string>
+    <string name="oauth_platform_info_error">获取第三方账号信息失败</string>
+
 </resources>

@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,14 +38,18 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
-    private EditText usernameInput;
-    private EditText passwordInput;
-    private UMSocialService mController;
+    @Bind(R.id.et_username)
+    EditText usernameInput;
+    @Bind(R.id.et_password)
+    EditText passwordInput;
+
+    private UMSocialService umSocialService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,43 +57,13 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        mController = UMServiceFactory.getUMSocialService("com.umeng.login");
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+        umSocialService = UMServiceFactory.getUMSocialService("com.umeng.login");
+        umSocialService.getConfig().setSsoHandler(new SinaSsoHandler());
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104950070", "qBwAJcdsf58q3PNf");
         UMWXHandler wxHandler = new UMWXHandler(this, "wx8722fc0d2579fb13", "d4624c36b6795d1d99dcf0547af5443d");
         qqSsoHandler.addToSocialSDK();
         wxHandler.addToSocialSDK();
         wxHandler.setRefreshTokenAvailable(false);
-
-        Button loginSubmit = (Button) findViewById(R.id.btn_submit);
-        usernameInput = (EditText) findViewById(R.id.et_username);
-        passwordInput = (EditText) findViewById(R.id.et_password);
-
-        loginSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!inputValidation()) {
-                    return;
-                }
-                v.setEnabled(false);
-                String username = usernameInput.getText().toString();
-                String password = passwordInput.getText().toString();
-                RestClient.getInstance().signIn(username, password).done(
-                        new DoneCallback<JSONObject>() {
-                            @Override
-                            public void onDone(JSONObject response) {
-                                signInSuccessfully(response.toString());
-                            }
-                        }).fail(
-                        new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject errors) {
-                                CommonMethods.showError(LoginActivity.this, errors, "username");
-                                CommonMethods.showError(LoginActivity.this, errors, "password");
-                            }
-                        })).always(new ResetViewClickable<JSONObject, VolleyError>(v));
-            }
-        });
 
         TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
         toForgetPwd.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPwdStepOne.class));
@@ -99,6 +71,30 @@ public class LoginActivity extends BaseActivity {
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
         showGuideOnFirstLogin();
+    }
+
+    @OnClick(R.id.btn_submit)
+    public void onSubmit(View view) {
+        if (!inputValidation()) {
+            return;
+        }
+        view.setEnabled(false);
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
+        RestClient.getInstance().signIn(username, password).done(
+                new DoneCallback<JSONObject>() {
+                    @Override
+                    public void onDone(JSONObject response) {
+                        signInSuccessfully(response.toString());
+                    }
+                }).fail(
+                new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject errors) {
+                        CommonMethods.showError(LoginActivity.this, errors, "username");
+                        CommonMethods.showError(LoginActivity.this, errors, "password");
+                    }
+                })).always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
     private void signInSuccessfully(String response) {
@@ -138,29 +134,29 @@ public class LoginActivity extends BaseActivity {
     private void showGuideOnFirstLogin() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
                 Context.MODE_PRIVATE);
-        boolean isGuideShowed = sharedPreferences.getBoolean("is_guide_showed",
-                false);
+        boolean isGuideShowed = sharedPreferences.getBoolean("is_guide_showed", false);
         if (!isGuideShowed) {
-            startActivity(new Intent(getApplicationContext(),
-                    GuideActivity.class));
+            startActivity(new Intent(getApplicationContext(), GuideActivity.class));
             finish();
         }
     }
 
     public void loginViaOauth(SHARE_MEDIA platform) {
-        mController.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
+        umSocialService.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
 
             private ProgressDialog dialog;
 
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                dialog = ProgressDialog.show(LoginActivity.this, "获取授权", "正在处理");
+                String dialogTitle = getResources().getString(R.string.oauth_authenticate);
+                String dialogText = getResources().getString(R.string.oauth_processing);
+                dialog = ProgressDialog.show(LoginActivity.this, dialogTitle, dialogText);
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA platform) {
                 dialog.dismiss();
-                Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.oauth_error, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -170,7 +166,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onComplete(final Bundle bundle, final SHARE_MEDIA platform) {
-                mController.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
+                umSocialService.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
                     @Override
                     public void onStart() {
                         // do nothing
@@ -179,23 +175,25 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onComplete(int status, Map<String, Object> oauthInfo) {
                         if (status != 200 && oauthInfo == null) {
-                            Toast.makeText(LoginActivity.this, "获取第三方账号信息失败", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                            Toast.makeText(LoginActivity.this, R.string.oauth_platform_info_error, Toast.LENGTH_LONG).show();
                             return;
                         }
                         Map<String, Object> signInInfo = getLoginInfoFromOauthInfo(
                                 platform.toString(), bundle, oauthInfo);
-                        Log.d("normalized oauth info", signInInfo.toString());
-                        RestClient.getInstance().signInViaOauth(signInInfo).done(new DoneCallback<JSONObject>() {
-                            @Override
-                            public void onDone(JSONObject response) {
-                                signInSuccessfully(response.toString());
-                            }
-                        }).fail(new JsonErrorListener(getApplicationContext(), null)).always(new AlwaysCallback<JSONObject, VolleyError>() {
-                            @Override
-                            public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                                dialog.dismiss();
-                            }
-                        });
+                        RestClient.getInstance().signInViaOauth(signInInfo).done(
+                                new DoneCallback<JSONObject>() {
+                                    @Override
+                                    public void onDone(JSONObject response) {
+                                        signInSuccessfully(response.toString());
+                                    }
+                                }).fail(new JsonErrorListener(getApplicationContext(), null))
+                                .always(new AlwaysCallback<JSONObject, VolleyError>() {
+                                    @Override
+                                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                                        dialog.dismiss();
+                                    }
+                                });
                     }
                 });
             }
@@ -253,7 +251,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
+        UMSsoHandler ssoHandler = umSocialService.getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
