@@ -60,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="1dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/comment_edit_text_background">
+        android:background="@drawable/comment_edit_text_background"
+        android:paddingBottom="10dp">
 
         <EditText
             android:id="@+id/et_new_comment"
@@ -95,5 +95,15 @@
             android:textSize="14sp" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="160dp"
+        android:layout_below="@id/action_bar"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:background="@color/common_white_bg" />
 
 </RelativeLayout>

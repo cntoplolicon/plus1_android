@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,8 @@ public class CardDetailsActivity extends BaseActivity {
     EditText etNewComment;
     @Bind(R.id.tv_nickname)
     UserNicknameTextView tvNickname;
+    @Bind(R.id.pb_loading_layout)
+    ProgressBar pbLoadingLayout;
 
     private ListView lvListView;
 
@@ -123,6 +126,10 @@ public class CardDetailsActivity extends BaseActivity {
             }
         }
 
+        if (post == null) {
+            pbLoadingLayout.setVisibility(View.VISIBLE);
+        }
+
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -159,7 +166,6 @@ public class CardDetailsActivity extends BaseActivity {
 
         commentsAdapter = new CommentsAdapter(this);
         lvListView.setAdapter(commentsAdapter);
-
         if (postId > 0) {
             loadPost(postId);
         }
@@ -192,8 +198,8 @@ public class CardDetailsActivity extends BaseActivity {
             @Override
             public void onDone(JSONObject result) {
                 post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
+                pbLoadingLayout.setVisibility(View.GONE);
                 updatePostInfo();
-
                 commentsAdapter.clear();
                 commentsAdapter.addAll(post.getComments());
                 commentsAdapter.sortComments();
