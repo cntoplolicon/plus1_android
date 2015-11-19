@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,20 +53,24 @@ public class PersonalProfileActivity extends BaseActivity {
 
     private Uri cameraFileUri;
 
-    @Bind(R.id.re_nickname)
+    @Bind(R.id.tv_nickname)
     TextView reNickname;
     @Bind(R.id.tv_profile_nickname)
     TextView tvNickname;
     @Bind(R.id.iv_avatar)
     UserAvatarImageView ivAvatar;
-    @Bind(R.id.re_password)
-    TextView rePassword;
-    @Bind(R.id.re_sign)
-    TextView reSign;
-    @Bind(R.id.re_phone)
-    TextView rePhone;
+    @Bind(R.id.tv_password)
+    TextView tvPassword;
+    @Bind(R.id.tv_biography)
+    TextView tvBiography;
+    @Bind(R.id.tv_username)
+    TextView tvUsername;
     @Bind(R.id.tv_profile_phone)
     TextView tvPhone;
+    @Bind(R.id.iv_forward_password)
+    ImageView ivPasswordArrow;
+    @Bind(R.id.iv_forward_username)
+    ImageView ivUsernameArrow;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +80,16 @@ public class PersonalProfileActivity extends BaseActivity {
         showCurrentUserAvatar();
         ivAvatar.setUser(User.current);
         reNickname.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateNicknameActivity.class));
-        rePassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
-        reSign.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
-        rePhone.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
+        tvPassword.setOnClickListener(new ActivityHyperlinkClickListener(this, ChangePasswordActivity.class));
+        tvBiography.setOnClickListener(new ActivityHyperlinkClickListener(this, UpdateSignActivity.class));
+        tvUsername.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
+
+        if (User.current.getUsername() == null) {
+            View[] views = new View[] {tvUsername, tvPhone, tvPassword, ivPasswordArrow, ivUsernameArrow};
+            for (View view : views) {
+                view.setVisibility(View.GONE);
+            }
+        }
 
         if (savedInstanceState != null) {
             cameraFileUri = savedInstanceState.getParcelable(KEY_CAMERA_FILE_URI);

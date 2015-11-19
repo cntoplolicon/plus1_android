@@ -53,7 +53,7 @@
         app:link_to_user_home="false"/>
 
     <TextView
-        android:id="@+id/re_nickname"
+        android:id="@+id/tv_nickname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
         android:layout_below="@+id/re_avatar"
@@ -61,11 +61,11 @@
         android:background="@color/common_white_bg" />
 
     <ImageView
-        android:id="@+id/iv_forward_nick"
+        android:id="@+id/iv_forward_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/re_nickname"
+        android:layout_alignTop="@+id/tv_nickname"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
@@ -74,7 +74,7 @@
         android:id="@+id/tv_profile_nickname"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignTop="@+id/iv_forward_nick"
+        android:layout_alignTop="@+id/iv_forward_nickname"
         android:layout_marginLeft="@dimen/common_margin_left_right"
         android:ellipsize="end"
         android:maxWidth="300dp"
@@ -83,12 +83,11 @@
         android:textColor="#666666"
         android:textSize="@dimen/settings_common_text" />
 
-
     <TextView
-        android:id="@+id/re_password"
+        android:id="@+id/tv_password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/re_sign"
+        android:layout_below="@+id/tv_biography"
         android:layout_marginTop="15dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
@@ -98,20 +97,20 @@
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
-        android:id="@+id/iv_reset_password"
+        android:id="@+id/iv_forward_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/re_password"
+        android:layout_alignTop="@+id/tv_password"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
-        android:id="@+id/re_sign"
+        android:id="@+id/tv_biography"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/re_nickname"
+        android:layout_below="@+id/tv_nickname"
         android:layout_marginTop="2dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
@@ -121,20 +120,20 @@
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
-        android:id="@+id/iv_forward_password"
+        android:id="@+id/iv_forward_biography"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/re_sign"
+        android:layout_alignTop="@+id/tv_biography"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="@dimen/profile_common_arrow_top"
         android:src="@drawable/arrow_right_open" />
 
     <TextView
-        android:id="@+id/re_phone"
+        android:id="@+id/tv_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/re_password"
+        android:layout_below="@id/tv_password"
         android:layout_marginTop="15dp"
         android:background="@color/common_white_bg"
         android:gravity="center_vertical"
@@ -142,11 +141,11 @@
         android:textSize="@dimen/settings_common_text" />
 
     <ImageView
-        android:id="@+id/iv_forward_phone"
+        android:id="@+id/iv_forward_username"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/re_phone"
+        android:layout_alignTop="@id/tv_username"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
@@ -155,7 +154,7 @@
         android:id="@+id/tv_profile_phone"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignTop="@id/re_phone"
+        android:layout_alignTop="@id/tv_username"
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
         android:text="15151515"
