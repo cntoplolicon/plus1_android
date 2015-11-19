@@ -152,6 +152,9 @@
         <activity
             android:name=".activity.ProductInfoActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserAgreementActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

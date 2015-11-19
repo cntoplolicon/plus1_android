@@ -98,6 +98,7 @@
         android:layout_above="@+id/copyright"
         android:layout_centerInParent="true"
         android:layout_marginBottom="12dp"
+        android:text="@string/user_agreement"
         android:textColor="#304dc2"
         android:textSize="14sp" />
 
