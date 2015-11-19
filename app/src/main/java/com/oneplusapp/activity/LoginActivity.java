@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,6 +51,8 @@ public class LoginActivity extends BaseActivity {
     EditText passwordInput;
 
     private UMSocialService umSocialService;
+    private ProgressDialog authDialog;
+    private ProgressDialog platformInfoDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,21 @@ public class LoginActivity extends BaseActivity {
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
         showGuideOnFirstLogin();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final ProgressDialog dialog = authDialog;
+        // sdk bug: onCancel is not called when the user does not sign in in the wechat client
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        }, 2000);
     }
 
     @OnClick(R.id.btn_submit)
@@ -144,38 +162,45 @@ public class LoginActivity extends BaseActivity {
     public void loginViaOauth(SHARE_MEDIA platform) {
         umSocialService.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
 
-            private ProgressDialog dialog;
-
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                String dialogTitle = getResources().getString(R.string.oauth_authenticate);
-                String dialogText = getResources().getString(R.string.oauth_processing);
-                dialog = ProgressDialog.show(LoginActivity.this, dialogTitle, dialogText);
+                if (authDialog != null) {
+                    authDialog.dismiss();
+                }
+                authDialog = new ProgressDialog(LoginActivity.this);
+                authDialog.setMessage(getResources().getString(R.string.oauth_authenticate));
+                authDialog.show();
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA platform) {
-                dialog.dismiss();
+                authDialog.dismiss();
                 Toast.makeText(LoginActivity.this, R.string.oauth_error, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(SHARE_MEDIA platform) {
-                dialog.dismiss();
+                authDialog.dismiss();
             }
 
             @Override
             public void onComplete(final Bundle bundle, final SHARE_MEDIA platform) {
+                authDialog.dismiss();
+                platformInfoDialog = new ProgressDialog(LoginActivity.this);
+                platformInfoDialog.setMessage(getResources().getString(R.string.oauth_get_platform_info));
+                platformInfoDialog.show();
+
                 umSocialService.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
+
                     @Override
                     public void onStart() {
-                        // do nothing
+                        // onStart is not called at all when signing in with wechat
                     }
 
                     @Override
                     public void onComplete(int status, Map<String, Object> oauthInfo) {
                         if (status != 200 && oauthInfo == null) {
-                            dialog.dismiss();
+                            platformInfoDialog.dismiss();
                             Toast.makeText(LoginActivity.this, R.string.oauth_platform_info_error, Toast.LENGTH_LONG).show();
                             return;
                         }
@@ -191,7 +216,7 @@ public class LoginActivity extends BaseActivity {
                                 .always(new AlwaysCallback<JSONObject, VolleyError>() {
                                     @Override
                                     public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
-                                        dialog.dismiss();
+                                        platformInfoDialog.dismiss();
                                     }
                                 });
                     }
