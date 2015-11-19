@@ -29,7 +29,8 @@ public class ProductInfoActivity extends BaseActivity {
     TextView tvServerVersionName;
     @Bind(R.id.iv_new)
     ImageView ivNew;
-
+    @Bind(R.id.user_agreement)
+    TextView tvAgreement;
     private UpdateChecker.AppReleaseReadyCallback onAppReleaseReady = new UpdateChecker.AppReleaseReadyCallback() {
         @Override
         public void onAppReleaseReady(UpdateChecker.AppRelease appRelease) {
@@ -45,7 +46,7 @@ public class ProductInfoActivity extends BaseActivity {
 
         tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
         tvVersion.setText(getResources().getString(R.string.apk_version_name) + UpdateChecker.getInstance().getCurrentVersionName(this));
-
+        tvAgreement.setOnClickListener(new ActivityHyperlinkClickListener(this, UserAgreementActivity.class));
         showUpdateInformation(UpdateChecker.getInstance().getAppRelease());
         UpdateChecker.getInstance().registerAppReleaseReadyCallback(onAppReleaseReady);
         UpdateChecker.getInstance().loadLatestAppRelease(this);

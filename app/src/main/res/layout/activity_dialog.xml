@@ -1,13 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TranslucentNoTitle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    style="@style/TranslucentNoTitle"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <TextView
         android:id="@+id/tv_camera"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/dialog_background"
@@ -18,8 +20,9 @@
 
     <TextView
         android:id="@+id/tv_gallery"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_below="@id/tv_camera"
         android:layout_marginTop="10dp"
         android:background="@drawable/dialog_background"
         android:gravity="center"
@@ -29,8 +32,9 @@
 
     <TextView
         android:id="@+id/tv_cancel"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_below="@id/tv_gallery"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/dialog_background"
@@ -38,4 +42,4 @@
         android:text="@string/cancel"
         android:textColor="@color/common_button_text_color"
         android:textSize="18dp" />
-</LinearLayout>
+</RelativeLayout>

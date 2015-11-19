@@ -486,4 +486,8 @@ public class RestClient {
 
         return deferredObject.promise();
     }
+
+    public String buildAgreementUrl() {
+        return getResourceUrl("/agreement/index.html");
+    }
 }
