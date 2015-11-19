@@ -201,6 +201,17 @@ public class RestClient {
         return deferredObject.promise();
     }
 
+    public Promise<JSONObject, VolleyError, Void> signInViaOauth(Map<String, Object> signInInfo) {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/sign_in/oauth"), signInInfo, listener, listener);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
     public Promise<JSONObject, VolleyError, Void> signOut() {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);

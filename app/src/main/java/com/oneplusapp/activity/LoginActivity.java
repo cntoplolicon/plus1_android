@@ -1,10 +1,10 @@
 package com.oneplusapp.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +23,6 @@ import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
@@ -33,11 +32,13 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -79,10 +80,7 @@ public class LoginActivity extends BaseActivity {
                         new DoneCallback<JSONObject>() {
                             @Override
                             public void onDone(JSONObject response) {
-                                User.updateCurrentUser(response.toString());
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
+                                signInSuccessfully(response.toString());
                             }
                         }).fail(
                         new JsonErrorListener(getApplicationContext(), new Response.Listener<JSONObject>() {
@@ -103,6 +101,13 @@ public class LoginActivity extends BaseActivity {
         showGuideOnFirstLogin();
     }
 
+    private void signInSuccessfully(String response) {
+        User.updateCurrentUser(response);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private boolean inputValidation() {
         if (!CommonMethods.isValidUsername(usernameInput.getText().toString().trim())) {
             CommonDialog.showDialog(this, R.string.username_invalid_format);
@@ -119,13 +124,13 @@ public class LoginActivity extends BaseActivity {
         int id = view.getId();
         switch (id) {
             case R.id.iv_qq:
-                loginOauth(SHARE_MEDIA.QQ);
+                loginViaOauth(SHARE_MEDIA.QQ);
                 break;
             case R.id.iv_sina:
-                loginOauth(SHARE_MEDIA.SINA);
+                loginViaOauth(SHARE_MEDIA.SINA);
                 break;
             case R.id.iv_weixin:
-                loginOauth(SHARE_MEDIA.WEIXIN);
+                loginViaOauth(SHARE_MEDIA.WEIXIN);
                 break;
         }
     }
@@ -142,69 +147,107 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    public void loginOauth(SHARE_MEDIA platform) {
+    public void loginViaOauth(SHARE_MEDIA platform) {
         mController.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
+
+            private ProgressDialog dialog;
+
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+                dialog = ProgressDialog.show(LoginActivity.this, "获取授权", "正在处理");
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA platform) {
+                dialog.dismiss();
                 Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                if (value != null && !TextUtils.isEmpty(value.getString("uid"))) {
-                    String openid = value.getString("uid");
-                    Log.d("QQuid", openid);
-                }
-                mController.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
-                    @Override
-                    public void onStart() {
-                        Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete(int status, Map<String, Object> info) {
-                        if (status == 200 && info != null) {
-                            StringBuilder sb = new StringBuilder();
-                            Set<String> keys = info.keySet();
-                            for (String key : keys) {
-                                sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                            }
-                            Toast.makeText(LoginActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
-                            Log.d("ResultData", sb.toString());
-                        } else {
-                            Log.d("ResultData", "发生错误：" + status);
-                        }
-                    }
-                });
+            public void onCancel(SHARE_MEDIA platform) {
+                dialog.dismiss();
             }
 
             @Override
-            public void onCancel(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+            public void onComplete(final Bundle bundle, final SHARE_MEDIA platform) {
+                mController.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
+                    @Override
+                    public void onStart() {
+                        // do nothing
+                    }
+
+                    @Override
+                    public void onComplete(int status, Map<String, Object> oauthInfo) {
+                        if (status != 200 && oauthInfo == null) {
+                            Toast.makeText(LoginActivity.this, "获取第三方账号信息失败", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        Map<String, Object> signInInfo = getLoginInfoFromOauthInfo(
+                                platform.toString(), bundle, oauthInfo);
+                        Log.d("normalized oauth info", signInInfo.toString());
+                        RestClient.getInstance().signInViaOauth(signInInfo).done(new DoneCallback<JSONObject>() {
+                            @Override
+                            public void onDone(JSONObject response) {
+                                signInSuccessfully(response.toString());
+                            }
+                        }).fail(new JsonErrorListener(getApplicationContext(), null)).always(new AlwaysCallback<JSONObject, VolleyError>() {
+                            @Override
+                            public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
             }
         });
     }
 
-    public void logoutOauth(SHARE_MEDIA platform) {
-        mController.deleteOauth(this, platform, new SocializeListeners.SocializeClientListener() {
-            @Override
-            public void onStart() {
-            }
+    private Map<String, Object> getLoginInfoFromOauthInfo(String platform, Bundle bundle, Map<String, Object> oauthInfo) {
+        Map<String, Object> loginInfo = new HashMap<>();
 
-            @Override
-            public void onComplete(int status, SocializeEntity entity) {
-                if (status == 200) {
-                    Toast.makeText(LoginActivity.this, "删除成功.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
+        loginInfo.put("platform", platform);
+        if (oauthInfo.containsKey("nickname")) {
+            loginInfo.put("nickname", oauthInfo.get("nickname"));
+        } else {
+            loginInfo.put("nickname", oauthInfo.get("screen_name"));
+        }
+
+        String uidFromBundle = bundle.getString("uid");
+        if (uidFromBundle != null) {
+            loginInfo.put("uid", uidFromBundle);
+        } else {
+            if (oauthInfo.containsKey("uid")) {
+                loginInfo.put("uid", oauthInfo.get("uid").toString());
+            } else if (oauthInfo.containsKey("unionid")) {
+                loginInfo.put("uid", oauthInfo.get("unionid").toString());
+            }
+        }
+
+        int gender = User.GENDER_UNKNOWN;
+        if (oauthInfo.containsKey("sex")) {
+            gender = (Integer) oauthInfo.get("sex");
+        } else if (oauthInfo.containsKey("gender")) {
+            Object genderObj = oauthInfo.get("gender");
+            if (genderObj instanceof Integer) {
+                gender = (Integer) genderObj;
+            } else if (genderObj instanceof String) {
+                String genderString = (String) genderObj;
+                if ("\u7537".equals(genderString)) {
+                    gender = User.GENDER_MALE;
+                } else if ("\u5973".equals(genderString)) {
+                    gender = User.GENDER_FEMALE;
                 }
             }
-        });
+        }
+        loginInfo.put("gender", gender);
+
+        if (oauthInfo.containsKey("headimgurl")) {
+            loginInfo.put("avatar", oauthInfo.get("headimgurl"));
+        } else if (oauthInfo.containsKey("profile_image_url")) {
+            loginInfo.put("avatar", oauthInfo.get("profile_image_url"));
+        }
+
+        return loginInfo;
     }
 
     @Override
