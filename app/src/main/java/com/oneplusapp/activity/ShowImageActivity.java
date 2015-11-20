@@ -41,13 +41,9 @@ public class ShowImageActivity extends AppCompatActivity {
         photoViewAttacher.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(ShowImageActivity.this);
-                confirmAlertDialog.show();
-                confirmAlertDialog.getConfirmTextView().setText(R.string.tv_save_storage);
-                confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+                ConfirmAlertDialog.showConfirmDialog(ShowImageActivity.this, R.string.tv_save_storage, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        confirmAlertDialog.cancel();
                         new DownloadImageTask(getApplicationContext()).execute(resString);
                         Toast.makeText(getApplicationContext(), R.string.downloading_image, Toast.LENGTH_LONG).show();
                     }

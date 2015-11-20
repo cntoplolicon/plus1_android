@@ -1,7 +1,5 @@
 package com.oneplusapp.view;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,7 +17,7 @@ import butterknife.OnClick;
 /**
  * Created by jiewei on 11/13/15.
  */
-public class ConfirmAlertDialog extends AlertDialog {
+public class ConfirmAlertDialog extends MenuDialog {
 
     @Bind(R.id.tv_confirms)
     TextView tvConfirm;
@@ -44,7 +42,4 @@ public class ConfirmAlertDialog extends AlertDialog {
         cancel();
     }
 
-    public TextView getConfirmTextView() {
-        return tvConfirm;
-    }
 }

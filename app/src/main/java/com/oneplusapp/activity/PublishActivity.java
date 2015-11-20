@@ -98,10 +98,7 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PublishActivity.this);
-        confirmAlertDialog.show();
-        confirmAlertDialog.getConfirmTextView().setText(R.string.quit_publishing);
-        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+        ConfirmAlertDialog.showConfirmDialog(this, R.string.quit_publishing, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
