@@ -20,7 +20,7 @@ import com.oneplusapp.common.BitmapUtil;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.common.ThrowableDeferredAsyncTask;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.AbstractContentBody;
@@ -98,7 +98,7 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ConfirmAlertDialog.showConfirmDialog(this, R.string.quit_publishing, new View.OnClickListener() {
+        MenuDialog.showConfirmDialog(this, R.string.quit_publishing, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

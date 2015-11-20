@@ -34,7 +34,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -149,7 +149,7 @@ public class CardDetailsActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Comment chosenComment = (Comment) view.getTag();
                 if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.isDeleted()) {
-                    ConfirmAlertDialog.showConfirmDialog(CardDetailsActivity.this, R.string.delete_confirm, new View.OnClickListener() {
+                    MenuDialog.showConfirmDialog(CardDetailsActivity.this, R.string.delete_confirm, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             deleteComment(chosenComment);

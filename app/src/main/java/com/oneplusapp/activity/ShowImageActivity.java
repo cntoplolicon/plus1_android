@@ -11,7 +11,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.DownloadImageTask;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -41,7 +41,7 @@ public class ShowImageActivity extends AppCompatActivity {
         photoViewAttacher.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ConfirmAlertDialog.showConfirmDialog(ShowImageActivity.this, R.string.tv_save_storage, new View.OnClickListener() {
+                MenuDialog.showConfirmDialog(ShowImageActivity.this, R.string.tv_save_storage, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         new DownloadImageTask(getApplicationContext()).execute(resString);
