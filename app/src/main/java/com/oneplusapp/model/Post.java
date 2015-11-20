@@ -6,11 +6,16 @@ import org.joda.time.DateTime;
  * Created by cntoplolicon on 9/23/15.
  */
 public class Post {
+
+    public static final int DELETED_BY_AUTHOR = 1;
+    public static final int DELETED_BY_ADMIN = 2;
+
     private int id;
     private int spreadsCount;
     private int viewsCount;
     private int commentsCount;
     private boolean bookmarked;
+    private Integer deletedBy;
     private User user;
     private PostPage[] postPages;
     private Comment[] comments;
@@ -54,6 +59,14 @@ public class Post {
 
     public void setBookmarked(boolean bookmarked) {
         this.bookmarked = bookmarked;
+    }
+
+    public Integer getDeletedBy() {
+        return deletedBy;
+    }
+
+    public void setDeletedBy(Integer deletedBy) {
+        this.deletedBy = deletedBy;
     }
 
     public User getUser() {

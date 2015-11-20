@@ -38,8 +38,10 @@ import com.oneplusapp.view.MenuDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
+import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
+import org.jdeferred.Promise;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
@@ -126,10 +128,6 @@ public class CardDetailsActivity extends BaseActivity {
             }
         }
 
-        if (post == null) {
-            pbLoadingLayout.setVisibility(View.VISIBLE);
-        }
-
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -190,20 +188,27 @@ public class CardDetailsActivity extends BaseActivity {
     }
 
     private void loadPost(int postId) {
+        if (post == null) {
+            pbLoadingLayout.setVisibility(View.VISIBLE);
+        }
         RestClient.getInstance().getPost(postId).done(new DoneCallback<JSONObject>() {
             @Override
             public void onDone(JSONObject result) {
                 post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
-                pbLoadingLayout.setVisibility(View.GONE);
                 updatePostInfo();
                 commentsAdapter.clear();
                 commentsAdapter.addAll(post.getComments());
                 commentsAdapter.sortComments();
                 commentsAdapter.notifyDataSetChanged();
-
                 focusComment(notifiedComment);
             }
-        }).fail(new JsonErrorListener(getApplicationContext(), null));
+        }).fail(new JsonErrorListener(getApplicationContext(), null)).always(
+                new AlwaysCallback<JSONObject, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONObject resolved, VolleyError rejected) {
+                        pbLoadingLayout.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void updatePostInfo() {
@@ -279,6 +284,51 @@ public class CardDetailsActivity extends BaseActivity {
             RestClient.getInstance().removeBookmark(post.getId()).done(onDone).fail(onFail)
                     .always(new ResetViewClickable<JSONObject, VolleyError>(view));
         }
+    }
+
+    @OnClick(R.id.iv_more)
+    public void onMoreOptionsClicked() {
+        if (post == null) {
+            return;
+        }
+        MenuDialog dialog = new MenuDialog(this);
+        if (post.getUser().getId() == User.current.getId()) {
+            dialog.addButton(R.string.delete_current_post, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RestClient.getInstance().deletePost(post.getId()).done(new DoneCallback<JSONObject>() {
+                        @Override
+                        public void onDone(JSONObject result) {
+                            post = CommonMethods.createDefaultGson().fromJson(result.toString(), Post.class);
+                            updatePostInfo();
+                        }
+                    }).fail(new JsonErrorListener(getApplicationContext(), null));
+                }
+            });
+        } else {
+            dialog.addButton(R.string.report_current_post, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RestClient.getInstance().reportPost(post.getId()).done(new DoneCallback<JSONObject>() {
+                        @Override
+                        public void onDone(JSONObject result) {
+                            Toast.makeText(CardDetailsActivity.this, R.string.post_report_success, Toast.LENGTH_LONG).show();
+                        }
+                    }).fail(new JsonErrorListener(getApplicationContext(), null) {
+                        @Override
+                        public void onFail(VolleyError error) {
+                            if (error.networkResponse != null && error.networkResponse.statusCode == 409) {
+                                Toast.makeText(CardDetailsActivity.this, R.string.post_report_duplicated, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            super.onFail(error);
+                        }
+                    });
+                }
+            });
+        }
+        dialog.addCancelButton();
+        dialog.show();
     }
 
     @OnClick(R.id.btn_send_comment)

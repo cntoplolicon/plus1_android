@@ -39,7 +39,7 @@ public class RestClient {
     public static final String TAG_USER_POSTS = "user_posts";
     public static final String TAG_BOOKMARKS = "bookmarks";
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.146:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "https://oneplusapp.com";
     private static final RetryPolicy DEFAULT_RETRY_POLICY = new DefaultRetryPolicy(30 * 1000, // 30 sec
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -294,6 +294,35 @@ public class RestClient {
         String userId = userParams.get("user_id").toString();
         JsonObjectMultipartRequest request = new JsonObjectMultipartRequest(Request.Method.POST,
                 getResourceUrl("/users/" + userId + "/posts"), params, listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONObject, VolleyError, Void> deletePost(int postId) {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        String userId = params.remove("user_id").toString();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
+                encodeUrlParams("/users/" + userId + "/posts/" + postId, params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONObject, VolleyError, Void> reportPost(int postId) {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        Map<String, Object> params = createUserParams();
+        String userId = params.remove("user_id").toString();
+        params.put("post_id", postId);
+        JsonObjectFormRequest request = new JsonObjectFormRequest(Request.Method.POST,
+                getResourceUrl("/users/" + userId + "/complains"), params, listener, listener);
         request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
