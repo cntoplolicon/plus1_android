@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:text="他的话题"
+            android:text="ta的话题"
             android:textColor="@color/setting_text_color" />
     </FrameLayout>
 
