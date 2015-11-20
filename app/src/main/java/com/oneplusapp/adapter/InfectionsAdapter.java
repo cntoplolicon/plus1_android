@@ -160,39 +160,53 @@ public class InfectionsAdapter extends BaseAdapter {
 
         Post post = infection.getPost();
         User user = post.getUser();
+
         itemViews.tvNickname.setUser(user);
         itemViews.ivAvatar.setUser(user);
-        itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
-        itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
-        String imagePath = post.getPostPages()[0].getImage();
-        if (imagePath == null) {
-            imagePath = "";
-        }
-        if (imagePath.isEmpty()) {
-            itemViews.ivImage.setImageBitmap(null);
-            itemViews.ivImage.setVisibility(View.GONE);
+
+        if (post.isDeleted()) {
+            itemViews.tvComments.setVisibility(View.GONE);
+            itemViews.tvViews.setVisibility(View.GONE);
             itemViews.tvContent.setVisibility(View.GONE);
-            itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
-            itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
-        } else {
-            itemViews.tvContent.setVisibility(View.VISIBLE);
-            itemViews.tvContent.setText(post.getPostPages()[0].getText());
             itemViews.tvNoImageContent.setVisibility(View.GONE);
             itemViews.ivImage.setVisibility(View.VISIBLE);
-        }
-        if (!imagePath.equals(itemViews.ivImage.getTag())) {
-            ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
-            itemViews.ivImage.setTag(imagePath);
-        }
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CardDetailsActivity.class);
-                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
-                context.startActivity(intent);
+            itemViews.ivImage.setImageResource(R.drawable.delete_image);
+            itemViews.ivImage.setTag(null);
+            view.setOnClickListener(null);
+        } else {
+            itemViews.tvComments.setVisibility(View.VISIBLE);
+            itemViews.tvViews.setVisibility(View.VISIBLE);
+            itemViews.tvComments.setText(String.valueOf(post.getCommentsCount()));
+            itemViews.tvViews.setText(String.valueOf(post.getViewsCount()));
+            String imagePath = post.getPostPages()[0].getImage();
+            if (imagePath == null) {
+                imagePath = "";
             }
-        });
+            if (imagePath.isEmpty()) {
+                itemViews.ivImage.setImageBitmap(null);
+                itemViews.ivImage.setVisibility(View.GONE);
+                itemViews.tvContent.setVisibility(View.GONE);
+                itemViews.tvNoImageContent.setVisibility(View.VISIBLE);
+                itemViews.tvNoImageContent.setText(post.getPostPages()[0].getText());
+            } else {
+                itemViews.tvContent.setVisibility(View.VISIBLE);
+                itemViews.tvContent.setText(post.getPostPages()[0].getText());
+                itemViews.tvNoImageContent.setVisibility(View.GONE);
+                itemViews.ivImage.setVisibility(View.VISIBLE);
+            }
+            if (!imagePath.equals(itemViews.ivImage.getTag())) {
+                ImageLoader.getInstance().displayImage(imagePath, itemViews.ivImage, DISPLAY_IMAGE_OPTIONS);
+                itemViews.ivImage.setTag(imagePath);
+            }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CardDetailsActivity.class);
+                    intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(infection.getPost()));
+                    context.startActivity(intent);
+                }
+            });
+        }
 
         view.setTag(infection);
 
