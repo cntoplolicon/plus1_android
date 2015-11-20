@@ -1,18 +1,13 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
@@ -23,6 +18,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.MenuDialog;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.entity.ContentType;
@@ -56,6 +52,7 @@ public class RegisterStepThree extends BaseActivity {
 
     private Uri cameraFileUri;
     private Bitmap avatarBitmap;
+    private MenuDialog selectAvatarDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +60,7 @@ public class RegisterStepThree extends BaseActivity {
         setContentView(R.layout.activity_register_step_three);
         ButterKnife.bind(this);
 
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAvatarOptionDialog();
-            }
-        });
+        buildSelectAvatarDialog();
 
         if (savedInstanceState != null) {
             cameraFileUri = savedInstanceState.getParcelable(KEY_CAMERA_FILE_URI);
@@ -84,6 +76,11 @@ public class RegisterStepThree extends BaseActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_CAMERA_FILE_URI, cameraFileUri);
         outState.putParcelable(KEY_AVATAR_BITMAP, avatarBitmap);
+    }
+
+    @OnClick(R.id.iv_avatar)
+    public void onAvatarImageViewClicked() {
+        selectAvatarDialog.show();
     }
 
     @OnClick(R.id.btn_submit)
@@ -142,36 +139,21 @@ public class RegisterStepThree extends BaseActivity {
         return true;
     }
 
-    //show the option dialog to select
-    private void showAvatarOptionDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(RegisterStepThree.this).create();
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.activity_dialog);
-        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
-        TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
+    private void buildSelectAvatarDialog() {
+        selectAvatarDialog = new MenuDialog(this);
+        selectAvatarDialog.addButton(R.string.get_image_from_camera, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getImageFromCamera();
-                alertDialog.cancel();
             }
         });
-        tvGallery.setOnClickListener(new View.OnClickListener() {
+        selectAvatarDialog.addButton(R.string.get_image_from_gallery, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getImageFromGallery();
-                alertDialog.cancel();
             }
         });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
-            }
-        });
+        selectAvatarDialog.addCancelButton();
     }
 
     @Override

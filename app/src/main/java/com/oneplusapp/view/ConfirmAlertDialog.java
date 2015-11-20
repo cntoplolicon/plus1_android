@@ -1,6 +1,7 @@
 package com.oneplusapp.view;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -46,5 +47,4 @@ public class ConfirmAlertDialog extends AlertDialog {
     public TextView getConfirmTextView() {
         return tvConfirm;
     }
-
 }

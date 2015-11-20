@@ -1,6 +1,5 @@
 package com.oneplusapp.fragment;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,8 +18,11 @@ import android.widget.TextView;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.AddTextActivity;
 import com.oneplusapp.activity.PublishActivity;
-import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.BitmapUtil;
+import com.oneplusapp.view.MenuDialog;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class PublishFragment extends Fragment {
@@ -30,6 +32,7 @@ public class PublishFragment extends Fragment {
 
     private static final String KEY_CAMERA_FILE_URI = "camera_file_uri";
 
+    private MenuDialog addImageDialog;
     private Uri cameraFileUri;
 
     @Override
@@ -40,43 +43,9 @@ public class PublishFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_publish, container, false);
-        TextView btnAddImage = (TextView) view.findViewById(R.id.btn_image);
-        TextView btnAddText = (TextView) view.findViewById(R.id.btn_text);
-        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        btnAddImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.show();
-                Window window = alertDialog.getWindow();
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                window.setContentView(R.layout.activity_dialog);
-                TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
-                TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
-                TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-                tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getCamera();
-                        alertDialog.cancel();
-                    }
-                });
-                tvGallery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getGallery();
-                        alertDialog.cancel();
-                    }
-                });
-                tvCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.cancel();
-                    }
-                });
-            }
-        });
-        btnAddText.setOnClickListener(new ActivityHyperlinkClickListener(getActivity(), AddTextActivity.class));
+        ButterKnife.bind(this, view);
+
+        buildAddImageDialog();
 
         if (savedInstanceState != null) {
             cameraFileUri = savedInstanceState.getParcelable(KEY_CAMERA_FILE_URI);
@@ -91,7 +60,35 @@ public class PublishFragment extends Fragment {
         outState.putParcelable(KEY_CAMERA_FILE_URI, cameraFileUri);
     }
 
-    private void getCamera() {
+    private void buildAddImageDialog() {
+        addImageDialog = new MenuDialog(getActivity());
+        addImageDialog.addButton(R.string.get_image_from_camera, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImageFromCamera();
+            }
+        });
+        addImageDialog.addButton(R.string.get_image_from_gallery, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImageFromGallery();
+            }
+        });
+        addImageDialog.addCancelButton();
+    }
+
+    @OnClick(R.id.btn_text)
+    public void onPostTextButtonClicked() {
+        Intent intent = new Intent(getActivity(), AddTextActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_image)
+    public void onPostImageButtonClicked() {
+        addImageDialog.show();
+    }
+
+    private void getImageFromCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraFileUri = Uri.fromFile(BitmapUtil.getImageFile());
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
@@ -99,7 +96,7 @@ public class PublishFragment extends Fragment {
         startActivityForResult(intent, PHOTO_REQUEST_TAKE_PHOTO);
     }
 
-    private void getGallery() {
+    private void getImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
     }
@@ -130,5 +127,4 @@ public class PublishFragment extends Fragment {
                 break;
         }
     }
-
 }

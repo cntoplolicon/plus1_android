@@ -18,7 +18,7 @@
         custom:page_title="@string/personal_information" />
 
     <TextView
-        android:id="@+id/re_avatar"
+        android:id="@+id/tv_avatar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_avatar_height"
         android:layout_below="@+id/action_bar"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/re_avatar"
+        android:layout_alignTop="@+id/tv_avatar"
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:layout_marginTop="19dp"
         android:src="@drawable/arrow_right_open" />
@@ -42,7 +42,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/re_avatar"
+        android:layout_alignTop="@+id/tv_avatar"
         android:layout_marginBottom="9dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="@dimen/common_margin_left_right"
@@ -56,7 +56,7 @@
         android:id="@+id/tv_nickname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/re_avatar"
+        android:layout_below="@+id/tv_avatar"
         android:layout_marginTop="2dp"
         android:background="@color/common_white_bg" />
 

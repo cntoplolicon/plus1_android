@@ -13,6 +13,17 @@
         android:layout_alignParentTop="true">
 
         <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/iv_bookmark"
+            android:padding="5dp"
+            android:src="@drawable/icon_share"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/iv_more"
             android:layout_width="30dp"
             android:layout_height="match_parent"
@@ -21,28 +32,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:padding="5dp"
-            android:src="@drawable/icon_more"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_share"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toLeftOf="@+id/iv_more"
-            android:padding="5dp"
-            android:src="@drawable/icon_share"
-            android:visibility="gone" />
+            android:src="@drawable/icon_more" />
 
         <ImageView
             android:id="@+id/iv_bookmark"
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@id/iv_share"
+            android:layout_toLeftOf="@id/iv_more"
             android:padding="5dp"
             android:src="@drawable/icon_bookmark" />
 

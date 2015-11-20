@@ -1,15 +1,12 @@
 package com.oneplusapp.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +20,7 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.MenuDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.soundcloud.android.crop.Crop;
 
@@ -41,15 +39,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by jiewei on 9/3/15.
- */
 public class PersonalProfileActivity extends BaseActivity {
 
     private static final String KEY_CAMERA_FILE_URI = "camera_file_uri";
 
-    private static final int PHOTO_REQUEST_TAKE_PHOTO = 1;  //take photo
-    private static final int PHOTO_REQUEST_GALLERY = 2; //get from gallery
+    private static final int IMAGE_REQUEST_CODE = 0;
+    private static final int CAMERA_REQUEST_CODE = 1;
 
     private Uri cameraFileUri;
 
@@ -72,10 +67,14 @@ public class PersonalProfileActivity extends BaseActivity {
     @Bind(R.id.iv_forward_username)
     ImageView ivUsernameArrow;
 
+    private MenuDialog selectAvatarDialog;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_profile);
         ButterKnife.bind(this);
+
+        buildSelectAvatarDialog();
 
         showCurrentUserAvatar();
         ivAvatar.setUser(User.current);
@@ -85,7 +84,7 @@ public class PersonalProfileActivity extends BaseActivity {
         tvUsername.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPhoneActivity.class));
 
         if (User.current.getUsername() == null) {
-            View[] views = new View[] {tvUsername, tvPhone, tvPassword, ivPasswordArrow, ivUsernameArrow};
+            View[] views = new View[]{tvUsername, tvPhone, tvPassword, ivPasswordArrow, ivUsernameArrow};
             for (View view : views) {
                 view.setVisibility(View.GONE);
             }
@@ -102,45 +101,41 @@ public class PersonalProfileActivity extends BaseActivity {
         outState.putParcelable(KEY_CAMERA_FILE_URI, cameraFileUri);
     }
 
-    @OnClick(R.id.re_avatar)
-    public void showPhotoDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(PersonalProfileActivity.this).create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
-        Window window = alertDialog.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setContentView(R.layout.activity_dialog);
-        TextView tvTakePhoto = (TextView) window.findViewById(R.id.tv_camera);
-        TextView tvGallery = (TextView) window.findViewById(R.id.tv_gallery);
-        TextView tvCancel = (TextView) window.findViewById(R.id.tv_cancel);
-        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (CommonMethods.hasSdCard()) {
-                    File avatar = BitmapUtil.getImageFile();
-                    cameraFileUri = Uri.fromFile(avatar);
-                    intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
-                }
-                startActivityForResult(intentFromCamera, PHOTO_REQUEST_TAKE_PHOTO);
-                alertDialog.cancel();
-            }
-        });
-        tvGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentFromGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intentFromGallery, PHOTO_REQUEST_GALLERY);
-                alertDialog.cancel();
-            }
-        });
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.cancel();
-            }
-        });
+    @OnClick(R.id.tv_avatar)
+    public void onAvatarTextViewClicked() {
+        selectAvatarDialog.show();
+    }
 
+    private void getImageFromGallery() {
+        Intent intentFromGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intentFromGallery, IMAGE_REQUEST_CODE);
+    }
+
+    private void getImageFromCamera() {
+        Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (CommonMethods.hasSdCard()) {
+            File avatar = BitmapUtil.getImageFile();
+            cameraFileUri = Uri.fromFile(avatar);
+            intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, cameraFileUri);
+        }
+        startActivityForResult(intentFromCamera, CAMERA_REQUEST_CODE);
+    }
+
+    private void buildSelectAvatarDialog() {
+        selectAvatarDialog = new MenuDialog(this);
+        selectAvatarDialog.addButton(R.string.get_image_from_camera, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImageFromCamera();
+            }
+        });
+        selectAvatarDialog.addButton(R.string.get_image_from_gallery, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImageFromGallery();
+            }
+        });
+        selectAvatarDialog.addCancelButton();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -148,10 +143,10 @@ public class PersonalProfileActivity extends BaseActivity {
             return;
         }
         switch (requestCode) {
-            case PHOTO_REQUEST_GALLERY:
+            case IMAGE_REQUEST_CODE:
                 beginCrop(data.getData());
                 break;
-            case PHOTO_REQUEST_TAKE_PHOTO:
+            case CAMERA_REQUEST_CODE:
                 if (CommonMethods.hasSdCard()) {
                     BitmapUtil.notifyMediaScanner(this, cameraFileUri);
                     beginCrop(cameraFileUri);
@@ -164,7 +159,9 @@ public class PersonalProfileActivity extends BaseActivity {
                     return;
                 }
                 if (resultCode == Crop.RESULT_ERROR) {
-                    Toast.makeText(this, Crop.getError(data).getMessage(), Toast.LENGTH_LONG).show();
+                    Throwable t = Crop.getError(data);
+                    Log.e(PersonalProfileActivity.class.getName(), "failed cropping image", t);
+                    Toast.makeText(this, t.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
                 processCroppedImage(Crop.getOutput(data));

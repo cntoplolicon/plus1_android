@@ -13,7 +13,7 @@ import com.oneplusapp.R;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 
 import org.apache.http.entity.mime.content.AbstractContentBody;
 import org.jdeferred.DoneCallback;
@@ -48,10 +48,7 @@ public class AddTextActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(AddTextActivity.this);
-        confirmAlertDialog.show();
-        confirmAlertDialog.getConfirmTextView().setText(R.string.quit_publishing);
-        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+        MenuDialog.showConfirmDialog(this, R.string.quit_publishing, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
