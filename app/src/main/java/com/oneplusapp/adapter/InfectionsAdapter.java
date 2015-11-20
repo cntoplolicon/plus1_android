@@ -75,7 +75,14 @@ public class InfectionsAdapter extends BaseAdapter {
                     @Override
                     public void onDone(JSONArray response) {
                         Infection[] infections = CommonMethods.createDefaultGson().fromJson(response.toString(), Infection[].class);
+                        long firstInfectionId = getCount() > 0 ? getItemId(0) : 0;
+                        long secondInfectionId = getCount() > 1 ? getItemId(1) : 0;
                         for (Infection infection : infections) {
+                            if (infection.getPost().isDeleted() &&
+                                    infection.getId() != firstInfectionId && infection.getId() != secondInfectionId) {
+                                id2infections.remove(infection.getId());
+                                continue;
+                            }
                             InfectionWrapper wrapper = id2infections.get(infection.getId());
                             if (wrapper == null) {
                                 if (!loadedInfectionIds.contains(infection.getId())) {
