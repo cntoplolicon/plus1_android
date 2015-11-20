@@ -38,7 +38,7 @@
         android:layout_below="@id/tv_nickname"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="我相信"
+        android:text="暂时没有个性签名~"
         android:textColor="#999999"
         android:textSize="13dp" />
 </RelativeLayout>

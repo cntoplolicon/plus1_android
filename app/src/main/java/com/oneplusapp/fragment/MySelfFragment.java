@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ import com.oneplusapp.adapter.UserPostsGridViewAdapter;
 import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.HeaderGridView;
+import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import butterknife.Bind;
@@ -49,6 +50,8 @@ public class MySelfFragment extends Fragment {
     UserAvatarImageView ivAvatar;
     @Bind(R.id.rg_group)
     RadioGroup radioGroup;
+    @Bind(R.id.fl_context)
+    FrameLayout flContext;
 
     private void changeViewsByAdapterState() {
         PostsGridViewAdapter adapter = radioGroup.getCheckedRadioButtonId() == R.id.tv_myself_publish ? postsAdapter : bookmarksAdapter;
@@ -104,6 +107,7 @@ public class MySelfFragment extends Fragment {
             });
         } else {
             radioGroup.setVisibility(View.GONE);
+            flContext.setVisibility(View.VISIBLE);
         }
         postsAdapter = new UserPostsGridViewAdapter(getActivity(), user.getId());
         gridView.setAdapter(postsAdapter);
@@ -144,7 +148,9 @@ public class MySelfFragment extends Fragment {
 
     private void showCurrentUserInfo() {
         tvNickname.setUser(user);
-        tvBiography.setText(user.getBiography());
+        if (user.getBiography() != null && !user.getBiography().toString().trim().isEmpty()) {
+            tvBiography.setText(user.getBiography());
+        }
     }
 
     private class CustomDataSetObserver extends DataSetObserver {
