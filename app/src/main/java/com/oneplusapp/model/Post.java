@@ -69,6 +69,10 @@ public class Post {
         this.deletedBy = deletedBy;
     }
 
+    public boolean isDeleted() {
+        return deletedBy != null;
+    }
+
     public User getUser() {
         return user;
     }
