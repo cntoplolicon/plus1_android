@@ -38,4 +38,22 @@
             android:textColor="@color/common_button_text_color"
             android:textSize="@dimen/personal_grid_title_text" />
     </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_context"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/user_page"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="他的话题"
+            android:textColor="@color/setting_text_color" />
+    </FrameLayout>
+
 </LinearLayout>
