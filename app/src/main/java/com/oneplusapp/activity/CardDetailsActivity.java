@@ -34,7 +34,7 @@ import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -149,14 +149,10 @@ public class CardDetailsActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Comment chosenComment = (Comment) view.getTag();
                 if (chosenComment.getUser().getId() == User.current.getId() && !chosenComment.isDeleted()) {
-                    final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(CardDetailsActivity.this);
-                    confirmAlertDialog.show();
-                    confirmAlertDialog.getConfirmTextView().setText(R.string.delete_confirm);
-                    confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+                    MenuDialog.showConfirmDialog(CardDetailsActivity.this, R.string.delete_confirm, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             deleteComment(chosenComment);
-                            confirmAlertDialog.cancel();
                         }
                     });
                 }
@@ -395,7 +391,7 @@ public class CardDetailsActivity extends BaseActivity {
 
         int daysAgo = Days.daysBetween(createDateTime, currentDateTime).getDays();
         if (daysAgo > 0) {
-            return String.format(getResources().getString(R.string.post_created_hours_ago), daysAgo);
+            return String.format(getResources().getString(R.string.post_created_days_ago), daysAgo);
         }
 
         int hoursAgo = Hours.hoursBetween(createDateTime, currentDateTime).getHours();

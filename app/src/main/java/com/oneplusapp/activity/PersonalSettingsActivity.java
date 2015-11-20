@@ -14,7 +14,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
-import com.oneplusapp.view.ConfirmAlertDialog;
+import com.oneplusapp.view.MenuDialog;
 
 import java.io.File;
 
@@ -56,10 +56,7 @@ public class PersonalSettingsActivity extends BaseActivity {
 
     @OnClick(R.id.btn_logout)
     public void logout(View view) {
-        ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
-        confirmAlertDialog.show();
-        confirmAlertDialog.getConfirmTextView().setText(R.string.log_out_confirm);
-        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+        MenuDialog.showConfirmDialog(this, R.string.log_out_confirm, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RestClient.getInstance().signOut().fail(new JsonErrorListener(getApplicationContext(), null));
@@ -70,15 +67,11 @@ public class PersonalSettingsActivity extends BaseActivity {
 
     @OnClick(R.id.tv_clear_cache)
     public void clearCache(View view) {
-        final ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(PersonalSettingsActivity.this);
-        confirmAlertDialog.show();
-        confirmAlertDialog.getConfirmTextView().setText(R.string.clear_cache_confirm);
-        confirmAlertDialog.getConfirmTextView().setOnClickListener(new View.OnClickListener() {
+        MenuDialog.showConfirmDialog(this, R.string.clear_cache_confirm, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageLoader.getInstance().getDiskCache().clear();
                 tvCacheSize.setText(calcImageCacheSize());
-                confirmAlertDialog.cancel();
             }
         });
     }
