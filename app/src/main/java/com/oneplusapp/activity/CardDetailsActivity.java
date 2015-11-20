@@ -212,6 +212,11 @@ public class CardDetailsActivity extends BaseActivity {
     }
 
     private void updatePostInfo() {
+        if (post.isDeleted()) {
+            startActivity(new Intent(this, DeleteCardActivity.class));
+            finish();
+            return;
+        }
         tvContent.setText(post.getPostPages()[0].getText());
         User user = post.getUser();
         tvNickname.setUser(user);
@@ -233,6 +238,7 @@ public class CardDetailsActivity extends BaseActivity {
 
         int bookmarkResource = post.isBookmarked() ? R.drawable.icon_bookmark_checked : R.drawable.icon_bookmark;
         ivBookmark.setImageResource(bookmarkResource);
+
     }
 
     private void displayPostImage(final String imageUrl) {
