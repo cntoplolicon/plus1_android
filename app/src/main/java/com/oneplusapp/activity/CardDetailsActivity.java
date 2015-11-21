@@ -212,15 +212,17 @@ public class CardDetailsActivity extends BaseActivity {
     }
 
     private void updatePostInfo() {
+        User user = post.getUser();
         if (post.isDeleted()) {
-            startActivity(new Intent(this, DeleteCardActivity.class));
+            Intent intent = new Intent(this, DeleteCardActivity.class);
+            intent.putExtra("user_json", CommonMethods.createDefaultGson().toJson(user));
+            startActivity(intent);
             finish();
             return;
         }
-        tvContent.setText(post.getPostPages()[0].getText());
-        User user = post.getUser();
         tvNickname.setUser(user);
         ivAvatar.setUser(user);
+        tvContent.setText(post.getPostPages()[0].getText());
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         tvTime.setText(createdAtFormat(post.getCreatedAt().toLocalDateTime()));
@@ -238,7 +240,6 @@ public class CardDetailsActivity extends BaseActivity {
 
         int bookmarkResource = post.isBookmarked() ? R.drawable.icon_bookmark_checked : R.drawable.icon_bookmark;
         ivBookmark.setImageResource(bookmarkResource);
-
     }
 
     private void displayPostImage(final String imageUrl) {
