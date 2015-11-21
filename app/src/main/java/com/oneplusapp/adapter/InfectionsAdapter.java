@@ -58,7 +58,8 @@ public class InfectionsAdapter extends BaseAdapter {
         User.registerUserChangedCallback(new ClearCacheListener());
     }
 
-    private boolean loading = false;
+    private boolean firstViewReleasing;
+    private boolean loading;
     private Context context;
     private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
 
@@ -78,8 +79,9 @@ public class InfectionsAdapter extends BaseAdapter {
                         long firstInfectionId = getCount() > 0 ? getItemId(0) : 0;
                         long secondInfectionId = getCount() > 1 ? getItemId(1) : 0;
                         for (Infection infection : infections) {
-                            if (infection.getPost().isDeleted() &&
-                                    infection.getId() != firstInfectionId && infection.getId() != secondInfectionId) {
+                            boolean infectionVisible = infection.getId() == firstInfectionId ||
+                                    infection.getId() == secondInfectionId && firstViewReleasing;
+                            if (infection.getPost().isDeleted() && !infectionVisible) {
                                 id2infections.remove(infection.getId());
                                 continue;
                             }
@@ -236,6 +238,14 @@ public class InfectionsAdapter extends BaseAdapter {
 
     public void unregisterLoadingStatusObserver(LoadingStatusObserver observer) {
         loadingStatusObservers.remove(observer);
+    }
+
+    public boolean isFirstViewReleasing() {
+        return firstViewReleasing;
+    }
+
+    public void setFirstViewReleasing(boolean firstViewReleasing) {
+        this.firstViewReleasing = firstViewReleasing;
     }
 
     private static class InfectionWrapper {

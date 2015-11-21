@@ -151,17 +151,19 @@ public class HomeFragment extends Fragment {
     private class StackedViewReleasedListener implements DraggableStackView.OnViewReleasedListener {
 
         @Override
-        public void onViewReleased(View view, int offset) {
+        public void onViewReleased(View view, int position, int offset) {
             Infection infection = (Infection) view.getTag();
             int result = offset > 0 ? PostView.POST_VIEW_SKIP : PostView.POST_VIEW_SPREAD;
             RestClient.getInstance().newPostView(infection.getId(), result)
                     .fail(new JsonErrorListener(getActivity(), null));
             adapter.checkRemainingInfectionsAndLoad();
+            adapter.setFirstViewReleasing(true);
         }
 
         @Override
-        public void onReleasedViewSettled(View view, int offset) {
+        public void onReleasedViewSettled(View view, int position, int offset) {
             stackView.resetPosition();
+            adapter.setFirstViewReleasing(false);
             adapter.pop();
             adapter.notifyDataSetChanged();
         }

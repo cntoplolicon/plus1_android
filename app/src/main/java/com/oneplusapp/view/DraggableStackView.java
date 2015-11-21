@@ -121,7 +121,7 @@ public class DraggableStackView extends ViewGroup {
             stackTopView = tempView;
         }
         if (stackTopView != null && onViewReleasedListener != null) {
-            onViewReleasedListener.onReleasedViewSettled(stackTopView, offset);
+            onViewReleasedListener.onReleasedViewSettled(stackTopView, position - 1, offset);
         }
         offset = 0;
         if (needSyncViewsOnReleaseSettled) {
@@ -258,7 +258,7 @@ public class DraggableStackView extends ViewGroup {
             }
 
             if (onViewReleasedListener != null) {
-                onViewReleasedListener.onViewReleased(releasedChild, offset);
+                onViewReleasedListener.onViewReleased(releasedChild, position, offset);
             }
 
             settleStart = offset;
@@ -282,8 +282,8 @@ public class DraggableStackView extends ViewGroup {
     }
 
     public interface OnViewReleasedListener {
-        void onViewReleased(View view, int offset);
+        void onViewReleased(View view, int position, int offset);
 
-        void onReleasedViewSettled(View view, int offset);
+        void onReleasedViewSettled(View view, int position, int offset);
     }
 }
