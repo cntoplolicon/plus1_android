@@ -6,9 +6,6 @@ import org.jdeferred.Promise;
 
 import java.util.concurrent.CancellationException;
 
-/**
- * Created by cntoplolicon on 10/27/15.
- */
 public abstract class ThrowableDeferredAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 
     private ThrowableDeferredObject<Result, Throwable, Progress> deferred = new ThrowableDeferredObject<>();
@@ -27,6 +24,7 @@ public abstract class ThrowableDeferredAsyncTask<Params, Progress, Result> exten
         deferred.resolve(result);
     }
 
+    @SafeVarargs
     @Override
     protected final void onProgressUpdate(Progress... values) {
         if (values == null || values.length == 0) {

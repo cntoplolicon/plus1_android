@@ -1,6 +1,3 @@
-/**
- * Created by cntoplolicon on 10/7/15.
- */
 package com.oneplusapp.adapter;
 
 import android.content.Context;

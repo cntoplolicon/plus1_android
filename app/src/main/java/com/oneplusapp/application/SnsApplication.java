@@ -18,9 +18,6 @@ import com.oneplusapp.model.User;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-/**
- * Created by cntoplolicon on 9/15/15.
- */
 public class SnsApplication extends Application {
     public static final DisplayImageOptions DEFAULT_DISPLAY_OPTION = new DisplayImageOptions.Builder()
             .cacheInMemory(true)

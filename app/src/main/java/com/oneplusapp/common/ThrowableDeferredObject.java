@@ -6,9 +6,6 @@ import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
 import org.jdeferred.impl.DeferredObject;
 
-/**
- * Created by cntoplolicon on 10/22/15.
- */
 public class ThrowableDeferredObject<D, F, P> extends DeferredObject<D, F, P> {
 
     @Override

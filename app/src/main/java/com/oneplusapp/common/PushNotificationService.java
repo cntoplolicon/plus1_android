@@ -31,9 +31,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by cntoplolicon on 10/12/15.
- */
 public class PushNotificationService {
 
     public static final String TYPE_COMMENT = "comment";
@@ -41,7 +38,6 @@ public class PushNotificationService {
     private static PushNotificationService instance;
     private Context context;
     private Set<Callback> callbacks = new HashSet<>();
-    private Promise<String, AVException, Void> installationPromise;
 
     public static void init(Context context) {
         instance = new PushNotificationService(context);
@@ -50,7 +46,7 @@ public class PushNotificationService {
     private PushNotificationService(final Context context) {
         this.context = context;
         PushService.setDefaultPushCallback(context, HomeActivity.class);
-        installationPromise = saveInstallation();
+        Promise<String, AVException, Void> installationPromise = saveInstallation();
         installationPromise.fail(new FailCallback<AVException>() {
             @Override
             public void onFail(AVException e) {

@@ -5,9 +5,6 @@ import android.view.View;
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.Promise;
 
-/**
- * Created by silentgod on 15-10-8.
- */
 public class ResetViewClickable<D, R> implements AlwaysCallback<D, R> {
     private View view;
 

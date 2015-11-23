@@ -14,9 +14,6 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONArray;
 
-/**
- * Created by cntoplolicon on 10/7/15.
- */
 public class UserBookmarksGridViewAdapter extends PostsGridViewAdapter {
 
     private static Post[] bookmarksCache = new Post[]{};

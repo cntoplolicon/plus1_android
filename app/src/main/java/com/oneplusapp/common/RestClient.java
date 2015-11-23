@@ -31,9 +31,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by cntoplolicon on 9/10/15.
- */
 public class RestClient {
 
     public static final String TAG_USER_POSTS = "user_posts";
