@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-/**
- * Created by shw on 2015/11/16.
- */
 public class SquareItemTextView extends TextView {
     public SquareItemTextView(Context context) {
         super(context);
@@ -26,9 +23,10 @@ public class SquareItemTextView extends TextView {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int desiredHeight = resolveSize(widthSize, heightMeasureSpec);
 
         if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
-            setMeasuredDimension(widthSize, widthSize);
+            setMeasuredDimension(widthSize, desiredHeight);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }

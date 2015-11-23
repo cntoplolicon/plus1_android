@@ -2,9 +2,6 @@ package com.oneplusapp.model;
 
 import org.joda.time.DateTime;
 
-/**
- * Created by silentgod on 15-10-13.
- */
 public class Comment {
     private int id;
     private int postId;

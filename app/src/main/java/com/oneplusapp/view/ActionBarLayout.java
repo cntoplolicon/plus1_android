@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.oneplusapp.R;
 
-/**
- * Created by cntoplolicon on 9/25/15.
- */
 public class ActionBarLayout extends RelativeLayout {
 
     private boolean hideBackArrow;

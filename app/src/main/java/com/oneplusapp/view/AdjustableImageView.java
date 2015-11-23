@@ -8,9 +8,6 @@ import android.widget.ImageView;
 
 import com.oneplusapp.R;
 
-/**
- * Created by jiewei on 11/2/15.
- */
 public class AdjustableImageView extends ImageView {
     private boolean mAdjustableImageView;
     private float min_height_width_ratio;

@@ -13,9 +13,6 @@ import com.oneplusapp.model.Notification;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-/**
- * Created by cntoplolicon on 10/13/15.
- */
 public class PushNotificationsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -23,6 +20,9 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
             return;
         }
         String json = intent.getExtras().getString("com.avos.avoscloud.Data");
+        if (json == null) {
+            return;
+        }
         Type type = new TypeToken<Map<String, String>>() {
         }.getType();
         Map<String, String> map = CommonMethods.createDefaultGson().fromJson(json, type);

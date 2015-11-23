@@ -8,9 +8,6 @@ import org.joda.time.DateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by cntoplolicon on 9/12/15.
- */
 public class User {
 
     public static final int GENDER_UNKNOWN = 0;
@@ -111,11 +108,8 @@ public class User {
     }
 
     private static void tryCallUserChangedCallback(User oldUser, User newUser) {
-        if (oldUser == null && newUser == null) {
-            return;
-        }
         if (oldUser != null && newUser == null || oldUser == null && newUser != null ||
-                oldUser.getId() != newUser.getId()) {
+                newUser != null && oldUser != null && oldUser.getId() != newUser.getId()) {
             for (UserChangedCallback callback : userChangedCallbacks) {
                 callback.onUserChanged(oldUser, newUser);
             }

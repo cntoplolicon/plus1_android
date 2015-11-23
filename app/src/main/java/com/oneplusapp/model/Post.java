@@ -2,13 +2,7 @@ package com.oneplusapp.model;
 
 import org.joda.time.DateTime;
 
-/**
- * Created by cntoplolicon on 9/23/15.
- */
 public class Post {
-
-    public static final int DELETED_BY_AUTHOR = 1;
-    public static final int DELETED_BY_ADMIN = 2;
 
     private int id;
     private int spreadsCount;

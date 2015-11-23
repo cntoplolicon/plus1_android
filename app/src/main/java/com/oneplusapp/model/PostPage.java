@@ -1,8 +1,5 @@
 package com.oneplusapp.model;
 
-/**
- * Created by cntoplolicon on 9/23/15.
- */
 public class PostPage {
     private int id;
     private String text;
