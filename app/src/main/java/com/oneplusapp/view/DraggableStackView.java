@@ -14,7 +14,7 @@ import android.widget.BaseAdapter;
 public class DraggableStackView extends ViewGroup {
 
     // affect the touch slop and  the minimum drag slot and settling duration
-    private static int DRAG_RANGE_REDUCE_FACTOR = 10;
+    private final static int DRAG_RANGE_REDUCE_FACTOR = 10;
 
     private final ViewDragHelper dragHelper;
 

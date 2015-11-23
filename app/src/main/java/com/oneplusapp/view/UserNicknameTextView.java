@@ -13,13 +13,9 @@ import com.oneplusapp.activity.UserHomeActivity;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.User;
 
-/**
- * Created by silentgod on 15-11-10.
- */
 public class UserNicknameTextView extends TextView {
 
     private boolean hideGenderIcon;
-    private String userNickname;
     private int genderIcon;
     private boolean linkedToUserHome;
 
@@ -55,7 +51,7 @@ public class UserNicknameTextView extends TextView {
                 }
             });
         }
-        userNickname = user.getNickname();
+        String userNickname = user.getNickname();
         setText(userNickname);
         int textColor;
         switch (user.getGender()) {

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-/**
- * Created by cntoplolicon on 11/4/15.
- */
 public class PostGridViewItemLayout extends FrameLayout {
 
     public PostGridViewItemLayout(Context context) {
@@ -29,15 +26,13 @@ public class PostGridViewItemLayout extends FrameLayout {
         int heightMeasureSize = MeasureSpec.getSize(heightMeasureSpec);
 
         if (widthMeasureMode == MeasureSpec.EXACTLY && heightMeasureMode != MeasureSpec.EXACTLY) {
-            int desiredWidth = widthMeasureSize;
-            int desiredHeight = resolveSize(desiredWidth, heightMeasureSpec);
-            setMeasuredDimension(desiredWidth, desiredHeight);
-            measureChildrenByDesiredSize(desiredWidth, desiredHeight);
+            int desiredHeight = resolveSize(widthMeasureSize, heightMeasureSpec);
+            setMeasuredDimension(widthMeasureSize, desiredHeight);
+            measureChildrenByDesiredSize(widthMeasureSize, desiredHeight);
         } else if (heightMeasureMode == MeasureSpec.EXACTLY && widthMeasureMode != MeasureSpec.EXACTLY) {
-            int desiredHeight = heightMeasureSize;
-            int desiredWidth = resolveSize(desiredHeight, widthMeasureSpec);
+            int desiredWidth = resolveSize(heightMeasureSize, widthMeasureSpec);
             setMeasuredDimension(desiredWidth, heightMeasureSize);
-            measureChildrenByDesiredSize(desiredWidth, desiredHeight);
+            measureChildrenByDesiredSize(desiredWidth, heightMeasureSize);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }

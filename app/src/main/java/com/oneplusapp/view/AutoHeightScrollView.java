@@ -9,9 +9,6 @@ import android.widget.ScrollView;
 
 import com.oneplusapp.R;
 
-/**
- * Created by shw on 2015/11/2.
- */
 public class AutoHeightScrollView extends ScrollView {
     private int maxHeight;
     private static final int defaultHeight = 100;

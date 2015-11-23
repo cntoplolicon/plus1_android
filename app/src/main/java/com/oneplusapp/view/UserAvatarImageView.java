@@ -15,9 +15,6 @@ import com.oneplusapp.model.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by silentgod on 15-11-11.
- */
 public class UserAvatarImageView extends CircleImageView {
 
     private boolean linkToUserHome;
