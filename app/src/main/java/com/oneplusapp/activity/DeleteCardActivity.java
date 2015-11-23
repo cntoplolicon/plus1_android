@@ -13,9 +13,6 @@ import com.oneplusapp.view.UserNicknameTextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by shw on 2015/11/20.
- */
 public class DeleteCardActivity extends BaseActivity {
 
     @Bind(R.id.iv_avatar)
