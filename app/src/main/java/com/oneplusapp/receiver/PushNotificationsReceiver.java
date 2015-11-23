@@ -23,6 +23,9 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
             return;
         }
         String json = intent.getExtras().getString("com.avos.avoscloud.Data");
+        if (json == null) {
+            return;
+        }
         Type type = new TypeToken<Map<String, String>>() {
         }.getType();
         Map<String, String> map = CommonMethods.createDefaultGson().fromJson(json, type);

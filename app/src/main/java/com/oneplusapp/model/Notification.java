@@ -13,10 +13,6 @@ import org.joda.time.DateTime;
 
 import java.util.List;
 
-/**
- * Created by cntoplolicon on 10/13/15.
- */
-
 @Table(name = "Notifications")
 public class Notification extends Model implements Parcelable {
 

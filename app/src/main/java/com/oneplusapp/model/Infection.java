@@ -1,8 +1,5 @@
 package com.oneplusapp.model;
 
-/**
- * Created by cntoplolicon on 9/23/15.
- */
 public class Infection {
     private int id;
     private Post post;

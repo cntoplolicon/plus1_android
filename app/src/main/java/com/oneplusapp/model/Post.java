@@ -2,9 +2,6 @@ package com.oneplusapp.model;
 
 import org.joda.time.DateTime;
 
-/**
- * Created by cntoplolicon on 9/23/15.
- */
 public class Post {
 
     public static final int DELETED_BY_AUTHOR = 1;
