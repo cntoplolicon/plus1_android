@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
@@ -180,7 +182,9 @@ public class RegisterStepThree extends BaseActivity {
                     return;
                 }
                 if (resultCode == Crop.RESULT_ERROR) {
-                    CommonDialog.showDialog(this, Crop.getError(data).getMessage());
+                    Throwable t = Crop.getError(data);
+                    Log.e(RegisterStepThree.class.getName(), "failed cropping image", t);
+                    Toast.makeText(RegisterStepThree.this, R.string.image_crop_error, Toast.LENGTH_LONG).show();
                     return;
                 }
                 BitmapUtil.prepareImageForUploading(this, Crop.getOutput(data)).done(new DoneCallback<Bitmap>() {

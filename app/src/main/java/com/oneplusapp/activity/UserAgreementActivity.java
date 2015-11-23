@@ -1,6 +1,5 @@
 package com.oneplusapp.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -10,10 +9,7 @@ import com.oneplusapp.common.RestClient;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Administrator on 2015/11/19.
- */
-public class UserAgreementActivity extends Activity {
+public class UserAgreementActivity extends BaseActivity {
     @Bind(R.id.web_view)
     WebView webView;
 

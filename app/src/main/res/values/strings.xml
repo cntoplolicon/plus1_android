@@ -52,7 +52,9 @@
     <!--activity titles-->
     <string name="register_step_one">注册（1/3）</string>
     <string name="register_step_two">注册（2/3）</string>
+    <string name="register_step_two_seconds">%d秒</string>
     <string name="register_step_three">注册（3/3）</string>
+    <string name="image_crop_error">图像截取错误</string>
     <string name="reset_pwd_step_one">重置密码（1/3）</string>
     <string name="reset_pwd_step_two">重置密码（2/3）</string>
     <string name="reset_pwd_step_three">重置密码（3/3）</string>

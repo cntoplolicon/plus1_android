@@ -26,9 +26,6 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by jiewei on 9/7/15.
- */
 public class ResetPhoneStepTwoActivity extends VerifySecurityCodeActivity {
 
     protected void onCreate(Bundle savedInstanceState) {

@@ -146,8 +146,7 @@ public abstract class VerifySecurityCodeActivity extends BaseActivity {
         public void onTick(long millisUntilFinished) {
             resendButtonTicking = true;
             updateResendButtonState();
-            btnResend.setText(millisUntilFinished / ONE_SECOND + "秒");
-
+            btnResend.setText(getResources().getString(R.string.register_step_two_seconds, millisUntilFinished / ONE_SECOND));
         }
 
         @Override
