@@ -16,9 +16,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Administrator on 2015/11/11.
- */
 public class ProductInfoActivity extends BaseActivity {
 
     @Bind(R.id.tv_feedbacks)
@@ -45,7 +42,7 @@ public class ProductInfoActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvFeedbacks.setOnClickListener(new ActivityHyperlinkClickListener(this, FeedbackActivity.class));
-        tvVersion.setText(getResources().getString(R.string.apk_version_name) + UpdateChecker.getInstance().getCurrentVersionName(this));
+        tvVersion.setText(getResources().getString((R.string.apk_version_name), UpdateChecker.getInstance().getCurrentVersionName(this)));
         tvAgreement.setOnClickListener(new ActivityHyperlinkClickListener(this, UserAgreementActivity.class));
         showUpdateInformation(UpdateChecker.getInstance().getAppRelease());
         UpdateChecker.getInstance().registerAppReleaseReadyCallback(onAppReleaseReady);

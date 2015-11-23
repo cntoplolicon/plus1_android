@@ -22,10 +22,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
-/**
- * Created by jiewei on 9/3/15.
- */
 public class PersonalSettingsActivity extends BaseActivity {
 
     @Bind(R.id.sb_notification)

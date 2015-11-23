@@ -24,9 +24,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by syb on 2015/9/18.
- */
 public class AddTextActivity extends BaseActivity {
     private static Promise<JSONObject, VolleyError, Void> promise;
 

@@ -23,9 +23,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by jiewei on 9/4/15.
- */
 public class ChangePasswordActivity extends BaseActivity {
 
     @Bind(R.id.et_old_password)

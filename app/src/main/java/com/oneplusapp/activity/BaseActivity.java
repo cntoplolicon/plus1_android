@@ -5,9 +5,6 @@ import android.app.Activity;
 import com.oneplusapp.BuildConfig;
 import com.umeng.analytics.MobclickAgent;
 
-/**
- * Created by Administrator on 2015/10/24.
- */
 public class BaseActivity extends Activity {
 
     @Override

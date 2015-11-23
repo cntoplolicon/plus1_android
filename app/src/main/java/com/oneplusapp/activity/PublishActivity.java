@@ -34,10 +34,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
-/**
- * Created by syb on 2015/9/12.
- */
 public class PublishActivity extends BaseActivity {
 
     private static final String KEY_PROCESSED_BITMAP = "processed_bitmap";

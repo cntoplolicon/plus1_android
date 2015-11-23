@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -175,8 +176,9 @@ public class CardDetailsActivity extends BaseActivity {
 
     private void initListView() {
         lvListView = (ListView) findViewById(R.id.lv_list_view);
+        ViewGroup parent = (ViewGroup) findViewById(R.id.rl_header);
         lvListView.setDividerHeight(0);
-        final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, null);
+        final View headerView = LayoutInflater.from(this).inflate(R.layout.card_details_header, parent, false);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
