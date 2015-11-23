@@ -24,7 +24,7 @@ public class DraggableStackView extends ViewGroup {
     private View stackTopView;
     private View stackNextView;
 
-    private boolean needSyncViewsOnReleaseSettled;
+    private boolean dataSetChanged;
     private int position;
     private int dragOffsetLimit;
     private int offset;
@@ -69,8 +69,6 @@ public class DraggableStackView extends ViewGroup {
         } else {
             stackNextView = null;
         }
-
-        needSyncViewsOnReleaseSettled = false;
     }
 
     public void setAdapter(BaseAdapter adapter) {
@@ -79,6 +77,7 @@ public class DraggableStackView extends ViewGroup {
             @Override
             public void onChanged() {
                 syncStackViews();
+                dataSetChanged = true;
             }
         });
         adapter.notifyDataSetChanged();
@@ -114,7 +113,7 @@ public class DraggableStackView extends ViewGroup {
 
     private void onCapturedViewSettled() {
         ++position;
-        needSyncViewsOnReleaseSettled = true;
+        dataSetChanged = false;
         if (stackNextView != null) {
             View tempView = stackNextView;
             stackNextView = stackTopView;
@@ -124,7 +123,7 @@ public class DraggableStackView extends ViewGroup {
             onViewReleasedListener.onReleasedViewSettled(stackTopView, position - 1, offset);
         }
         offset = 0;
-        if (needSyncViewsOnReleaseSettled) {
+        if (!dataSetChanged) {
             syncStackViews();
         }
     }
