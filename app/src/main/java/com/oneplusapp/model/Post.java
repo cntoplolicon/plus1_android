@@ -4,9 +4,6 @@ import org.joda.time.DateTime;
 
 public class Post {
 
-    public static final int DELETED_BY_AUTHOR = 1;
-    public static final int DELETED_BY_ADMIN = 2;
-
     private int id;
     private int spreadsCount;
     private int viewsCount;

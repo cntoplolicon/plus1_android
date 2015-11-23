@@ -13,9 +13,6 @@ import com.oneplusapp.model.Notification;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-/**
- * Created by cntoplolicon on 10/13/15.
- */
 public class PushNotificationsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

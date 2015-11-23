@@ -34,7 +34,6 @@ import butterknife.ButterKnife;
 
 public class MySelfFragment extends Fragment {
 
-    private View headerView;
     private UserPostsGridViewAdapter postsAdapter;
     private UserBookmarksGridViewAdapter bookmarksAdapter;
     private User user;
@@ -78,7 +77,7 @@ public class MySelfFragment extends Fragment {
         ivLoading = (ImageView) view.findViewById(R.id.iv_loading);
         tvContentEmpty = (TextView) view.findViewById(R.id.tv_content_empty);
         tvContentEmpty.setText(R.string.home_no_publish);
-        headerView = inflater.inflate(R.layout.fragment_myself_header, null);
+        View headerView = inflater.inflate(R.layout.fragment_myself_header, null);
         gridView.addHeaderView(headerView, null, false);
         ButterKnife.bind(this, headerView);
         user = User.current;
@@ -148,7 +147,7 @@ public class MySelfFragment extends Fragment {
 
     private void showCurrentUserInfo() {
         tvNickname.setUser(user);
-        if (user.getBiography() != null && !user.getBiography().toString().trim().isEmpty()) {
+        if (user.getBiography() != null && !user.getBiography().trim().isEmpty()) {
             tvBiography.setText(user.getBiography());
         }
     }
