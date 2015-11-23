@@ -19,9 +19,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by jiewei on 9/4/15.
- */
 public class UpdateSignActivity extends BaseActivity {
 
     @Bind(R.id.et_content)

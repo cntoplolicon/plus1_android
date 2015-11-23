@@ -11,9 +11,6 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by jiewei on 9/7/15.
- */
 public class ResetPhoneActivity extends GetSecurityCodeActivity {
 
     @Override

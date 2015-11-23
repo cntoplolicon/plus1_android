@@ -21,9 +21,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by jiewei on 9/3/15.
- */
 public class UpdateNicknameActivity extends BaseActivity {
 
     @Bind(R.id.et_nick)
