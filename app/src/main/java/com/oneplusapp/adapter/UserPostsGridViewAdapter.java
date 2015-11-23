@@ -14,9 +14,6 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONArray;
 
-/**
- * Created by jiewei on 9/14/15.
- */
 public class UserPostsGridViewAdapter extends PostsGridViewAdapter {
 
     private static Post[] currentUserPosts = new Post[]{};

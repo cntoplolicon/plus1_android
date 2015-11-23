@@ -4,9 +4,6 @@ import com.activeandroid.serializer.TypeSerializer;
 
 import org.joda.time.DateTime;
 
-/**
- * Created by cntoplolicon on 10/13/15.
- */
 public class AAJodaDateTimeSerializer extends TypeSerializer {
     public Class<?> getDeserializedType() {
         return DateTime.class;

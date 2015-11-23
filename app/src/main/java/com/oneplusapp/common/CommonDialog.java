@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import com.oneplusapp.R;
 
-/**
- * Created by Administrator on 2015/10/15.
- */
 public class CommonDialog {
 
     public static void showDialog(Context context, String dialogMsg) {

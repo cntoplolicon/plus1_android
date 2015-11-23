@@ -3,7 +3,6 @@ package com.oneplusapp.fragment;
 import android.app.Fragment;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;

@@ -4,9 +4,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-/**
- * Created by shw on 2015/11/16.
- */
 public class PauseOnScrollListener extends RecyclerView.OnScrollListener {
 
     private ImageLoader imageLoader;

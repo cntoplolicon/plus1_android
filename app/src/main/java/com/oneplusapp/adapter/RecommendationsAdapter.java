@@ -53,8 +53,7 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
     @Override
     public RecommendationsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = mInflater.inflate(R.layout.recommended_post, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override

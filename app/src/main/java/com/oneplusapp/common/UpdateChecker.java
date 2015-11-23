@@ -28,9 +28,6 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by cntoplolicon on 11/2/15.
- */
 public class UpdateChecker {
 
     private static final String APK_MIME_TYPE = "application/vnd.android.package-archive";

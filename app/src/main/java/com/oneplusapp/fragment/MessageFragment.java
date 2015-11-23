@@ -33,7 +33,6 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 public class MessageFragment extends Fragment {
     private PushNotificationService.Callback callback = new NotificationChangedCallback();
     private MessageAdapter messageAdapter;

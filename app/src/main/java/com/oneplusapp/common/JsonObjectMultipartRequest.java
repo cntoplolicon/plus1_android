@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- * Created by cntoplolicon on 9/12/15.
- */
 public class JsonObjectMultipartRequest extends JsonObjectRequest {
 
     private HttpEntity entity;

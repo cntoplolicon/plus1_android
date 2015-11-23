@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -29,9 +28,6 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by silentgod on 15-9-5.
- */
 public final class CommonMethods {
     // input pattern for validation checked on front_end
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[0-9]{11}$");

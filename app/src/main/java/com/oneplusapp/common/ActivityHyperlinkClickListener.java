@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewStub;
 
-/**
- * Created by cntoplolicon on 9/17/15.
- */
 public class ActivityHyperlinkClickListener implements ViewStub.OnClickListener {
 
     private Context context;

@@ -10,9 +10,6 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by cntoplolicon on 9/11/15.
- */
 public class JsonObjectFormRequest extends JsonObjectRequest {
 
     private static final String PARAMS_ENCODING = "UTF-8";

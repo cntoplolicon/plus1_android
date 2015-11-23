@@ -13,9 +13,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 
-/**
- * Created by silentgod on 15-11-4.
- */
 public final class DownloadImageTask extends AsyncTask<String, Context, Void> {
     private File imageFile;
     private Exception exception;
@@ -40,7 +37,7 @@ public final class DownloadImageTask extends AsyncTask<String, Context, Void> {
             inputStream = url.openStream();
             outputStream = new FileOutputStream(imageFile);
             byte[] buffer = new byte[1024 * 1024];
-            int bytesRead = 0;
+            int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) >= 0) {
                 outputStream.write(buffer, 0, bytesRead);
             }

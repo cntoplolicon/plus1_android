@@ -24,9 +24,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by shw on 2015/9/14.
- */
 public class CommentsAdapter extends ArrayAdapter<Comment> {
     private int selectItem = -1;
     private LayoutInflater mInflater;

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.Comment;
@@ -21,9 +20,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by shw on 2015/9/14.
- */
 public class MessageAdapter extends ArrayAdapter<Notification> {
 
     private LayoutInflater mInflater;
