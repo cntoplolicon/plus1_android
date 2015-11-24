@@ -52,7 +52,6 @@
             app:max_height_width_ratio="2.0"
             app:min_height_width_ratio="0.5" />
 
-
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"

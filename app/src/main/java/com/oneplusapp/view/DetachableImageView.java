@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DetachableImageView extends ImageView {
 
-    private List<Runnable> postQueue = new ArrayList<Runnable>();
+    private List<Runnable> postQueue = new ArrayList<>();
     private boolean attached;
 
     public DetachableImageView(Context context) {

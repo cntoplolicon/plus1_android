@@ -31,14 +31,6 @@ public class AutoHeightScrollView extends ScrollView {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AutoHeightScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        if (!isInEditMode()) {
-            init(context, attrs);
-        }
-    }
-
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.AutoHeightScrollView);
