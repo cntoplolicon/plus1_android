@@ -18,7 +18,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ShowImageActivity extends BaseActivity {
 
-    @Bind(R.id.iv_phone)
+    @Bind(R.id.iv_photo)
     ImageView ivPhoto;
 
     @Override
