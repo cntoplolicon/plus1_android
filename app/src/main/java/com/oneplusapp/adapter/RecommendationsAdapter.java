@@ -3,6 +3,7 @@ package com.oneplusapp.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
+import com.oneplusapp.view.DetachableImageView;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
@@ -68,11 +70,8 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         viewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
         viewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
 
-        String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null) {
-            imageUrl = "";
-        }
-        if (imageUrl.isEmpty()) {
+        final String imageUrl = post.getPostPages()[0].getImage();
+        if (TextUtils.isEmpty(imageUrl)) {
             viewHolder.ivImage.setVisibility(View.GONE);
             viewHolder.tvContent.setVisibility(View.GONE);
             viewHolder.tvNoImageContent.setVisibility(View.VISIBLE);
@@ -84,17 +83,26 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
                 viewHolder.tvContent.setVisibility(View.GONE);
             }
         }
-        if (!imageUrl.equals(viewHolder.ivImage.getTag())) {
-            Drawable loadingDrawable = CommonMethods.createLoadingDrawable(mContext,
-                    post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(loadingDrawable)
-                    .showImageOnFail(R.drawable.image_load_fail)
-                    .build();
+
+        Drawable loadingDrawable = CommonMethods.createLoadingDrawable(mContext,
+                post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
+        final DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                .showImageOnLoading(loadingDrawable)
+                .showImageOnFail(R.drawable.image_load_fail)
+                .build();
+        if (viewHolder.ivImage.isAttachedToWindow()) {
             ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, options);
-            viewHolder.ivImage.setTag(imageUrl);
+        } else {
+            viewHolder.ivImage.setImageDrawable(loadingDrawable);
+            viewHolder.ivImage.post(new Runnable() {
+                @Override
+                public void run() {
+                    ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, options);
+                }
+            });
         }
+
         if (mOnItemClickListener != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -185,7 +193,7 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         TextView tvViews;
 
         @Bind(R.id.iv_image)
-        ImageView ivImage;
+        DetachableImageView ivImage;
 
         @Bind(R.id.iv_avatar)
         UserAvatarImageView ivAvatar;

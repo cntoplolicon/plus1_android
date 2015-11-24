@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.oneplusapp.R;
 
-public class AdjustableImageView extends ImageView {
+public class AdjustableImageView extends DetachableImageView {
     private boolean mAdjustableImageView;
     private float min_height_width_ratio;
     private float max_height_width_ratio;

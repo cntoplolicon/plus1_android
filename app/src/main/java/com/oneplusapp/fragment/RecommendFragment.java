@@ -59,6 +59,7 @@ public class RecommendFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(getActivity(), ITEM_HORIZONTAL_SPACING), dip2px(getActivity(), ITEM_VERTICAL_SPACING)));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setItemAnimator(null);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {

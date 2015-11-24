@@ -49,4 +49,9 @@ public class DetachableImageView extends ImageView {
         }
         return true;
     }
+
+    @Override
+    public boolean isAttachedToWindow() {
+        return attached;
+    }
 }
