@@ -36,7 +36,7 @@
         android:id="@+id/id_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ccc"
+        android:background="@color/profile_background"
         android:clipToPadding="false"
         android:paddingBottom="6dp"
         android:paddingLeft="8dp"
