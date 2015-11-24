@@ -60,36 +60,42 @@
         android:layout_marginRight="@dimen/common_margin_left_right"
         android:src="@drawable/arrow_right_open" />
 
-    <TextView
-        android:id="@+id/tv_update"
+    <RelativeLayout
+        android:id="@+id/rl_update"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/tv_feedbacks"
         android:layout_marginTop="3dp"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:text="@string/update"
-        android:textColor="@color/setting_text_color" />
+        android:background="@color/common_white_bg">
 
-    <ImageView
-        android:id="@+id/iv_new"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/tv_update"
-        android:layout_marginLeft="85dp"
-        android:src="@drawable/update"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="@string/update"
+            android:textColor="@color/setting_text_color" />
 
-    <TextView
-        android:id="@+id/tv_server_version_name"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_update"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:gravity="center_vertical"
-        android:textColor="@color/setting_text_color" />
+        <ImageView
+            android:id="@+id/iv_new"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_update"
+            android:src="@drawable/update"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_server_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:gravity="center"
+            android:textColor="@color/setting_text_color" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/user_agreement"
