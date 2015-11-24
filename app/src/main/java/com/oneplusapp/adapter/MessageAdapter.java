@@ -1,6 +1,7 @@
 package com.oneplusapp.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +57,19 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         viewHolder.tvNickname.setUser(user);
         viewHolder.tvReplyContent.setText(comment.getContent());
         Post post = comment.getPost();
-        String imagePath = post.getPostPages()[0].getImage();
-        if (imagePath == null) {
-            imagePath = "";
-        }
-        if (imagePath.isEmpty()) {
-            viewHolder.ivPostImage.setImageBitmap(null);
+        if (post == null) {
             viewHolder.ivPostImage.setVisibility(View.GONE);
-            viewHolder.tvPostText.setVisibility(View.VISIBLE);
-            viewHolder.tvPostText.setText(post.getPostPages()[0].getText());
-        } else {
             viewHolder.tvPostText.setVisibility(View.GONE);
-            viewHolder.ivPostImage.setVisibility(View.VISIBLE);
+        } else {
+            String imagePath = post.getPostPages()[0].getImage();
+            if (TextUtils.isEmpty(imagePath)) {
+                viewHolder.ivPostImage.setVisibility(View.GONE);
+                viewHolder.tvPostText.setVisibility(View.VISIBLE);
+                viewHolder.tvPostText.setText(post.getPostPages()[0].getText());
+            } else {
+                viewHolder.tvPostText.setVisibility(View.GONE);
+                viewHolder.ivPostImage.setVisibility(View.VISIBLE);
+            }
             ImageLoader.getInstance().displayImage(imagePath, viewHolder.ivPostImage, DISPLAY_IMAGE_OPTIONS);
         }
         return view;
