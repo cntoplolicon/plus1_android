@@ -5,12 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
+import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
+import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
@@ -23,6 +28,11 @@ import butterknife.ButterKnife;
 public class MessageAdapter extends ArrayAdapter<Notification> {
 
     private LayoutInflater mInflater;
+    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
+            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(R.color.home_title_color)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
 
     public MessageAdapter(Context context, List<Notification> notifications) {
         super(context, 0, notifications);
@@ -44,7 +54,22 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         User user = comment.getUser();
         viewHolder.ivAvatar.setUser(user);
         viewHolder.tvNickname.setUser(user);
-        viewHolder.tvMessage.setText(comment.getReplyToId() == 0 ? R.string.message_card : R.string.message_comment);
+        viewHolder.tvReplyContent.setText(comment.getContent());
+        Post post = comment.getPost();
+        String imagePath = post.getPostPages()[0].getImage();
+        if (imagePath == null) {
+            imagePath = "";
+        }
+        if (imagePath.isEmpty()) {
+            viewHolder.ivPostImage.setImageBitmap(null);
+            viewHolder.ivPostImage.setVisibility(View.GONE);
+            viewHolder.tvPostText.setVisibility(View.VISIBLE);
+            viewHolder.tvPostText.setText(post.getPostPages()[0].getText());
+        } else {
+            viewHolder.tvPostText.setVisibility(View.GONE);
+            viewHolder.ivPostImage.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(imagePath, viewHolder.ivPostImage, DISPLAY_IMAGE_OPTIONS);
+        }
         return view;
     }
 
@@ -53,7 +78,13 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         UserAvatarImageView ivAvatar;
         @Bind(R.id.tv_nickname)
         UserNicknameTextView tvNickname;
-        @Bind(R.id.tv_message)
-        TextView tvMessage;
+        @Bind(R.id.tv_post_time)
+        TextView tvPostTime;
+        @Bind(R.id.iv_post_image)
+        ImageView ivPostImage;
+        @Bind(R.id.tv_post_text)
+        TextView tvPostText;
+        @Bind(R.id.tv_reply_content)
+        TextView tvReplyContent;
     }
 }
