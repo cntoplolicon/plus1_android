@@ -55,11 +55,13 @@ public class RecommendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
 
         ButterKnife.bind(this, view);
-        adapter = new RecommendationsAdapter(getActivity());
-        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(getActivity(), ITEM_HORIZONTAL_SPACING), dip2px(getActivity(), ITEM_VERTICAL_SPACING)));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(null);
+        recyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
+
+        adapter = new RecommendationsAdapter(getActivity());
+        adapter.setHasStableIds(true);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -74,7 +76,6 @@ public class RecommendFragment extends Fragment {
                 changeViewsByAdapterState();
             }
         });
-        changeViewsByAdapterState();
         adapter.setOnItemClickListener(new RecommendationsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Post post) {
@@ -83,7 +84,9 @@ public class RecommendFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        recyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
+        recyclerView.setAdapter(adapter);
+        changeViewsByAdapterState();
+
         return view;
     }
 

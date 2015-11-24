@@ -117,6 +117,11 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         return posts.length;
     }
 
+    @Override
+    public long getItemId(int position) {
+        return posts[position].getId();
+    }
+
     public void loadRecommendations() {
         if (loading) {
             return;
