@@ -2,6 +2,7 @@ package com.oneplusapp.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,31 +46,36 @@ public class PostsGridViewAdapter extends ArrayAdapter<Post> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        View view;
+        if (convertView != null) {
+            view = convertView;
+            viewHolder = (ViewHolder) convertView.getTag();
+        } else {
             view = LayoutInflater.from(getContext()).inflate(R.layout.user_post_grid_view_item, parent, false);
+            viewHolder = new ViewHolder();
+            view.setTag(viewHolder);
+            ButterKnife.bind(viewHolder, view);
         }
 
         Post post = getItem(position);
-        ViewHolder viewHolder = new ViewHolder();
-        ButterKnife.bind(viewHolder, view);
 
         viewHolder.tvText.setText(post.getPostPages()[0].getText());
         viewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
         viewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
 
-        String imageUrl = post.getPostPages()[0].getImage();
-        if (imageUrl == null) {
-            imageUrl = "";
-        }
-        int textVisibility = imageUrl.isEmpty() ? View.VISIBLE : View.GONE;
+        final String imageUrl = post.getPostPages()[0].getImage();
+        int textVisibility = TextUtils.isEmpty(imageUrl) ? View.VISIBLE : View.GONE;
         viewHolder.tvText.setVisibility(textVisibility);
 
-        if (!imageUrl.equals(viewHolder.ivImage.getTag())) {
-            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, DISPLAY_IMAGE_OPTIONS);
-            viewHolder.ivImage.setTag(imageUrl);
-        }
+        final ImageView imageView = viewHolder.ivImage;
+        imageView.post(new Runnable() {
+            @Override
+            public void run() {
+                ImageLoader.getInstance().displayImage(imageUrl, imageView, DISPLAY_IMAGE_OPTIONS);
+            }
+        });
 
         return view;
     }
