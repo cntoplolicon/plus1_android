@@ -21,6 +21,10 @@ import com.oneplusapp.activity.LoginActivity;
 import com.oneplusapp.model.User;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Minutes;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -149,6 +153,27 @@ public final class CommonMethods {
         gradientDrawable.setShape(R.drawable.shape_loading);
         gradientDrawable.setSize(width, height);
         return gradientDrawable;
+    }
+
+    public static String createdAtFormat(Context context, LocalDateTime createDateTime) {
+        LocalDateTime currentDateTime = DateTime.now().toLocalDateTime();
+
+        int daysAgo = Days.daysBetween(createDateTime, currentDateTime).getDays();
+        if (daysAgo > 0) {
+            return context.getResources().getString(R.string.post_created_days_ago, daysAgo);
+        }
+
+        int hoursAgo = Hours.hoursBetween(createDateTime, currentDateTime).getHours();
+        if (hoursAgo > 0) {
+            return context.getResources().getString(R.string.post_created_hours_ago, hoursAgo);
+        }
+
+        int minutesAgo = Minutes.minutesBetween(createDateTime, currentDateTime).getMinutes();
+        if (minutesAgo > 0) {
+            return context.getResources().getString(R.string.post_created_minutes_ago, minutesAgo);
+        }
+
+        return context.getString(R.string.post_just_created);
     }
 
 }
