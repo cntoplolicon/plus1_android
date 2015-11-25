@@ -10,155 +10,148 @@
         android:id="@+id/action_bar"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/action_bar_height"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         custom:page_title="@string/personal_information" />
 
-    <TextView
-        android:id="@+id/tv_avatar"
+    <RelativeLayout
+        android:id="@+id/rl_avatar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_avatar_height"
         android:layout_below="@+id/action_bar"
         android:layout_marginTop="15dp"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/settings_common_text" />
+        android:background="@color/common_white_bg">
 
-    <ImageView
-        android:id="@+id/iv_forward_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_avatar"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="19dp"
-        android:src="@drawable/arrow_right_open" />
+        <com.oneplusapp.view.UserAvatarImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="9dp"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/default_user_avatar"
+            app:border_color="@color/common_yellow"
+            app:border_width="@dimen/common_avatar_image_border"
+            app:link_to_user_home="false" />
 
-    <com.oneplusapp.view.UserAvatarImageView
-        android:id="@+id/iv_avatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/tv_avatar"
-        android:layout_marginBottom="9dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="9dp"
-        android:src="@drawable/default_user_avatar"
-        app:border_color="@color/common_yellow"
-        app:border_width="@dimen/common_avatar_image_border"
-        app:link_to_user_home="false"/>
+        <ImageView
+            android:id="@+id/iv_forward_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_avatar_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:src="@drawable/arrow_right_open" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_nickname"
+    <RelativeLayout
+        android:id="@+id/rl_profile_nickname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/tv_avatar"
+        android:layout_below="@id/rl_avatar"
         android:layout_marginTop="2dp"
-        android:background="@color/common_white_bg" />
+        android:background="@color/common_white_bg">
 
-    <ImageView
-        android:id="@+id/iv_forward_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_nickname"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="@dimen/profile_common_arrow_top"
-        android:src="@drawable/arrow_right_open" />
+        <TextView
+            android:id="@+id/tv_profile_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxWidth="300dp"
+            android:singleLine="true"
+            android:text="海绵宝宝"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/settings_common_text" />
 
-    <TextView
-        android:id="@+id/tv_profile_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/iv_forward_nickname"
-        android:layout_marginLeft="@dimen/common_margin_left_right"
-        android:ellipsize="end"
-        android:maxWidth="300dp"
-        android:singleLine="true"
-        android:text="海绵宝宝"
-        android:textColor="#666666"
-        android:textSize="@dimen/settings_common_text" />
+        <ImageView
+            android:id="@+id/iv_forward_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:src="@drawable/arrow_right_open" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_password"
+    <RelativeLayout
+        android:id="@+id/rl_biography"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/tv_biography"
-        android:layout_marginTop="15dp"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/common_margin_left_right"
-        android:text="@string/pwd_reset"
-        android:textColor="#666666"
-        android:textSize="@dimen/settings_common_text" />
-
-    <ImageView
-        android:id="@+id/iv_forward_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_password"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="@dimen/profile_common_arrow_top"
-        android:src="@drawable/arrow_right_open" />
-
-    <TextView
-        android:id="@+id/tv_biography"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_text_height"
-        android:layout_below="@+id/tv_nickname"
+        android:layout_below="@+id/rl_profile_nickname"
         android:layout_marginTop="2dp"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/common_margin_left_right"
-        android:text="@string/change_biography"
-        android:textColor="#666666"
-        android:textSize="@dimen/settings_common_text" />
+        android:background="@color/common_white_bg">
 
-    <ImageView
-        android:id="@+id/iv_forward_biography"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tv_biography"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:layout_marginTop="@dimen/profile_common_arrow_top"
-        android:src="@drawable/arrow_right_open" />
+        <TextView
+            android:id="@+id/tv_biography"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_marginLeft="@dimen/common_margin_left_right"
+            android:gravity="center_vertical"
+            android:text="@string/change_biography"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/settings_common_text" />
 
-    <TextView
-        android:id="@+id/tv_username"
+        <ImageView
+            android:id="@+id/iv_forward_biography"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:src="@drawable/arrow_right_open" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_text_height"
+        android:layout_below="@+id/rl_biography"
+        android:layout_marginTop="15dp"
+        android:background="@color/common_white_bg">
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/profile_text_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:text="@string/pwd_reset"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/settings_common_text" />
+
+        <ImageView
+            android:id="@+id/iv_forward_password"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_text_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:src="@drawable/arrow_right_open" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_user_phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/tv_password"
+        android:layout_below="@id/rl_password"
         android:layout_marginTop="15dp"
-        android:background="@color/common_white_bg"
-        android:gravity="center_vertical"
-        android:textColor="#666666"
-        android:textSize="@dimen/settings_common_text" />
+        android:background="@color/common_white_bg">
 
-    <ImageView
-        android:id="@+id/iv_forward_username"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/tv_username"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/common_margin_left_right"
-        android:src="@drawable/arrow_right_open" />
+        <TextView
+            android:id="@+id/tv_profile_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/common_margin_left_right"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/settings_common_text" />
 
-    <TextView
-        android:id="@+id/tv_profile_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignTop="@id/tv_username"
-        android:layout_marginLeft="15dp"
-        android:gravity="center_vertical"
-        android:text="15151515"
-        android:textColor="#666666"
-        android:textSize="@dimen/settings_common_text" />
+        <ImageView
+            android:id="@+id/iv_forward_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_margin_left_right"
+            android:src="@drawable/arrow_right_open" />
+    </RelativeLayout>
 
 </RelativeLayout>

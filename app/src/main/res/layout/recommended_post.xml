@@ -112,4 +112,5 @@
             android:textColor="#999999"
             android:textSize="@dimen/home_text_views_size" />
     </RelativeLayout>
+    
 </android.support.v7.widget.CardView>
