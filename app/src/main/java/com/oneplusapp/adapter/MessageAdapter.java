@@ -56,6 +56,7 @@ public class MessageAdapter extends ArrayAdapter<Notification> {
         viewHolder.ivAvatar.setUser(user);
         viewHolder.tvNickname.setUser(user);
         viewHolder.tvReplyContent.setText(comment.getContent());
+        viewHolder.tvPostTime.setText(CommonMethods.createdAtFormat(getContext(), comment.getCreatedAt().toLocalDateTime()));
         Post post = comment.getPost();
         if (post == null) {
             viewHolder.ivPostImage.setVisibility(View.GONE);
