@@ -14,13 +14,25 @@
         android:textSize="15dp"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/lv_list_view"
+    <!--<ListView-->
+        <!--android:id="@+id/lv_list_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:clipToPadding="false"-->
+        <!--android:divider="@color/profile_background"-->
+        <!--android:dividerHeight="4px" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
+        android:background="@color/profile_background"
         android:clipToPadding="false"
-        android:divider="@color/profile_background"
-        android:dividerHeight="4px" />
+        android:paddingBottom="6dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="6dp"
+        android:scrollbarStyle="outsideOverlay" />
 
 </RelativeLayout>
