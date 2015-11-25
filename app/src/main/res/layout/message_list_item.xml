@@ -34,7 +34,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="50 seconds"
         android:layout_marginTop="8dp"
         android:id="@+id/tv_post_time"
         android:textSize="11sp"
@@ -48,14 +47,13 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/iv_post_image"
-        android:src="@drawable/default_user_avatar"
         android:layout_marginTop="13dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="17dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/message_post_content_background"/>
+        android:background="@drawable/message_post_image_background"/>
 
     <TextView
         android:layout_width="75dp"
