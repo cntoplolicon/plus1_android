@@ -12,6 +12,7 @@
         android:background="@color/common_white_bg"
         android:paddingBottom="10dp">
 
+
         <com.oneplusapp.view.UserAvatarImageView
             android:id="@+id/iv_avatar"
             android:layout_width="38dp"
