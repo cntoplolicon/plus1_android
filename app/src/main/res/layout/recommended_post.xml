@@ -12,6 +12,7 @@
         android:background="@color/common_white_bg"
         android:paddingBottom="10dp">
 
+
         <com.oneplusapp.view.UserAvatarImageView
             android:id="@+id/iv_avatar"
             android:layout_width="38dp"
@@ -111,4 +112,5 @@
             android:textColor="#999999"
             android:textSize="@dimen/home_text_views_size" />
     </RelativeLayout>
+    
 </android.support.v7.widget.CardView>

@@ -219,7 +219,11 @@ public class CardDetailsActivity extends BaseActivity {
         }
         tvNickname.setUser(user);
         ivAvatar.setUser(user);
-        tvContent.setText(post.getPostPages()[0].getText());
+        if (post.getPostPages()[0].getText() != null && !post.getPostPages()[0].getText().trim().isEmpty()) {
+            tvContent.setText(post.getPostPages()[0].getText());
+        } else {
+            tvContent.setVisibility(View.GONE);
+        }
         tvComments.setText(String.valueOf(post.getCommentsCount()));
         tvViews.setText(String.valueOf(post.getViewsCount()));
         tvTime.setText(CommonMethods.createdAtFormat(this, post.getCreatedAt().toLocalDateTime()));

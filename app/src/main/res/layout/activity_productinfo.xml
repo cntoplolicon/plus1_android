@@ -96,7 +96,6 @@
             android:textColor="@color/setting_text_color" />
     </RelativeLayout>
 
-
     <TextView
         android:id="@+id/user_agreement"
         android:layout_width="wrap_content"
