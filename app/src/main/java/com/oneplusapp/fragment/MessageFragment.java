@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
@@ -24,6 +21,7 @@ import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
+import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
 
 import org.jdeferred.DoneCallback;
@@ -55,12 +53,30 @@ public class MessageFragment extends Fragment {
 
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         syncNotificationUsers(notifications);
-        rvRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvRecyclerView.setItemAnimator(null);
         rvRecyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
 
-//        messageAdapter = new MessageAdapter(getActivity(), notifications);
+        messageAdapter = new MessageAdapter(getActivity(), notifications);
+        messageAdapter.setHasStableIds(true);
 
+        if (notifications.isEmpty()) {
+            tvNoMessage.setVisibility(View.VISIBLE);
+        } else {
+            tvNoMessage.setVisibility(View.GONE);
+        }
+
+        messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Post post) {
+                Notification notification = (Notification) view.getTag();
+                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                intent.putExtra("notification", notification);
+                startActivity(intent);
+            }
+        });
+
+        rvRecyclerView.setAdapter(messageAdapter);
         PushNotificationService.getInstance().registerCallback(callback);
         return view;
     }
@@ -114,8 +130,7 @@ public class MessageFragment extends Fragment {
     private class NotificationChangedCallback implements PushNotificationService.Callback {
         @Override
         public void onNotificationReceived(Notification notification) {
-//            messageAdapter.insert(notification, 0);
-            messageAdapter.notifyDataSetChanged();
+            messageAdapter.addNotification(notification);
         }
     }
 }

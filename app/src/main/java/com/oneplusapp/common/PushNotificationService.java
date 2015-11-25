@@ -135,11 +135,8 @@ public class PushNotificationService {
                     PendingIntent.FLAG_ONE_SHOT);
 
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            String commentFormat = (comment.getReplyToId() == 0 ?
-                    context.getResources().getString(R.string.notification_card) :
-                    context.getResources().getString(R.string.notification_comment));
-
-            String notificationBarBody = String.format(commentFormat, comment.getUser().getNickname());
+            int commentFormatResource = comment.getReplyToId() == 0 ? R.string.notification_card : R.string.notification_comment;
+            String notificationBarBody = context.getResources().getString(commentFormatResource, comment.getUser().getNickname());
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.notification_small)
                     .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
