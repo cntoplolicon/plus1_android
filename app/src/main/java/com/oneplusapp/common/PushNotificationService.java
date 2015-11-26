@@ -33,8 +33,6 @@ import java.util.Set;
 
 public class PushNotificationService {
 
-    public static final String TYPE_COMMENT = "comment";
-
     private static PushNotificationService instance;
     private Context context;
     private Set<Callback> callbacks = new HashSet<>();
@@ -124,31 +122,36 @@ public class PushNotificationService {
             return;
         }
 
-        if (notification.getType().equals(TYPE_COMMENT)) {
-            Intent intent = new Intent(context, CardDetailsActivity.class);
-            intent.putExtra("notification", notification);
-
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-            stackBuilder.addParentStack(CardDetailsActivity.class);
-            stackBuilder.addNextIntent(intent);
-            PendingIntent pendingIntent = stackBuilder.getPendingIntent(notification.getId().intValue(),
-                    PendingIntent.FLAG_ONE_SHOT);
-
+        Intent intent = new Intent(context, CardDetailsActivity.class);
+        intent.putExtra("notification", notification);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(CardDetailsActivity.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(notification.getId().intValue(),
+                PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder notificationBuilder = null;
+        if (notification.getType().equals(Notification.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            String commentFormat = (comment.getReplyToId() == 0 ?
-                    context.getResources().getString(R.string.notification_card) :
-                    context.getResources().getString(R.string.notification_comment));
-
-            String notificationBarBody = String.format(commentFormat, comment.getUser().getNickname());
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+            int commentFormatResource = comment.getReplyToId() == 0 ? R.string.notification_card : R.string.notification_comment;
+            String notificationBarBody = context.getResources().getString(commentFormatResource, comment.getUser().getNickname());
+            notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.notification_small)
                     .setContentTitle(context.getResources().getString(R.string.notification_comment_title))
                     .setContentText(notificationBarBody)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
-            NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
-            notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
+
+        } else if (notification.getType().equals(Notification.TYPE_RECOMMEND)) {
+            String notificationBarBody = context.getResources().getString(R.string.notification_recommend);
+            notificationBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.notification_small)
+                    .setContentTitle(context.getResources().getString(R.string.notification_recommend_title))
+                    .setContentText(notificationBarBody)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
         }
+        NotificationManager notifyManager = (NotificationManager) context.getSystemService(Application.NOTIFICATION_SERVICE);
+        notifyManager.notify(notification.getId().intValue(), notificationBuilder.build());
     }
 
     public interface Callback {

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="104dp"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/message_background">
+
+    <com.oneplusapp.view.UserAvatarImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_user_avatar"
+        app:border_color="@color/common_yellow"
+        app:border_width="@dimen/common_avatar_image_border"/>
+
+    <com.oneplusapp.view.UserNicknameTextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingLeft="15dp"
+        android:ellipsize="end"
+        android:maxWidth="100dp"
+        android:minWidth="50dp"
+        android:singleLine="true"
+        android:textSize="@dimen/message_item_nickname_text_size"
+        app:hide_gender_icon="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_toEndOf="@+id/iv_avatar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_post_time"
+        android:textSize="11sp"
+        android:textColor="@color/profile_hint_text"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/tv_nickname"
+        android:layout_alignLeft="@+id/tv_nickname"
+        android:layout_alignStart="@+id/tv_nickname" />
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/iv_post_image"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="17dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/message_post_image_background"/>
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/tv_post_text"
+        android:gravity="center"
+        android:maxLines="5"
+        android:ellipsize="end"
+        android:layout_marginTop="13dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="17dp"
+        android:background="@drawable/message_post_content_background"
+        android:visibility="gone"
+        android:textSize="@dimen/message_post_content_text_size"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_reply_content"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/message_item_reply_content_text_size"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/setting_text_color"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/iv_avatar"
+        android:layout_alignLeft="@+id/iv_avatar"
+        android:layout_alignStart="@+id/iv_avatar"
+        android:layout_toLeftOf="@+id/iv_post_image"
+        android:layout_toStartOf="@+id/iv_post_image" />
+
+</RelativeLayout>

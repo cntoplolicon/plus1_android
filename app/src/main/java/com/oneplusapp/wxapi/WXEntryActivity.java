@@ -1,4 +1,3 @@
-
 package com.oneplusapp.wxapi;
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;

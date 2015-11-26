@@ -17,6 +17,7 @@ import java.util.List;
 public class Notification extends Model implements Parcelable {
 
     public static final String TYPE_COMMENT = "comment";
+    public static final String TYPE_RECOMMEND = "recommend";
 
     @Column
     @Expose

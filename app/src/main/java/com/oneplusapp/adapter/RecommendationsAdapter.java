@@ -112,6 +112,7 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         }
     }
 
+
     @Override
     public int getItemCount() {
         return posts.length;

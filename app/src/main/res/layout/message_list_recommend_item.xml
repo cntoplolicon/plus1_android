@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="102dp"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/message_background">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recommend_message_detail"
+        android:id="@+id/tv_recommend_message_text"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toLeftOf="@+id/iv_recommend_message_post_image"
+        android:layout_toStartOf="@+id/iv_recommend_message_post_image"
+        android:textSize="@dimen/message_item_reply_content_text_size"/>
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/iv_recommend_message_post_image"
+        android:background="@drawable/message_post_image_background"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="17dp"
+        android:layout_marginLeft="50dp"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/tv_recommend_message_post_text"
+        android:background="@drawable/message_post_content_background"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:maxLines="5"
+        android:visibility="gone"
+        android:ellipsize="end"
+        android:textSize="@dimen/message_post_content_text_size"
+        android:layout_marginRight="17dp"
+        android:layout_marginLeft="50dp"/>
+</RelativeLayout>

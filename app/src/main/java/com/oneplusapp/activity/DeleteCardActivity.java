@@ -42,7 +42,7 @@ public class DeleteCardActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-               finish();
+                finish();
             }
         }, 1500);
     }

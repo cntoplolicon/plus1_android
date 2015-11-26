@@ -3,18 +3,20 @@ package com.oneplusapp.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.adapter.MessageAdapter;
 import com.oneplusapp.common.CommonMethods;
+import com.oneplusapp.common.PauseOnScrollListener;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Comment;
@@ -39,6 +41,8 @@ public class MessageFragment extends Fragment {
 
     @Bind(R.id.tv_no_message)
     TextView tvNoMessage;
+    @Bind(R.id.rv_recycler_view)
+    RecyclerView rvRecyclerView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,27 +51,33 @@ public class MessageFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
-        messageAdapter = new MessageAdapter(getActivity(), notifications);
         syncNotificationUsers(notifications);
-        ListView lvListView = (ListView) view.findViewById(R.id.lv_list_view);
-        lvListView.setAdapter(messageAdapter);
+        rvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvRecyclerView.setItemAnimator(null);
+        rvRecyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
+
+        messageAdapter = new MessageAdapter(getActivity(), notifications);
+        messageAdapter.setHasStableIds(true);
+
         if (notifications.isEmpty()) {
             tvNoMessage.setVisibility(View.VISIBLE);
+            rvRecyclerView.setVisibility(View.GONE);
         } else {
             tvNoMessage.setVisibility(View.GONE);
+            rvRecyclerView.setVisibility(View.VISIBLE);
         }
-        lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(View view, int position) {
                 Notification notification = (Notification) view.getTag();
-                if (notification.getType().equals(Notification.TYPE_COMMENT)) {
-                    Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                    intent.putExtra("notification", notification);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                intent.putExtra("notification", notification);
+                startActivity(intent);
             }
         });
 
+        rvRecyclerView.setAdapter(messageAdapter);
         PushNotificationService.getInstance().registerCallback(callback);
         return view;
     }
@@ -84,9 +94,11 @@ public class MessageFragment extends Fragment {
         Set<Integer> userIds = new HashSet<>();
 
         for (Notification notification : notifications) {
-            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            notification2Comment.put(notification, comment);
-            userIds.add(comment.getUser().getId());
+            if (notification.getType().equals(Notification.TYPE_COMMENT)) {
+                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+                notification2Comment.put(notification, comment);
+                userIds.add(comment.getUser().getId());
+            }
         }
 
         if (!userIds.isEmpty()) {
@@ -121,7 +133,7 @@ public class MessageFragment extends Fragment {
     private class NotificationChangedCallback implements PushNotificationService.Callback {
         @Override
         public void onNotificationReceived(Notification notification) {
-            messageAdapter.insert(notification, 0);
+            messageAdapter.addNotification(notification);
             messageAdapter.notifyDataSetChanged();
         }
     }
