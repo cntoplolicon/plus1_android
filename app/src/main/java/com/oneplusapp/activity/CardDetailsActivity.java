@@ -110,7 +110,7 @@ public class CardDetailsActivity extends BaseActivity {
         }
 
         Notification notification = getIntent().getParcelableExtra("notification");
-        if (notification != null && notification.getType().equals(PushNotificationService.TYPE_COMMENT)) {
+        if (notification != null && notification.getType().equals(Notification.TYPE_COMMENT)) {
             Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
             postId = comment.getPostId();
             setReplyTarget(comment);

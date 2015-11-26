@@ -145,6 +145,8 @@
     <string name="post_report_duplicated">您已举报过当前话题</string>
 
     <string name="notification_comment_title">新的评论</string>
+    <string name="notification_recommend_title">新的通知</string>
+    <string name="notification_recommend">您的帖子被选为热门</string>
     <string name="notification_card">%s评论了你发布的帖子</string>
     <string name="notification_comment">%s回复了你的评论</string>
     <string name="message_card">评论了你发布的帖子</string>
