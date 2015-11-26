@@ -29,6 +29,8 @@ public class PushNotificationsReceiver extends BroadcastReceiver {
         String contentJson = map.get("content");
         Gson gson = CommonMethods.defaultGsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         Notification notification = gson.fromJson(contentJson, Notification.class);
-        PushNotificationService.getInstance().handleNotification(notification);
+        if (notification.getType().equals(Notification.TYPE_COMMENT) || notification.getType().equals(Notification.TYPE_RECOMMEND)) {
+            PushNotificationService.getInstance().handleNotification(notification);
+        }
     }
 }

@@ -33,8 +33,6 @@ import java.util.Set;
 
 public class PushNotificationService {
 
-//    public static final String TYPE_COMMENT = "comment";
-
     private static PushNotificationService instance;
     private Context context;
     private Set<Callback> callbacks = new HashSet<>();

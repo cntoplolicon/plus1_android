@@ -21,13 +21,11 @@ import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
-import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
 
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -52,13 +50,7 @@ public class MessageFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        List<Notification> originalNotifications = Notification.getMyNotifications(User.current.getId());
-        List<Notification> notifications = new ArrayList<>();
-        for (Notification notification : originalNotifications) {
-            if (notification.getType().equals(Notification.TYPE_RECOMMEND) || notification.getType().equals(Notification.TYPE_COMMENT)) {
-                notifications.add(notification);
-            }
-        }
+        List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
         syncNotificationUsers(notifications);
         rvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvRecyclerView.setItemAnimator(null);
@@ -77,7 +69,7 @@ public class MessageFragment extends Fragment {
 
         messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, Post post) {
+            public void onItemClick(View view, int position) {
                 Notification notification = (Notification) view.getTag();
                 Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
                 intent.putExtra("notification", notification);
@@ -142,6 +134,7 @@ public class MessageFragment extends Fragment {
         @Override
         public void onNotificationReceived(Notification notification) {
             messageAdapter.addNotification(notification);
+            messageAdapter.notifyDataSetChanged();
         }
     }
 }

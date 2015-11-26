@@ -132,10 +132,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Post post = getItemViewType(position) == MESSAGE_TYPE_COMMENT ?
-                            CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class).getPost() :
-                            CommonMethods.createDefaultGson().fromJson(notification.getContent(), Post.class);
-                    mOnItemClickListener.onItemClick(viewHolder.itemView, post);
+                    mOnItemClickListener.onItemClick(viewHolder.itemView, position);
                 }
             });
         }
@@ -157,7 +154,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public void addNotification(Notification notification) {
         notifications.add(notification);
-        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -165,7 +161,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Post post);
+        void onItemClick(View view, int position);
     }
 
     public static class CommentMessageViewHolder extends RecyclerView.ViewHolder {
