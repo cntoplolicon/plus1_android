@@ -122,6 +122,13 @@ public class CardDetailsActivity extends BaseActivity {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
             }
+        } else if (notification != null && notification.getType().equals(Notification.TYPE_RECOMMEND)) {
+            Post post = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Post.class);
+            postId = post.getId();
+            if (!BuildConfig.DEBUG) {
+                NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
+                notifyManager.cancelAll();
+            }
         }
 
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

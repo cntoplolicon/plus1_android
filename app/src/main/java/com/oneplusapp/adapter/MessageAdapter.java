@@ -22,6 +22,7 @@ import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.Bind;
@@ -47,7 +48,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .showImageOnFail(R.drawable.image_load_fail)
                     .build();
 
-    public MessageAdapter(Context context, List<? extends Notification> notifications) {
+    public MessageAdapter(Context context, Collection<? extends Notification> notifications) {
         super();
         this.notifications.addAll(notifications);
         this.mContext = context;

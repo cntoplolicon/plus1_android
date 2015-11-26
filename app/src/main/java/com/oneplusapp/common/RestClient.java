@@ -3,7 +3,6 @@ package com.oneplusapp.common;
 import android.content.Context;
 import android.net.Uri;
 
-import com.alibaba.fastjson.JSON;
 import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;

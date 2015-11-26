@@ -19,7 +19,6 @@ import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.activity.HomeActivity;
 import com.oneplusapp.model.Comment;
 import com.oneplusapp.model.Notification;
-import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
 
 import org.jdeferred.FailCallback;
@@ -144,7 +143,7 @@ public class PushNotificationService {
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true);
 
-        } else if(notification.getType().equals(Notification.TYPE_RECOMMEND)) {
+        } else if (notification.getType().equals(Notification.TYPE_RECOMMEND)) {
             String notificationBarBody = context.getResources().getString(R.string.notification_recommend);
             notificationBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.notification_small)

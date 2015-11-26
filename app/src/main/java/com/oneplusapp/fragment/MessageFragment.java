@@ -27,6 +27,7 @@ import com.oneplusapp.model.User;
 import org.jdeferred.DoneCallback;
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +52,13 @@ public class MessageFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        List<Notification> notifications = Notification.getMyNotifications(User.current.getId());
+        List<Notification> originalNotifications = Notification.getMyNotifications(User.current.getId());
+        List<Notification> notifications = new ArrayList<>();
+        for (Notification notification : originalNotifications) {
+            if (notification.getType().equals(Notification.TYPE_RECOMMEND) || notification.getType().equals(Notification.TYPE_COMMENT)) {
+                notifications.add(notification);
+            }
+        }
         syncNotificationUsers(notifications);
         rvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvRecyclerView.setItemAnimator(null);
@@ -62,8 +69,10 @@ public class MessageFragment extends Fragment {
 
         if (notifications.isEmpty()) {
             tvNoMessage.setVisibility(View.VISIBLE);
+            rvRecyclerView.setVisibility(View.GONE);
         } else {
             tvNoMessage.setVisibility(View.GONE);
+            rvRecyclerView.setVisibility(View.VISIBLE);
         }
 
         messageAdapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
@@ -93,9 +102,11 @@ public class MessageFragment extends Fragment {
         Set<Integer> userIds = new HashSet<>();
 
         for (Notification notification : notifications) {
-            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            notification2Comment.put(notification, comment);
-            userIds.add(comment.getUser().getId());
+            if (notification.getType().equals(Notification.TYPE_COMMENT)) {
+                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+                notification2Comment.put(notification, comment);
+                userIds.add(comment.getUser().getId());
+            }
         }
 
         if (!userIds.isEmpty()) {
