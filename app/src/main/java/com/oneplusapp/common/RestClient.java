@@ -3,6 +3,7 @@ package com.oneplusapp.common;
 import android.content.Context;
 import android.net.Uri;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -104,6 +105,11 @@ public class RestClient {
 
     public void cancelRequests(Object tag) {
         requestQueue.cancelAll(tag);
+    }
+
+
+    public String buildAgreementUrl() {
+        return getResourceUrl("/agreement/index.html");
     }
 
     public Promise<JSONObject, VolleyError, Void> getAppRelease() {
@@ -524,7 +530,18 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public String buildAgreementUrl() {
-        return getResourceUrl("/agreement/index.html");
+    public Promise<JSONObject, VolleyError, Void> getLastestEvent() {
+        ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                getResourceUrl("/events/latest"), listener, listener);
+        // used in splash screen so timeout must be short
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(5 * 1000, // 5 sec
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(retryPolicy);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
     }
 }
