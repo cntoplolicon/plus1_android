@@ -205,6 +205,6 @@
     <string name="oauth_get_platform_info">正在获取第三方账号信息</string>
     <string name="oauth_platform_info_error">获取第三方账号信息失败</string>
 
-    <string name="recommend_message_detail">您在%s发布的帖子被选为热门</string>
+    <string name="recommend_message_detail">恭喜您的话题上了精选。快去看看吧。</string>
 
 </resources>
