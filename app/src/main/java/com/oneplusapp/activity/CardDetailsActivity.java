@@ -110,21 +110,20 @@ public class CardDetailsActivity extends BaseActivity {
         }
 
         Notification notification = getIntent().getParcelableExtra("notification");
-        if (notification != null && notification.getType().equals(Notification.TYPE_COMMENT)) {
-            Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
-            postId = comment.getPostId();
-            setReplyTarget(comment);
-            // no need to focus on the notified comment when activity recreated
-            if (savedInstanceState == null) {
-                notifiedComment = comment;
+        if (notification != null) {
+            if (notification.getType().equals(Notification.TYPE_COMMENT)) {
+                Comment comment = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Comment.class);
+                postId = comment.getPostId();
+                setReplyTarget(comment);
+                // no need to focus on the notified comment when activity recreated
+                if (savedInstanceState == null) {
+                    notifiedComment = comment;
+                }
+
+            } else if (notification.getType().equals(Notification.TYPE_RECOMMEND)) {
+                Post post = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Post.class);
+                postId = post.getId();
             }
-            if (!BuildConfig.DEBUG) {
-                NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
-                notifyManager.cancelAll();
-            }
-        } else if (notification != null && notification.getType().equals(Notification.TYPE_RECOMMEND)) {
-            Post post = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Post.class);
-            postId = post.getId();
             if (!BuildConfig.DEBUG) {
                 NotificationManager notifyManager = (NotificationManager) getSystemService(Application.NOTIFICATION_SERVICE);
                 notifyManager.cancelAll();
