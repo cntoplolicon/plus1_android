@@ -7,43 +7,58 @@
 
 
     <TextView
+        android:id="@+id/tv_recommend_message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/recommend_message_detail"
-        android:id="@+id/tv_recommend_message_text"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_toLeftOf="@+id/iv_recommend_message_post_image"
-        android:layout_toStartOf="@+id/iv_recommend_message_post_image"
-        android:textSize="@dimen/message_item_reply_content_text_size"/>
-    <ImageView
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@+id/lr_post_content"
+        android:layout_toStartOf="@+id/lr_post_content"
+        android:layout_marginRight="50dp"
+        android:text="@string/recommend_message_detail"
+        android:textColor="@color/common_button_text_color"
+        android:textSize="@dimen/message_item_nickname_text_size" />
+
+    <LinearLayout
+        android:id="@+id/lr_post_content"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/iv_recommend_message_post_image"
-        android:background="@drawable/message_post_image_background"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="17dp"
-        android:layout_marginLeft="50dp"
-        android:scaleType="centerCrop"/>
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="17dp">
+
+        <ImageView
+            android:id="@+id/iv_recommend_message_post_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/message_post_image_background"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_recommend_message_post_text"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/message_post_content_background"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="5"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="@dimen/message_post_content_text_size"
+            android:visibility="gone" />
+    </LinearLayout>
+
     <TextView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/tv_recommend_message_post_text"
-        android:background="@drawable/message_post_content_background"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:maxLines="5"
-        android:visibility="gone"
-        android:ellipsize="end"
-        android:textSize="@dimen/message_post_content_text_size"
-        android:layout_marginRight="17dp"
-        android:layout_marginLeft="50dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/setting_text_color"
+        android:textSize="@dimen/message_item_time_text_size"
+        android:id="@+id/tv_recommend_time"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tv_recommend_message_text"
+        android:layout_alignEnd="@+id/tv_recommend_message_text" />
 </RelativeLayout>

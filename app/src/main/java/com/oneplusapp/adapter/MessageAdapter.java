@@ -112,9 +112,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else if (getItemViewType(position) == MESSAGE_TYPE_RECOMMEND) {
             Post post = CommonMethods.createDefaultGson().fromJson(notification.getContent(), Post.class);
 
-            int postTimeFormatResource = R.string.recommend_message_detail;
-            String postTime = CommonMethods.createdAtFormat(mContext, post.getCreatedAt().toLocalDateTime());
-            recommendMessageViewHolder.tvRecommendMessageText.setText(mContext.getResources().getString(postTimeFormatResource, postTime));
+            String postTime = CommonMethods.createdAtFormat(mContext, notification.getReceiveTime().toLocalDateTime());
+            recommendMessageViewHolder.tvRecommendTime.setText(postTime);
 
             String imagePath = post.getPostPages()[0].getImage();
             if (TextUtils.isEmpty(imagePath)) {
@@ -185,8 +184,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public static class RecommendMessageViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_recommend_message_text)
-        TextView tvRecommendMessageText;
+        @Bind(R.id.tv_recommend_time)
+        TextView tvRecommendTime;
         @Bind(R.id.iv_recommend_message_post_image)
         ImageView ivRecommendMessagePostImage;
         @Bind(R.id.tv_recommend_message_post_text)
