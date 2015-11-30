@@ -22,7 +22,6 @@ import com.oneplusapp.fragment.MySelfFragment;
 import com.oneplusapp.fragment.PublishFragment;
 import com.oneplusapp.fragment.RecommendFragment;
 import com.oneplusapp.model.Notification;
-import com.oneplusapp.model.User;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
@@ -69,11 +68,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (User.current == null) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
+
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
@@ -110,6 +105,9 @@ public class HomeActivity extends BaseActivity {
                 }
             });
         }
+
+        showEventIfExists();
+        
     }
 
     @Override
@@ -163,6 +161,14 @@ public class HomeActivity extends BaseActivity {
                     spb.setVisibility(View.GONE);
                 }
             });
+        }
+    }
+
+    private void showEventIfExists() {
+        if (SplashActivity.getEvent() != null) {
+            Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

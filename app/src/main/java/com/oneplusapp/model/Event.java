@@ -1,11 +1,11 @@
 package com.oneplusapp.model;
 
-/**
- * Created by cntoplolicon on 11/26/15.
- */
+import org.joda.time.DateTime;
+
 public class Event {
     private int id;
     private String description;
+    private DateTime createdAt;
     private EventPage[] eventPages;
 
     public int getId() {
@@ -30,5 +30,13 @@ public class Event {
 
     public void setEventPages(EventPage[] eventPages) {
         this.eventPages = eventPages;
+    }
+
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
