@@ -1,9 +1,7 @@
 package com.oneplusapp.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -73,7 +71,6 @@ public class LoginActivity extends BaseActivity {
 
         TextView toRegister = (TextView) findViewById(R.id.tv_to_register);
         toRegister.setOnClickListener(new ActivityHyperlinkClickListener(this, RegisterStepOne.class));
-        showGuideOnFirstLogin();
     }
 
     @Override
@@ -146,16 +143,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.iv_weixin:
                 loginViaOauth(SHARE_MEDIA.WEIXIN);
                 break;
-        }
-    }
-
-    private void showGuideOnFirstLogin() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("config",
-                Context.MODE_PRIVATE);
-        boolean isGuideShowed = sharedPreferences.getBoolean("is_guide_showed", false);
-        if (!isGuideShowed) {
-            startActivity(new Intent(getApplicationContext(), GuideActivity.class));
-            finish();
         }
     }
 
