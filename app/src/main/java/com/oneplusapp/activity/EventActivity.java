@@ -7,8 +7,6 @@ import android.widget.ImageView;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.oneplusapp.fragment.EventSlide;
-import com.oneplusapp.model.Event;
-import com.oneplusapp.model.EventPage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,13 +22,12 @@ public class EventActivity extends AppIntro {
         Bitmap[] eventBitmaps = SplashActivity.getEventBitmaps();
         ButterKnife.bind(this);
 
-        Event event = SplashActivity.getEvent();
-        for (EventPage page : event.getEventPages()) {
-            addSlide(EventSlide.newInstance(page.getImage()));
+        for (Bitmap bitmap : eventBitmaps) {
+            addSlide(EventSlide.newInstance(bitmap));
         }
 
         showSkipButton(false);
-        showDoneButton(false);
+        showDoneButton(true);
         setSeparatorColor(Color.TRANSPARENT);
 
         SplashActivity.recordEventShown();
@@ -50,6 +47,7 @@ public class EventActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        // do nothing
+        SplashActivity.recycleEventBitmaps();
+        finish();
     }
 }

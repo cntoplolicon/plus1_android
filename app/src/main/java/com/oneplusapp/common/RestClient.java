@@ -529,7 +529,7 @@ public class RestClient {
         return deferredObject.promise();
     }
 
-    public Promise<JSONObject, VolleyError, Void> getLastestEvent() {
+    public Promise<JSONObject, VolleyError, Void> getLatestEvent() {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);
 

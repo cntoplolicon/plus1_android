@@ -107,7 +107,7 @@ public class HomeActivity extends BaseActivity {
         }
 
         showEventIfExists();
-        
+
     }
 
     @Override
@@ -168,7 +168,6 @@ public class HomeActivity extends BaseActivity {
         if (SplashActivity.getEvent() != null) {
             Intent intent = new Intent(getApplicationContext(), EventActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 
