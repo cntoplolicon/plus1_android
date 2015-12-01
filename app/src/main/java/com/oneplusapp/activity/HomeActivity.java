@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
+import com.oneplusapp.common.EventChecker;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.UpdateChecker;
 import com.oneplusapp.fragment.HomeFragment;
@@ -165,7 +166,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void showEventIfExists() {
-        if (SplashActivity.getEvent() != null) {
+        if (EventChecker.getInstance().getNewEvent() != null) {
             Intent intent = new Intent(getApplicationContext(), EventActivity.class);
             startActivity(intent);
         }

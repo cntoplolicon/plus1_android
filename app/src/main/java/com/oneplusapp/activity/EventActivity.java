@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.github.paolorotolo.appintro.AppIntro;
+import com.oneplusapp.common.EventChecker;
 import com.oneplusapp.fragment.EventSlide;
 
 import butterknife.Bind;
@@ -19,10 +20,10 @@ public class EventActivity extends AppIntro {
 
     @Override
     public void init(Bundle bundle) {
-        Bitmap[] eventBitmaps = SplashActivity.getEventBitmaps();
         ButterKnife.bind(this);
 
-        for (Bitmap bitmap : eventBitmaps) {
+        EventChecker.EventInfo eventInfo = EventChecker.getInstance().getNewEvent();
+        for (Bitmap bitmap : eventInfo.getBitmaps()) {
             addSlide(EventSlide.newInstance(bitmap));
         }
 
@@ -30,7 +31,7 @@ public class EventActivity extends AppIntro {
         showDoneButton(true);
         setSeparatorColor(Color.TRANSPARENT);
 
-        SplashActivity.recordEventShown();
+        EventChecker.getInstance().recordEventShown();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class EventActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        SplashActivity.recycleEventBitmaps();
+        EventChecker.getInstance().clearEvent();
         finish();
     }
 }

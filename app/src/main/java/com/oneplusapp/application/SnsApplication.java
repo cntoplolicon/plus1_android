@@ -11,6 +11,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.oneplusapp.BuildConfig;
+import com.oneplusapp.common.EventChecker;
 import com.oneplusapp.common.LocalUserInfo;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.RestClient;
@@ -37,6 +38,7 @@ public class SnsApplication extends Application {
         initLeanCloud(getApplicationContext());
         // push notification must be initialized after lean count and before current user
         PushNotificationService.init(getApplicationContext());
+        EventChecker.initialize(getApplicationContext());
         loadCurrentUser();
     }
 
