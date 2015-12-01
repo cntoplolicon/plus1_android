@@ -1,6 +1,5 @@
 package com.oneplusapp.activity;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -23,12 +22,12 @@ public class EventActivity extends AppIntro {
         ButterKnife.bind(this);
 
         EventChecker.EventInfo eventInfo = EventChecker.getInstance().getNewEvent();
-        for (Bitmap bitmap : eventInfo.getBitmaps()) {
-            addSlide(EventSlide.newInstance(bitmap));
+        for (int i = 0; i < eventInfo.getBitmaps().length; i++) {
+            addSlide(EventSlide.newInstance(eventInfo.getBitmaps()[i], i == eventInfo.getBitmaps().length - 1));
         }
 
         showSkipButton(false);
-        showDoneButton(true);
+        showDoneButton(false);
         setSeparatorColor(Color.TRANSPARENT);
 
         EventChecker.getInstance().recordEventShown();
