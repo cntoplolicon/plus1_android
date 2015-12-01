@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -13,37 +15,79 @@ import com.oneplusapp.common.EventChecker;
 import com.oneplusapp.model.Event;
 import com.oneplusapp.model.User;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class SplashActivity extends BaseActivity {
 
     private boolean activityFinished;
+    private boolean eventLoadingFinished;
+    private boolean animationCompleted;
+
+    @Bind(R.id.rl_splash)
+    RelativeLayout rl_splash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        delay();
+
+        ButterKnife.bind(this);
+
+        loadEvent();
+
+        AlphaAnimation animAlpha = new AlphaAnimation(1, 0.2f);
+        animAlpha.setDuration(2000);
+        animAlpha.setFillAfter(true);
+        rl_splash.startAnimation(animAlpha);
+        animAlpha.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // do nothing
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                animationCompleted = true;
+                if (eventLoadingFinished) {
+                    finishSplashActivity();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // do nothing
+            }
+        });
+    }
+
+    private void onEventLoadingFinished() {
+        eventLoadingFinished = true;
+        if (animationCompleted) {
+            finishSplashActivity();
+        }
     }
 
     private void loadEvent() {
         EventChecker.getInstance().loadNewEvent(new EventChecker.EventCheckerListener() {
             @Override
             public void onEventLoadingComplete(EventChecker.EventInfo eventInfo) {
-                finishSplashActivity();
+                onEventLoadingFinished();
             }
 
             @Override
             public void onEventLoadingFailed(VolleyError error) {
-                finishSplashActivity();
+                onEventLoadingFinished();
             }
 
             @Override
             public void onEventSkipped(Event event) {
-                finishSplashActivity();
+                onEventLoadingFinished();
             }
 
             @Override
             public void onEventImageLoadingFailed(String uri, FailReason reason) {
-                finishSplashActivity();
+                onEventLoadingFinished();
             }
         });
     }
@@ -72,15 +116,6 @@ public class SplashActivity extends BaseActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    private void delay() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadEvent();
-            }
-        }, 2000);
     }
 
 }
