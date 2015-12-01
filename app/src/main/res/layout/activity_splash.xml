@@ -4,12 +4,21 @@
     android:layout_height="match_parent"
     android:background="@color/common_white_bg">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Splash"
-        android:gravity="center"
-        android:textSize="50dp"
-        android:textColor="@color/common_yellow"/>
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="125dp"
+        android:src="@drawable/splash" />
+
+    <ImageView
+        android:id="@+id/iv_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="91dp"
+        android:src="@drawable/introduce" />
 
 </RelativeLayout>
