@@ -21,11 +21,8 @@ import butterknife.ButterKnife;
 public class SplashActivity extends BaseActivity {
 
     private boolean activityFinished;
-    private boolean eventLoadingFinished;
-    private boolean animationCompleted;
-
     @Bind(R.id.rl_splash)
-    RelativeLayout rl_splash;
+    RelativeLayout rlSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +32,13 @@ public class SplashActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         loadEvent();
+    }
 
+    private void fadeOutActivity() {
         AlphaAnimation animAlpha = new AlphaAnimation(1, 0.2f);
         animAlpha.setDuration(2000);
         animAlpha.setFillAfter(true);
-        rl_splash.startAnimation(animAlpha);
+        rlSplash.startAnimation(animAlpha);
         animAlpha.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -48,10 +47,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                animationCompleted = true;
-                if (eventLoadingFinished) {
-                    finishSplashActivity();
-                }
+                finishSplashActivity();
             }
 
             @Override
@@ -59,37 +55,32 @@ public class SplashActivity extends BaseActivity {
                 // do nothing
             }
         });
-    }
 
-    private void onEventLoadingFinished() {
-        eventLoadingFinished = true;
-        if (animationCompleted) {
-            finishSplashActivity();
-        }
     }
 
     private void loadEvent() {
         EventChecker.getInstance().loadNewEvent(new EventChecker.EventCheckerListener() {
             @Override
             public void onEventLoadingComplete(EventChecker.EventInfo eventInfo) {
-                onEventLoadingFinished();
+                fadeOutActivity();
             }
 
             @Override
             public void onEventLoadingFailed(VolleyError error) {
-                onEventLoadingFinished();
+                fadeOutActivity();
             }
 
             @Override
             public void onEventSkipped(Event event) {
-                onEventLoadingFinished();
+                fadeOutActivity();
             }
 
             @Override
             public void onEventImageLoadingFailed(String uri, FailReason reason) {
-                onEventLoadingFinished();
+                fadeOutActivity();
             }
         });
+
     }
 
     private void finishSplashActivity() {
