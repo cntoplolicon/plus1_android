@@ -13,20 +13,27 @@ import com.oneplusapp.R;
 public class EventSlide extends Fragment {
 
     private Bitmap bitmap;
+    private boolean clickToFinishActivity;
 
-    public static EventSlide newInstance(Bitmap bitmap) {
-        EventSlide eventSlide = new EventSlide();
-        eventSlide.setEventBitmap(bitmap);
-        return eventSlide;
-    }
-
-    public void setEventBitmap(Bitmap eventBitmap) {
-        this.bitmap = eventBitmap;
+    public static EventSlide newInstance(Bitmap bitmap, boolean clickToFinishActivity) {
+        EventSlide slide = new EventSlide();
+        slide.bitmap = bitmap;
+        slide.clickToFinishActivity = clickToFinishActivity;
+        return slide;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
         ImageView ivEvent = (ImageView) view.findViewById(R.id.iv_event);
+        if (clickToFinishActivity) {
+            ivEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+        }
+
         ivEvent.setImageBitmap(bitmap);
         return view;
     }
