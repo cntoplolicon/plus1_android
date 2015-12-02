@@ -44,10 +44,12 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
     private LayoutInflater mInflater;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private int eventId;
 
-    public RecommendedEventAdapter(Context context) {
+    public RecommendedEventAdapter(Context context, int eventId) {
         super();
         this.mContext = context;
+        this.eventId = eventId;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -129,7 +131,7 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
         }
         loading = true;
         notifyLoadingStatusChanged();
-        RestClient.getInstance().getRecommendedPosts().done(
+        RestClient.getInstance().getEventRecommendedPosts(eventId).done(
                 new DoneCallback<JSONArray>() {
                     @Override
                     public void onDone(JSONArray response) {

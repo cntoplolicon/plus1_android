@@ -207,4 +207,7 @@
 
     <string name="recommend_message_detail">恭喜您的话题上了精选。快去看看吧。</string>
 
+    <string name="event_recommends">活动精选</string>
+    <string name="title_activity_event_recommend">EventRecommendActivity</string>
+
 </resources>

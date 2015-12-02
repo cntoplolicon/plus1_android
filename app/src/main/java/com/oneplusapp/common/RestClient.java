@@ -558,4 +558,18 @@ public class RestClient {
 
         return deferredObject.promise();
     }
+
+    public Promise<JSONArray, VolleyError, Void> getEventRecommendedPosts(int eventId) {
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+        Map<String, Object> params = createUserParams();
+
+        params.put("event_id", eventId);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                encodeUrlParams("/events" + eventId + "/recommendations", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
 }

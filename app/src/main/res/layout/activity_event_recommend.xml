@@ -1,41 +1,37 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccc">
+    android:background="@android:color/white">
 
-    <FrameLayout
-        android:id="@+id/fl_loading_layout"
+    <com.oneplusapp.view.ActionBarLayout
+        android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:layout_height="52dp"
+        custom:page_title="@string/event_recommends" />
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/homepage_loading" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_empty_layout"
+    <TextView
+        android:id="@+id/tv_content_empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
-
-        <TextView
-            android:id="@+id/tv_content_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="@string/no_recommend"
-            android:textColor="@color/profile_hint_text"></TextView>
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="@string/no_recommend"
+        android:textColor="@color/profile_hint_text"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/action_bar"
         android:background="@color/profile_background"
         android:clipToPadding="false"
         android:paddingBottom="6dp"
@@ -44,4 +40,13 @@
         android:paddingTop="6dp"
         android:scrollbarStyle="outsideOverlay" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/iv_loading_recommends"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/action_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:src="@drawable/homepage_loading"
+        android:visibility="gone" />
+</RelativeLayout>
