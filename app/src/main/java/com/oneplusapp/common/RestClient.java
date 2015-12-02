@@ -36,7 +36,7 @@ public class RestClient {
     public static final String TAG_USER_POSTS = "user_posts";
     public static final String TAG_BOOKMARKS = "bookmarks";
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.147:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "https://oneplusapp.com";
     private static final RetryPolicy DEFAULT_RETRY_POLICY = new DefaultRetryPolicy(30 * 1000, // 30 sec
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -554,6 +554,20 @@ public class RestClient {
         RetryPolicy retryPolicy = new DefaultRetryPolicy(5 * 1000, // 5 sec
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(retryPolicy);
+        requestQueue.add(request);
+
+        return deferredObject.promise();
+    }
+
+    public Promise<JSONArray, VolleyError, Void> getEventRecommendedPosts(int eventId) {
+        ThrowableDeferredObject<JSONArray, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
+        PromiseListener<JSONArray> listener = new PromiseListener<>(deferredObject);
+        Map<String, Object> params = createUserParams();
+
+        params.put("event_id", eventId);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                encodeUrlParams("/events/" + eventId + "/recommendations", params), listener, listener);
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
 
         return deferredObject.promise();

@@ -1,6 +1,7 @@
 package com.oneplusapp.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
+import com.oneplusapp.activity.EventRecommendActivity;
 import com.oneplusapp.adapter.RecommendationsAdapter;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
@@ -23,6 +25,7 @@ import org.jdeferred.Promise;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +67,9 @@ public class RecommendFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event eventClicked = (Event) view.getTag();
-                Toast.makeText(getActivity(), eventClicked.getLogo(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), EventRecommendActivity.class);
+                intent.putExtra("event_id", eventClicked.getId());
+                startActivity(intent);
             }
         });
 
