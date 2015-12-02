@@ -73,11 +73,11 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         if (TextUtils.isEmpty(imageUrl)) {
             viewHolder.ivImage.setVisibility(View.GONE);
             viewHolder.tvContent.setVisibility(View.GONE);
-            viewHolder.tvNoImageContent.setVisibility(View.VISIBLE);
+            ((View) viewHolder.tvNoImageContent.getParent()).setVisibility(View.VISIBLE);
         } else {
             viewHolder.ivImage.setVisibility(View.VISIBLE);
             viewHolder.tvContent.setVisibility(View.VISIBLE);
-            viewHolder.tvNoImageContent.setVisibility(View.GONE);
+            ((View) viewHolder.tvNoImageContent.getParent()).setVisibility(View.GONE);
             if (viewHolder.tvContent.getText().toString().trim().isEmpty()) {
                 viewHolder.tvContent.setVisibility(View.GONE);
             }

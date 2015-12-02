@@ -64,30 +64,36 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="喔噢交了"
-            android:textColor="#999999"
+            android:textColor="#666666"
             android:textSize="13sp" />
 
-        <com.oneplusapp.view.SquareItemTextView
-            android:id="@+id/tv_no_image_content"
+        <com.oneplusapp.view.PostGridViewItemLayout
+            android:id="@+id/layout_no_image_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content"
-            android:layout_marginTop="10dp"
-            android:background="#fff"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="4"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="喔噢零距离交流距离距离距离看"
-            android:textColor="#666666"
-            android:textSize="13sp" />
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_no_image_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="4"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="喔噢零距离交流距离距离距离看"
+                android:textColor="#999999"
+                android:textSize="13sp" />
+        </com.oneplusapp.view.PostGridViewItemLayout>
 
         <TextView
             android:id="@+id/tv_views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_no_image_content"
+            android:layout_below="@id/layout_no_image_content"
             android:layout_marginTop="15dp"
             android:layout_toLeftOf="@id/tv_comments"
             android:drawableLeft="@drawable/icon_views_home"
@@ -102,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_no_image_content"
+            android:layout_below="@id/layout_no_image_content"
             android:layout_marginTop="15dp"
             android:drawableLeft="@drawable/icon_comment_home"
             android:drawablePadding="@dimen/home_text_views_image_spacing"
