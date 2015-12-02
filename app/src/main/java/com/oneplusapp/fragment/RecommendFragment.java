@@ -1,23 +1,30 @@
 package com.oneplusapp.fragment;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.android.volley.VolleyError;
 import com.oneplusapp.R;
-import com.oneplusapp.activity.CardDetailsActivity;
 import com.oneplusapp.adapter.RecommendationsAdapter;
 import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.PauseOnScrollListener;
-import com.oneplusapp.model.Post;
+import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.RestClient;
+import com.oneplusapp.model.Event;
+
+import org.jdeferred.AlwaysCallback;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,11 +32,10 @@ import butterknife.ButterKnife;
 
 public class RecommendFragment extends Fragment {
 
-    private static final int ITEM_HORIZONTAL_SPACING = 4;
-    private static final int ITEM_VERTICAL_SPACING = 7;
+    private boolean loading = false;
 
-    @Bind(R.id.id_recycler_view)
-    RecyclerView recyclerView;
+    @Bind(R.id.lv_list_view)
+    ListView lvListView;
     @Bind(R.id.fl_loading_layout)
     View loadingView;
     @Bind(R.id.fl_empty_layout)
@@ -38,11 +44,8 @@ public class RecommendFragment extends Fragment {
     private RecommendationsAdapter adapter;
 
     private void changeViewsByAdapterState() {
-        boolean loading = adapter.isLoading();
-        boolean isEmpty = adapter.isEmpty();
-
-        if (!isEmpty) {
-            recyclerView.bringToFront();
+        if (adapter.getCount() != 0) {
+            lvListView.bringToFront();
         } else if (loading) {
             loadingView.bringToFront();
         } else {
@@ -55,67 +58,52 @@ public class RecommendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
 
         ButterKnife.bind(this, view);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(getActivity(), ITEM_HORIZONTAL_SPACING), dip2px(getActivity(), ITEM_VERTICAL_SPACING)));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setItemAnimator(null);
-        recyclerView.addOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
 
-        adapter = new RecommendationsAdapter(getActivity());
-        adapter.setHasStableIds(true);
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        lvListView.setDividerHeight(0);
+        lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onChanged() {
-                super.onChanged();
-                changeViewsByAdapterState();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Event eventClicked = (Event) view.getTag();
+                Toast.makeText(getActivity(), eventClicked.getLogo(), Toast.LENGTH_LONG).show();
             }
         });
 
-        adapter.registerCallback(new RecommendationsAdapter.LoadingStatusObserver() {
-            @Override
-            public void onLoadingStatusChanged(boolean loading) {
-                changeViewsByAdapterState();
-            }
-        });
-        adapter.setOnItemClickListener(new RecommendationsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Post post) {
-                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(post));
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(adapter);
+        adapter = new RecommendationsAdapter(getActivity());
+        lvListView.setAdapter(adapter);
+        loadEvents();
         changeViewsByAdapterState();
 
         return view;
     }
 
+    private void loadEvents() {
+        if (loading) {
+            return;
+        }
+        loading = true;
+        RestClient.getInstance().getAllEvents().done(
+                new DoneCallback<JSONArray>() {
+                    @Override
+                    public void onDone(JSONArray result) {
+                        final Event[] tmpEvents = CommonMethods.createDefaultGson().fromJson(result.toString(), Event[].class);
+                        adapter.clear();
+                        adapter.addAll(tmpEvents);
+                        adapter.notifyDataSetChanged();
+                    }
+                }).fail(new JsonErrorListener(getActivity(), null))
+                .always(new AlwaysCallback<JSONArray, VolleyError>() {
+                    @Override
+                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
+                        loading = false;
+                        changeViewsByAdapterState();
+                    }
+                });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        adapter.loadRecommendations();
+        loadEvents();
     }
 
-    private static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    private static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-        private int horizontalSpace;
-        private int verticalSpace;
-
-        public SpacesItemDecoration(int horizontalSpace, int verticalSpace) {
-            this.horizontalSpace = horizontalSpace;
-            this.verticalSpace = verticalSpace;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.left = horizontalSpace;
-            outRect.right = horizontalSpace;
-            outRect.bottom = verticalSpace;
-            outRect.top = verticalSpace;
-        }
-    }
 }
