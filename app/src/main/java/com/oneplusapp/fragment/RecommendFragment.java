@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.oneplusapp.R;
@@ -23,11 +22,6 @@ import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -3,7 +3,6 @@ package com.oneplusapp.activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -43,7 +42,7 @@ public class EventRecommendActivity extends BaseActivity {
         int eventId = 0;
         Intent intent = getIntent();
         if (intent != null) {
-            eventId =  intent.getIntExtra("event_id", 0);
+            eventId = intent.getIntExtra("event_id", 0);
         }
 
         recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(ITEM_HORIZONTAL_SPACING), dip2px(ITEM_VERTICAL_SPACING)));
@@ -99,7 +98,7 @@ public class EventRecommendActivity extends BaseActivity {
     }
 
     private int dip2px(float dipValue) {
-        final float scale =  getResources().getDisplayMetrics().density;
+        final float scale = getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 

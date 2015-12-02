@@ -7,22 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
-import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Event;
-import com.oneplusapp.model.Post;
-
-import org.jdeferred.DoneCallback;
-import org.jdeferred.FailCallback;
-import org.json.JSONObject;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
