@@ -57,39 +57,65 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="1dp"
-        android:background="@drawable/comment_edit_text_background"
-        android:paddingBottom="10dp">
+        android:background="@drawable/comment_edit_text_background" >
 
-        <EditText
-            android:id="@+id/et_new_comment"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_comment_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/btn_send_comment"
-            android:layout_toStartOf="@+id/btn_send_comment"
-            android:background="@drawable/edit_background"
-            android:hint="@string/publish_comment"
-            android:maxLines="4"
-            android:minHeight="30dp"
-            android:paddingLeft="15dp"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="14sp" />
+            android:paddingBottom="10dp" >
 
-        <Button
-            android:id="@+id/btn_send_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignBottom="@+id/et_new_comment"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:background="@color/common_yellow"
-            android:gravity="center"
-            android:text="@string/send"
-            android:textColor="#333"
-            android:textSize="14sp" />
+            <EditText
+                android:id="@+id/et_new_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/btn_send_comment"
+                android:layout_toStartOf="@+id/btn_send_comment"
+                android:background="@drawable/edit_background"
+                android:hint="@string/publish_comment"
+                android:maxLines="4"
+                android:minHeight="30dp"
+                android:paddingLeft="15dp"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_emoji_keyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@+id/et_new_comment"
+                android:layout_toLeftOf="@+id/btn_send_comment"
+                android:layout_marginRight="2dp"
+                android:background="@color/common_yellow"
+                android:gravity="center"
+                android:text="发表情"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_send_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@+id/et_new_comment"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_yellow"
+                android:gravity="center"
+                android:text="@string/send"
+                android:textColor="#333"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_emoji"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_below="@+id/rl_comment_input" />
 
     </RelativeLayout>
 
@@ -97,10 +123,10 @@
         android:id="@+id/pb_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="160dp"
         android:layout_below="@id/action_bar"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:background="@color/common_white_bg" />
+        android:background="@color/common_white_bg"
+        android:padding="160dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

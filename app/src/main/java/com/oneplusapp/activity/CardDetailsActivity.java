@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -38,6 +40,10 @@ import com.oneplusapp.model.User;
 import com.oneplusapp.view.MenuDialog;
 import com.oneplusapp.view.UserAvatarImageView;
 import com.oneplusapp.view.UserNicknameTextView;
+import com.rockerhieu.emojicon.EmojiconGridFragment;
+import com.rockerhieu.emojicon.EmojiconsFragment;
+import com.rockerhieu.emojicon.emoji.Emojicon;
+import com.umeng.analytics.MobclickAgent;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
@@ -49,7 +55,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardDetailsActivity extends BaseActivity {
+public class CardDetailsActivity extends FragmentActivity
+        implements EmojiconGridFragment.OnEmojiconClickedListener,
+        EmojiconsFragment.OnEmojiconBackspaceClickedListener {
 
     @Bind(R.id.iv_avatar)
     UserAvatarImageView ivAvatar;
@@ -71,6 +79,8 @@ public class CardDetailsActivity extends BaseActivity {
     UserNicknameTextView tvNickname;
     @Bind(R.id.pb_loading_layout)
     ProgressBar pbLoadingLayout;
+    @Bind(R.id.fl_emoji)
+    FrameLayout flEmoji;
 
     private ListView lvListView;
 
@@ -108,6 +118,9 @@ public class CardDetailsActivity extends BaseActivity {
             postId = post.getId();
             updatePostInfo();
         }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_emoji, EmojiconsFragment.newInstance(true)).commit();
 
         Notification notification = getIntent().getParcelableExtra("notification");
         if (notification != null) {
@@ -167,6 +180,32 @@ public class CardDetailsActivity extends BaseActivity {
         }
 
         PushNotificationService.getInstance().registerCallback(notificationCallback);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!BuildConfig.DEBUG) {
+            MobclickAgent.onPause(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!BuildConfig.DEBUG) {
+            MobclickAgent.onResume(this);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (flEmoji.getVisibility() == View.VISIBLE) {
+            flEmoji.setVisibility(View.GONE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -351,8 +390,8 @@ public class CardDetailsActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), R.string.comment_text_required, Toast.LENGTH_LONG).show();
             return;
         }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+        flEmoji.setVisibility(View.GONE);
         view.setEnabled(false);
         int replyTargetId = replyTarget == null ? -1 : replyTarget.getId();
         RestClient.getInstance().newComment(etNewComment.getText().toString(), replyTargetId, post.getId())
@@ -377,6 +416,25 @@ public class CardDetailsActivity extends BaseActivity {
                     }
                 })
                 .always(new ResetViewClickable<JSONObject, VolleyError>(view));
+    }
+
+    @OnClick(R.id.btn_emoji_keyboard)
+    public void onShowEmojiKeyboardClicked() {
+        hideSoftKeyboard();
+        flEmoji.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.et_new_comment)
+    public void onNewCommentEditTextClicked() {
+        flEmoji.setVisibility(View.GONE);
+    }
+
+    private void hideSoftKeyboard() {
+        View focusedView = getCurrentFocus();
+        if (focusedView != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+        }
     }
 
     private void resetReply() {
@@ -450,4 +508,13 @@ public class CardDetailsActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onEmojiconBackspaceClicked(View v) {
+        EmojiconsFragment.backspace(etNewComment);
+    }
+
+    @Override
+    public void onEmojiconClicked(Emojicon emojicon) {
+        EmojiconsFragment.input(etNewComment, emojicon);
+    }
 }
