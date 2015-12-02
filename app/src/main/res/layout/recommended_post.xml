@@ -64,7 +64,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="喔噢交了"
-            android:textColor="#666666"
+            android:textColor="#999999"
             android:textSize="13sp" />
 
         <com.oneplusapp.view.PostGridViewItemLayout
@@ -85,7 +85,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="喔噢零距离交流距离距离距离看"
-                android:textColor="#999999"
+                android:textColor="#666666"
                 android:textSize="13sp" />
         </com.oneplusapp.view.PostGridViewItemLayout>
 
