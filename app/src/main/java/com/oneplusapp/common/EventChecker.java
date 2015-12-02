@@ -11,8 +11,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.oneplusapp.model.Event;
 
 import org.jdeferred.DoneCallback;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.json.JSONObject;
 
 public class EventChecker {
@@ -87,11 +85,6 @@ public class EventChecker {
     private boolean needToShowEvent(Event event) {
         if (event.getId() == 0 || event.getEventPages() == null ||
                 event.getEventPages().length == 0) {
-            return false;
-        }
-        DateTime date = DateTime.now();
-        int daysBetween = Days.daysBetween(event.getCreatedAt().toLocalDate(), date.toLocalDate()).getDays();
-        if (daysBetween >= 1) {
             return false;
         }
         long shownEventCreatedAt = LocalUserInfo.getPreferences().getLong(KEY_SHOWN_EVENT_CREATED_AT, 0);
