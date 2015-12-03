@@ -57,7 +57,7 @@ public class EventRecommendActivity extends BaseActivity {
                 changeViewsByAdapterState();
             }
         });
-        adapter.registerCallback(new RecommendedEventAdapter.LoadingStatusObserver() {
+        adapter.registerLoadingStatusObserver(new RecommendedEventAdapter.LoadingStatusObserver() {
             @Override
             public void onLoadingStatusChanged(boolean loading) {
                 changeViewsByAdapterState();

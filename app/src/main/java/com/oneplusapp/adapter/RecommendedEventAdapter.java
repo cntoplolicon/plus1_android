@@ -16,6 +16,7 @@ import com.oneplusapp.R;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.LRUCacheMap;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Post;
 import com.oneplusapp.model.User;
@@ -29,6 +30,7 @@ import org.jdeferred.Promise;
 import org.json.JSONArray;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -36,8 +38,9 @@ import butterknife.ButterKnife;
 
 public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEventAdapter.ViewHolder> {
 
-    private Post[] posts = new Post[]{};
+    private static Map<Integer, Post[]> postsCache = new LRUCacheMap<>(64);
 
+    private Post[] posts;
     private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
     private boolean loading;
 
@@ -51,6 +54,9 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
         this.mContext = context;
         this.eventId = eventId;
         mInflater = LayoutInflater.from(context);
+
+        Post[] cachedPosts = postsCache.get(eventId);
+        posts = cachedPosts == null ? new Post[] {} : cachedPosts;
     }
 
     @Override
@@ -120,8 +126,8 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
         return posts.length;
     }
 
-    public Post getItem(int positon) {
-        return posts[positon];
+    public Post getItem(int position) {
+        return posts[position];
     }
 
     @Override
@@ -140,6 +146,7 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
                     @Override
                     public void onDone(JSONArray response) {
                         posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                        postsCache.put(eventId, posts);
                         notifyDataSetChanged();
                     }
                 }).fail(new JsonErrorListener(mContext, null))
@@ -162,11 +169,11 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
         }
     }
 
-    public void registerCallback(LoadingStatusObserver observer) {
+    public void registerLoadingStatusObserver(LoadingStatusObserver observer) {
         loadingStatusObservers.add(observer);
     }
 
-    public void unregisterCallback(LoadingStatusObserver observer) {
+    public void unregisterLoadingStatusObserver(LoadingStatusObserver observer) {
         loadingStatusObservers.remove(observer);
     }
 
