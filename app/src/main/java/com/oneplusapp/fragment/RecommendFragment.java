@@ -9,19 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.volley.VolleyError;
 import com.oneplusapp.R;
 import com.oneplusapp.activity.EventRecommendActivity;
 import com.oneplusapp.adapter.RecommendationsAdapter;
-import com.oneplusapp.common.CommonMethods;
-import com.oneplusapp.common.JsonErrorListener;
-import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.Event;
-
-import org.jdeferred.AlwaysCallback;
-import org.jdeferred.DoneCallback;
-import org.jdeferred.Promise;
-import org.json.JSONArray;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -8,7 +8,8 @@ public class Event {
     private DateTime createdAt;
     private EventPage[] eventPages;
     private String logo;
-    private String title;
+    private int logoWidth;
+    private int logoHeight;
 
     public int getId() {
         return id;
@@ -46,9 +47,23 @@ public class Event {
         return logo;
     }
 
-
     public void setLogo(String logo) {
         this.logo = logo;
     }
 
+    public int getLogoWidth() {
+        return logoWidth;
+    }
+
+    public int getLogoHeight() {
+        return logoHeight;
+    }
+
+    public void setLogoWidth(int logoWidth) {
+        this.logoWidth = logoWidth;
+    }
+
+    public void setLogoHeight(int logoHeight) {
+        this.logoHeight = logoHeight;
+    }
 }

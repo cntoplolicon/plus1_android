@@ -36,7 +36,7 @@ public class RestClient {
     public static final String TAG_USER_POSTS = "user_posts";
     public static final String TAG_BOOKMARKS = "bookmarks";
 
-    private static final String DEBUG_SERVER_URL = "http://192.168.1.147:9393";
+    private static final String DEBUG_SERVER_URL = "http://192.168.1.122:9393";
     private static final String RELEASE_SERVER_URL = "https://oneplusapp.com";
     private static final RetryPolicy DEFAULT_RETRY_POLICY = new DefaultRetryPolicy(30 * 1000, // 30 sec
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
@@ -551,9 +551,8 @@ public class RestClient {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 getResourceUrl("/events"), listener, listener);
 
-        request.setRetryPolicy(DEFAULT_RETRY_POLICY);;
+        request.setRetryPolicy(DEFAULT_RETRY_POLICY);
         requestQueue.add(request);
-
         return deferredObject.promise();
     }
 

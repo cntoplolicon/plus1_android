@@ -1,6 +1,7 @@
 package com.oneplusapp.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +54,8 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        Event event = getItem(position);
-        ViewHolder viewHolder;
+        final Event event = getItem(position);
+        final ViewHolder viewHolder;
         View view;
         if (convertView != null) {
             view = convertView;
@@ -65,8 +66,22 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
             view.setTag(viewHolder);
             ButterKnife.bind(viewHolder, view);
         }
-        if (event.getLogo() != null) {
-            ImageLoader.getInstance().displayImage(event.getLogo(), viewHolder.ivEventLogo, DISPLAY_IMAGE_OPTIONS);
+        Drawable loadingDrawable = CommonMethods.createLoadingDrawable(context, event.getLogoWidth(), event.getLogoHeight());
+        final DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                .showImageOnLoading(loadingDrawable)
+                .showImageOnFail(R.drawable.image_load_fail)
+                .build();
+        if (viewHolder.ivEventLogo.isAttachedToWindow()) {
+            ImageLoader.getInstance().displayImage(event.getLogo(), viewHolder.ivEventLogo, options);
+        } else {
+            viewHolder.ivEventLogo.setImageDrawable(loadingDrawable);
+            viewHolder.ivEventLogo.post(new Runnable() {
+                @Override
+                public void run() {
+                    ImageLoader.getInstance().displayImage(event.getLogo(), viewHolder.ivEventLogo, options);
+                }
+            });
         }
         return view;
     }
@@ -120,7 +135,6 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
     public interface LoadingStatusObserver {
         void onLoadingStatusChanged(boolean loading);
     }
-
 
 
     static class ViewHolder {
