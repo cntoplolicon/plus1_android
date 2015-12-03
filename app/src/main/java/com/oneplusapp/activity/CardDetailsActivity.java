@@ -30,6 +30,7 @@ import com.oneplusapp.adapter.CommentsAdapter;
 import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.OauthAndShare;
 import com.oneplusapp.common.PushNotificationService;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
@@ -418,6 +419,11 @@ public class CardDetailsActivity extends FragmentActivity
                 .always(new ResetViewClickable<JSONObject, VolleyError>(view));
     }
 
+    @OnClick(R.id.iv_share)
+    public void toShare() {
+        OauthAndShare.addCustomPlatForms(this, post.getId(), post.getPostPages()[0].getImage(), post.getPostPages()[0].getText() + " ");
+    }
+
     @OnClick(R.id.btn_emoji_keyboard)
     public void onShowEmojiKeyboardClicked() {
         hideSoftKeyboard();
@@ -517,4 +523,6 @@ public class CardDetailsActivity extends FragmentActivity
     public void onEmojiconClicked(Emojicon emojicon) {
         EmojiconsFragment.input(etNewComment, emojicon);
     }
+
+
 }
