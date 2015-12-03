@@ -57,24 +57,32 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="1dp"
-        android:background="@drawable/comment_edit_text_background" >
+        android:background="@drawable/comment_edit_text_background">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl_comment_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp" >
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <Button
+                android:id="@+id/btn_emoji_keyboard"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/icon_emoji" />
 
             <EditText
                 android:id="@+id/et_new_comment"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/btn_send_comment"
-                android:layout_toStartOf="@+id/btn_send_comment"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
                 android:background="@drawable/edit_background"
                 android:hint="@string/publish_comment"
                 android:maxLines="4"
@@ -84,38 +92,22 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/btn_emoji_keyboard"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignBottom="@+id/et_new_comment"
-                android:layout_toLeftOf="@+id/btn_send_comment"
-                android:layout_marginRight="2dp"
-                android:background="@color/common_yellow"
-                android:gravity="center"
-                android:text="发表情"
-                android:textColor="#333"
-                android:textSize="14sp" />
-
-            <Button
                 android:id="@+id/btn_send_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_alignBottom="@+id/et_new_comment"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:background="@color/common_yellow"
-                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:background="@drawable/btn_background_card_details"
                 android:text="@string/send"
-                android:textColor="#333"
+                android:textColor="@color/common_white_bg"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/fl_emoji"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="gone"
-            android:layout_below="@+id/rl_comment_input" />
+            android:layout_below="@+id/rl_comment_input"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
