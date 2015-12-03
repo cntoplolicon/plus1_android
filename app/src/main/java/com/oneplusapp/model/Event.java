@@ -46,15 +46,9 @@ public class Event {
         return logo;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
     public void setLogo(String logo) {
         this.logo = logo;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

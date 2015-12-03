@@ -39,11 +39,9 @@ public class EventRecommendActivity extends BaseActivity {
         setContentView(R.layout.activity_event_recommend);
         ButterKnife.bind(this);
 
-        int eventId = 0;
+
         Intent intent = getIntent();
-        if (intent != null) {
-            eventId = intent.getIntExtra("event_id", 0);
-        }
+        int eventId = intent.getIntExtra("event_id", 0);
 
         recyclerView.addItemDecoration(new SpacesItemDecoration(dip2px(ITEM_HORIZONTAL_SPACING), dip2px(ITEM_VERTICAL_SPACING)));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -82,23 +80,20 @@ public class EventRecommendActivity extends BaseActivity {
         boolean loading = adapter.isLoading();
         boolean isEmpty = adapter.isEmpty();
 
+        tvContentEmpty.setVisibility(View.GONE);
+        ivLoadingRecommends.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
         if (!isEmpty) {
             recyclerView.setVisibility(View.VISIBLE);
-            tvContentEmpty.setVisibility(View.GONE);
-            ivLoadingRecommends.setVisibility(View.GONE);
         } else if (loading) {
             ivLoadingRecommends.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-            tvContentEmpty.setVisibility(View.GONE);
         } else {
             tvContentEmpty.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-            ivLoadingRecommends.setVisibility(View.GONE);
         }
     }
 
     private int dip2px(float dipValue) {
-        final float scale = getResources().getDisplayMetrics().density;
+        float scale = getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 

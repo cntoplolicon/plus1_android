@@ -29,8 +29,6 @@ import butterknife.ButterKnife;
 
 public class RecommendFragment extends Fragment {
 
-    private boolean loading = false;
-
     @Bind(R.id.lv_list_view)
     ListView lvListView;
     @Bind(R.id.fl_loading_layout)
@@ -41,7 +39,9 @@ public class RecommendFragment extends Fragment {
     private RecommendationsAdapter adapter;
 
     private void changeViewsByAdapterState() {
-        if (adapter.getCount() != 0) {
+        boolean loading = adapter.isLoading();
+        boolean isEmpty = adapter.isEmpty();
+        if (!isEmpty) {
             lvListView.bringToFront();
         } else if (loading) {
             loadingView.bringToFront();
@@ -57,52 +57,33 @@ public class RecommendFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         lvListView.setDividerHeight(0);
+        adapter = new RecommendationsAdapter(getActivity());
+        adapter.registerCallback(new RecommendationsAdapter.LoadingStatusObserver() {
+            @Override
+            public void onLoadingStatusChanged(boolean loading) {
+                changeViewsByAdapterState();
+            }
+        });
         lvListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Event eventClicked = (Event) view.getTag();
                 Intent intent = new Intent(getActivity(), EventRecommendActivity.class);
-                intent.putExtra("event_id", eventClicked.getId());
+                intent.putExtra("event_id", (int) adapter.getItemId(position));
                 startActivity(intent);
             }
         });
 
-        adapter = new RecommendationsAdapter(getActivity());
         lvListView.setAdapter(adapter);
-        loadEvents();
+        adapter.loadEvents();
         changeViewsByAdapterState();
 
         return view;
     }
 
-    private void loadEvents() {
-        if (loading) {
-            return;
-        }
-        loading = true;
-        RestClient.getInstance().getAllEvents().done(
-                new DoneCallback<JSONArray>() {
-                    @Override
-                    public void onDone(JSONArray result) {
-                        final Event[] tmpEvents = CommonMethods.createDefaultGson().fromJson(result.toString(), Event[].class);
-                        adapter.clear();
-                        adapter.addAll(tmpEvents);
-                        adapter.notifyDataSetChanged();
-                    }
-                }).fail(new JsonErrorListener(getActivity(), null))
-                .always(new AlwaysCallback<JSONArray, VolleyError>() {
-                    @Override
-                    public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
-                        loading = false;
-                        changeViewsByAdapterState();
-                    }
-                });
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        loadEvents();
+        adapter.loadEvents();
     }
 
 }

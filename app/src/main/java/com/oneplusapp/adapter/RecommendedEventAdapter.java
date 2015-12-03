@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 
 public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEventAdapter.ViewHolder> {
 
-    private static Post[] posts = new Post[]{};
+    private Post[] posts = new Post[]{};
 
     private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
     private boolean loading;
