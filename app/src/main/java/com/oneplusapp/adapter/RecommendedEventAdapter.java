@@ -61,7 +61,7 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        final Post post = posts[position];
+        Post post = posts[position];
         User user = post.getUser();
 
         viewHolder.tvNickname.setUser(user);
@@ -108,7 +108,7 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(viewHolder.itemView, post);
+                    mOnItemClickListener.onItemClick(viewHolder.itemView, position);
                 }
             });
         }
@@ -118,6 +118,10 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
     @Override
     public int getItemCount() {
         return posts.length;
+    }
+
+    public Post getItem(int positon) {
+        return posts[positon];
     }
 
     @Override
@@ -179,7 +183,7 @@ public class RecommendedEventAdapter extends RecyclerView.Adapter<RecommendedEve
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Post post);
+        void onItemClick(View view, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

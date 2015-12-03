@@ -14,7 +14,6 @@ import com.oneplusapp.R;
 import com.oneplusapp.adapter.RecommendedEventAdapter;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.PauseOnScrollListener;
-import com.oneplusapp.model.Post;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,9 +65,9 @@ public class EventRecommendActivity extends BaseActivity {
         });
         adapter.setOnItemClickListener(new RecommendedEventAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, Post post) {
+            public void onItemClick(View view, int position) {
                 Intent intent = new Intent(EventRecommendActivity.this, CardDetailsActivity.class);
-                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(post));
+                intent.putExtra("post_json", CommonMethods.createDefaultGson().toJson(adapter.getItem(position)));
                 startActivity(intent);
             }
         });

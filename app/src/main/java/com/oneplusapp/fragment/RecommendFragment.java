@@ -58,7 +58,7 @@ public class RecommendFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), EventRecommendActivity.class);
-                intent.putExtra("event_id", (int) adapter.getItemId(position));
+                intent.putExtra("event_id", (int) id);
                 startActivity(intent);
             }
         });

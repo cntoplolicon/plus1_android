@@ -53,6 +53,7 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
         return getItem(position).getId();
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final Event event = getItem(position);
         final ViewHolder viewHolder;
