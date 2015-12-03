@@ -2,12 +2,11 @@ package com.oneplusapp.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -17,11 +16,7 @@ import com.oneplusapp.application.SnsApplication;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
-import com.oneplusapp.model.Post;
-import com.oneplusapp.model.User;
-import com.oneplusapp.view.DetachableImageView;
-import com.oneplusapp.view.UserAvatarImageView;
-import com.oneplusapp.view.UserNicknameTextView;
+import com.oneplusapp.model.Event;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
@@ -34,109 +29,87 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecommendationsAdapter extends RecyclerView.Adapter<RecommendationsAdapter.ViewHolder> {
-
-    private static Post[] posts = new Post[]{};
-
-    private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
-    private boolean loading;
+public class RecommendationsAdapter extends ArrayAdapter<Event> {
 
     private LayoutInflater mInflater;
-    private Context mContext;
-    private OnItemClickListener mOnItemClickListener;
+    private boolean loading = false;
+    private Context context;
+    private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
+
+    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
+            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
+                    .showImageOnLoading(R.color.home_title_color)
+                    .showImageOnFail(R.drawable.image_load_fail)
+                    .build();
 
     public RecommendationsAdapter(Context context) {
-        super();
-        this.mContext = context;
+        super(context, 0);
         mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @Override
-    public RecommendationsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.recommended_post, viewGroup, false);
-        return new ViewHolder(view);
+    public long getItemId(int position) {
+        return getItem(position).getId();
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        final Post post = posts[position];
-        User user = post.getUser();
-
-        viewHolder.tvNickname.setUser(user);
-        viewHolder.ivAvatar.setUser(user);
-        viewHolder.tvNoImageContent.setText(post.getPostPages()[0].getText());
-        viewHolder.tvContent.setText(post.getPostPages()[0].getText());
-        viewHolder.tvComments.setText(String.valueOf(post.getCommentsCount()));
-        viewHolder.tvViews.setText(String.valueOf(post.getViewsCount()));
-
-        final String imageUrl = post.getPostPages()[0].getImage();
-        if (TextUtils.isEmpty(imageUrl)) {
-            viewHolder.ivImage.setVisibility(View.GONE);
-            viewHolder.tvContent.setVisibility(View.GONE);
-            ((View) viewHolder.tvNoImageContent.getParent()).setVisibility(View.VISIBLE);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Event event = getItem(position);
+        final ViewHolder viewHolder;
+        View view;
+        if (convertView != null) {
+            view = convertView;
+            viewHolder = (ViewHolder) convertView.getTag();
         } else {
-            viewHolder.ivImage.setVisibility(View.VISIBLE);
-            viewHolder.tvContent.setVisibility(View.VISIBLE);
-            ((View) viewHolder.tvNoImageContent.getParent()).setVisibility(View.GONE);
-            if (viewHolder.tvContent.getText().toString().trim().isEmpty()) {
-                viewHolder.tvContent.setVisibility(View.GONE);
-            }
+            view = mInflater.inflate(R.layout.recommend_fragment_item, parent, false);
+            viewHolder = new ViewHolder();
+            view.setTag(viewHolder);
+            ButterKnife.bind(viewHolder, view);
         }
-
-        Drawable loadingDrawable = CommonMethods.createLoadingDrawable(mContext,
-                post.getPostPages()[0].getImageWidth(), post.getPostPages()[0].getImageHeight());
+        Drawable loadingDrawable = CommonMethods.createLoadingDrawable(context, event.getLogoWidth(), event.getLogoHeight());
         final DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
                 .showImageOnLoading(loadingDrawable)
                 .showImageOnFail(R.drawable.image_load_fail)
                 .build();
-        if (viewHolder.ivImage.isAttachedToWindow()) {
-            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, options);
+        if (viewHolder.ivEventLogo.isAttachedToWindow()) {
+            ImageLoader.getInstance().displayImage(event.getLogo(), viewHolder.ivEventLogo, options);
         } else {
-            viewHolder.ivImage.setImageDrawable(loadingDrawable);
-            viewHolder.ivImage.post(new Runnable() {
+            viewHolder.ivEventLogo.setImageDrawable(loadingDrawable);
+            viewHolder.ivEventLogo.post(new Runnable() {
                 @Override
                 public void run() {
-                    ImageLoader.getInstance().displayImage(imageUrl, viewHolder.ivImage, options);
+                    ImageLoader.getInstance().displayImage(event.getLogo(), viewHolder.ivEventLogo, options);
                 }
             });
         }
-
-        if (mOnItemClickListener != null) {
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(viewHolder.itemView, post);
-                }
-            });
-        }
+        return view;
     }
 
-
-    @Override
-    public int getItemCount() {
-        return posts.length;
+    public boolean isLoading() {
+        return loading;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return posts[position].getId();
+    public boolean isEmpty() {
+        return getCount() == 0;
     }
 
-    public void loadRecommendations() {
+    public void loadEvents() {
         if (loading) {
             return;
         }
         loading = true;
-        notifyLoadingStatusChanged();
-        RestClient.getInstance().getRecommendedPosts().done(
+        RestClient.getInstance().getAllEvents().done(
                 new DoneCallback<JSONArray>() {
                     @Override
-                    public void onDone(JSONArray response) {
-                        posts = CommonMethods.createDefaultGson().fromJson(response.toString(), Post[].class);
+                    public void onDone(JSONArray result) {
+                        final Event[] tmpEvents = CommonMethods.createDefaultGson().fromJson(result.toString(), Event[].class);
+                        clear();
+                        addAll(tmpEvents);
                         notifyDataSetChanged();
                     }
-                }).fail(new JsonErrorListener(mContext, null))
+                }).fail(new JsonErrorListener(context, null))
                 .always(new AlwaysCallback<JSONArray, VolleyError>() {
                     @Override
                     public void onAlways(Promise.State state, JSONArray resolved, VolleyError rejected) {
@@ -144,10 +117,6 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
                         notifyLoadingStatusChanged();
                     }
                 });
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mOnItemClickListener = listener;
     }
 
     private void notifyLoadingStatusChanged() {
@@ -164,49 +133,14 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         loadingStatusObservers.remove(observer);
     }
 
-    public boolean isLoading() {
-        return loading;
-    }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
-    }
-
     public interface LoadingStatusObserver {
         void onLoadingStatusChanged(boolean loading);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, Post post);
-    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        @Bind(R.id.tv_nickname)
-        UserNicknameTextView tvNickname;
-
-        @Bind(R.id.tv_content)
-        TextView tvContent;
-
-        @Bind(R.id.tv_no_image_content)
-        TextView tvNoImageContent;
-
-        @Bind(R.id.tv_comments)
-        TextView tvComments;
-
-        @Bind(R.id.tv_views)
-        TextView tvViews;
-
-        @Bind(R.id.iv_image)
-        DetachableImageView ivImage;
-
-        @Bind(R.id.iv_avatar)
-        UserAvatarImageView ivAvatar;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
+    static class ViewHolder {
+        @Bind(R.id.iv_event_logo)
+        ImageView ivEventLogo;
     }
 }
 

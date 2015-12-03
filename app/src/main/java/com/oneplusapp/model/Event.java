@@ -7,6 +7,9 @@ public class Event {
     private String description;
     private DateTime createdAt;
     private EventPage[] eventPages;
+    private String logo;
+    private int logoWidth;
+    private int logoHeight;
 
     public int getId() {
         return id;
@@ -38,5 +41,29 @@ public class Event {
 
     public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public int getLogoWidth() {
+        return logoWidth;
+    }
+
+    public int getLogoHeight() {
+        return logoHeight;
+    }
+
+    public void setLogoWidth(int logoWidth) {
+        this.logoWidth = logoWidth;
+    }
+
+    public void setLogoHeight(int logoHeight) {
+        this.logoHeight = logoHeight;
     }
 }
