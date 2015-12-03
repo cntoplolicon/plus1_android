@@ -17,6 +17,7 @@ import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.Event;
+import com.oneplusapp.view.DetachableImageView;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
@@ -35,12 +36,6 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
     private boolean loading = false;
     private Context context;
     private Set<LoadingStatusObserver> loadingStatusObservers = new HashSet<>();
-
-    private static final DisplayImageOptions DISPLAY_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().cloneFrom(SnsApplication.DEFAULT_DISPLAY_OPTION)
-                    .showImageOnLoading(R.color.home_title_color)
-                    .showImageOnFail(R.drawable.image_load_fail)
-                    .build();
 
     public RecommendationsAdapter(Context context) {
         super(context, 0);
@@ -140,7 +135,7 @@ public class RecommendationsAdapter extends ArrayAdapter<Event> {
 
     static class ViewHolder {
         @Bind(R.id.iv_event_logo)
-        ImageView ivEventLogo;
+        DetachableImageView ivEventLogo;
     }
 }
 
