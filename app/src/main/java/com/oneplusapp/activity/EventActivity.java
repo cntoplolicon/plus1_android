@@ -47,7 +47,6 @@ public class EventActivity extends AppIntro {
 
     @Override
     public void onDonePressed() {
-        EventChecker.getInstance().clearEvent();
-        finish();
+        // do nothing
     }
 }
