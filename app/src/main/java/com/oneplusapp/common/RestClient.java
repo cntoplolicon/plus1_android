@@ -111,6 +111,10 @@ public class RestClient {
         return getResourceUrl("/agreement/index.html");
     }
 
+    public String buildShareUrl(int postId) {
+        return getResourceUrl("/posts/" + postId + ".html");
+    }
+
     public Promise<JSONObject, VolleyError, Void> getAppRelease() {
         ThrowableDeferredObject<JSONObject, VolleyError, Void> deferredObject = new ThrowableDeferredObject<>();
         PromiseListener<JSONObject> listener = new PromiseListener<>(deferredObject);

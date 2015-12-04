@@ -34,6 +34,7 @@
                 android:layout_marginLeft="20dp"
                 android:button="@drawable/umeng_socialize_follow_check"
                 android:paddingLeft="25dp"
+                android:visibility="gone"
                 android:text="关注官方微博"
                 android:textColor="@color/umeng_socialize_text_share_content"
                 android:textSize="13sp"
@@ -59,7 +60,7 @@
                 android:paddingRight="7.5dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/umeng_socialize_location_off"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <ProgressBar
                 android:id="@+id/umeng_socialize_location_progressbar"
@@ -73,8 +74,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/umeng_socialize_share_location"
             android:background="@null"
             android:padding="8dp"
             android:scaleType="fitXY"

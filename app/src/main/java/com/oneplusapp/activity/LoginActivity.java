@@ -16,18 +16,14 @@ import com.oneplusapp.common.ActivityHyperlinkClickListener;
 import com.oneplusapp.common.CommonDialog;
 import com.oneplusapp.common.CommonMethods;
 import com.oneplusapp.common.JsonErrorListener;
+import com.oneplusapp.common.OauthAndShare;
 import com.oneplusapp.common.ResetViewClickable;
 import com.oneplusapp.common.RestClient;
 import com.oneplusapp.model.User;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.sso.SinaSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.jdeferred.AlwaysCallback;
 import org.jdeferred.DoneCallback;
@@ -48,7 +44,6 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.et_password)
     EditText passwordInput;
 
-    private UMSocialService umSocialService;
     private ProgressDialog authDialog;
     private ProgressDialog platformInfoDialog;
 
@@ -58,13 +53,9 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        umSocialService = UMServiceFactory.getUMSocialService("com.umeng.login");
-        umSocialService.getConfig().setSsoHandler(new SinaSsoHandler());
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104950070", "qBwAJcdsf58q3PNf");
-        UMWXHandler wxHandler = new UMWXHandler(this, "wx8722fc0d2579fb13", "d4624c36b6795d1d99dcf0547af5443d");
-        qqSsoHandler.addToSocialSDK();
-        wxHandler.addToSocialSDK();
-        wxHandler.setRefreshTokenAvailable(false);
+        OauthAndShare.addQQQZonePlatform(this);
+        OauthAndShare.addWXPlatform(this);
+        OauthAndShare.addSinaPlatForm();
 
         TextView toForgetPwd = (TextView) findViewById(R.id.tv_to_reset_pwd);
         toForgetPwd.setOnClickListener(new ActivityHyperlinkClickListener(this, ResetPwdStepOne.class));
@@ -147,7 +138,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginViaOauth(SHARE_MEDIA platform) {
-        umSocialService.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
+        OauthAndShare.umSocialService.doOauthVerify(this, platform, new SocializeListeners.UMAuthListener() {
 
             @Override
             public void onStart(SHARE_MEDIA platform) {
@@ -177,7 +168,7 @@ public class LoginActivity extends BaseActivity {
                 platformInfoDialog.setMessage(getResources().getString(R.string.oauth_get_platform_info));
                 platformInfoDialog.show();
 
-                umSocialService.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
+                OauthAndShare.umSocialService.getPlatformInfo(LoginActivity.this, platform, new SocializeListeners.UMDataListener() {
 
                     @Override
                     public void onStart() {
@@ -263,7 +254,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMSsoHandler ssoHandler = umSocialService.getConfig().getSsoHandler(requestCode);
+        UMSsoHandler ssoHandler = OauthAndShare.umSocialService.getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
