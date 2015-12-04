@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.oneplusapp.R;
+import com.oneplusapp.common.EventChecker;
 
 public class EventSlide extends Fragment {
 
@@ -29,6 +30,7 @@ public class EventSlide extends Fragment {
             ivEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    EventChecker.getInstance().clearEvent();
                     getActivity().finish();
                 }
             });
